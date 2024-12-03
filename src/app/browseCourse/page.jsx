@@ -205,8 +205,8 @@ const page = () => {
         
         {/* art and design menu card  */}
         <div className="flex  justify-between pb-[32px] pt-[82px] ">
-          <h1 className="lg:text-[36px] md:text-[28px] text-18px  font-bold leading-none text-2xl text-[#101828] font-Merriweather text-start ">
-            {t("Art & Design")}
+          <h1 className="lg:text-[36px] md:text-[28px] text-18px  font-normal leading-none text-2xl text-[#101828] font-Merriweather text-start italic ">
+            Art & Design
           </h1>
          <div>
          <Link className=" font-bold border-b-2 pb-0 border-[#1D2939] text-[#000000]" href={`/browseCourse/category/ArtandDesign`}>{t("View all")}  <RightOutlined className="font-bold pl-1" /> </Link>
@@ -232,8 +232,8 @@ const page = () => {
 
         {/* programming menu card  */}
         <div className="flex  justify-between pb-[32px] pt-[82px] ">
-          <h1 className="lg:text-[36px] md:text-[28px] text-18px   font-bold leading-none text-2xl text-[#101828] font-Merriweather text-start ">
-          {t("Programing")}
+          <h1 className="lg:text-[36px] md:text-[28px] text-18px   font-normal leading-none text-2xl text-[#101828] font-Merriweather text-start italic ">
+          Programing
           </h1>
          <div>
          <Link className=" font-bold border-b-2 pb-0 border-[#1D2939] text-[#000000]" href={`/browseCourse/category/Programing`}>{t("View all")}  <RightOutlined className="font-bold pl-1" /> </Link>
@@ -259,8 +259,8 @@ const page = () => {
 
         {/* Sales & Marketing menu card  */}
         <div className="flex  justify-between pb-[32px] pt-[82px] ">
-          <h1 className="lg:text-[36px] md:text-[28px] text-18px   font-bold leading-none text-2xl text-[#101828] font-Merriweather text-start ">
-          {t("Sales & Marketing")}
+          <h1 className="lg:text-[36px] md:text-[28px] text-18px   font-normal leading-none text-2xl text-[#101828] font-Merriweather text-start italic ">
+          Sales & Marketing
           </h1>
          <div>
          <Link className=" font-bold border-b-2 pb-0 border-[#1D2939] text-[#000000]" href={`/browseCourse/category/ASales&Marketing`}>{t("View all")}  <RightOutlined className="font-bold pl-1" /> </Link>

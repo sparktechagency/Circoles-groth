@@ -191,8 +191,8 @@ const Footer = () => {
       
                 <div className="text-[#E4E7EC] text-[16px] font-semibold space-y-4 pt-4">
                   <div>
-                    {/* <PhoneOutlined className="rotate-90 text-lg text-[#4BCAE9] pr-2" />
-                    <span className="text-[#E4E7EC]">{t('+(00)-000-000-0000')}</span> */}
+                    <PhoneOutlined className="rotate-90 text-lg text-[#4BCAE9] pr-2" />
+                    <span className="text-[#E4E7EC]">{t('+(00)-000-000-0000')}</span>
                   </div>
                   <div className="pl-2">
                     <MailFilled className=" text-lg text-[#4BCAE9] pr-2" />
