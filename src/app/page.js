@@ -3,6 +3,8 @@ import HeroSection from "@/components/home/HeroSection";
 import InfoSumarize from "@/components/home/InfoSumarize";
 import PopularCourses from "@/components/home/PopularCourses";
 import Webinner from "./webinner/Webinner";
+import RecomendedPrograms from "@/components/home/RecomendedPrograms";
+import TopRatedMentor from "@/components/home/TopRatedMentor";
 
 
 export default function Home() {
@@ -12,8 +14,10 @@ export default function Home() {
         <HeroSection/>
         <InfoSumarize/>
         <PopularCourses/>
-        <Webinner/>
-        <Categories/>
+        <RecomendedPrograms/>
+        <TopRatedMentor/>
+        {/* <Webinner/>
+        <Categories/> */}
       </div>
     </main>
   );

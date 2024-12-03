@@ -9,7 +9,7 @@ import {
 import { Rate } from "antd";
 import { useTranslations } from "next-intl";
 
-const CourseCard = ({ courseimage,courseTitle ,instructor,rating,price ,reviews,duration,students,enrollLink}) => {
+const TopratedTutorCard = ({ courseimage,courseTitle ,instructor,rating,price ,reviews,duration,students,enrollLink}) => {
 const t=useTranslations()
   return (
     <div className=" w-full bg-white border border-gray-200 rounded-lg shadow-md overflow-hidden">
@@ -31,7 +31,7 @@ const t=useTranslations()
       <div className="p-4">
         <div className="flex justify-between items-center pt-5">
           <p className="text-sm text-[#475467] mb-2">
-            {t("by")}
+            
             <Link
               href={`/browseCourse/instructor/${enrollLink}`}
               className=" text-[#1D2939] border-b-2 text-sm font-semibold border-[#1D2939]"
@@ -54,8 +54,11 @@ const t=useTranslations()
         </h5>
         <div className="flex items-center justify-between text-[#475467] text-sm py-4 border-b border-[#E5E7EB]">
           <span className="mr-4 flex items-center font-medium">
-            <ClockCircleOutlined className="text-lg pr-2 " />
-            {duration} 
+            <svg width="12" height="15" viewBox="0 0 12 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M0.666504 12.7682C0.666504 12.3262 0.842099 11.9023 1.15466 11.5897C1.46722 11.2772 1.89114 11.1016 2.33317 11.1016H11.3332M0.666504 12.7682C0.666504 13.2103 0.842099 13.6342 1.15466 13.9467C1.46722 14.2593 1.89114 14.4349 2.33317 14.4349H11.3332V1.10156H2.33317C1.89114 1.10156 1.46722 1.27716 1.15466 1.58972C0.842099 1.90228 0.666504 2.3262 0.666504 2.76823V12.7682Z" stroke="#475467" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+
+           <span className="pl-2"> {duration} </span>
           </span>
           <span className="flex items-center font-normal ">
           <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -65,11 +68,11 @@ const t=useTranslations()
           </span>
         </div>
         <div className="flex justify-between items-center py-4">
-          <span className="text-lg font-semibold text-[#000000]">€ 29.00</span>
+          <span className="text-lg font-semibold text-[#000000]">€ 29.00 <span className="text-[#667085]">/Session</span></span>
           <Link href={`/browseCourse/${enrollLink}`}
             className="inline-flex items-center text-[#14698A] border-b-2 border-[#14698A] text-[16px] font-semibold "
           >
-            {t("ENROLL NOW")}
+            Book Now
             <ArrowUpOutlined className="rotate-45 text-xl pl-2" />
           </Link>
         </div>
@@ -78,4 +81,4 @@ const t=useTranslations()
   );
 };
 
-export default CourseCard;
+export default TopratedTutorCard;

@@ -5,8 +5,9 @@ import CourseCard from "../ui/CourseCard";
 import { Button, Tabs } from "antd";
 import { useState } from "react";
 import { useTranslations } from "next-intl";
-
-const PopularCourses = () => {
+import TopratedTutorCard from "../ui/TopratedTutorCard";
+import tutor from '/public/images/tutor.png'
+const TopRatedMentor = () => {
   const [activeKey, setActiveKey] = useState("1");
 const t=useTranslations()
 
@@ -18,11 +19,11 @@ const t=useTranslations()
       rating: 4.7,
       reviews: 3242,
       courseTitle: "Product Management Basic - Course",
-      duration: "40 Hours",
+            duration: "Physics Expert",
       students: 176,
       price: "€ 29.00",
       enrollLink: "ENROLL NOW",
-      imageLink: "https://i.ibb.co.com/17pL5Qj/caourse1.png",
+      imageLink: tutor,
       category: `${t("All courses")}`,
     },
     {
@@ -31,11 +32,11 @@ const t=useTranslations()
       rating: 4.7,
       reviews: 3242,
       courseTitle: "Product Management Basic - Course",
-      duration: "40 Hours",
+            duration: "Physics Expert",
       students: 176,
       price: "€ 29.00",
       enrollLink: "ENROLL NOW",
-      imageLink: "https://i.ibb.co.com/17pL5Qj/caourse1.png",
+      imageLink: tutor,
       category: `${t("All courses")}`,
     },
     {
@@ -44,11 +45,11 @@ const t=useTranslations()
       rating: 4.7,
       reviews: 3242,
       courseTitle: "Product Management Basic - Course",
-      duration: "40 Hours",
+            duration: "Physics Expert",
       students: 176,
       price: "€ 29.00",
       enrollLink: "ENROLL NOW",
-      imageLink: "https://i.ibb.co.com/17pL5Qj/caourse1.png",
+      imageLink: tutor,
       category: `${t("All courses")}`,
     },
     {
@@ -57,11 +58,11 @@ const t=useTranslations()
       rating: 4.7,
       reviews: 3242,
       courseTitle: "Product Management Basic - Course",
-      duration: "40 Hours",
+            duration: "Physics Expert",
       students: 176,
       price: "€ 29.00",
       enrollLink: "ENROLL NOW",
-      imageLink: "https://i.ibb.co.com/17pL5Qj/caourse1.png",
+      imageLink: tutor,
       category: `${t("All courses")}`,
     },
     {
@@ -70,11 +71,11 @@ const t=useTranslations()
       rating: 4.7,
       reviews: 3242,
       courseTitle: "Product Management Basic - Course",
-      duration: "40 Hours",
+            duration: "Physics Expert",
       students: 176,
       price: "€ 29.00",
       enrollLink: "ENROLL NOW",
-      imageLink: "https://i.ibb.co.com/17pL5Qj/caourse1.png",
+      imageLink: tutor,
       category: `${t("All courses")}`,
     },
     {
@@ -83,11 +84,11 @@ const t=useTranslations()
       rating: 4.7,
       reviews: 3242,
       courseTitle: "Product Management Basic - Course",
-      duration: "40 Hours",
+            duration: "Physics Expert",
       students: 176,
       price: "€ 29.00",
       enrollLink: "ENROLL NOW",
-      imageLink: "https://i.ibb.co.com/17pL5Qj/caourse1.png",
+      imageLink: tutor,
       category: `${t("All courses")}`,
     },
     {
@@ -96,11 +97,11 @@ const t=useTranslations()
       rating: 4.7,
       reviews: 3242,
       courseTitle: "Product Management Basic - Course",
-      duration: "40 Hours",
+            duration: "Physics Expert",
       students: 176,
       price: "€ 29.00",
       enrollLink: "ENROLL NOW",
-      imageLink: "https://i.ibb.co.com/17pL5Qj/caourse1.png",
+      imageLink: tutor,
       category: `${t("All courses")}`,
     },
     {
@@ -109,11 +110,11 @@ const t=useTranslations()
       rating: 4.7,
       reviews: 3242,
       courseTitle: "Product Management Basic - Course",
-      duration: "40 Hours",
+            duration: "Physics Expert",
       students: 176,
       price: "€ 29.00",
       enrollLink: "ENROLL NOW",
-      imageLink: "https://i.ibb.co.com/17pL5Qj/caourse1.png",
+      imageLink: tutor,
       category: `${t("All courses")}`,
     },
     {
@@ -122,7 +123,7 @@ const t=useTranslations()
       rating: 4.7,
       reviews: 3242,
       courseTitle: "Advanced Product Strategy - Course",
-      duration: "45 Hours",
+      duration: "Physics Expert",
       students: 150,
       price: "€ 35.00",
       enrollLink: "ENROLL NOW",
@@ -135,7 +136,7 @@ const t=useTranslations()
       rating: 4.6,
       reviews: 2987,
       courseTitle: "Product Roadmaps for Success",
-      duration: "38 Hours",
+      duration: "Physics Expert",
       students: 200,
       price: "€ 27.00",
       enrollLink: "ENROLL NOW",
@@ -148,7 +149,7 @@ const t=useTranslations()
       rating: 4.8,
       reviews: 3500,
       courseTitle: "Mastering Agile Product Management",
-      duration: "50 Hours",
+      duration: "Physics Expert",
       students: 250,
       price: "€ 40.00",
       enrollLink: "ENROLL NOW",
@@ -161,11 +162,11 @@ const t=useTranslations()
       rating: 4.9,
       reviews: 3800,
       courseTitle: "Product Leadership for Managers",
-      duration: "60 Hours",
+      duration: "Physics Expert",
       students: 300,
       price: "€ 50.00",
       enrollLink: "ENROLL NOW",
-      imageLink: "https://i.ibb.co.com/17pL5Qj/caourse1.png",
+      imageLink: tutor,
       category: `${t("Artificial Intelligence")}`,
     },
     {
@@ -174,7 +175,7 @@ const t=useTranslations()
       rating: 4.5,
       reviews: 2800,
       courseTitle: "Foundations of Product Development",
-      duration: "35 Hours",
+      duration: "Physics Expert",
       students: 180,
       price: "€ 25.00",
       enrollLink: "ENROLL NOW",
@@ -187,7 +188,7 @@ const t=useTranslations()
       rating: 4.7,
       reviews: 3242,
       courseTitle: "Product Marketing Essentials",
-      duration: "42 Hours",
+      duration: "Physics Expert",
       students: 190,
       price: "€ 30.00",
       enrollLink: "ENROLL NOW",
@@ -200,11 +201,11 @@ const t=useTranslations()
       rating: 4.7,
       reviews: 3242,
       courseTitle: "Product Analytics for Beginners",
-      duration: "48 Hours",
+      duration: "Physics Expert",
       students: 220,
       price: "€ 33.00",
       enrollLink: "ENROLL NOW",
-      imageLink: "https://i.ibb.co.com/17pL5Qj/caourse1.png",
+      imageLink: tutor,
       category: `${t("Sports")}`,
     },
     {
@@ -213,7 +214,7 @@ const t=useTranslations()
       rating: 4.6,
       reviews: 3100,
       courseTitle: "Building Digital Products",
-      duration: "55 Hours",
+      duration: "Physics Expert",
       students: 210,
       price: "€ 37.00",
       enrollLink: "ENROLL NOW",
@@ -237,7 +238,7 @@ const t=useTranslations()
   return (
     <div className="container mx-auto py-16 px-4">
       <h1 className="xl:text-[32px] lg:text-[32px] font-black leading-none text-2xl text-[#000000] font-Merriweather italic  pb-8">
-      Featured Courses
+      Top Rated Tutor
       </h1>
 
       {/* Tabs for categories */}
@@ -266,7 +267,7 @@ const t=useTranslations()
             {/* Course cards for each category */}
             <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-3 lg:grid-cols-3 gap-4">
               {filterCoursesByCategory(category).map((item) => (
-                <CourseCard
+                <TopratedTutorCard
                   key={item.id}
                   courseimage={item.imageLink}
                   courseTitle={item.courseTitle}
@@ -289,4 +290,4 @@ const t=useTranslations()
   );
 };
 
-export default PopularCourses;
+export default TopRatedMentor;

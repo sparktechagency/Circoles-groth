@@ -12,7 +12,7 @@ const InfoSumarize = () => {
                 {/* CARD ONE HERE */}
                 <div className='xl:max-w-md lg:max-w-md md:max-w-md w-full mx-auto border-r-2 border-gray-200 '>
                    <div className='flex items-center justify-start gap-2'>
-                   <Image src={iconone} width={30} height={30} alt="icon"/> <span className='text-[#195671] text-lg font-bold'>{t("16k Instructors")}</span>  </div>             
+                   <Image src={iconone} width={30} height={30} alt="icon"/> <span className='text-[#195671] text-lg font-bold'>16k Tutors</span>  </div>             
                     <p className='text-[#475467] text-sm mt-2'>
                     {t("16,000+ top class professionals instructors teaching here with excellent communication skills")} 
                     </p>

@@ -99,7 +99,7 @@ export default async function RootLayout({ children }) {
     <html lang={locale}>
       <head>
         <link rel="icon" href="/favicon.ico" />
-        <title>Pantagonostis</title>
+        <title>Circooles</title>
       </head>
       <body className="antialiased font-Inter">
         {/* Internationalization wrapper */}

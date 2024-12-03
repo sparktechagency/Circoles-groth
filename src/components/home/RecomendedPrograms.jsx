@@ -5,8 +5,9 @@ import CourseCard from "../ui/CourseCard";
 import { Button, Tabs } from "antd";
 import { useState } from "react";
 import { useTranslations } from "next-intl";
+import ProgramCard from "../ui/ProgramCard";
 
-const PopularCourses = () => {
+const RecomendedPrograms = () => {
   const [activeKey, setActiveKey] = useState("1");
 const t=useTranslations()
 
@@ -237,7 +238,7 @@ const t=useTranslations()
   return (
     <div className="container mx-auto py-16 px-4">
       <h1 className="xl:text-[32px] lg:text-[32px] font-black leading-none text-2xl text-[#000000] font-Merriweather italic  pb-8">
-      Featured Courses
+      Recommended Programs
       </h1>
 
       {/* Tabs for categories */}
@@ -266,7 +267,7 @@ const t=useTranslations()
             {/* Course cards for each category */}
             <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-3 lg:grid-cols-3 gap-4">
               {filterCoursesByCategory(category).map((item) => (
-                <CourseCard
+                <ProgramCard
                   key={item.id}
                   courseimage={item.imageLink}
                   courseTitle={item.courseTitle}
@@ -289,4 +290,4 @@ const t=useTranslations()
   );
 };
 
-export default PopularCourses;
+export default RecomendedPrograms;
