@@ -9,10 +9,10 @@ import {
 import { Rate } from "antd";
 import { useTranslations } from "next-intl";
 
-const ProgramCard = ({ courseimage,courseTitle ,instructor,rating,price ,reviews,duration,students,enrollLink}) => {
-const t=useTranslations()
+const MyProgramCard = ({ courseimage,courseTitle ,instructor,rating,price ,reviews,duration,students,enrollLink}) => {
+
   return (
-    <div className=" w-full bg-white border border-gray-200 rounded-lg shadow-md overflow-hidden border">
+    <div className=" w-full bg-white border border-gray-200 rounded-lg shadow-md overflow-hidden">
       {/* COURSE CARD BANNER IMGE HERE */}
      <div className="relative">
      <Image
@@ -34,12 +34,12 @@ const t=useTranslations()
           {courseTitle}
         </h5>
         <div className="flex items-center justify-between text-[#475467] text-sm pb-4 ">
-          <span className="mr-4 flex items-center font-medium text-lg">
-          <svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M1.3335 12.0996L8.00016 15.4329L14.6668 12.0996M1.3335 8.76628L8.00016 12.0996L14.6668 8.76628M8.00016 2.09961L1.3335 5.43294L8.00016 8.76628L14.6668 5.43294L8.00016 2.09961Z" stroke="#475467" stroke-linecap="round" stroke-linejoin="round"/>
-</svg>
-<span className="text-[#475467] pl-2">6 Courses</span>
-          </span>
+         <div className="flex items-center justify-center space-x-2">
+          <div className="p-1 bg-[#12B76A] rounded-full">
+            2
+          </div>
+          <span className="text-[16px] font-semibold text-[#475467]">Completed</span>
+         </div>
       
         </div>
     
@@ -48,4 +48,4 @@ const t=useTranslations()
   );
 };
 
-export default ProgramCard;
+export default MyProgramCard;

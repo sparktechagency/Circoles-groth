@@ -5,7 +5,8 @@ import CourseCard from "../ui/CourseCard";
 import { Button, Tabs } from "antd";
 import { useState } from "react";
 import { useTranslations } from "next-intl";
-
+import Link from "next/link";
+import { SearchOutlined, DownOutlined,RightOutlined } from "@ant-design/icons";
 const PopularCourses = () => {
   const [activeKey, setActiveKey] = useState("1");
 const t=useTranslations()
@@ -283,7 +284,12 @@ const t=useTranslations()
           </Tabs.TabPane>
         ))}
       </Tabs>
-
+      <div className="flex  justify-end  mt-8 ">
+     
+         <div>
+         <Link className=" font-bold border-b-2 pb-0 border-[#1D2939] text-[#000000]" href={`/featuredCourse`}>View all  <RightOutlined className="font-bold pl-1" /> </Link>
+         </div>
+        </div>
       {/* Custom styles */}
     </div>
   );

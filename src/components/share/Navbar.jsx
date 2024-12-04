@@ -94,7 +94,7 @@ const Navbar = () => {
       {/* Right Side: Links (Hidden on small screens) */}
       <div className="">
         <ul className="hidden lg:flex items-center space-x-6">
-          <li> <Link href="/browseCourse" className="text-sm pl-2">
+          <li> <Link href="/onlinePrograms" className="text-sm pl-2">
           Online Programs
           </Link></li>
           <li>  <Link href="/tutoirService" className="text-sm pl-2">
