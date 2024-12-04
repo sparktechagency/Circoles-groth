@@ -2,6 +2,7 @@ import { Breadcrumb } from 'antd';
 import React from 'react';
 import ArtAndDesign from '../artAndDesign/page';
 import ProgramCard from '@/components/ui/ProgramCard';
+import MyProgramCard from '@/components/ui/MyProgramCard';
 
 const page = () => {
     const programData = [
@@ -10,7 +11,7 @@ const page = () => {
             instructor: "John Michael",
             rating: 4.7,
             reviews: 3242,
-            courseTitle: "Product Management Basic - Course",
+            courseTitle: "Product Management Master Programs",
             duration: "40 Hours",
             students: 176,
             price: "€ 29.00",
@@ -23,7 +24,7 @@ const page = () => {
             instructor: "John Michael",
             rating: 4.7,
             reviews: 3242,
-            courseTitle: "Product Management Basic - Course",
+            courseTitle: "Product Management Master Programs",
             duration: "40 Hours",
             students: 176,
             price: "€ 29.00",
@@ -53,7 +54,7 @@ const page = () => {
             <h1 className=" text-[24px] font-normal italic my-4 text-[#344054]">My Programs</h1>
             <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-3 lg:grid-cols-3 gap-4 my-8">
                     {programData.map((item) => (
-                        <ProgramCard
+                        <MyProgramCard
                             key={item.id}
                             courseimage={item.imageLink}
                             courseTitle={item.courseTitle}

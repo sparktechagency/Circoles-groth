@@ -5,13 +5,15 @@ import { useParams } from 'next/navigation';
 import React from 'react';
 import heroimg from "/public/images/browseheroimg.png";
 import { useTranslations } from 'next-intl';
-import { Button, Dropdown, Input, Menu } from 'antd';
+import { Breadcrumb, Button, Dropdown, Input, Menu } from 'antd';
 import { SearchOutlined, DownOutlined } from '@ant-design/icons';
 import CourseCard from '@/components/ui/CourseCard';
 const Page = ({ data }) => {
     const t = useTranslations();
   const { slug } = useParams(); // Use useParams to access the dynamic slug
   const slugString = Array.isArray(slug) && slug.join('')
+
+  const lastPart=slugString.slice(8,)
   const categoryMenu = (
     <Menu>
       <Menu.Item key="1">{t("Category")} 1</Menu.Item>
@@ -146,67 +148,30 @@ const Page = ({ data }) => {
   return (
     <div>
         {/* Hero section with image and search bar and category dropdown  */}
-        <div
-        style={{ backgroundImage: `url(${heroimg.src})` }}
-        className="w-full min-h-[407px] bg-cover py-6"
-      >
-        <div className="lg:pt-28 md:pt-28 py-12 px-6">
-          <div className="flex s-mobile:py-6 l-mobile:flex-wrap m-mobile:flex-wrap s-mobile:flex-wrap items-center justify-between max-w-2xl mx-auto ">
-            <div className=" lg:my-8 md:my-8 my-2 ">
+  
+        <div className="flex items-center justify-center py-8">
+                <Breadcrumb
+                    items={[
+                        {
+                            title: 'Home',
+                        },
 
-              <div className="xl:flex lg:flex flex-wrap items-center space-x-2 pr-4 s-mobile:pr-[8px] pl-4 s-mobile:pl-[8px]  xl:border-r-2 lg:border-r-2 md:border-r-2 border-white">
-                <h1 className="text-white lg:text-4xl md:text-4xl text-2xl font-bold">16K</h1>
-                <span className=" text-white lg:text-[24px] md:text-[24px] text-sm font-normal">
-                  {t("instractors")}
-                </span>
-              </div>
+                        {
+                            title: 'Online programs',
+                        },
+                        {
+                          title: `${lastPart}`,
+                        },
+                    ]}
+                />
             </div>
-            <div className=" lg:my-8 md:my-8 my-2 ">
-              <div className="xl:flex lg:flex flex-wrap items-center space-x-2 pr-4 s-mobile:pr-[8px]  s-mobile:pl-[2px] xl:border-r-2 lg:border-r-2 md:border-r-2  border-white">
-                <h1 className="text-white lg:text-4xl md:text-4xl text-2xl font-bold">120k</h1>
-                <span className=" text-white lg:text-[24px] md:text-[24px] text-sm font-normal">
-                  {t("Graduates")}
-                </span>
-              </div>
-            </div>
-            <div className=" lg:my-8 md:my-8 my-2 ">
-              <div className="xl:flex lg:flex flex-wrap items-center space-x-2  ">
-                <h1 className="text-white lg:text-4xl md:text-4xl text-2xl font-bold">150k</h1>
-                <span className=" text-white lg:text-[24px] md:text-[24px] text-sm font-normal">
-                  {t("Members")}
-                </span>
-              </div>
-            </div>
-          </div>
-          <div className=" w-full max-w-3xl  mx-auto flex items-center space-x-2">
-            <Input
-              placeholder="Search for course"
-              className="w-full h-[57px] text-[#667085] text-[16px] px-4"
-              prefix={<SearchOutlined size={15} className="text-[#667085]" />} // Single element for the left icon
-              suffix={
-                // Wrap inside a div
-                <div>
-                  <div className="border-l-2  text-[#1D2939] font-normal border-[#D0D5DD]">
-                    <Dropdown
-                      className="border-none"
-                      overlay={categoryMenu}
-                      trigger={["hover"]}
-                    >
-                      <Button className="text-lg">
-                      {t("Category")} <DownOutlined className="text-lg" />{" "}
-                      </Button>
-                    </Dropdown>
-                  </div>
-                </div>
-              }
-            />
-          </div>
-        </div>
-      </div>
+
+
+
       {/* End of Hero section  */}
 
     <div className="container mx-auto">
-    <h1 className="py-12 text-2xl font-bold">
+    <h1 className="py-12 text-2xl font-normal italic">
         {/* {slugString.slice(0, 8)}-  */}
         {slugString.slice(8,)}</h1>
 
