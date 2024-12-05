@@ -279,14 +279,14 @@ const page = ({ params }) => {
             ))}
           </div>
           <Link
-            href={" #"}
+            href={"/browseCourse/instructor/allReviewAndratings"}
             className="inline-flex items-center text-[#475467] border-b-2 border-[#475467] mt-8 text-[16px] font-semibold "
           >
             Show all reviews
             <ArrowUpOutlined className="rotate-45 text-xl pl-2" />
           </Link>
         </div>
-      </div>,
+      </div>
           </div>
 
         </div>

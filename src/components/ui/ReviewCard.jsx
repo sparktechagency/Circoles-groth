@@ -22,7 +22,7 @@ const ReviewCard = ({ review }) => {
             {review.time}
           </p>
         </div>
-        <p className="mt-2 text-gray-700">{review.comment}</p>
+        <p className="mt-2 text-[#667085] text-[16px]">{review.comment}</p>
       </Card>
     </div>
   );
