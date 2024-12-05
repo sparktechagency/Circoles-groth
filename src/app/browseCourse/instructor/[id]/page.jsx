@@ -12,6 +12,12 @@ import ReviewCard from "@/components/ui/ReviewCard";
 import Link from "next/link";
 const page = ({ params }) => {
   const [activeKey, setActiveKey] = useState("2");
+  const [selectedDay, setSelectedDay] = useState(null);
+  const [selectedTime, setSelectedTime] = useState(null);
+
+
+  const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  const times = ['3:30 PM', '4:00 PM', '4:30 PM', '5:00 PM','6:00 PM'];
 
   //   course card data 
   const coursemenu = [
@@ -163,6 +169,9 @@ const page = ({ params }) => {
             <Card className="mt-6 shadow-sm max-w-lg">
               <h2 className="text-lg font-bold text-[#1D2939] pb-2">Book John Doe</h2>
               <hr />
+              <Link href={`/browseCourse/instructor/SessionSchedule`}>
+              
+              
               <div className="flex items-center justify-between mt-4 pb-2">
                 <p className="flex items-center gap-2 text-[#344054] pb-2 text-[16px] font-semibold">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -180,6 +189,7 @@ const page = ({ params }) => {
 
                 </button>
               </div>
+              </Link>
               <hr />
               <div className="flex items-center justify-between mt-4 pb-2 opacity-40">
                 <p className="flex items-center gap-2 text-[#344054] pb-2 text-[16px] font-semibold">
@@ -203,19 +213,41 @@ const page = ({ params }) => {
             {/* Availability Section */}
             <div className="mt-6 max-w-2xl">
               <h2 className="text-lg font-semibold text-[#1D2939]">Availability</h2>
-              <div className="grid lg:grid-cols-7 md:grid-cols-5 grid-cels-4 gap-2 mt-4 ">
-                {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((day, index) => (
-                  <div key={index} className="text-center">
-                    <p className="text-sm font-medium border rounded-sm h-[100px] w-[100px] flex  items-center justify-center ">{day}</p>
-                    {index !== 5 && index !== 6 ? (
-                      <div className="mt-2 text-blue-500 font-semibold text-sm font-medium border rounded-lg h-[100px] w-[90px] flex  items-center justify-center mr-2  "><div>
-                        3:30 <br /> <span>PM</span></div> </div>
-                    ) : (
-                      ''
-                    )}
-                  </div>
-                ))}
-              </div>
+               {/* Day Selector */}
+        <div className="grid grid-cols-7 gap-2 mb-4 w-fit">
+          {days.map((day, index) => (
+            <button
+              key={index}
+              className={`p-2 border rounded-md text-center h-[100px] w-[100px] ${
+                selectedDay === day
+                  ? 'bg-[#14698A] text-white'
+                  : 'bg-gray-100 text-gray-600'
+              }`}
+              onClick={() => setSelectedDay(day)}
+            >
+              {day}
+            </button>
+          ))}
+        </div>
+
+        {/* Time Selector */}
+        {selectedDay && (
+          <div className="grid lg:grid-cols-5 md:grid-cols-4 grid-cols-3 gap-2 mb-6 w-fit">
+            {times.map((time, index) => (
+              <button
+                key={index}
+                className={`p-2 border rounded-md text-centerc h-[100px] w-[100px] ${
+                  selectedTime === time
+                    ? 'bg-[#14698A] text-white'
+                    : 'bg-gray-100 text-gray-600'
+                }`}
+                onClick={() => setSelectedTime(time)}
+              >
+                {time}
+              </button>
+            ))}
+          </div>
+        )}
             </div>
 
             {/* About Section */}
