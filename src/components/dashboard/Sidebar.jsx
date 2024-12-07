@@ -45,7 +45,7 @@ const Sidebar = () => {
       
     },
     {
-      path: "/UpcomingSession",
+      path: "/DashboardLayout/TutorDashboard/UpcomingSession",
       title: "Upcoming Session",
       icon: <svg width="22" height="20" viewBox="0 0 22 20" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path d="M11 5C11 3.93913 10.5786 2.92172 9.82843 2.17157C9.07828 1.42143 8.06087 1 7 1H1V16H8C8.79565 16 9.55871 16.3161 10.1213 16.8787C10.6839 17.4413 11 18.2044 11 19M11 5V19M11 5C11 3.93913 11.4214 2.92172 12.1716 2.17157C12.9217 1.42143 13.9391 1 15 1H21V16H14C13.2044 16 12.4413 16.3161 11.8787 16.8787C11.3161 17.4413 11 18.2044 11 19" stroke="#667085" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -73,7 +73,7 @@ const Sidebar = () => {
       
     },
     {
-      path: "/Earning",
+      path: "/DashboardLayout/TutorDashboard/Earning",
       title: "Earning",
       icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path d="M1 10H23M3 4H21C22.1046 4 23 4.89543 23 6V18C23 19.1046 22.1046 20 21 20H3C1.89543 20 1 19.1046 1 18V6C1 4.89543 1.89543 4 3 4Z" stroke="#667085" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -89,7 +89,7 @@ const Sidebar = () => {
 
     {
       id:'2',
-      path: "/DashboardLayout/accountSeetings",
+      path: "/DashboardLayout/TutorDashboard/accountSeetings",
       title: "Settings",
       icon: <IoSettingsOutline size={20} color="#667085" />,
     },

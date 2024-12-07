@@ -14,7 +14,7 @@ const UpdatePassword = () => {
     const email=values.newpassword;
     const confirmemail=values.Confirmpassword;
 
-        setAlertMessage("email created successfully");
+       setAlertMessage("email created successfully");
       setAlertType("success");
       
       router.push('/DashboardLayout/TutorDashboard')

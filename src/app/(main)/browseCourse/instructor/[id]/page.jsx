@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { Avatar, Button, Card, Rate, Tabs } from "antd";
 import Image from "next/image";
 
-import instactor from "../../../../assets/images/Instructor2.png";
+import instactor from "/public/images/Instructor2.png";
 import ratingimage from "./srahkhan.png";
 
 import { ArrowUpOutlined, GlobalOutlined, PlayCircleOutlined } from "@ant-design/icons";

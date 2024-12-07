@@ -52,11 +52,11 @@ const layout = ({ children }) => {
                 <h1 className="text-[#333333] font-bold text-[24px]">accountSeetings</h1>
               </div>
             );
-          case "/mycourcess":
+          case "/DashboardLayout/TutorDashboard/Earning":
             return (
               <div>
                 <h1 className="text-[#333333] font-bold text-[24px]">
-                  Welcome back, Emily
+                Finance
                 </h1>
               </div>
             );
