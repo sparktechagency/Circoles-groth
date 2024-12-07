@@ -1,7 +1,7 @@
 import localFont from "next/font/local";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getMessages } from "next-intl/server";
-import "./globals.css";
+import "../globals.css";
 import Navbar from "@/components/share/Navbar";
 import Footer from "@/components/share/Footer";
 
@@ -29,10 +29,14 @@ export default async function RootLayout({ children }) {
   }
 
   return (
-    <html lang={locale}>
-      <body className={` antialiased font-Inter`}>
-       {children}
-      </body>
-    </html>
+
+      <section className={` antialiased font-Inter`}>
+        <NextIntlClientProvider locale={locale} messages={messages}>
+          <Navbar />
+          <main>{children}</main>
+          <Footer />
+        </NextIntlClientProvider>
+      </section>
+  
   );
 }
