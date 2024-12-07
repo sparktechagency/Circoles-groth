@@ -1,10 +1,9 @@
-import CourseEnrollmentHelp from '@/components/CourseEnrollmentHelp';
 import React from 'react';
 
 const page = () => {
     return (
         <div>
-            <CourseEnrollmentHelp/>
+            this is tutor dashboard home page 
         </div>
     );
 };

@@ -1,10 +1,9 @@
-import PrivacyPolicy from '@/components/PrivacyPolicy';
 import React from 'react';
 
 const page = () => {
     return (
         <div>
-            <PrivacyPolicy/>
+            this is user dashboard home page 
         </div>
     );
 };
