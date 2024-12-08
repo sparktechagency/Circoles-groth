@@ -316,3 +316,11 @@ border-color: transparent !important;
 :where(.css-dev-only-do-not-override-qnu6hi).ant-menu-light .ant-menu-item a, :where(.css-dev-only-do-not-override-qnu6hi).ant-menu-light>.ant-menu .ant-menu-item a, :where(.css-dev-only-do-not-override-qnu6hi).ant-menu-light .ant-menu-item a:hover, :where(.css-dev-only-do-not-override-qnu6hi).ant-menu-light>.ant-menu .ant-menu-item a {
   color: #344054;
 }
+
+:where(.css-dev-only-do-not-override-qnu6hi).ant-tag .ant-tag-close-icon {
+  margin-inline-start: 3px;
+  font-size: 10px;
+  color: white;
+  cursor: pointer;
+  transition: all 0.2s;
+}

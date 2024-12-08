@@ -1,10 +1,9 @@
-import ContactForm from '@/components/ContactForm';
 import React from 'react';
 
 const page = () => {
     return (
         <div>
-            <ContactForm/>
+            this is tutor dashboard home page 
         </div>
     );
 };

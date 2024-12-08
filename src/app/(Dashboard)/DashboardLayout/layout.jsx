@@ -60,11 +60,11 @@ const layout = ({ children }) => {
                 </h1>
               </div>
             );
-          case "/resources":
+          case "/DashboardLayout/TutorDashboard/TutorProfileSetup":
             return (
               <div>
                 <h1 className="text-[#333333] font-bold text-[24px]">
-                  Find essential resources
+                TutorProfileSetup
                 </h1>
               </div>
             );
