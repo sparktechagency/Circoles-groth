@@ -8,8 +8,8 @@ import { useRouter } from "next/navigation";
 const { Step } = Steps;
 const { Option } = Select;
 
-const ProfessionalInfo = () => {
-  const [currentSetp, setCurrentrSetps] = useState(1)
+const Availability = () => {
+  const [currentSetp, setCurrentrSetps] = useState(3)
   const [selectedSubjects, setSelectedSubjects] = useState(["Physics", "Chemistry", "Biology"]);
   const suggestions = ["Physics", "Chemistry", "Biology", "Philosophy", "Architecture"];
   const [form] = Form.useForm(); // Form instance
@@ -31,10 +31,10 @@ const ProfessionalInfo = () => {
       ...values,
       selectedSubjects,
     });
-setCurrentrSetps(2)
+setCurrentrSetps(4)
 
 
-    router.push('/DashboardLayout/TutorDashboard/TutorProfileSetupStep-3')
+    router.push('/DashboardLayout/TutorDashboard/publishToComunity')
   };
 
   return (
@@ -58,7 +58,9 @@ setCurrentrSetps(2)
 
       {/* Form Section */}
       <div className="w-3/4">
-        <h1 className="text-lg mb-4 text-[30px] font-semibold pl-2 border-l-4 border-[#14698A]">Professional Info</h1>
+        <h1 className="text-lg mb-4 text-[30px] font-semibold pl-2 border-l-4 border-[#14698A]">Availability</h1>
+
+        <h3 className="text-lg  text-[14px] font-semibold mt-8 ">Availability Status</h3>
         <Form
           form={form}
           className="pt-[48px]"
@@ -194,4 +196,4 @@ setCurrentrSetps(2)
   );
 };
 
-export default ProfessionalInfo;
+export default Availability;
