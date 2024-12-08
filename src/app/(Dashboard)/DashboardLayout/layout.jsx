@@ -74,10 +74,10 @@ const layout = ({ children }) => {
                 <h1 className="text-[#333333] font-bold text-[24px]">Publish</h1>
               </div>
             );
-          case "/webiner":
+          case "/DashboardLayout/TutorDashboard/Verification":
             return (
               <div>
-                <h1 className="text-[#333333] font-bold text-[24px]">Webiner</h1>
+                <h1 className="text-[#333333] font-bold text-[24px]">Tutor verification section</h1>
               </div>
             );
           case "/recordings":
