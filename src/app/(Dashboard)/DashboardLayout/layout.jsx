@@ -16,7 +16,7 @@ const layout = ({ children }) => {
             return (
               <div className=" ">
                  <h1 className="text-[#333333] font-bold text-[24px] font-Merriweather pb-0">
-                  Dashboard analytics
+                 Welcome back, Emily
                 </h1>
                 
               </div>
