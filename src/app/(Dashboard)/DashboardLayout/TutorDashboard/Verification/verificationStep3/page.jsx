@@ -1,7 +1,7 @@
 'use client';
 
 import { InboxOutlined } from "@ant-design/icons";
-import { Button, Form, Select, Steps, message } from "antd";
+import { Button, Form, Select, Steps, message,Input } from "antd";
 import Dragger from "antd/es/upload/Dragger";
 import Link from "next/link";
 const { Step } = Steps;
@@ -66,35 +66,26 @@ const Page = () => {
                 onFinishFailed={onFinishFailed}
             >
 
-                     {/* Academic Certificate */}
-                     <Form.Item
-                    label="Professional Membership Number (optional)"
-                    name="membershipNumber"
-                    rules={[{ required: true, message: "Please enter Professional Membership Number " }]}
-                >
-                    <Select
-                        style={{
-                            height: "44px",
-                            borderRadius: "8px",
-                            border: "1px solid #D0D5DD",
-                            color: "#667085",
-                            fontSize: "16px",
-                        }}
-                        placeholder="Select"
-                        className="w-full"
-                    >
-                        <Option value="1">Passprot</Option>
-                        <Option value="2">National ID</Option>
-                      
-                    </Select>
-                </Form.Item>
+                      {/* Organization */}
+          <Form.Item label="TSC Number (optional)" name="tscNumber">
+            <Input
+              style={{
+                height: "44px",
+                borderRadius: "8px",
+                border: "1px solid #D0D5DD",
+                color: "#667085",
+                fontSize: "16px",
+              }}
+              placeholder="Enter your TSC Number"
+            />
+          </Form.Item>
 
-          <div className="flex items-center justify-center space-x-4 w-full">
+
                   {/* Upload Profile Picture */}
                   <Form.Item
                     style={{ backgroundColor: 'white',width:'100%' }}
-                    label="Upload the Certificate"
-                    name="certificate"
+                    label="Upload your TSC Certificate"
+                    name="tscCertificate"
                     valuePropName="fileList"
                     getValueFromEvent={(e) => (Array.isArray(e) ? e : e?.fileList)}
                 >
@@ -122,39 +113,6 @@ const Page = () => {
 
 
 
-                {/* Upload Profile Picture */}
-                <Form.Item
-                    style={{ backgroundColor: 'white',width:'100%' }}
-                    label="Back side of ID Card"
-                    name="BacksideID"
-                    valuePropName="fileList"
-                    getValueFromEvent={(e) => (Array.isArray(e) ? e : e?.fileList)}
-                >
-                    <Dragger style={{ backgroundColor: 'white' }} {...uploadProps}>
-                        <p className="ant-upload-drag-icon bg-white  w-fit mx-auto">
-                            <svg width="46" height="46" viewBox="0 0 46 46" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <rect x="3" y="3" width="40" height="40" rx="20" fill="#F2F4F7" />
-                                <rect x="3" y="3" width="40" height="40" rx="20" stroke="#F9FAFB" stroke-width="6" />
-                                <g clip-path="url(#clip0_441_12530)">
-                                    <path d="M26.3335 26.3352L23.0002 23.0019M23.0002 23.0019L19.6669 26.3352M23.0002 23.0019V30.5019M29.9919 28.3269C30.8047 27.8838 31.4467 27.1826 31.8168 26.334C32.1868 25.4855 32.2637 24.5379 32.0354 23.6408C31.807 22.7436 31.2865 21.9481 30.5558 21.3797C29.8251 20.8113 28.9259 20.5025 28.0002 20.5019H26.9502C26.698 19.5262 26.2278 18.6205 25.5752 17.8527C24.9225 17.0849 24.1042 16.4751 23.182 16.069C22.2597 15.663 21.2573 15.4713 20.2503 15.5084C19.2433 15.5455 18.2578 15.8104 17.3679 16.2832C16.4779 16.7561 15.7068 17.4244 15.1124 18.2382C14.518 19.0519 14.1158 19.9898 13.936 20.9814C13.7563 21.9729 13.8036 22.9923 14.0746 23.9629C14.3455 24.9335 14.8329 25.8301 15.5002 26.5852" stroke="#475467" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round" />
-                                </g>
-                                <defs>
-                                    <clipPath id="clip0_441_12530">
-                                        <rect width="20" height="20" fill="white" transform="translate(13 13)" />
-                                    </clipPath>
-                                </defs>
-                            </svg>
-
-                        </p>
-                        <p className="ant-upload-text text-[#475467]"> <span className="text-[#14698A] font-bold">Click to upload</span> or drag and drop </p>
-                        <p className="ant-upload-hint text-[#475467]">Supports a single image upload (JPEG/PNG only).</p>
-                    </Dragger>
-                </Form.Item>
-       
-          </div>
-
-
-
 
                 {/* Save & Continue Button */}
                 <Form.Item>
@@ -162,7 +120,7 @@ const Page = () => {
                         <Button style={{ height: "44px", fontSize: "16px", fontWeight: 400 }}>
                             Cancel
                         </Button>
-                        <Link href={'/DashboardLayout/TutorDashboard/Verification/verificationStep4'}>
+                        <Link href={'/DashboardLayout/TutorDashboard/Verification/verificationFee'}>
                         <Button
                         htmlType="submit"
                             style={{ height: "44px", fontSize: "16px", fontWeight: 400,backgroundColor:'#14698A' }}
