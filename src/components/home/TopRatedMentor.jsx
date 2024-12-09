@@ -4,14 +4,14 @@ import React from "react";
 import CourseCard from "../ui/CourseCard";
 import { Button, Tabs } from "antd";
 import { useState } from "react";
-import { useTranslations } from "next-intl";
+
 import TopratedTutorCard from "../ui/TopratedTutorCard";
 import tutor from '/public/images/tutor.png'
 import Link from "next/link";
 import { SearchOutlined, DownOutlined,RightOutlined } from "@ant-design/icons";
 const TopRatedMentor = () => {
   const [activeKey, setActiveKey] = useState("1");
-const t=useTranslations()
+
 
 //   FAKE JSON DATA FOR DEMO PURPOSES ONLY
   const course = [
@@ -26,7 +26,7 @@ const t=useTranslations()
       price: "€ 29.00",
       enrollLink: "ENROLL NOW",
       imageLink: tutor,
-      category: `${t("All courses")}`,
+      category: `All courses`,
     },
     {
       id: 1,
@@ -39,7 +39,7 @@ const t=useTranslations()
       price: "€ 29.00",
       enrollLink: "ENROLL NOW",
       imageLink: tutor,
-      category: `${t("All courses")}`,
+      category: `All courses`,
     },
     {
       id: 1,
@@ -52,7 +52,7 @@ const t=useTranslations()
       price: "€ 29.00",
       enrollLink: "ENROLL NOW",
       imageLink: tutor,
-      category: `${t("All courses")}`,
+      category: `All courses`,
     },
     {
       id: 1,
@@ -65,7 +65,7 @@ const t=useTranslations()
       price: "€ 29.00",
       enrollLink: "ENROLL NOW",
       imageLink: tutor,
-      category: `${t("All courses")}`,
+      category: `All courses`,
     },
     {
       id: 1,
@@ -78,7 +78,7 @@ const t=useTranslations()
       price: "€ 29.00",
       enrollLink: "ENROLL NOW",
       imageLink: tutor,
-      category: `${t("All courses")}`,
+      category: `All courses`,
     },
     {
       id: 1,
@@ -91,7 +91,7 @@ const t=useTranslations()
       price: "€ 29.00",
       enrollLink: "ENROLL NOW",
       imageLink: tutor,
-      category: `${t("All courses")}`,
+      category: `All courses`,
     },
     {
       id: 1,
@@ -104,7 +104,7 @@ const t=useTranslations()
       price: "€ 29.00",
       enrollLink: "ENROLL NOW",
       imageLink: tutor,
-      category: `${t("All courses")}`,
+      category: `All courses`,
     },
     {
       id: 1,
@@ -117,7 +117,7 @@ const t=useTranslations()
       price: "€ 29.00",
       enrollLink: "ENROLL NOW",
       imageLink: tutor,
-      category: `${t("All courses")}`,
+      category: `All courses`,
     },
     {
       id: 2,
@@ -130,7 +130,7 @@ const t=useTranslations()
       price: "€ 35.00",
       enrollLink: "ENROLL NOW",
       imageLink: "https://i.ibb.co.com/xLN7bSQ/category2.png",
-      category: `${t("Graphic Design")}`,
+      category: `Graphic Design`,
     },
     {
       id: 3,
@@ -143,7 +143,7 @@ const t=useTranslations()
       price: "€ 27.00",
       enrollLink: "ENROLL NOW",
       imageLink: "https://i.ibb.co.com/vPfYHr7/category1.png",
-      category: `${t("UI/UX Design")}`,
+      category: `UI/UX Design`,
     },
     {
       id: 4,
@@ -156,7 +156,7 @@ const t=useTranslations()
       price: "€ 40.00",
       enrollLink: "ENROLL NOW",
       imageLink: "https://i.ibb.co.com/xLN7bSQ/category2.png",
-      category: `${t("Programming")}`,
+      category: `Programming`,
     },
     {
       id: 5,
@@ -169,7 +169,7 @@ const t=useTranslations()
       price: "€ 50.00",
       enrollLink: "ENROLL NOW",
       imageLink: tutor,
-      category: `${t("Artificial Intelligence")}`,
+      category: `Artificial Intelligence`,
     },
     {
       id: 6,
@@ -182,7 +182,7 @@ const t=useTranslations()
       price: "€ 25.00",
       enrollLink: "ENROLL NOW",
       imageLink: "https://i.ibb.co.com/vPfYHr7/category1.png",
-      category: `${t("Business Management")}`,
+      category: `Business Management`,
     },
     {
       id: 7,
@@ -195,7 +195,7 @@ const t=useTranslations()
       price: "€ 30.00",
       enrollLink: "ENROLL NOW",
       imageLink: "https://i.ibb.co.com/xLN7bSQ/category2.png",
-      category: `${t("3D")}`,
+      category: `3D`,
     },
     {
       id: 8,
@@ -208,7 +208,7 @@ const t=useTranslations()
       price: "€ 33.00",
       enrollLink: "ENROLL NOW",
       imageLink: tutor,
-      category: `${t("Sports")}`,
+      category: `Sports`,
     },
     {
       id: 9,
@@ -221,7 +221,7 @@ const t=useTranslations()
       price: "€ 37.00",
       enrollLink: "ENROLL NOW",
       imageLink: "https://i.ibb.co.com/vPfYHr7/category1.png",
-      category: `${t("All courses")}`,
+      category: `All courses`,
     },
   ];
 
