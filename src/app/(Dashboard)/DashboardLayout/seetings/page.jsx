@@ -27,9 +27,12 @@ const props = {
   },
 };
 const { Dragger } = Upload;
+
+
+
 const SettingsPage = (props) => {
   return (
-    <div className="max-w-2xl space-y-4 border p-6 rounded-md shadow-md">
+    <div className="max-w-4xl w-full space-y-4 border p-6 rounded-md shadow-md bg-white">
       <div className="flex gap-6 ">
         <div className="w-full">
           <label className="block font-medium mb-1 text-[#344054]">
@@ -115,11 +118,13 @@ const SettingsPage = (props) => {
         />
       </div>
       <div className="w-full flex gap-6 pt-6">
+        <div className="h-20 w-20">
         <Image
-          className="h-6 w-6 rounded-full"
-          src="https://via.placeholder.com/150"
+          className=" rounded-full"
+          src={'https://s3-alpha-sig.figma.com/img/67da/9fdd/d372b1b5b44ffef41eed6ceb810ddf8a?Expires=1734912000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=CfJs3R0LcCgF79DATRksPKvU7PrQ0N4VPgmX~mAWPqcKhwlYADlUUKGq7-cwVRXBVPoKt9ABdC0cINvpYy7aiwuESmTDtAuwZOveX6QlOCZqVu98cuNUUyYk4g-j2zFmmkR0TfOzA-ZJGL4KT7BDzcMNDeBIlwEPNLPaHvJRoNnRWd2INUioWhI40yzTp~l~z6u1MM541So3SdYfxsnAwpU6tvBmvQXXlhFRMjBbblJQ1HH76vvAGzDPeblN6EiDvFZtkufDefBsh2hHBk0HiKEHIIVpRHDThSZ3ctMYfLSZF4aRiBcxzbia49IbPiFkHVBpN7-rEMoVaMZdJ8wNVw__'}
         />
 
+        </div>
         <div className="w-full">
           <Dragger {...props}>
             <p className="ant-upload-text text-[#1253BB] text-xl ">
@@ -138,7 +143,7 @@ const SettingsPage = (props) => {
           Cancel
         </Button>
         <Button
-          style={{ height: "44px", fontSize: "16px", fontWeight: 400 }}
+          style={{ height: "44px", fontSize: "16px", fontWeight: 400,backgroundColor:'#14698A' }}
           type="primary"
         >
           Save changes

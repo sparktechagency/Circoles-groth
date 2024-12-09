@@ -88,19 +88,19 @@ const layout = ({ children }) => {
             </h1>
           </div>
         );
-      case "/settings":
+      case "/DashboardLayout/UserDashboard/UpcomingSession":
         return (
           <div>
             <h1 className="text-[#333333] font-bold text-[24px]">
-              Personal info
+            Session
             </h1>
           </div>
         );
-      case "/support":
+      case "/DashboardLayout/UserDashboard/UseraccountSeetings":
         return (
           <div>
             <h1 className="text-[#101828] font-bold text-[24px]">
-              Get in touch
+            accountSeetings
             </h1>
           </div>
         );

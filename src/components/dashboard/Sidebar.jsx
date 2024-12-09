@@ -187,15 +187,7 @@ const Sidebar = () => {
 
 
 
-  const bottomMenuItems= [
 
-    {
-      id:'2',
-      path: "/DashboardLayout/TutorDashboard/accountSeetings",
-      title: "Settings",
-      icon: <IoSettingsOutline size={20} color="#667085" />,
-    },
-  ];
 
   const content = (
     <div className="w-40">
@@ -254,8 +246,15 @@ const isUser = true;
 
 
 
+  const bottomMenuItems= [
 
-
+    {
+      id:'2',
+      path: isTutotr ? '/DashboardLayout/TutorDashboard/accountSeetings' : '/DashboardLayout/UserDashboard/UseraccountSeetings',
+      title: "Settings",
+      icon: <IoSettingsOutline size={20} color="#667085" />,
+    },
+  ];
 
   // Render nothing until client-side hydration
   if (!isMounted) return null;

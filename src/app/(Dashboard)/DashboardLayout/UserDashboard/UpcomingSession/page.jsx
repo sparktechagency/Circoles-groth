@@ -1,6 +1,6 @@
 'use client'
 import { Table, Button, Tag, Dropdown, Menu, Modal, DatePicker, message } from "antd";
-import { EllipsisOutlined } from "@ant-design/icons";
+import { EllipsisOutlined, LeftOutlined } from "@ant-design/icons";
 import { useState } from "react";
 import avater from '/public/images/Avatar.png'
 import Image from "next/image";
@@ -46,62 +46,49 @@ const UpcomingSession = () => {
 
   const columns = [
     {
-      title: "Session date",
+      title: " date",
       dataIndex: "date",
       key: "date",
     },
     {
-      title: "Session slot",
-      dataIndex: "slot",
-      key: "slot",
+      title: "Days",
+      dataIndex: "Days",
+      key: "Days",
     },
     {
-      title: "Learner",
-      dataIndex: "learner",
-      key: "learner",
-      render: (_, record) => (
-        <div className="flex items-center gap-2">
-          <Image
-            src={avater}
-            alt={`${record.name}`}
-            className="w-8 h-8 rounded-full"
-          />
-          <div>
-            <p>{record.name}</p>
-            <p className="text-sm text-gray-500">{record.email}</p>
-          </div>
-        </div>
-      ),
+      title: "Time slots",
+      dataIndex: "Timeslots",
+      key: "Timeslots",
+      
     },
     {
-      title: "Status",
-      dataIndex: "status",
-      key: "status",
-      render: (_, record) => (
-        <Tag
-          className="flex items-center space-x-2 w-fit p-4 border-none rounded-[50px] font-medium text-[14px]"
-          style={{ backgroundColor: '#ECFDF3', height: '22px', color: ' #027A48' }} color={record.status === "Online" ? "green" : "red"}>
-          <span> <svg width="6" height="6" viewBox="0 0 6 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="3" cy="3" r="3" fill="#12B76A" />
-          </svg> </span><span>{record.status}</span>
-        </Tag>
-      ),
+      title: "Tutor",
+      dataIndex: "Tutor",
+      key: "Tutor",
+      
     },
+    
     {
-      title: "Zoom Link",
+      title: "",
       dataIndex: "zoomLink",
       key: "zoomLink",
       render: (text) => (
         <Button
-          onClick={() => {
-            navigator.clipboard.writeText(text);
-            message.success("Zoom link copied!");
-          }}
+         
         >
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M2.9165 8.7513H2.33317C2.02375 8.7513 1.72701 8.62839 1.50821 8.40959C1.28942 8.1908 1.1665 7.89405 1.1665 7.58464V2.33464C1.1665 2.02522 1.28942 1.72847 1.50821 1.50968C1.72701 1.29089 2.02375 1.16797 2.33317 1.16797H7.58317C7.89259 1.16797 8.18934 1.29089 8.40813 1.50968C8.62692 1.72847 8.74984 2.02522 8.74984 2.33464V2.91797M6.4165 5.2513H11.6665C12.3108 5.2513 12.8332 5.77364 12.8332 6.41797V11.668C12.8332 12.3123 12.3108 12.8346 11.6665 12.8346H6.4165C5.77217 12.8346 5.24984 12.3123 5.24984 11.668V6.41797C5.24984 5.77364 5.77217 5.2513 6.4165 5.2513Z" stroke="#1253BB" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" />
-          </svg>
-          {text || "No link"}
+         <svg width="15" height="14" viewBox="0 0 15 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_316_23745)">
+<path d="M13.9173 4.08268L9.83398 6.99935L13.9173 9.91602V4.08268Z" stroke="#1253BB" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M8.66732 2.91602H2.25065C1.60632 2.91602 1.08398 3.43835 1.08398 4.08268V9.91602C1.08398 10.5603 1.60632 11.0827 2.25065 11.0827H8.66732C9.31165 11.0827 9.83398 10.5603 9.83398 9.91602V4.08268C9.83398 3.43835 9.31165 2.91602 8.66732 2.91602Z" stroke="#1253BB" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<defs>
+<clipPath id="clip0_316_23745">
+<rect width="14" height="14" fill="white" transform="translate(0.5)"/>
+</clipPath>
+</defs>
+</svg>
+
+          Join Session 
         </Button>
       ),
     },
@@ -125,9 +112,9 @@ const UpcomingSession = () => {
     {
       key: "1",
       date: "Jan 6, 2024",
-      slot: "11:00 am - 12:00 pm",
-      name: "Olivia Ryhe",
-      email: "olivia@untitledui.com",
+      Days: "Saturday",
+     Tutor: "Olivia Ryhe",
+      Timeslots: "10:00 am-12 pm",
       avatar: "/avatar1.jpg",
       status: "Online",
       zoomLink: "https://zoom.us/",
@@ -135,19 +122,17 @@ const UpcomingSession = () => {
     {
       key: "2",
       date: "Jan 6, 2024",
-      slot: "11:00 am - 12:00 pm",
-      name: "Phoenix Baker",
-      email: "phoenix@untitledui.com",
-      avatar: "/avatar2.jpg",
-      status: "Online",
+      Days: "Saturday",
+     Tutor: "Phoenix Baker",
+      Timeslots: "10:00 am-12 pm",
       zoomLink: null,
     },
     {
       key: "3",
       date: "Jan 6, 2024",
-      slot: "11:00 am - 12:00 pm",
-      name: "Olivia Ryhe",
-      email: "olivia@untitledui.com",
+      Days: "Saturday",
+     Tutor: "Olivia Ryhe",
+      Timeslots: "10:00 am-12 pm",
       avatar: "/avatar1.jpg",
       status: "Online",
       zoomLink: "https://zoom.us/",
@@ -155,19 +140,17 @@ const UpcomingSession = () => {
     {
       key: "4",
       date: "Jan 6, 2024",
-      slot: "11:00 am - 12:00 pm",
-      name: "Phoenix Baker",
-      email: "phoenix@untitledui.com",
-      avatar: "/avatar2.jpg",
-      status: "Online",
+      Days: "Saturday",
+     Tutor: "Phoenix Baker",
+      Timeslots: "10:00 am-12 pm",
       zoomLink: null,
     },
     {
       key: "5",
       date: "Jan 6, 2024",
-      slot: "11:00 am - 12:00 pm",
-      name: "Olivia Ryhe",
-      email: "olivia@untitledui.com",
+      Days: "Saturday",
+     Tutor: "Olivia Ryhe",
+      Timeslots: "10:00 am-12 pm",
       avatar: "/avatar1.jpg",
       status: "Online",
       zoomLink: "https://zoom.us/",
@@ -175,29 +158,25 @@ const UpcomingSession = () => {
     {
       key: "6",
       date: "Jan 6, 2024",
-      slot: "11:00 am - 12:00 pm",
-      name: "Phoenix Baker",
-      email: "phoenix@untitledui.com",
-      avatar: "/avatar2.jpg",
-      status: "Online",
+      Days: "Saturday",
+     Tutor: "Phoenix Baker",
+      Timeslots: "10:00 am-12 pm",
       zoomLink: null,
     },
     {
       key: "7",
       date: "Jan 6, 2024",
-      slot: "11:00 am - 12:00 pm",
-      name: "Phoenix Baker",
-      email: "phoenix@untitledui.com",
-      avatar: "/avatar2.jpg",
-      status: "Online",
+      Days: "Saturday",
+     Tutor: "Phoenix Baker",
+      Timeslots: "10:00 am-12 pm",
       zoomLink: null,
     },
     {
       key: "8",
       date: "Jan 6, 2024",
-      slot: "11:00 am - 12:00 pm",
-      name: "Olivia Ryhe",
-      email: "olivia@untitledui.com",
+      Days: "Saturday",
+     Tutor: "Olivia Ryhe",
+      Timeslots: "10:00 am-12 pm",
       avatar: "/avatar1.jpg",
       status: "Online",
       zoomLink: "https://zoom.us/",
@@ -205,29 +184,25 @@ const UpcomingSession = () => {
     {
       key: "9",
       date: "Jan 6, 2024",
-      slot: "11:00 am - 12:00 pm",
-      name: "Phoenix Baker",
-      email: "phoenix@untitledui.com",
-      avatar: "/avatar2.jpg",
-      status: "Online",
+      Days: "Saturday",
+     Tutor: "Phoenix Baker",
+      Timeslots: "10:00 am-12 pm",
       zoomLink: null,
     },
     {
       key: "10",
       date: "Jan 6, 2024",
-      slot: "11:00 am - 12:00 pm",
-      name: "Phoenix Baker",
-      email: "phoenix@untitledui.com",
-      avatar: "/avatar2.jpg",
-      status: "Online",
+      Days: "Saturday",
+     Tutor: "Phoenix Baker",
+      Timeslots: "10:00 am-12 pm",
       zoomLink: null,
     },
     {
       key: "11",
       date: "Jan 6, 2024",
-      slot: "11:00 am - 12:00 pm",
-      name: "Olivia Ryhe",
-      email: "olivia@untitledui.com",
+      Days: "Saturday",
+     Tutor: "Olivia Ryhe",
+      Timeslots: "10:00 am-12 pm",
       avatar: "/avatar1.jpg",
       status: "Online",
       zoomLink: "https://zoom.us/",
@@ -235,19 +210,17 @@ const UpcomingSession = () => {
     {
       key: "12",
       date: "Jan 6, 2024",
-      slot: "11:00 am - 12:00 pm",
-      name: "Phoenix Baker",
-      email: "phoenix@untitledui.com",
-      avatar: "/avatar2.jpg",
-      status: "Online",
+      Days: "Saturday",
+     Tutor: "Phoenix Baker",
+      Timeslots: "10:00 am-12 pm",
       zoomLink: null,
     },
     {
       key: "13",
       date: "Jan 6, 2024",
-      slot: "11:00 am - 12:00 pm",
-      name: "Olivia Ryhe",
-      email: "olivia@untitledui.com",
+      Days: "Saturday",
+     Tutor: "Olivia Ryhe",
+      Timeslots: "10:00 am-12 pm",
       avatar: "/avatar1.jpg",
       status: "Online",
       zoomLink: "https://zoom.us/",
@@ -255,19 +228,17 @@ const UpcomingSession = () => {
     {
       key: "14",
       date: "Jan 6, 2024",
-      slot: "11:00 am - 12:00 pm",
-      name: "Phoenix Baker",
-      email: "phoenix@untitledui.com",
-      avatar: "/avatar2.jpg",
-      status: "Online",
+      Days: "Saturday",
+     Tutor: "Phoenix Baker",
+      Timeslots: "10:00 am-12 pm",
       zoomLink: null,
     },
     {
       key: "15",
       date: "Jan 6, 2024",
-      slot: "11:00 am - 12:00 pm",
-      name: "Olivia Ryhe",
-      email: "olivia@untitledui.com",
+      Days: "Saturday",
+     Tutor: "Olivia Ryhe",
+      Timeslots: "10:00 am-12 pm",
       avatar: "/avatar1.jpg",
       status: "Online",
       zoomLink: "https://zoom.us/",
@@ -275,29 +246,25 @@ const UpcomingSession = () => {
     {
       key: "16",
       date: "Jan 6, 2024",
-      slot: "11:00 am - 12:00 pm",
-      name: "Phoenix Baker",
-      email: "phoenix@untitledui.com",
-      avatar: "/avatar2.jpg",
-      status: "Online",
+      Days: "Saturday",
+     Tutor: "Phoenix Baker",
+      Timeslots: "10:00 am-12 pm",
       zoomLink: null,
     },
     {
       key: "17",
       date: "Jan 6, 2024",
-      slot: "11:00 am - 12:00 pm",
-      name: "Phoenix Baker",
-      email: "phoenix@untitledui.com",
-      avatar: "/avatar2.jpg",
-      status: "Online",
+      Days: "Saturday",
+     Tutor: "Phoenix Baker",
+      Timeslots: "10:00 am-12 pm",
       zoomLink: null,
     },
     {
       key: "18",
       date: "Jan 6, 2024",
-      slot: "11:00 am - 12:00 pm",
-      name: "Olivia Ryhe",
-      email: "olivia@untitledui.com",
+      Days: "Saturday",
+     Tutor: "Olivia Ryhe",
+      Timeslots: "10:00 am-12 pm",
       avatar: "/avatar1.jpg",
       status: "Online",
       zoomLink: "https://zoom.us/",
@@ -305,11 +272,9 @@ const UpcomingSession = () => {
     {
       key: "19",
       date: "Jan 6, 2024",
-      slot: "11:00 am - 12:00 pm",
-      name: "Phoenix Baker",
-      email: "phoenix@untitledui.com",
-      avatar: "/avatar2.jpg",
-      status: "Online",
+      Days: "Saturday",
+     Tutor: "Phoenix Baker",
+      Timeslots: "10:00 am-12 pm",
       zoomLink: null,
     },
 
@@ -317,7 +282,17 @@ const UpcomingSession = () => {
   ];
 
   return (
-    <div className="p-4">
+    <div className="p-6 bg-white  ">
+
+      <div className="flex items-center space-x-2 text-gray-600 py-8">
+        <span onClick={() => rourter.back()} className="cursor-pointer"> <LeftOutlined /> Back</span>
+        <span>/</span>
+        <span>My tutor</span>
+        <span>/</span>
+        <span className="text-black font-semibold">View session</span>
+      </div>
+
+
       <Table
         columns={columns}
         dataSource={data}

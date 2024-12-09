@@ -1,3 +1,5 @@
+
+
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -12,7 +14,9 @@ import { Rate } from "antd";
 const MyTutorCard = ({ courseimage, courseTitle, instructor, rating, price, reviews, duration, students, enrollLink }) => {
 
   return (
-    <div className=" w-full bg-white border border-gray-200 rounded-lg shadow-md overflow-hidden">
+   <Link href={'/DashboardLayout/UserDashboard/tutorSession'}>
+   
+   <div className=" w-full bg-white border border-gray-200 rounded-lg shadow-md overflow-hidden">
       {/* COURSE CARD BANNER IMGE HERE */}
       <div className="relative">
         <Image
@@ -65,6 +69,7 @@ const MyTutorCard = ({ courseimage, courseTitle, instructor, rating, price, revi
 
       </div>
     </div>
+   </Link>
   );
 };
 

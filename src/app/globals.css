@@ -344,3 +344,30 @@ border-color: transparent !important;
   color: #195671;
   text-shadow: 0 0 0.25px currentcolor;
 }
+
+.ant-picker-calendar {
+  border-radius: 0;
+}
+
+.ant-picker-calendar .ant-picker-cell {
+  padding: 4px 0;
+}
+
+.ant-picker-calendar .ant-picker-calendar-date-content {
+  height: auto !important;
+}
+
+.ant-picker-calendar table {
+  border-spacing: 4px;
+  border-collapse: separate;
+}
+
+.ant-picker-calendar .ant-picker-cell-in-view {
+  color: rgba(0, 0, 0, 0.88);
+}
+
+.ant-picker-calendar .ant-picker-calendar-date {
+  border: none !important;
+  margin: 0 !important;
+}
+
