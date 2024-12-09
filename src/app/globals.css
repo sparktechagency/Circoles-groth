@@ -324,3 +324,23 @@ border-color: transparent !important;
   cursor: pointer;
   transition: all 0.2s;
 }
+:where(.css-dev-only-do-not-override-qnu6hi).ant-tabs .ant-tabs-tab {
+  position: relative;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+  display: inline-flex
+;
+  align-items: center;
+  padding: 12px 0;
+  font-size: 14px;
+  font-weight: 600;
+  background: transparent;
+  border: 0;
+  /* outline: none; */
+  cursor: pointer;
+  color: #667085;
+}
+:where(.css-dev-only-do-not-override-qnu6hi).ant-tabs .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+  color: #195671;
+  text-shadow: 0 0 0.25px currentcolor;
+}

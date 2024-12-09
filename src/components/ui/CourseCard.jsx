@@ -7,10 +7,10 @@ import {
   ArrowUpOutlined,
 } from "@ant-design/icons";
 import { Rate } from "antd";
-import { useTranslations } from "next-intl";
+
 
 const CourseCard = ({ courseimage,courseTitle ,instructor,rating,price ,reviews,duration,students,enrollLink}) => {
-const t=useTranslations()
+
   return (
     <div className=" w-full bg-white border border-gray-200 rounded-lg shadow-md overflow-hidden">
       {/* COURSE CARD BANNER IMGE HERE */}
@@ -31,7 +31,8 @@ const t=useTranslations()
       <div className="p-4">
         <div className="flex justify-between items-center pt-5">
           <p className="text-sm text-[#475467] mb-2">
-            {t("by")}
+            by
+            
             <Link
               href={`/browseCourse/instructor/${enrollLink}`}
               className=" text-[#1D2939] border-b-2 text-sm font-semibold border-[#1D2939]"
@@ -69,7 +70,7 @@ const t=useTranslations()
           <Link href={`/browseCourse/${enrollLink}`}
             className="inline-flex items-center text-[#14698A] border-b-2 border-[#14698A] text-[16px] font-semibold "
           >
-            {t("ENROLL NOW")}
+            ROLL NOW
             <ArrowUpOutlined className="rotate-45 text-xl pl-2" />
           </Link>
         </div>

@@ -21,6 +21,9 @@ import Swal from "sweetalert2";
 const { Sider } = Layout;
 import { RxCross2 } from "react-icons/rx";
 import { IoMdMenu } from "react-icons/io";
+
+import avater from '/public/images/Avatar.png'
+import Image from "next/image";
 const Sidebar = () => {
   const router = useRouter();
   const [mobileMenu, setMobileMenu] = useState(false);
@@ -82,10 +85,6 @@ const Sidebar = () => {
       
     },
   ];
-
-
-
-
   const userMenuItems = [
     {
       path: "/DashboardLayout/UserDashboard",
@@ -303,11 +302,12 @@ const isUser = true;
           />
         </div>
        <div className={` ${isUser ? 'h-[calc(100vh-400px)]' : 'h-[calc(100vh-300px)]'}  `}>
-       <Menu mode="inline" style={{ background: "#ffffff", color: "black" }}>
-          <div className="pl-4 h-[calc(100vh-500px)]">
-          {selectedMenuItems.map((item, index) => (
+       <Menu  className={`h-screen flex-cols items-center justify-between`} defaultSelectedKeys={["1"]} mode="inline" style={{ background: "#ffffff", color: "black" }}>
+          
+        <Menu className={` ${isUser ? 'h-[calc(100vh-500px)]' : 'h-[calc(100vh-300px)]'}  `} mode="inline" style={{ background: "#ffffff", color: "black" }}>
+        {selectedMenuItems.map((item, index) => (
             <Menu.Item
-              key={`item-${index}`}
+              key={index}
               icon={item.icon}
               style={{
                 color: router.pathname === item.path ? "red" : "#000000",
@@ -315,13 +315,15 @@ const isUser = true;
                 fontSize: "16px",
               }}
             >
-              <Link className="font-bold" href={item.path}>{item.title}</Link>
+              <Link className="font-bold text-black" href={item.path}>{item.title}</Link>
             </Menu.Item>
           ))}
-          </div>
+        </Menu>
+      
 
  
-        <div className="py-4  ">
+       <div className="">
+       <div className="py-4  ">
               {bottomMenuItems.map((item, index) => {
                 const isActive = location.pathname === item.path;
 
@@ -358,17 +360,21 @@ const isUser = true;
                 height: "40px",
                 backgroundColor: "gray",
               }}
-              icon={<UserAddOutlined />}
+              icon={<Image src={avater}/>}
             />
           </Popover>
           <div>
             <h1 className="text-black text-sm">John Doe</h1>
             <h1 className="text-black text-sm">ex@ample.com</h1>
           </div>
-          <div onClick={handleLogout} className="cursor-pointer text-red-500">
-            <LogoutOutlined size={20} />
+          <div onClick={handleLogout} className="cursor-pointer ">
+          <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M15.5 25.5H12.1667C11.7246 25.5 11.3007 25.3244 10.9882 25.0118C10.6756 24.6993 10.5 24.2754 10.5 23.8333V12.1667C10.5 11.7246 10.6756 11.3007 10.9882 10.9882C11.3007 10.6756 11.7246 10.5 12.1667 10.5H15.5M21.3333 22.1667L25.5 18M25.5 18L21.3333 13.8333M25.5 18H15.5" stroke="#667085" stroke-width="1.67" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+
           </div>
         </div>
+       </div>
         </Menu>
        </div>
        

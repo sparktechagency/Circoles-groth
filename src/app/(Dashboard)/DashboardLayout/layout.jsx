@@ -38,11 +38,11 @@ const layout = ({ children }) => {
                 </h1>
               </div>
             );
-          case "/category_management":
+          case "/DashboardLayout/UserDashboard/EnrolledCourses":
             return (
               <div>
                 <h1 className="text-[#333333] font-bold text-[24px]">
-                  Manage Category
+                Enrolled Courses
                 </h1>
               </div>
             );

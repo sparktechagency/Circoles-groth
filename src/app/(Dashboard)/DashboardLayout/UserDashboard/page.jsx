@@ -102,7 +102,7 @@ const Mycourses= () => {
           return (
             <div
               key={card.id}
-              className={`flex justify-between items-center rounded-2xl cursor-pointer ${selectedBgColor}`}
+              className={`flex justify-between items-center rounded-2xl cursor-pointer h-[150px] ${selectedBgColor}`}
               onClick={() => handleCardClick(index)}
             >
               <div className="flex gap-4 p-6 w-fit">
