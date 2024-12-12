@@ -220,7 +220,7 @@ const Navbar = () => {
           >
             <Button>Tutor Service <DownOutlined /></Button>
           </Dropdown></li>
-          <li>  <Link href="/becomeInstructor" className="text-sm pl-2">
+          <li>  <Link href="/auth/Becomeatutor" className="text-sm pl-2">
             Become a Tutor
           </Link></li>
           <li> <Link href={"/auth/login"} className="text-[16px] font-semibold text-[#475467]">

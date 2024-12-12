@@ -1,18 +1,18 @@
-import Sidebar from '@/components/dashboard/Sidebar';
+import TutorSidebar from '@/components/dashboard/tutorDashboard/TutorSidebar';
 import React from 'react';
 
 const layout = ({ children }) => {
-
+   
     return (
         <div className='flex items-center bg-gray-200'>
             {/* sidebar  */}
 
             <div>
-                <Sidebar  />
+                <TutorSidebar  />
             </div>
 
             {/* content area */}
-            <div className='w-full'>
+           <div className='w-full'>
            {children}
            </div>
         </div>

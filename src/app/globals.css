@@ -371,3 +371,19 @@ border-color: transparent !important;
   margin: 0 !important;
 }
 
+/* Ant Design and Tailwind Integration */
+.ant-table {
+  font-size: 14px;
+  border: none;
+}
+.ant-table-thead > tr > th {
+  background-color: #f9fafb;
+  color: #374151;
+  font-weight: 600;
+}
+.ant-table-tbody > tr:hover > td {
+  background: #f3f4f6 !important;
+}
+.ant-table-pagination.ant-pagination {
+  justify-content: center;
+}

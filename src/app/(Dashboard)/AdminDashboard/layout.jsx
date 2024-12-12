@@ -1,3 +1,4 @@
+import AdminSidebar from '@/components/dashboard/admindashboard/AdminSidebar';
 import Sidebar from '@/components/dashboard/Sidebar';
 import React from 'react';
 
@@ -8,7 +9,7 @@ const layout = ({ children }) => {
             {/* sidebar  */}
 
             <div>
-                <Sidebar  />
+                <AdminSidebar  />
             </div>
 
             {/* content area */}

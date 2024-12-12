@@ -12,7 +12,7 @@ const layout = ({ children }) => {
   console.log(pathname)
   const getTitle = () => {
     switch (pathname) {
-      case "/DashboardLayout/UserDashboard":
+      case "/UserDashboard":
         return (
           <div className=" ">
             <h1 className="text-[#333333] font-bold text-[24px] font-Merriweather pb-0">
@@ -21,7 +21,7 @@ const layout = ({ children }) => {
 
           </div>
         );
-      case "/DashboardLayout/TutorDashboard":
+      case "/TutorDashboard":
         return (
           <div className=" ">
             <h1 className="text-[#333333] font-bold text-[24px] font-Merriweather pb-0">
@@ -30,7 +30,7 @@ const layout = ({ children }) => {
 
           </div>
         );
-      case "/DashboardLayout/UserDashboard/EnrolledCourses/EnroledCourseDetails":
+      case "/UserDashboard/EnrolledCourses/EnroledCourseDetails":
         return (
           <div>
             <h1 className="text-[#333333] font-bold text-[24px]">
@@ -38,7 +38,7 @@ const layout = ({ children }) => {
             </h1>
           </div>
         );
-      case "/DashboardLayout/UserDashboard/EnrolledCourses":
+      case "/UserDashboard/EnrolledCourses":
         return (
           <div>
             <h1 className="text-[#333333] font-bold text-[24px]">
@@ -46,13 +46,13 @@ const layout = ({ children }) => {
             </h1>
           </div>
         );
-      case "/DashboardLayout/accountSeetings":
+      case "/accountSeetings":
         return (
           <div>
             <h1 className="text-[#333333] font-bold text-[24px]">accountSeetings</h1>
           </div>
         );
-      case "/DashboardLayout/TutorDashboard/Earning":
+      case "/TutorDashboard/Earning":
         return (
           <div>
             <h1 className="text-[#333333] font-bold text-[24px]">
@@ -60,7 +60,7 @@ const layout = ({ children }) => {
             </h1>
           </div>
         );
-      case "/DashboardLayout/TutorDashboard/TutorProfileSetup":
+      case "/TutorDashboard/TutorProfileSetup":
         return (
           <div>
             <h1 className="text-[#333333] font-bold text-[24px]">
@@ -68,19 +68,19 @@ const layout = ({ children }) => {
             </h1>
           </div>
         );
-      case "/DashboardLayout/TutorDashboard/publishToComunity":
+      case "/TutorDashboard/publishToComunity":
         return (
           <div>
             <h1 className="text-[#333333] font-bold text-[24px]">Publish</h1>
           </div>
         );
-      case "/DashboardLayout/TutorDashboard/Verification":
+      case "/TutorDashboard/Verification":
         return (
           <div>
             <h1 className="text-[#333333] font-bold text-[24px]">Tutor verification section</h1>
           </div>
         );
-      case "/DashboardLayout/UserDashboard/MyTutor":
+      case "/UserDashboard/MyTutor":
         return (
           <div>
             <h1 className="text-[#333333] font-bold text-[24px]">
@@ -88,7 +88,7 @@ const layout = ({ children }) => {
             </h1>
           </div>
         );
-      case "/DashboardLayout/UserDashboard/UpcomingSession":
+      case "/UserDashboard/UpcomingSession":
         return (
           <div>
             <h1 className="text-[#333333] font-bold text-[24px]">
@@ -96,7 +96,7 @@ const layout = ({ children }) => {
             </h1>
           </div>
         );
-      case "/DashboardLayout/UserDashboard/UseraccountSeetings":
+      case "/UserDashboard/UseraccountSeetings":
         return (
           <div>
             <h1 className="text-[#101828] font-bold text-[24px]">
