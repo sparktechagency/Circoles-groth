@@ -23,15 +23,6 @@ const { Option } = Select;
 const CreateNewCourse = () => {
 
     const [activekey,setactivekey]=useState('1')
-  const menu = (
-    <Menu>
-      <Menu.Item key="1">Video</Menu.Item>
-      <Menu.Item key="2">Attach File</Menu.Item>
-      <Menu.Item key="3">Captions</Menu.Item>
-      <Menu.Item key="4">Description</Menu.Item>
-      <Menu.Item key="5">Lecture Notes</Menu.Item>
-    </Menu>
-  );
 
   const [form] = Form.useForm();
 
@@ -216,8 +207,9 @@ const CreateNewCourse = () => {
         <div className="flex justify-between mt-8">
           <Button>Cancel</Button>
           <Button
+          
             onClick={handleSave}
-            style={{ height: '44px', fontSize: '16px' }}
+            style={{ height: '44px', fontSize: '16px',backgroundColor:'#14698A'}}
             type="primary"
           >
             Save & Next

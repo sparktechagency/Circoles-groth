@@ -59,7 +59,7 @@ const PublishCourse = () => {
       </div>
       <div className="flex justify-between mt-[48px]">
         <button className="h-[48px] text-[#475467] text-[16px] border-none font-semibold bg-transparent">Previous</button>
-        <Button onClick={handlePublish} style={{ height: '44px', fontSize: '16px', fontWeight: 400 }} type="primary">
+        <Button onClick={handlePublish}     style={{ height: '44px', fontSize: '16px',backgroundColor:'#14698A'}} type="primary">
           Publish
         </Button>
       </div>

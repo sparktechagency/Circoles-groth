@@ -275,7 +275,7 @@ const CourseDetails = ({ setactivekey }) => {
         <div className="flex justify-between mt-8">
           <Button>Preview</Button>
           <Button
-            style={{ height: "44px", fontSize: "16px", fontWeight: 400 }}
+               style={{ height: '44px', fontSize: '16px',backgroundColor:'#14698A'}}
             type="primary"
             onClick={handleSaveAndNext}
           >

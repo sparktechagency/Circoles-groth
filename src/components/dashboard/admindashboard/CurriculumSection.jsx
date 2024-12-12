@@ -107,15 +107,11 @@ const CurriculumSection = ({setactivekey={setactivekey}}) => {
       <Menu.Item key="1" onClick={() => handleMenuClick("Video")}>
         Video
       </Menu.Item>
-      <Menu.Item key="2" onClick={() => handleMenuClick("Attach File")}>
-        Attach File
-      </Menu.Item>
+
       <Menu.Item key="4" onClick={() => handleMenuClick("Description")}>
         Description
       </Menu.Item>
-      <Menu.Item key="5" onClick={() => handleMenuClick("Lecture Notes")}>
-        Lecture Notes
-      </Menu.Item>
+
     </Menu>
   );
 
@@ -284,6 +280,7 @@ const CurriculumSection = ({setactivekey={setactivekey}}) => {
         <Button
         onClick={()=>setactivekey('4')}
           type="primary"
+              style={{ height: '44px', fontSize: '16px',backgroundColor:'#14698A'}}
           className="bg-[#1253BB] hover:bg-blue-600 h-[48px]"
         >
           Save & Next
