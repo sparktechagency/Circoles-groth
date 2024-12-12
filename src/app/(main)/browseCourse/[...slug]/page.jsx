@@ -4,21 +4,21 @@ import Image from 'next/image';
 import { useParams } from 'next/navigation';
 import React from 'react';
 import heroimg from "/public/images/browseheroimg.png";
-import { useTranslations } from 'next-intl';
+
 import { Breadcrumb, Button, Dropdown, Input, Menu } from 'antd';
 import { SearchOutlined, DownOutlined } from '@ant-design/icons';
 import CourseCard from '@/components/ui/CourseCard';
 const Page = ({ data }) => {
-    const t = useTranslations();
+
   const { slug } = useParams(); // Use useParams to access the dynamic slug
   const slugString = Array.isArray(slug) && slug.join('')
 
   const lastPart=slugString.slice(8,)
   const categoryMenu = (
     <Menu>
-      <Menu.Item key="1">{t("Category")} 1</Menu.Item>
-      <Menu.Item key="2">{t("Category")} 2</Menu.Item>
-      <Menu.Item key="3">{t("Category")} 3</Menu.Item>
+      <Menu.Item key="1">Category 1</Menu.Item>
+      <Menu.Item key="2">Category 2</Menu.Item>
+      <Menu.Item key="3">Category 3</Menu.Item>
     </Menu>
   );
 

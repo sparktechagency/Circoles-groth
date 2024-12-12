@@ -2,13 +2,13 @@
 import PopularCourses from '@/components/home/PopularCourses';
 import CourseCard from '@/components/ui/CourseCard';
 import { Breadcrumb, Tabs } from 'antd';
-import { useTranslations } from 'next-intl';
+
 import Link from 'next/link';
 import React, { useState } from 'react';
 import { SearchOutlined, DownOutlined, RightOutlined } from "@ant-design/icons";
 const page = () => {
     const [activeKey, setActiveKey] = useState("1");
-    const t = useTranslations()
+
 
     //   FAKE JSON DATA FOR DEMO PURPOSES ONLY
     const course = [
@@ -23,7 +23,7 @@ const page = () => {
             price: "€ 29.00",
             enrollLink: "ENROLL NOW",
             imageLink: "https://i.ibb.co.com/17pL5Qj/caourse1.png",
-            category: `${t("All courses")}`,
+            category: `All courses`,
         },
         {
             id: 1,
@@ -36,7 +36,7 @@ const page = () => {
             price: "€ 29.00",
             enrollLink: "ENROLL NOW",
             imageLink: "https://i.ibb.co.com/17pL5Qj/caourse1.png",
-            category: `${t("All courses")}`,
+            category: `All courses`,
         },
         {
             id: 1,
@@ -49,7 +49,7 @@ const page = () => {
             price: "€ 29.00",
             enrollLink: "ENROLL NOW",
             imageLink: "https://i.ibb.co.com/17pL5Qj/caourse1.png",
-            category: `${t("All courses")}`,
+            category: `All courses`,
         },
         {
             id: 1,
@@ -62,7 +62,7 @@ const page = () => {
             price: "€ 29.00",
             enrollLink: "ENROLL NOW",
             imageLink: "https://i.ibb.co.com/17pL5Qj/caourse1.png",
-            category: `${t("All courses")}`,
+            category: `All courses`,
         },
         {
             id: 1,
@@ -75,7 +75,7 @@ const page = () => {
             price: "€ 29.00",
             enrollLink: "ENROLL NOW",
             imageLink: "https://i.ibb.co.com/17pL5Qj/caourse1.png",
-            category: `${t("All courses")}`,
+            category: `All courses`,
         },
         {
             id: 1,
@@ -88,7 +88,7 @@ const page = () => {
             price: "€ 29.00",
             enrollLink: "ENROLL NOW",
             imageLink: "https://i.ibb.co.com/17pL5Qj/caourse1.png",
-            category: `${t("All courses")}`,
+            category: `All courses`,
         },
         {
             id: 1,
@@ -101,7 +101,7 @@ const page = () => {
             price: "€ 29.00",
             enrollLink: "ENROLL NOW",
             imageLink: "https://i.ibb.co.com/17pL5Qj/caourse1.png",
-            category: `${t("All courses")}`,
+            category: `All courses`,
         },
         {
             id: 1,
@@ -114,7 +114,7 @@ const page = () => {
             price: "€ 29.00",
             enrollLink: "ENROLL NOW",
             imageLink: "https://i.ibb.co.com/17pL5Qj/caourse1.png",
-            category: `${t("All courses")}`,
+            category: `All courses`,
         },
         {
             id: 2,
@@ -127,7 +127,7 @@ const page = () => {
             price: "€ 35.00",
             enrollLink: "ENROLL NOW",
             imageLink: "https://i.ibb.co.com/xLN7bSQ/category2.png",
-            category: `${t("Graphic Design")}`,
+            category: `Graphic Design`,
         },
         {
             id: 3,
@@ -140,7 +140,7 @@ const page = () => {
             price: "€ 27.00",
             enrollLink: "ENROLL NOW",
             imageLink: "https://i.ibb.co.com/vPfYHr7/category1.png",
-            category: `${t("UI/UX Design")}`,
+            category: `UI/UX Design`,
         },
         {
             id: 4,
@@ -153,7 +153,7 @@ const page = () => {
             price: "€ 40.00",
             enrollLink: "ENROLL NOW",
             imageLink: "https://i.ibb.co.com/xLN7bSQ/category2.png",
-            category: `${t("Programming")}`,
+            category: `Programming`,
         },
         {
             id: 5,
@@ -166,7 +166,7 @@ const page = () => {
             price: "€ 50.00",
             enrollLink: "ENROLL NOW",
             imageLink: "https://i.ibb.co.com/17pL5Qj/caourse1.png",
-            category: `${t("Artificial Intelligence")}`,
+            category: `Artificial Intelligence`,
         },
         {
             id: 6,
@@ -179,7 +179,7 @@ const page = () => {
             price: "€ 25.00",
             enrollLink: "ENROLL NOW",
             imageLink: "https://i.ibb.co.com/vPfYHr7/category1.png",
-            category: `${t("Business Management")}`,
+            category: `Business Management`,
         },
         {
             id: 7,
@@ -192,7 +192,7 @@ const page = () => {
             price: "€ 30.00",
             enrollLink: "ENROLL NOW",
             imageLink: "https://i.ibb.co.com/xLN7bSQ/category2.png",
-            category: `${t("3D")}`,
+            category: `3D`,
         },
         {
             id: 8,
@@ -205,7 +205,7 @@ const page = () => {
             price: "€ 33.00",
             enrollLink: "ENROLL NOW",
             imageLink: "https://i.ibb.co.com/17pL5Qj/caourse1.png",
-            category: `${t("Sports")}`,
+            category: `Sports`,
         },
         {
             id: 9,
@@ -218,7 +218,7 @@ const page = () => {
             price: "€ 37.00",
             enrollLink: "ENROLL NOW",
             imageLink: "https://i.ibb.co.com/vPfYHr7/category1.png",
-            category: `${t("All courses")}`,
+            category: `All courses`,
         },
     ];
 

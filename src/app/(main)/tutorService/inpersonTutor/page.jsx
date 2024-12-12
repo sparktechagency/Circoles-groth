@@ -1,7 +1,7 @@
 'use client'
 
 import { Breadcrumb, Button, Pagination, Tabs } from 'antd';
-import { useTranslations } from 'next-intl';
+
 import React, { useState } from 'react';
 import tutor from '/public/images/tutor.png'
 import TopratedTutorCard from '@/components/ui/TopratedTutorCard';
@@ -253,7 +253,7 @@ const page = () => {
   return filteredData.slice((currentPage - 1) * pageSize, currentPage * pageSize);
 };
 
- const t = useTranslations()
+
   return (
     <div>
       <div className="flex items-center justify-center py-8">
