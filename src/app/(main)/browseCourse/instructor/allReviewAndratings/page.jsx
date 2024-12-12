@@ -1,5 +1,5 @@
 import ReviewCard from "@/components/ui/ReviewCard";
-import ratingimage from "../../../../assets/images/srahkhan.png";
+import ratingimage from "/public/images/srahkhan.png";
 import Link from "next/link";
 import { ArrowUpOutlined } from "@ant-design/icons";
 import { Rate } from "antd";

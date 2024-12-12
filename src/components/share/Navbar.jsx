@@ -13,32 +13,15 @@ import {
 import logo from "/public/images/logo.png";
 import Image from "next/image";
 import Link from "next/link";
-import { useLocale, useTranslations } from "next-intl";
 import { Option } from "antd/es/mentions";
-import Cookies from "universal-cookie";
 import { useRouter } from "next/navigation";
 
 const Navbar = () => {
   const [drawerVisible, setDrawerVisible] = useState(false);
-  const [language, setLanguage] = useState("en"); // Default to 'en'
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const t = useTranslations();
-  const cookieMiya = new Cookies();
   const router = useRouter();
 
-  useEffect(() => {
-    const savedLang = cookieMiya.get("NEXT_LOCALE") || "en";
-    setLanguage(savedLang);
-  }, []);
 
-  const handleChange = (lang) => {
-    if (lang && lang !== language) {
-      setLanguage(lang);
-      cookieMiya.set("NEXT_LOCALE", lang, { path: "/" });
-      router.refresh(); // Refresh the data and re-render the page content
-      setIsModalVisible(false); // Close the modal after selection
-    }
-  };
 
   const showModal = () => {
     setIsModalVisible(true);
@@ -253,26 +236,16 @@ const Navbar = () => {
         onCancel={handleCancel}
         footer={null}
       >
-        <h2 className="text-lg font-semibold mb-4" >{t("Choose Your Preferred Language")}</h2>
+        <h2 className="text-lg font-semibold mb-4" >Choose Your Preferred Language</h2>
         <p className="mb-4 text-sm text-gray-500">
-          {t("Select a language from the dropdown to change the language of the website.")}
+         Select a language from the dropdown to change the language of the website.
         </p>
-        <Select
-          className="h-[44px] "
-          placeholder={t("Select Language")}
-          value={language}
-          style={{ width: "100%", marginBottom: "1rem" }}
-          onChange={handleChange}
-        >
-          <Select.Option className=" mb-2" value="en">{t("English")}</Select.Option>
-          <Select.Option value="gr">{t("Greek")}</Select.Option>
-          {/* Add other languages as needed */}
-        </Select>
+      
         <p className=" text-sm text-gray-500">
-          {t("Note: Changing the language will refresh the page to apply your selection.")}
+         Note: Changing the language will refresh the page to apply your selection.
         </p>
         <p className="mb-4 text-sm text-gray-500">
-          {t("If you encounter any issues, please try reloading the page manually.")}
+         If you encounter any issues, please try reloading the page manually.
         </p>
       </Modal>
 

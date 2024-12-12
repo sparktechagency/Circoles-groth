@@ -2,10 +2,10 @@
 import { Card, Avatar, Button, Rate } from "antd";
 import { message } from "antd";
 import React, { useState } from "react";
-import smartimg from "../../../assets/images/category3.png";
-import instactor from "../../../assets/images/Instructor.png";
-import instactor2 from "../../../assets/images/Instructor2.png";
-import student from "../../../assets/images/Instructor.png";
+import smartimg from "/public/images/category3.png";
+import instactor from "/public/images/Instructor.png";
+import instactor2 from "/public/images/Instructor2.png";
+import student from "/public/images/Instructor.png";
 import Image from "next/image";
 import { Collapse } from "antd";
 import {
@@ -26,12 +26,12 @@ import ReviewCard from "@/components/ui/ReviewCard";
 import Link from "next/link";
 import CourseCard from "@/components/ui/CourseCard";
 import { useRouter } from "next/navigation"; // Correct import
-import { useTranslations } from "next-intl";
+
 // import coursevideo from '/public/video/video1.mp4'
 const page = ({ params }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const router = useRouter(); // Correct usage
-  const t = useTranslations()
+
   // course curriculam data
   const { Panel } = Collapse;
   const panels = [

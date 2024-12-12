@@ -5,10 +5,10 @@ import { getLocale } from "next-intl/server";
 
 // Fetch locale and messages on the server side
 export default async function RootLayout({ children }) {
-  const locale = getLocale();  // Retrieve the user's locale
+
 
   return (
-    <html lang={locale}>
+    <html >
       <head>
         <link rel="icon" href="/favicon.ico" />
         <title>Pantagonostis</title>

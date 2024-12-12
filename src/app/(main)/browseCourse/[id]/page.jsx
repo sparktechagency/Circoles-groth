@@ -25,12 +25,12 @@ import ReviewCard from "@/components/ui/ReviewCard";
 import Link from "next/link";
 import CourseCard from "@/components/ui/CourseCard";
 import { useRouter } from "next/navigation"; // Correct import
-import { useTranslations } from "next-intl";
+
 // import coursevideo from '/public/video/video1.mp4'
 const page = ({ params }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const router = useRouter(); // Correct usage
-  const t = useTranslations()
+
   // course curriculam data
   const { Panel } = Collapse;
   const panels = [
@@ -144,7 +144,7 @@ const page = ({ params }) => {
               {/* left side content here-------------------------------------------- */}
               <div className="xl:max-w-2xl lg:max-w-xl w-full space-y-3 xl:block lg:block  hidden ">
                 <h1 className="text-white text-2xl font-bold font-Merriweather">
-                  {t("Product Management Basic Course")}
+                  Product Management Basic Course
                 </h1>
                 <div className="flex items-start justify-start mb-2">
                   <span className="text-yellow-500 text-sm flex items-center justify-center">
@@ -163,7 +163,7 @@ const page = ({ params }) => {
                   </span>
                 </div>
                 <p className="text-[#D0D5DD] text-sm font-normal pb-4">
-                  {("Learn Product Management like a Professional. Start from the fundamentals and go all the way to mastering product strategy,development, and market launch.")}
+                  Learn Product Management like a Professional. Start from the fundamentals and go all the way to mastering product strategy,development, and market launch.
                 </p>
 
                 <div className="bg-[#344054] p-6 rounded-sm  ">
@@ -177,7 +177,7 @@ const page = ({ params }) => {
                       <h3 className="text-[14px] text-white font-bold border-b border-white ">
                         Johon Doe
                       </h3>
-                      <p className="text-[#D0D5DD] text-sm">{t("Instructor")}</p>
+                      <p className="text-[#D0D5DD] text-sm">Instructor</p>
                     </div>
                   </div>
                   <div className="flex items-center justify-start gap-16 px-2 pt-4 ">
@@ -232,7 +232,7 @@ const page = ({ params }) => {
                     src='https://videos.pexels.com/video-files/6985525/6985525-uhd_2560_1440_25fps.mp4'
                   ></video>
                   <p className="absolute bottom-2 left-1/3 mt-2 ml-2 bg-opacity-70 text-sm font-bold  text-[#FCFCFD]">
-                    {t("Preview this course")}
+                    Preview this course
                   </p>
                 </div>
 
@@ -255,7 +255,7 @@ const page = ({ params }) => {
                       <span className="text-[#0C2A56] font-semibold">
                         + 127
                       </span>{" "}
-                      {t("Students enrolled the course")}
+                      Students enrolled the course
                     </span>
                   </div>
 
@@ -269,18 +269,18 @@ const page = ({ params }) => {
                   <div className="text-[#1D2939]  ">
                     <p>
                       <strong className="text-sm font-semibold">
-                        {t("Whom this course is for")}:
+                        Whom this course is for:
                       </strong>
                     </p>
                     <ul className="list-disc list-inside text-sm text-[#475467] space-y-1 py-2 pb-8">
-                      <li>{t("Starting your own business")}</li>
-                      <li>{t("Running or growing an existing business")}</li>
-                      <li>{t("Managing the accounts for a business")}</li>
-                      <li>{t("Writing a business plan")}</li>
+                      <li>Starting your own business</li>
+                      <li>Running or growing an existing business</li>
+                      <li>Managing the accounts for a business</li>
+                      <li>Writing a business plan</li>
                       <li>
-                        {t("Having difficulty with the financials of your business plan")}
+                        Having difficulty with the financials of your business plan
                       </li>
-                      <li>{t("Forecasting sales for your business")}</li>
+                      <li>Forecasting sales for your business</li>
                     </ul>
                   </div>
 
@@ -291,7 +291,7 @@ const page = ({ params }) => {
                     style={{backgroundColor:'#14698A'}}
                     className=" px-6 bg-primary "
                   >
-                    €29.00 {t("Buy Now")}
+                    €29.00 Buy Now
                   </Button>
      
                 </div>
@@ -305,15 +305,15 @@ const page = ({ params }) => {
             {/* left webinar--------- */}
             {/* <div className="space-y-2 p-6 max-w-xs">
                 <div className="pb-4">
-                  <h3 className="text-lg uppercase text-white">{t("webinar")}</h3>
+                  <h3 className="text-lg uppercase text-white">webinar</h3>
                   <p className="text-white text-sm">August 16,2024</p>
                 </div>
                 <h1 className="text-white text-[32px] font-bold ">
-                  {t("Film Maker Skillset for Beginner.")}
+                  Film Maker Skillset for Beginner.
                 </h1>
-                <p className="text-white text-lg">{t("Kitani Saravati")}</p>
+                <p className="text-white text-lg">Kitani Saravati</p>
                 <Button className="bg-transparent border-1 border-[#FFFFFF] p-2 text-xs font-normal text-white rounded-[5px] ">
-                  {t("Get it Now")}
+                  Get it Now
                 </Button>
               </div> */}
             {/* right webinar--------- */}
@@ -328,45 +328,45 @@ const page = ({ params }) => {
 
             {/* course details section here ---------- */}
             <div className="border border-[#D9D9D9] rounded-lg my-12 p-6 xl:max-w-2xl lg:max-w-xl w-full">
-              <h1 className="text-3xl font-bold mb-8">{t("you'll learn")}</h1>
+              <h1 className="text-3xl font-bold mb-8">you'll learn</h1>
               <div>
                 <ul className="list-none lg:text-lg md:text-lg text-sm text-[#475467] font-normal  space-y-[20px] py-2 pb-8">
                   <div className="flex items-start justify-start gap-2">
                     <CheckOutlined className="" />
                     <li>
                       {" "}
-                      {(" You will learn the core principles of product management, including market research, product development, and roadmap planning.")}
+                       You will learn the core principles of product management, including market research, product development, and roadmap planning.
                     </li>
                   </div>
                   <div className="flex items-start justify-start gap-2">
                     <CheckOutlined className="" />
                     <li>
                       {" "}
-                      {("You will learn the core principles of product management, including market research, product development, and roadmap planning.")}
+                      You will learn the core principles of product management, including market research, product development, and roadmap planning.
                     </li>
                   </div>
                   <div className="flex items-start justify-start gap-2">
                     <CheckOutlined className="" />
                     <li>
-                      {("You will learn the core principles of product management, including market research, product development, and roadmap planning.")}
+                      You will learn the core principles of product management, including market research, product development, and roadmap planning.
                     </li>
                   </div>
                   <div className="flex items-start justify-start gap-2">
                     <CheckOutlined className="" />
                     <li>
-                      {("You will learn the core principles of product management, including market research, product development, and roadmap planning.")}
+                      You will learn the core principles of product management, including market research, product development, and roadmap planning.
                     </li>
                   </div>
                   <div className="flex items-start justify-start gap-2">
                     <CheckOutlined className="" />
                     <li>
-                      {("You will learn the core principles of product management, including market research, product development, and roadmap planning.")}
+                      You will learn the core principles of product management, including market research, product development, and roadmap planning.
                     </li>
                   </div>
                   <div className="flex items-start justify-start gap-2">
                     <CheckOutlined className="" />
                     <li>
-                      {("You will learn the core principles of product management, including market research, product development, and roadmap planning.")}
+                      You will learn the core principles of product management, including market research, product development, and roadmap planning.
                     </li>
                   </div>
                 </ul>
@@ -375,18 +375,18 @@ const page = ({ params }) => {
 
             {/* Course curriculum section here ------------- */}
             <div className="xl:max-w-2xl lg:max-w-xl w-full my-12 border border-[#D9D9D9] rounded-lg p-4">
-              <h1 className="text-3xl font-bold mb-8">{t("Course Curriculum")}</h1>
+              <h1 className="text-3xl font-bold mb-8">Course Curriculum</h1>
 
               {/* lacture folder ----------------- */}
               <div className="flex items-center justify-between mb-4 ">
                 <div className="flex items-center justify-between lg:gap-6 md:gap-6 gap-1">
                   <div className="text-sm font-normal text-[#4E5566] flex items-center gap-3">
                     <FolderOutlined className="text-xl text-[#4E5566]" /> 6
-                    {t("Sections")}
+                    Sections
                   </div>
                   <div className="text-sm font-normal text-[#4E5566] flex items-center gap-3">
                     <PlayCircleOutlined className="text-xl text-[#4E5566]" />{" "}
-                    202 {t("lectures")}
+                    202 lectures
                   </div>
                   <div className="text-sm font-normal text-[#4E5566] flex items-center gap-3">
                     <ClockCircleOutlined className="text-xl text-[#4E5566]" />{" "}
@@ -408,10 +408,10 @@ const page = ({ params }) => {
                     header={
                       <div className="">
                         <div className="text-lg font-semibold text-[#475467]">
-                          {t("Introduction to Product Management")}
+                          Introduction to Product Management
                         </div>
                         <div className="text-xs text-[#98A2B3] font-normal">
-                          {t("06 Lectures • 30 Minutes")}
+                          06 Lectures • 30 Minutes
                         </div>
                       </div>
                     }
@@ -462,7 +462,7 @@ const page = ({ params }) => {
                     header={
                       <div className="">
                         <div className="text-lg font-semibold text-[#475467]">
-                          {t("Introduction to Product Management")}
+                          Introduction to Product Management
                         </div>
                         <div className="text-xs text-[#98A2B3] font-normal">
                           06 Lectures • 30 Minutes
@@ -515,7 +515,7 @@ const page = ({ params }) => {
                     header={
                       <div className="">
                         <div className="text-lg font-semibold text-[#475467]">
-                          {t("Introduction to Product Management")}
+                          Introduction to Product Management
                         </div>
                         <div className="text-xs text-[#98A2B3] font-normal">
                           06 Lectures • 30 Minutes
@@ -576,7 +576,7 @@ const page = ({ params }) => {
                   count={1}
                   defaultValue={4.7}
                 />
-                <span className="px-4">4.5 </span> {t("Course Rating")}{" "}
+                <span className="px-4">4.5 </span> Course Rating{" "}
                 <span className="text-lg text-[#475467] font-Inter">
                   (4.2k students reviewed)
                 </span>
@@ -591,14 +591,14 @@ const page = ({ params }) => {
                 href={" #"}
                 className="inline-flex items-center text-[#475467] border-b-2 border-[#475467] mt-8 text-[16px] font-semibold "
               >
-                {t("Show all reviews")}
+                Show all reviews
                 <ArrowUpOutlined className="rotate-45 text-xl pl-2" />
               </Link>
             </div>
 
             <div className=" lg:mt-28 md:mt-24 mt-12 xl:max-w-2xl lg:max-w-xl w-full ">
               <h1 className="text-3xl font-bold mb-8 text-[#1D2939] font-Merriweather">
-                {t("Instructor")}
+                Instructor
               </h1>
               <div className="flex items-center justify-start px-2 mb-9">
                 <Image
@@ -613,7 +613,7 @@ const page = ({ params }) => {
                     Johon Doe
                   </h3>
                   <p className="text-[#475467] text-[16px] font-normal">
-                    {t("Head of Product Management")}
+                    Head of Product Management
                   </p>
                 </div>
               </div>
@@ -738,7 +738,7 @@ const page = ({ params }) => {
                 href={" #"}
                 className="inline-flex items-center text-[#475467] border-b-2 border-[#475467] mt-8 text-[16px] font-semibold "
               >
-                {t("Show all reviews")}
+                Show all reviews
                 <ArrowUpOutlined className="rotate-45 text-xl pl-2" />
               </Link>
             </div>

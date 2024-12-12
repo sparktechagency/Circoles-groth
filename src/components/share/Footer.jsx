@@ -1,5 +1,5 @@
 
-'use client'
+
 import React from "react";
 import logo from "/public/images/footerlogo.png";
 import Image from "next/image";
@@ -17,37 +17,9 @@ import Link from "next/link";
 
 
 import { Select } from "antd";
-import { useLocale, useTranslations } from "next-intl";
-import Cookies from "universal-cookie";
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
 
 const Footer = () => {
-  const router = useRouter();
   
-  
-  
-  const [language, setLanguage] = useState("en"); // Default to 'en'
-  const t = useTranslations();
-  const localActive = useLocale();
-  const cookieMiya = new Cookies();
-
-  useEffect(() => {
-    const savedLang = cookieMiya.get("NEXT_LOCALE") || "en";
-    setLanguage(savedLang);
-  }, []); 
-
-
-
-  
-
-  const handleChange = (lang) => {
-    if (lang && lang !== language) {
-      setLanguage(lang);
-      cookieMiya.set("NEXT_LOCALE", lang, { path: "/" });
-      router.refresh(); // Refresh the data and re-render the page content
-    }
-  };
   return (
     <div>
       <footer className="px-4 divide-y bg-[#000000] text-gray-100 relative z-50">
@@ -66,21 +38,10 @@ const Footer = () => {
            
                 />
               </div>
-             <p> <Link href={'/becomeInstructor'} >{t('Become an Instructor')}</Link></p>
-              <p>{t('About us')}</p>
+             <p> <Link href={'/becomeInstructor'} >Become an Instructor</Link></p>
+              <p>About us</p>
 
 
-
-              <Select
-          defaultValue={localActive}
-          style={{ width: 120 }}
-          // disabled={isPending}
-          onChange={handleChange}
-          options={[
-            { value: "en", label: "English" },
-            { value: "gr", label: "greek" },
-          ]}
-        />
               {/* <Button
                 className="text-[#FFFFFF] hover:text-white bg-[#000000] hover:bg-[#000000] border-[1px]  border-[#E4E7EC] text-[16px] font-semibold p-6"
                 size="large"
@@ -94,60 +55,60 @@ const Footer = () => {
             {/* MENU ITEM ONE  */}
               <div className="space-y-3 text-start">
                 <h3 className="  text-[#FFFFFF] font-bold text-[16px] pb-3 font-Merriweather">
-                  {t("Programs")}
+                  Programs
                 </h3>
                 <div className="flex   gap-6">
                   <ul className="space-y-[12px] text-[#E4E7EC] text-sm">
                     <li>
                       <Link rel="noopener noreferrer" href="#">
-                        {t("Art & Design")}
+                        Art & Design
                       </Link>
                     </li>
                     <li>
                       <Link rel="noopener noreferrer" href="#">
-                       {t("Development")}
+                       Development
                       </Link>
                     </li>
                     <li>
                       <Link rel="noopener noreferrer" href="#">
-                        {t('Communication')}
+                       Communication
                       </Link>
                     </li>
                     <li>
                       <Link rel="noopener noreferrer" href="#">
-                        {t('Videography')}
+                       Videography
                       </Link>
                     </li>
                     <li>
                       <Link rel="noopener noreferrer" href="#">
-                        {t('Photography')}
+                       Photography
                       </Link>
                     </li>
                   </ul>
                   <ul className="space-y-[12px] text-[#E4E7EC] text-sm">
                     <li>
                       <Link rel="noopener noreferrer" href="#">
-                        {t("Marketing")}
+                        Marketing
                       </Link>
                     </li>
                     <li>
                       <Link rel="noopener noreferrer" href="#">
-                        {t('Content Writing')}
+                       Content Writing
                       </Link>
                     </li>
                     <li>
                       <Link rel="noopener noreferrer" href="#">
-                        {t('Finance')}
+                       Finance
                       </Link>
                     </li>
                     <li>
                       <Link rel="noopener noreferrer" href="#">
-                        {t('Science')}
+                       Science
                       </Link>
                     </li>
                     <li>
                       <Link rel="noopener noreferrer" href="#">
-                        {t('Networking')}
+                       Networking
                       </Link>
                     </li>
                   </ul>
@@ -156,32 +117,32 @@ const Footer = () => {
               {/* MENU ITEM TWO  */}
               <div className="space-y-3 pl-12">
                 <h3 className="  text-[#FFFFFF] font-bold text-[16px] pb-3 font-Merriweather">
-                  {t('Help & Support')}
+                 Help & Support
                 </h3>
                 <ul className="space-y-[12px] text-[#E4E7EC] text-sm">
                   <li>
                     <Link rel="noopener noreferrer" href="/FAQS">
-                      {t('FAQs')}
+                     FAQs
                     </Link>
                   </li>
                   <li>
                     <Link rel="noopener noreferrer" href="/contactUs">
-                      {t('Contact Us')}
+                     Contact Us
                     </Link>
                   </li>
                   <li>
                     <Link rel="noopener noreferrer" href="/PrivacyAndPolicy">
-                      {t('Privacy & Policy')}
+                     Privacy & Policy
                     </Link>
                   </li>
                   <li>
                     <Link rel="noopener noreferrer" href="/TermsAndConditions">
-                     {t('Terms & Conditions')}
+                    Terms & Conditions
                     </Link>
                   </li>
                   <li>
                     <Link rel="noopener noreferrer" href="/courseEnrolmentHelp">
-                      {t('Course Enrollment Help')}
+                     Course Enrollment Help
                     </Link>
                   </li>
                 </ul>
@@ -192,11 +153,11 @@ const Footer = () => {
                 <div className="text-[#E4E7EC] text-[16px] font-semibold space-y-4 pt-4">
                   <div>
                     <PhoneOutlined className="rotate-90 text-lg text-[#4BCAE9] pr-2" />
-                    <span className="text-[#E4E7EC]">{t('+(00)-000-000-0000')}</span>
+                    <span className="text-[#E4E7EC]">+(00)-000-000-0000</span>
                   </div>
                   <div className="pl-2">
                     <MailFilled className=" text-lg text-[#4BCAE9] pr-2" />
-                    <span className="text-[#E4E7EC]">{t('support@pantognostis.com')}</span>
+                    <span className="text-[#E4E7EC]">support@pantognostis.com</span>
                   </div>
                 </div>
               </div>
@@ -205,7 +166,7 @@ const Footer = () => {
             {/* copyright  */}
           <div className="flex justify-center  border-t-2 border-[#475467] py-4">
             <p className="text-sm text-[#E4E7EC]">
-              {t('© Pantagonostis 2024 | All rights reserved.')}
+             © Pantagonostis 2024 | All rights reserved.
             </p>
           </div>
         </div>

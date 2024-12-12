@@ -36,10 +36,10 @@ import reviewimg6 from "/public/images/review6.png";
 import reviewimg7 from "/public/images/review7.png";
 import reviewimg8 from "/public/images/review8.png";
 import teacher from "/public/images/teacher.png";
-import { useTranslations } from "next-intl";
+
 const { Title, Paragraph } = Typography;
 const page = () => {
-  const t = useTranslations();
+
   // Ref to control the carousel
   const carouselRef = useRef(null);
 
@@ -58,10 +58,10 @@ const page = () => {
       {/* top banner section -------------------------------- */}
       <div className="bg-[#F9FAFB] text-center p-6">
         <h1 className="text-3xl font-bold text-[#1D2939]">
-          {t("Become an Instructor")}
+          Become an Instructor
         </h1>
         <p className="text-sm font-normal text-[#667085] pt-2">
-          Home / {t("Become an Instructor")}
+          Home / Become an Instructor
         </p>
       </div>
 
@@ -72,12 +72,10 @@ const page = () => {
             {/* LEFT HERO SECTION */}
             <div className="flex flex-col justify-center p-6  text-center rounded-sm  w-full lg:text-left ">
               <h1 className="lg:text-[56px] text-4xl font-black leading-none sm:text-6xl text-[#101828] font-Merriweather">
-                {t("Become an Instructor")}
+                Become an Instructor
               </h1>
               <p className="mt-6 mb-8 text-[16px] font-normal sm:mb-12 text-[#475467] leading-8 max-w-md lg:mx-0 mx-auto ">
-                {t(
-                  "As an instructor, you will have the opportunity to share your knowledge and profit from each course sale!"
-                )}
+                As an instructor, you will have the opportunity to share your knowledge and profit from each course sale!
               </p>
               <div className="flex flex-col space-y-4 sm:items-center sm:justify-center sm:flex-row sm:space-y-0 sm:space-x-4 lg:justify-start">
                 <Link href="/auth/signup">
@@ -86,7 +84,7 @@ const page = () => {
                     size="large"
                     type="primary"
                   >
-                    {t("Get started now")}
+                    Get started now
                     <span>
                       {" "}
                       <ArrowUpOutlined className="rotate-45 text-xl" />
@@ -170,7 +168,7 @@ const page = () => {
           <div className="max-w-2xl  pt-6">
             {/* right content  */}
             <h1 className="text-3xl font-bold text-[#F9FAFB] leading-10">
-            {t("Why you’ll start teaching on")} <br /> {t("Pantognostis")}
+            Why you’ll start teaching on <br /> Pantognostis
             </h1>
             <p className="text-sm text-[#F2F4F7] font-normal leading-6 mt-8 mb-2">
               Praesent congue ornare nibh sed ullamcorper. Proin venenatis
@@ -185,11 +183,11 @@ const page = () => {
                     <CheckCircleFilled className="text-[#12B76A] text-2xl pt-1" />
                     <li>
                       <h3 className="text-[#F9FAFB] text-lg font-medium pb-2">
-                        {t("Tech your students as you want")}
+                        Tech your students as you want
                       </h3>
                       <p className="text-sm text-[#F2F4F7]">
-                        {t("Feel free to share your knowledge in your own unique way")}
-                        {t("Make the most of the courses and built up your reputation between customers")}
+                        Feel free to share your knowledge in your own unique way
+                        Make the most of the courses and built up your reputation between customers
                       </p>
                     </li>
                   </div>
@@ -197,10 +195,10 @@ const page = () => {
                     <CheckCircleFilled className="text-[#12B76A] text-2xl pt-1" />
                     <li>
                       <h3 className="text-[#F9FAFB] text-lg font-medium pb-2">
-                        {t("Manage your course, payment in one place")}
+                        Manage your course, payment in one place
                       </h3>
                       <p className="text-sm text-[#F2F4F7]">
-                        {t("Together we will promote and sell your course and get paid for every course sold")}
+                        Together we will promote and sell your course and get paid for every course sold
                       </p>
                     </li>
                   </div>
@@ -208,10 +206,10 @@ const page = () => {
                     <CheckCircleFilled className="text-[#12B76A] text-2xl pt-1" />
                     <li>
                       <h3 className="text-[#F9FAFB] text-lg font-medium pb-2">
-                        {t("Earn money")}
+                        Earn money
                       </h3>
                       <p className="text-sm text-[#F2F4F7]">
-                        {t("After creating a good image for your course just relax and enjoy your profits!")}
+                        After creating a good image for your course just relax and enjoy your profits!
                       </p>
                     </li>
                   </div>

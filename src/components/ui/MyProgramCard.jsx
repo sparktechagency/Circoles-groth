@@ -7,7 +7,6 @@ import {
   ArrowUpOutlined,
 } from "@ant-design/icons";
 import { Rate } from "antd";
-import { useTranslations } from "next-intl";
 
 const MyProgramCard = ({ courseimage, courseTitle, instructor, rating, price, reviews, duration, students, enrollLink }) => {
 

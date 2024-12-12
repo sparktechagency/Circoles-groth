@@ -7,14 +7,14 @@ import {
   ArrowUpOutlined,
 } from "@ant-design/icons";
 import { Rate } from "antd";
-import { useTranslations } from "next-intl";
+
 
 const ProgramCard = ({ courseimage,courseTitle ,instructor,rating,price ,reviews,duration,students,enrollLink}) => {
-const t=useTranslations()
+
   return (
     <Link href={`/programsDetails/${enrollLink}`}>
     
-    <div className=" w-full bg-white border border-gray-200 rounded-lg shadow-md overflow-hidden border">
+    <div className=" w-full bg-white  border-gray-200 rounded-lg shadow-md overflow-hidden border">
       {/* COURSE CARD BANNER IMGE HERE */}
      <div className="relative">
      <Image
