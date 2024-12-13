@@ -40,7 +40,7 @@ const TopHeader = () => {
        
        
        
-          case "/UserDashboard/EnrolledCourses/EnroledCourseDetails":
+        case "/UserDashboard/EnrolledCourses/EnroledCourseDetails":
           return (
             <div>
               <h1 className="text-[#333333] font-bold text-[24px]">
@@ -114,31 +114,138 @@ const TopHeader = () => {
               </h1>
             </div>
           );
-        case "/usermanagement":
+        case "/AdminDashboard/CreateNewcourse":
           return (
             <div>
               <h1 className="text-[#101828] font-bold text-[24px]">
-                Welcome back, groth
+              CreateNewcourse
               </h1>
             </div>
           );
-        case "/content":
+        case "/AdminDashboard/OnlinePrograms":
           return (
             <div>
               <h1 className="text-[#101828] font-bold text-[24px]">
-                Contents for review
+              OnlinePrograms
+              </h1>
+            </div>
+          );
+        case "/AdminDashboard/ManageUsers":
+          return (
+            <div>
+              <h1 className="text-[#101828] font-bold text-[24px]">
+              ManageUsers
+              </h1>
+            </div>
+          );
+        case "/AdminDashboard/Verification":
+          return (
+            <div>
+              <h1 className="text-[#101828] font-bold text-[24px]">
+              Verification
+              </h1>
+            </div>
+          );
+        case "/AdminDashboard/transaction":
+          return (
+            <div>
+              <h1 className="text-[#101828] font-bold text-[24px]">
+              transaction
+              </h1>
+            </div>
+          );
+
+        case "/TutorDashboard/UpcomingSession":
+          return (
+            <div>
+              <h1 className="text-[#101828] font-bold text-[24px]">
+              UpcomingSession
+              </h1>
+            </div>
+          );
+        case "/TutorDashboard/TutorProfileSetupStep-1":
+          return (
+            <div>
+              <h1 className="text-[#101828] font-bold text-[24px]">
+              Profile Setup-1
+              </h1>
+            </div>
+          );
+        case "/TutorDashboard/TutorProfileSetupStep-2":
+          return (
+            <div>
+              <h1 className="text-[#101828] font-bold text-[24px]">
+              Profile Setup
+              </h1>
+            </div>
+          );
+        case "/TutorDashboard/TutorProfileSetupStep-3":
+          return (
+            <div>
+              <h1 className="text-[#101828] font-bold text-[24px]">
+              Profile Setup
+              </h1>
+            </div>
+          );
+        case "/TutorDashboard/TutorProfileSetupStep-4":
+          return (
+            <div>
+              <h1 className="text-[#101828] font-bold text-[24px]">
+              Profile Setup
               </h1>
             </div>
           );
   
-        case "/settings/faq":
-          // return "Settings";
-          // default:
+        case "/TutorDashboard/Verification/verificationStep1":
           return (
             <div>
-              <h1 className="text-[#333333] font-bold text-[24px]">FAQ</h1>
+              <h1 className="text-[#101828] font-bold text-[24px]">
+              Tutor verification
+              </h1>
             </div>
           );
+        case "/TutorDashboard/Verification/verificationStep2":
+          return (
+            <div>
+              <h1 className="text-[#101828] font-bold text-[24px]">
+              Tutor verification
+              </h1>
+            </div>
+          );
+        case "/TutorDashboard/Verification/verificationStep3":
+          return (
+            <div>
+              <h1 className="text-[#101828] font-bold text-[24px]">
+              Tutor verification
+              </h1>
+            </div>
+          );
+        case "/TutorDashboard/TutorProfileSetupStep-4":
+          return (
+            <div>
+              <h1 className="text-[#101828] font-bold text-[24px]">
+              Tutor verification
+              </h1>
+            </div>
+          );
+        case "/TutorDashboard/Verification/verificationFee":
+          return (
+            <div>
+              <h1 className="text-[#101828] font-bold text-[24px]">
+              Tutor verification Fee
+              </h1>
+            </div>
+          );
+        case "/TutorDashboard/accountSeetings":
+          return (
+            <div>
+              <h1 className="text-[#101828] font-bold text-[24px]">
+              Tutor AccountSeetings
+              </h1>
+            </div>
+          );
+  
+        
       }
     };
   
