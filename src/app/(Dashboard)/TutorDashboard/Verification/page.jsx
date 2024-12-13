@@ -30,7 +30,7 @@ const page = () => {
 
                 <p className="text-[#667085] text-[14px] pb-4">Verification boosts your credibility, improves your visibility on the platform, and helps students trust your profile, increasing your chances of bookings</p>
 
-                <Link  href={'/DashboardLayout/TutorDashboard/Verification/verificationStep1'}>
+                <Link  href={'/TutorDashboard/Verification/verificationStep1'}>
                 <Button
              
               style={{

@@ -29,7 +29,7 @@ const ProfessionalInfo = () => {
   const handleFormSubmit = () => {
     console.log("Qualifications:", qualifications);
     setCurrentStep(3);
-    router.push('/DashboardLayout/TutorDashboard/TutorProfileSetupStep-4');
+    router.push('/TutorDashboard/TutorProfileSetupStep-4');
   };
 
   return (

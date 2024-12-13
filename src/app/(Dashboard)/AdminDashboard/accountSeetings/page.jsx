@@ -15,7 +15,7 @@ const page = () => {
                         <p className="text-[#667085] font-normal">Update the email used to log into your account</p>
                     </div>
                     <div>
-                        <Link href={'/TutorDashboard/UpdatePassword'}><Button>Update password</Button></Link>
+                        <Link href={'/AdminDashboard/UpdatePassword'}><Button>Update password</Button></Link>
                     </div>
                 </div>
                 <div className="flex items-center justify-between">
@@ -24,7 +24,7 @@ const page = () => {
                         <p className="text-[#667085] font-normal ">Update the email used to log into your account</p>
                     </div>
                     <div>
-                    <Link href={'/TutorDashboard/updateEmail'}>
+                    <Link href={'/AdminDashboard/updateEmail'}>
                     
                         <Button style={{color:'#344054',fontWeight:'600'}}>Update eamil</Button>
                     </Link>

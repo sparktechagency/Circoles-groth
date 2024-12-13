@@ -12,7 +12,7 @@ import { Progress, Rate } from "antd";
 const MyCourseCard = ({ courseimage, courseTitle, instructor, rating, price, reviews, duration, students, enrollLink }) => {
 
   return (
-  <Link href={'/DashboardLayout/UserDashboard/EnrolledCourses/EnroledCourseDetails'}>
+  <Link href={'/UserDashboard/EnrolledCourses/EnroledCourseDetails'}>
   
   <div className=" w-full bg-white border border-gray-200 rounded-lg shadow-md overflow-hidden">
       {/* COURSE CARD BANNER IMGE HERE */}

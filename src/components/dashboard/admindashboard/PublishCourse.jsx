@@ -13,7 +13,7 @@ const PublishCourse = () => {
   };
 
   const handleOk = () => {
-    router.push('/DashboardLayout/AdminDashboard');
+    router.push('/AdminDashboard');
     setIsModalVisible(false); // Close the modal
   };
 

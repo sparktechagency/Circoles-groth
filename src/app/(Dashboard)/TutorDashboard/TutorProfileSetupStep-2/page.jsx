@@ -34,7 +34,7 @@ const ProfessionalInfo = () => {
 setCurrentrSetps(2)
 
 
-    router.push('/DashboardLayout/TutorDashboard/TutorProfileSetupStep-3')
+    router.push('/TutorDashboard/TutorProfileSetupStep-3')
   };
 
   return (

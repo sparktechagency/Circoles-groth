@@ -43,7 +43,7 @@ const HeroSection = () => {
                 </span>
               </Button>
             </Link>
-            <Link href="/findYourTutor">
+            <Link href="/TopRatedTutor">
             <Button
                 className="text-[#195671] text-[16px] font-semibold p-6 bg-[#D1F5FC]"
                 size="large"

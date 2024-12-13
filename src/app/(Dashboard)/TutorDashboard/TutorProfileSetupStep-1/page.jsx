@@ -28,7 +28,7 @@ const BasicInfo = () => {
 
 
 
-    router.push('/DashboardLayout/TutorDashboard/TutorProfileSetupStep-2')
+    router.push('/TutorDashboard/TutorProfileSetupStep-2')
   };
   const handleFileChange = ({ fileList }) => {
     setFileList(fileList); // Update fileList state

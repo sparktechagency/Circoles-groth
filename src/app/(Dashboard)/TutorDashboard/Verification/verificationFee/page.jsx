@@ -97,7 +97,7 @@ const VerificationFee = () => {
           </h1>
         </div>
       ),
-      okText: <Link href={'/DashboardLayout/TutorDashboard'}>Go to Dashboard</Link>, // Customize the button text
+      okText: <Link href={'/TutorDashboard'}>Go to Dashboard</Link>, // Customize the button text
       okButtonProps: {
         style:{backgroundColor:'#14698A',hight:'44px'} // Customize button styles
       },

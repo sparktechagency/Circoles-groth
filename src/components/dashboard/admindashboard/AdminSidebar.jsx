@@ -147,7 +147,7 @@ const AdminSidebar = () => {
 
     {
       id:'2',
-      path:  '/UserDashboard/UseraccountSeetings',
+      path:  '/AdminDashboard/accountSeetings',
       title: "Settings",
       icon: <IoSettingsOutline size={20} color="#667085" />,
     },
@@ -198,9 +198,9 @@ const AdminSidebar = () => {
           />
         </div>
        <div className={` `}>
-       <Menu  className={`h-screen flex-cols items-center justify-between`} defaultSelectedKeys={["1"]} mode="inline" style={{ background: "#ffffff", color: "black" }}>
+       <Menu  className={`h-[calc(100vh-400px)]  flex-cols items-center justify-between`} defaultSelectedKeys={["1"]} mode="inline" style={{ background: "#ffffff", color: "black" }}>
           
-        <Menu className={` h-[calc(100vh-400px)] `} mode="inline" style={{ background: "#ffffff", color: "black" }}>
+      
         {adminmenuitems.map((item, index) => (
             <Menu.Item
               key={index}
@@ -214,10 +214,13 @@ const AdminSidebar = () => {
               <Link className="font-bold text-black" href={item.path}>{item.title}</Link>
             </Menu.Item>
           ))}
-        </Menu>
+
       
 
  
+        </Menu>
+
+        <Menu>
        <div className="">
        <div className="py-4  ">
               {bottomMenuItems.map((item, index) => {

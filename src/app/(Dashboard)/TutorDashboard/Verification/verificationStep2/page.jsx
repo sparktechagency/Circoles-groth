@@ -162,7 +162,7 @@ const Page = () => {
                         <Button style={{ height: "44px", fontSize: "16px", fontWeight: 400 }}>
                             Cancel
                         </Button>
-                        <Link href={'/DashboardLayout/TutorDashboard/Verification/verificationStep3'}>
+                        <Link href={'/TutorDashboard/Verification/verificationStep3'}>
                         <Button
                         htmlType="submit"
                             style={{ height: "44px", fontSize: "16px", fontWeight: 400,backgroundColor:'#14698A' }}
