@@ -162,6 +162,7 @@ const UserSidebar = () => {
         className={`bg-white sidebar-menu  ${mobileMenu ? "hidden" : "block"} absolute xl:block lg:block overflow-scroll  `}
         style={{
           position: "fixed",
+          color:'#344054',
           width: 312,
           left: 0,
           top: 0,
@@ -178,20 +179,20 @@ const UserSidebar = () => {
           />
         </div>
        <div className={`  `}>
-       <Menu  className={`h-screen flex-cols items-center justify-between`} defaultSelectedKeys={["1"]} mode="inline" style={{ background: "#ffffff", color: "black" }}>
+       <Menu  className={`h-screen flex-cols items-center justify-between`} defaultSelectedKeys={["1"]} mode="inline" style={{ background: "#ffffff", color: "#344054" }}>
           
-        <Menu className={` h-[calc(100vh-550px)]   `} mode="inline" style={{ background: "#ffffff", color: "black" }}>
+        <Menu className={` h-[calc(100vh-550px)]   `} mode="inline" style={{ background: "#ffffff", color: "#344054" }}>
         {userMenuItems.map((item, index) => (
             <Menu.Item
               key={index}
               icon={item.icon}
               style={{
-                color: router.pathname === item.path ? "red" : "#000000",
+                color: '#344054',
                 fontWeight: router.pathname === item.path ? "bold" : "normal",
                 fontSize: "16px",
               }}
             >
-              <Link className="font-bold text-black" href={item.path}>{item.title}</Link>
+              <Link className="font-bold text-[#344054]" href={item.path}><span className="text-[#344054]">{item.title}</span></Link>
             </Menu.Item>
           ))}
         </Menu>
@@ -215,7 +216,7 @@ const UserSidebar = () => {
                       backgroundColor: isActive ? "#F2F5FC" : "transparent",
                     }}
                   >
-                    <Link href={item.path}>{item.title}</Link>
+                    <Link href={item.path}><span className="text-[#344054]">{item.title}</span></Link>
                   </Menu.Item>
                 );
               })}

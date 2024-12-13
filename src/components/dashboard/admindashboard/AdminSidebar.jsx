@@ -211,7 +211,7 @@ const AdminSidebar = () => {
                 fontSize: "16px",
               }}
             >
-              <Link className="font-bold text-black" href={item.path}>{item.title}</Link>
+              <Link className="font-bold text-black" href={item.path}><span className="text-[#344054]">{item.title}</span></Link>
             </Menu.Item>
           ))}
 
@@ -238,7 +238,7 @@ const AdminSidebar = () => {
                       backgroundColor: isActive ? "#F2F5FC" : "transparent",
                     }}
                   >
-                    <Link href={item.path}>{item.title}</Link>
+                    <Link href={item.path}><span className="text-[#344054]">{item.title}</span></Link>
                   </Menu.Item>
                 );
               })}
