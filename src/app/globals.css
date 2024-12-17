@@ -387,3 +387,8 @@ border-color: transparent !important;
 .ant-table-pagination.ant-pagination {
   justify-content: center;
 }
+/* Add this to your CSS or inside a style tag */
+.rs-modal {
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+}

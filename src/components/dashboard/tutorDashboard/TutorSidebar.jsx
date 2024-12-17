@@ -192,7 +192,7 @@ const TutorSidebar = () => {
         <div className={` h-screen `}>
 
 
-            <Menu className={` h-[calc(100vh-400px)]  `} mode="inline" style={{ background: "#ffffff", color: "black" }}>
+            <Menu  className={` h-[calc(100vh-400px)]  `} mode="inline" style={{ background: "#ffffff", color: "black", }}>
               {tutorMenuItems.map((item, index) => (
                 <Menu.Item
                   key={index}

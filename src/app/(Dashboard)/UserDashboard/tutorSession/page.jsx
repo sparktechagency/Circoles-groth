@@ -35,7 +35,7 @@ export default function ViewSession() {
                             <th className="py-3">
 
                                 <div className="text-right mt-4">
-                                    <Link href={'/DashboardLayout/UserDashboard/TutorSchedul'}>
+                                    <Link href={'/UserDashboard/TutorSchedul'}>
 
                                         <Button style={{ backgroundColor: '#14698A', color: 'white', height: '44px', width: '145px' }} type="primary"><svg width="12" height="14" viewBox="0 0 12 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M8.33333 1.16602V3.49935M3.66667 1.16602V3.49935M0.75 5.83268H11.25M1.91667 2.33268H10.0833C10.7277 2.33268 11.25 2.85502 11.25 3.49935V11.666C11.25 12.3103 10.7277 12.8327 10.0833 12.8327H1.91667C1.27233 12.8327 0.75 12.3103 0.75 11.666V3.49935C0.75 2.85502 1.27233 2.33268 1.91667 2.33268Z" stroke="white" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" />
@@ -63,7 +63,7 @@ export default function ViewSession() {
                                     </div>
                                 </td>
                                 <td className="py-3 flex items-center justify-end">
-                                    <Link href={'/DashboardLayout/UserDashboard/TutorSchedul'}>
+                                    <Link href={'/UserDashboard/TutorSchedul'}>
                                         <Button style={{ backgroundColor: 'transparent', border: '1px solid #98A2B3', color: '#195671', fontWeight: '600', fontSize: '14px', height: '44px' }} type="primary"><svg width="12" height="14" viewBox="0 0 12 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M8.33333 1.16602V3.49935M3.66667 1.16602V3.49935M0.75 5.83268H11.25M1.91667 2.33268H10.0833C10.7277 2.33268 11.25 2.85502 11.25 3.49935V11.666C11.25 12.3103 10.7277 12.8327 10.0833 12.8327H1.91667C1.27233 12.8327 0.75 12.3103 0.75 11.666V3.49935C0.75 2.85502 1.27233 2.33268 1.91667 2.33268Z" stroke="#195671" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" />
                                         </svg>

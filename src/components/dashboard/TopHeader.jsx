@@ -2,11 +2,11 @@
 
 import { Badge } from "antd";
 import { Header } from "antd/es/layout/layout";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 const TopHeader = () => {
     const pathname = usePathname();
-    console.log(pathname)
+const router=useRouter()
     const getTitle = () => {
       switch (pathname) {
         case "/UserDashboard":

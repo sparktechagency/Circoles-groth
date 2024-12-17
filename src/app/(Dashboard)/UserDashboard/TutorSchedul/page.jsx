@@ -187,7 +187,7 @@ export default function TutorSchedul() {
                                 </div>
 
                                 <div className="!mt-auto pt-6">
-                                   <Link href={'/DashboardLayout/UserDashboard/BookingSummary'}>
+                                   <Link href={'/UserDashboard/BookingSummary'}>
                                    <Button
                                         type="primary"
                                         className="w-full h-11 bg-[#0284c7] mb-3 text-base font-medium"
