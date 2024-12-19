@@ -70,7 +70,7 @@ const CourseCard = ({ courseimage,courseTitle ,instructor,rating,price ,reviews,
           <Link href={`/browseCourse/${enrollLink}`}
             className="inline-flex items-center text-[#14698A] border-b-2 border-[#14698A] text-[16px] font-semibold "
           >
-            ROLL NOW
+            ENROLL NOW
             <ArrowUpOutlined className="rotate-45 text-xl pl-2" />
           </Link>
         </div>

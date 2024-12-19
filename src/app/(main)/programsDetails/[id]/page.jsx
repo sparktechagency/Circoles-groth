@@ -2,7 +2,7 @@
 import { Card, Avatar, Button, Rate } from "antd";
 import { message } from "antd";
 import React, { useState } from "react";
-import smartimg from "/public/images/category3.png";
+import smartimg from "/public/images/caourse1.png";
 import instactor from "/public/images/Instructor.png";
 import instactor2 from "/public/images/Instructor2.png";
 import student from "/public/images/Instructor.png";
@@ -152,7 +152,7 @@ const page = ({ params }) => {
               {/* left side content here-------------------------------------------- */}
               <div className="xl:max-w-2xl lg:max-w-xl w-full space-y-3 xl:block lg:block  hidden ">
                 <h1 className="text-white text-2xl font-bold font-Merriweather">
-                  {t("Product Management Basic Course")}
+                  Product Management Basic Course
                 </h1>
                 <div className="flex items-start justify-start mb-2">
                   <span className="text-yellow-500 text-sm flex items-center justify-center">
@@ -171,7 +171,7 @@ const page = ({ params }) => {
                   </span>
                 </div>
                 <p className="text-[#D0D5DD] text-sm font-normal pb-4">
-                  {("Learn Product Management like a Professional. Start from the fundamentals and go all the way to mastering product strategy,development, and market launch.")}
+                  Learn Product Management like a Professional. Start from the fundamentals and go all the way to mastering product strategy,development, and market launch.
                 </p>
 
                 <div className="bg-[#344054] p-6 rounded-sm  ">
@@ -185,7 +185,7 @@ const page = ({ params }) => {
                       <h3 className="text-[14px] text-white font-bold border-b border-white ">
                         Johon Doe
                       </h3>
-                      <p className="text-[#D0D5DD] text-sm">{t("Instructor")}</p>
+                      <p className="text-[#D0D5DD] text-sm">Instructor</p>
                     </div>
                   </div>
                   <div className="flex items-center justify-start gap-16 px-2 pt-4 ">
@@ -241,38 +241,38 @@ const page = ({ params }) => {
                     <CheckOutlined className="" />
                     <li>
                       {" "}
-                      {(" You will learn the core principles of product management, including market research, product development, and roadmap planning.")}
+                       You will learn the core principles of product management, including market research, product development, and roadmap planning.
                     </li>
                   </div>
                   <div className="flex items-start justify-start gap-2">
                     <CheckOutlined className="" />
                     <li>
                       {" "}
-                      {("You will learn the core principles of product management, including market research, product development, and roadmap planning.")}
+                      You will learn the core principles of product management, including market research, product development, and roadmap planning.
                     </li>
                   </div>
                   <div className="flex items-start justify-start gap-2">
                     <CheckOutlined className="" />
                     <li>
-                      {("You will learn the core principles of product management, including market research, product development, and roadmap planning.")}
+                      You will learn the core principles of product management, including market research, product development, and roadmap planning.
                     </li>
                   </div>
                   <div className="flex items-start justify-start gap-2">
                     <CheckOutlined className="" />
                     <li>
-                      {("You will learn the core principles of product management, including market research, product development, and roadmap planning.")}
+                      You will learn the core principles of product management, including market research, product development, and roadmap planning.
                     </li>
                   </div>
                   <div className="flex items-start justify-start gap-2">
                     <CheckOutlined className="" />
                     <li>
-                      {("You will learn the core principles of product management, including market research, product development, and roadmap planning.")}
+                     You will learn the core principles of product management, including market research, product development, and roadmap planning.
                     </li>
                   </div>
                   <div className="flex items-start justify-start gap-2">
                     <CheckOutlined className="" />
                     <li>
-                      {("You will learn the core principles of product management, including market research, product development, and roadmap planning.")}
+                     You will learn the core principles of product management, including market research, product development, and roadmap planning.
                     </li>
                   </div>
                 </ul>
@@ -336,7 +336,7 @@ const page = ({ params }) => {
                   count={1}
                   defaultValue={4.7}
                 />
-                <span className="px-4">4.5 </span> {t("Course Rating")}{" "}
+                <span className="px-4">4.5 </span> Course Rating{" "}
                 <span className="text-lg text-[#475467] font-Inter">
                   (4.2k students reviewed)
                 </span>
@@ -351,7 +351,7 @@ const page = ({ params }) => {
                 href={" #"}
                 className="inline-flex items-center text-[#475467] border-b-2 border-[#475467] mt-8 text-[16px] font-semibold "
               >
-                {t("Show all reviews")}
+                Show all reviews
                 <ArrowUpOutlined className="rotate-45 text-xl pl-2" />
               </Link>
             </div>

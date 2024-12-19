@@ -97,7 +97,7 @@ const page = () => {
           </h1>
         </div>
       ),
-      okText: <Link href="https://dimitriz-dshboard.vercel.app">Go to Dashboard</Link>, // Customize the button text
+      okText: <Link href="/UserDashboard">Go to Dashboard</Link>, // Customize the button text
       okButtonProps: {
         style: { backgroundColor: '#564FFD', borderColor: '#564FFD', color: '#fff' }, // Customize button styles
       },
