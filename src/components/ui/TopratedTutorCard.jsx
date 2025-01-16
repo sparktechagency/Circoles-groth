@@ -72,7 +72,7 @@ const TopratedTutorCard = ({ courseimage,courseTitle ,instructor,rating,price ,r
           <Link href={`/browseCourse/instructor/${enrollLink}`}
             className="inline-flex items-center text-[#14698A] border-b-2 border-[#14698A] text-[16px] font-semibold "
           >
-            Book Now
+            Book Session
             <ArrowUpOutlined className="rotate-45 text-xl pl-2" />
           </Link>
         </div>
