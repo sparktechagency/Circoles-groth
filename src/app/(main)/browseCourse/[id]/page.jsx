@@ -290,6 +290,8 @@ const page = ({ params }) => {
                     block
                     style={{backgroundColor:'#14698A'}}
                     className=" px-6 bg-primary "
+
+                    onClick={()=>router.push('/checkout')}
                   >
                     €29.00 Buy Now
                   </Button>
