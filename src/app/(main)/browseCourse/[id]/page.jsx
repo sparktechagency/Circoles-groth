@@ -126,12 +126,12 @@ const page = ({ params }) => {
 
   const handleAddToCart = () => {
     messageApi.open({
-      type: 'success',
-      content: 'add to cart success',
+      type: "success",
+      content: "add to cart success",
     });
 
     console.log("Added to cart");
-    router.push('/checkout')
+    router.push("/checkout");
   };
   return (
     <div>
@@ -163,7 +163,9 @@ const page = ({ params }) => {
                   </span>
                 </div>
                 <p className="text-[#D0D5DD] text-sm font-normal pb-4">
-                  Learn Product Management like a Professional. Start from the fundamentals and go all the way to mastering product strategy,development, and market launch.
+                  Learn Product Management like a Professional. Start from the
+                  fundamentals and go all the way to mastering product
+                  strategy,development, and market launch.
                 </p>
 
                 <div className="bg-[#344054] p-6 rounded-sm  ">
@@ -185,36 +187,85 @@ const page = ({ params }) => {
                       <ul className="list-none text-[#E4E7EC] text-sm space-y-4">
                         <li className="flex items-center space-x-2">
                           {" "}
-                          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M7.99992 3.99967V7.99967L10.6666 9.33301M14.6666 7.99967C14.6666 11.6816 11.6818 14.6663 7.99992 14.6663C4.31802 14.6663 1.33325 11.6816 1.33325 7.99967C1.33325 4.31778 4.31802 1.33301 7.99992 1.33301C11.6818 1.33301 14.6666 4.31778 14.6666 7.99967Z" stroke="#D0D5DD" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                          <svg
+                            width="16"
+                            height="16"
+                            viewBox="0 0 16 16"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M7.99992 3.99967V7.99967L10.6666 9.33301M14.6666 7.99967C14.6666 11.6816 11.6818 14.6663 7.99992 14.6663C4.31802 14.6663 1.33325 11.6816 1.33325 7.99967C1.33325 4.31778 4.31802 1.33301 7.99992 1.33301C11.6818 1.33301 14.6666 4.31778 14.6666 7.99967Z"
+                              stroke="#D0D5DD"
+                              stroke-width="1.5"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
                           </svg>
                           <span> 40+ Hours</span>
                         </li>
                         <li className="flex items-center space-x-2">
                           {" "}
-                          <span> <svg width="15" height="14" viewBox="0 0 15 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M5 6.33333L7 8.33333L13.6667 1.66667M13 7V11.6667C13 12.0203 12.8595 12.3594 12.6095 12.6095C12.3594 12.8595 12.0203 13 11.6667 13H2.33333C1.97971 13 1.64057 12.8595 1.39052 12.6095C1.14048 12.3594 1 12.0203 1 11.6667V2.33333C1 1.97971 1.14048 1.64057 1.39052 1.39052C1.64057 1.14048 1.97971 1 2.33333 1H9.66667" stroke="#D0D5DD" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                          </svg></span>
+                          <span>
+                            {" "}
+                            <svg
+                              width="15"
+                              height="14"
+                              viewBox="0 0 15 14"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M5 6.33333L7 8.33333L13.6667 1.66667M13 7V11.6667C13 12.0203 12.8595 12.3594 12.6095 12.6095C12.3594 12.8595 12.0203 13 11.6667 13H2.33333C1.97971 13 1.64057 12.8595 1.39052 12.6095C1.14048 12.3594 1 12.0203 1 11.6667V2.33333C1 1.97971 1.14048 1.64057 1.39052 1.39052C1.64057 1.14048 1.97971 1 2.33333 1H9.66667"
+                                stroke="#D0D5DD"
+                                stroke-width="1.5"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                              />
+                            </svg>
+                          </span>
                           <span>Quiz</span>
-
                         </li>
                         <li className="flex items-center space-x-2">
                           {" "}
-                          <svg width="14" height="16" viewBox="0 0 14 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M7.00008 11.9997H7.00675M3.00008 1.33301H11.0001C11.7365 1.33301 12.3334 1.92996 12.3334 2.66634V13.333C12.3334 14.0694 11.7365 14.6663 11.0001 14.6663H3.00008C2.2637 14.6663 1.66675 14.0694 1.66675 13.333V2.66634C1.66675 1.92996 2.2637 1.33301 3.00008 1.33301Z" stroke="#D0D5DD" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                          <svg
+                            width="14"
+                            height="16"
+                            viewBox="0 0 14 16"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M7.00008 11.9997H7.00675M3.00008 1.33301H11.0001C11.7365 1.33301 12.3334 1.92996 12.3334 2.66634V13.333C12.3334 14.0694 11.7365 14.6663 11.0001 14.6663H3.00008C2.2637 14.6663 1.66675 14.0694 1.66675 13.333V2.66634C1.66675 1.92996 2.2637 1.33301 3.00008 1.33301Z"
+                              stroke="#D0D5DD"
+                              stroke-width="1.5"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
                           </svg>
                           <span>Access on Mobile & TV</span>
                         </li>
 
                         <li className="flex items-center space-x-2">
-                          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M10.6667 1.33301V3.99967M5.33333 1.33301V3.99967M2 6.66634H14M3.33333 2.66634H12.6667C13.403 2.66634 14 3.26329 14 3.99967V13.333C14 14.0694 13.403 14.6663 12.6667 14.6663H3.33333C2.59695 14.6663 2 14.0694 2 13.333V3.99967C2 3.26329 2.59695 2.66634 3.33333 2.66634Z" stroke="#D0D5DD" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                          <svg
+                            width="16"
+                            height="16"
+                            viewBox="0 0 16 16"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M10.6667 1.33301V3.99967M5.33333 1.33301V3.99967M2 6.66634H14M3.33333 2.66634H12.6667C13.403 2.66634 14 3.26329 14 3.99967V13.333C14 14.0694 13.403 14.6663 12.6667 14.6663H3.33333C2.59695 14.6663 2 14.0694 2 13.333V3.99967C2 3.26329 2.59695 2.66634 3.33333 2.66634Z"
+                              stroke="#D0D5DD"
+                              stroke-width="1.5"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
                           </svg>
                           <span>Last updated on 15/07/2024</span>
                         </li>
                       </ul>
                     </div>
-
                   </div>
                 </div>
               </div>
@@ -228,8 +279,7 @@ const page = ({ params }) => {
                     loop
                     controls
                     playsInline
-
-                    src='https://videos.pexels.com/video-files/6985525/6985525-uhd_2560_1440_25fps.mp4'
+                    src="https://videos.pexels.com/video-files/6985525/6985525-uhd_2560_1440_25fps.mp4"
                   ></video>
                   <p className="absolute bottom-2 left-1/3 mt-2 ml-2 bg-opacity-70 text-sm font-bold  text-[#FCFCFD]">
                     Preview this course
@@ -262,7 +312,7 @@ const page = ({ params }) => {
                   <div className="flex items-center justify-between xl:py-4 ">
                     <h3 className="text-2xl font-bold mt-2">€29.00 </h3>
                     <span className="bg-[#F2F4F7] h-[44px] px-4 text-[#344054] font-semibold rounded-sm flex items-center justify-center py-1 text-xs">
-                    Beginner
+                      Beginner
                     </span>
                   </div>
 
@@ -278,7 +328,8 @@ const page = ({ params }) => {
                       <li>Managing the accounts for a business</li>
                       <li>Writing a business plan</li>
                       <li>
-                        Having difficulty with the financials of your business plan
+                        Having difficulty with the financials of your business
+                        plan
                       </li>
                       <li>Forecasting sales for your business</li>
                     </ul>
@@ -288,14 +339,12 @@ const page = ({ params }) => {
                     type="primary"
                     size="large"
                     block
-                    style={{backgroundColor:'#14698A'}}
+                    style={{ backgroundColor: "#14698A" }}
                     className=" px-6 bg-primary "
-
-                    onClick={()=>router.push('/checkout')}
+                    onClick={() => router.push("/checkout")}
                   >
-                    €29.00 Buy Now
+                    €29.00 ENROLL NOW
                   </Button>
-     
                 </div>
               </div>
             </div>
@@ -337,38 +386,50 @@ const page = ({ params }) => {
                     <CheckOutlined className="" />
                     <li>
                       {" "}
-                       You will learn the core principles of product management, including market research, product development, and roadmap planning.
+                      You will learn the core principles of product management,
+                      including market research, product development, and
+                      roadmap planning.
                     </li>
                   </div>
                   <div className="flex items-start justify-start gap-2">
                     <CheckOutlined className="" />
                     <li>
                       {" "}
-                      You will learn the core principles of product management, including market research, product development, and roadmap planning.
+                      You will learn the core principles of product management,
+                      including market research, product development, and
+                      roadmap planning.
                     </li>
                   </div>
                   <div className="flex items-start justify-start gap-2">
                     <CheckOutlined className="" />
                     <li>
-                      You will learn the core principles of product management, including market research, product development, and roadmap planning.
+                      You will learn the core principles of product management,
+                      including market research, product development, and
+                      roadmap planning.
                     </li>
                   </div>
                   <div className="flex items-start justify-start gap-2">
                     <CheckOutlined className="" />
                     <li>
-                      You will learn the core principles of product management, including market research, product development, and roadmap planning.
+                      You will learn the core principles of product management,
+                      including market research, product development, and
+                      roadmap planning.
                     </li>
                   </div>
                   <div className="flex items-start justify-start gap-2">
                     <CheckOutlined className="" />
                     <li>
-                      You will learn the core principles of product management, including market research, product development, and roadmap planning.
+                      You will learn the core principles of product management,
+                      including market research, product development, and
+                      roadmap planning.
                     </li>
                   </div>
                   <div className="flex items-start justify-start gap-2">
                     <CheckOutlined className="" />
                     <li>
-                      You will learn the core principles of product management, including market research, product development, and roadmap planning.
+                      You will learn the core principles of product management,
+                      including market research, product development, and
+                      roadmap planning.
                     </li>
                   </div>
                 </ul>
@@ -661,8 +722,9 @@ const page = ({ params }) => {
                 About
               </h2>
               <div
-                className={`relative ${!isExpanded ? "max-h-40 overflow-hidden" : ""
-                  }`}
+                className={`relative ${
+                  !isExpanded ? "max-h-40 overflow-hidden" : ""
+                }`}
               >
                 <p className="text-[#475467] mb-4">
                   I'm Angela, I'm a developer with a passion for teaching. I'm
@@ -695,14 +757,28 @@ const page = ({ params }) => {
 
             {/* others courses section here-------------------------------------------- */}
             <div className="bg-white lg:mt-32 md:mt-28 mt-12 xl:max-w-2xl lg:max-w-xl w-full">
-              <h1 className="text-3xl font-bold mb-8 text-[#000000] font-Merriweather">
-                Other courses from John Doe (
-                <span className="text-2xl text-[#1D2939] font-Merriweather">
-                  253
-                </span>
-                )
-              </h1>
-
+              <div className="max-w-lg  p-6 bg-gray-100 rounded-lg shadow-md">
+                <h1 className="text-3xl font-bold mb-6 text-gray-900 font-Merriweather t">
+                  Checkout Full Program
+                </h1>
+                <div className="bg-primary p-6 text-white rounded-lg shadow-lg">
+                  <ul className="space-y-3">
+                    <li className="flex items-center gap-2">
+                      ✅ <span className="text-lg"><Link href="/browseCourse/category/Programing">Programming</Link></span>
+                    </li>
+                   
+                    <li className="flex items-center gap-2">
+                      ✅ <span className="text-lg"><Link href="/browseCourse/category/Programing">Web development</Link></span>
+                    </li>
+                   
+                    <li className="flex items-center gap-2">
+                      ✅ <span className="text-lg"><Link href="/browseCourse/category/Programing">Web design</Link></span>
+                    </li>
+                   
+                  </ul>
+                </div>
+              </div>
+              {/* 
               <div className="">
                 {courseone.map((item) => (
                   <CourseCard
@@ -735,14 +811,14 @@ const page = ({ params }) => {
                     enrollLink={item.id}
                   />
                 ))}
-              </div>
-              <Link
+              </div> */}
+              {/* <Link
                 href={" #"}
                 className="inline-flex items-center text-[#475467] border-b-2 border-[#475467] mt-8 text-[16px] font-semibold "
               >
                 Show all reviews
                 <ArrowUpOutlined className="rotate-45 text-xl pl-2" />
-              </Link>
+              </Link> */}
             </div>
           </div>
         </div>

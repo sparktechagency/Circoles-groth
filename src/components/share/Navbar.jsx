@@ -14,14 +14,15 @@ import logo from "/public/images/logo.png";
 import Image from "next/image";
 import Link from "next/link";
 import { Option } from "antd/es/mentions";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 const Navbar = () => {
   const [drawerVisible, setDrawerVisible] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const router = useRouter();
 
-
+  const pathname = usePathname();
+  console.log(pathname);
 
   const showModal = () => {
     setIsModalVisible(true);
@@ -59,17 +60,34 @@ const Navbar = () => {
         {/* Category - Tutor */}
         <Panel header="Tutor" key="1" className="text-gray-800 font-medium bg-white">
           <Checkbox.Group onChange={onCategoryChange}>
-            <div className="flex flex-col gap-2">
+
+
+            {
+              pathname === '/TopRatedTutor' && <div className="flex flex-col gap-2">
+              <h3>Expertice in</h3>
+              <Checkbox value="Physics">Physics Expert</Checkbox>
+              <Checkbox value="Chemistry">Chemistry Expert</Checkbox>
+              <Checkbox value="Math">Math Expert</Checkbox>
+              <Checkbox value="biology">biology Expert</Checkbox>
+            </div>
+            }
+            {
+              pathname !== '/TopRatedTutor' && <div className="flex flex-col gap-2">
+              
               <Checkbox value="Tutor">Tutor</Checkbox>
             </div>
+            }
           </Checkbox.Group>
         </Panel>
 
+      {/* {
+        pathname == '/TopRatedTutor' && 
+      } */}
         {/* Category - Online Programs */}
         <Panel
           header="Online Programs"
           key="2"
-          className="text-gray-800 font-medium bg-white"
+          className={`text-gray-800 font-medium bg-white ${pathname === '/TopRatedTutor' && 'hidden'}`}
         >
           <Collapse defaultActiveKey={["2-1"]} ghost>
             <Panel header="Data Science" key="2-1">
@@ -105,7 +123,7 @@ const Navbar = () => {
         <Panel
           header="Difficulties Level"
           key="3"
-          className="text-gray-800 font-medium"
+          className={`text-gray-800 font-medium bg-white ${pathname === '/TopRatedTutor' && 'hidden'}`}
         >
           <Checkbox.Group onChange={onCategoryChange}>
             <div className="flex flex-col gap-2">
