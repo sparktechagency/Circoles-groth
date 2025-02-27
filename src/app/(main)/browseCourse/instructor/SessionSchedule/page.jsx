@@ -1,11 +1,11 @@
 'use client'
 import { useState } from 'react';
-import { Button, message, Steps } from 'antd';
+import { Badge, Button, Calendar, Card, message, Steps } from 'antd';
 import { useRouter } from 'next/navigation';
 
 
 const SchedulePage = () => {
-  const [selectedDay, setSelectedDay] = useState(null);
+  const [selectedDate, setSelectedDate] = useState(null);
   const [selectedTime, setSelectedTime] = useState(null);
   const router = useRouter();
 
@@ -13,11 +13,11 @@ const SchedulePage = () => {
   const times = ['3:30 PM', '4:00 PM', '4:30 PM', '5:00 PM','6:00 PM'];
 
   const handleContinue = () => {
-    if (!selectedDay || !selectedTime) {
+    if (!selectedDate ) {
       message.error('Please select a day and time!');
       return;
     }
-    console.log('Selected Day:', selectedDay);
+    console.log('Selected Day:', selectedDate);
     console.log('Selected Time:', selectedTime);
     router.push('/browseCourse/instructor/payment'); // Navigate to the payment page
   };
@@ -26,8 +26,24 @@ const SchedulePage = () => {
     router.back(); // Go to the previous page
   };
 
+
+
+
+  const handleSelect = (date) => {
+    setSelectedDate(date);
+  };
+
+  const getListData = (value) => {
+    const dateStr = value.format("YYYY-MM-DD");
+    const availability = {
+      "2025-03-01": ["3:30 PM", "4:00 PM", "4:30 PM"],
+      "2025-03-05": ["5:00 PM", "6:00 PM"],
+    };
+    return availability[dateStr] || [];
+  };
+
   return (
-    <div className="min-h-screen flex items-center justify-center container mx-auto items-center  p-4">
+    <div className="min-h-screen flex items-center justify-center container mx-auto   p-4">
       <div className="w-full   p-6 h-full max-w-4xl">
         <Steps current={0} className="mb-6 max-w-sm mx-auto">
           <Steps.Step title="Schedule" />
@@ -36,41 +52,35 @@ const SchedulePage = () => {
 
         <h2 className="text-lg font-medium mb-4">Select your Session Schedule</h2>
 
-        {/* Day Selector */}
-        <div className="grid grid-cols-7 gap-2 mb-4 w-fit">
-          {days.map((day, index) => (
-            <button
-              key={index}
-              className={`p-2 border rounded-md text-center h-[100px] w-[100px] ${
-                selectedDay === day
-                  ? 'bg-[#14698A] text-white'
-                  : 'bg-gray-100 text-gray-600'
-              }`}
-              onClick={() => setSelectedDay(day)}
-            >
-              {day}
-            </button>
-          ))}
-        </div>
-
-        {/* Time Selector */}
-        {selectedDay && (
-          <div className="grid lg:grid-cols-5 md:grid-cols-4 grid-cols-3 gap-2 mb-6 w-fit">
-            {times.map((time, index) => (
-              <button
-                key={index}
-                className={`p-2 border rounded-md text-centerc h-[100px] w-[100px] ${
-                  selectedTime === time
-                    ? 'bg-[#14698A] text-white'
-                    : 'bg-gray-100 text-gray-600'
-                }`}
-                onClick={() => setSelectedTime(time)}
-              >
-                {time}
-              </button>
-            ))}
-          </div>
-        )}
+        {/* Calendar */}
+        <Card className="mt-6 w-full mb-6 p-4">
+              <h2 className="text-lg font-semibold text-[#1D2939] mb-4">
+                Availability
+              </h2>
+              <Calendar
+                fullscreen={false}
+                dateCellRender={(value) => {
+                  const listData = getListData(value);
+                  return (
+                    <ul>
+                      {listData.map((item, index) => (
+                        <li key={index}>
+                          <Badge status="success" text={item} />
+                        </li>
+                      ))}
+                    </ul>
+                  );
+                }}
+                onSelect={handleSelect}
+              />
+              {selectedDate && (
+                <div className="mt-4">
+                  <p className="text-gray-700 font-semibold">
+                    Selected Date: {selectedDate.format("YYYY-MM-DD")}
+                  </p>
+                </div>
+              )}
+            </Card>
 
         {/* Action Buttons */}
         <div className="flex justify-end space-x-4">
