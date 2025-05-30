@@ -1,6 +1,16 @@
 "use client";
 import { useState, useEffect } from "react";
-import { Input, Button, Dropdown, Menu, Drawer, Modal, Select, Collapse, Checkbox } from "antd";
+import {
+  Input,
+  Button,
+  Dropdown,
+  Menu,
+  Drawer,
+  Modal,
+  Select,
+  Collapse,
+  Checkbox,
+} from "antd";
 
 const { Panel } = Collapse;
 import {
@@ -8,15 +18,26 @@ import {
   MenuOutlined,
   SearchOutlined,
   DownOutlined,
-  GlobalOutlined
+  GlobalOutlined,
 } from "@ant-design/icons";
 import logo from "/public/images/logo.png";
 import Image from "next/image";
 import Link from "next/link";
 import { Option } from "antd/es/mentions";
 import { usePathname, useRouter } from "next/navigation";
+import { useSelector } from "react-redux";
+import { useGetOwnprofileQuery } from "../../redux/features/AuthApi";
+import Cookies from "js-cookie";
+import Swal from "sweetalert2";
 
 const Navbar = () => {
+  const { data, isLoading } = useGetOwnprofileQuery();
+  console.log("userdata", data);
+
+  const user = data?.user;
+  const token = Cookies.get("token");
+  console.log("token--------", token);
+
   const [drawerVisible, setDrawerVisible] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const router = useRouter();
@@ -44,6 +65,23 @@ const Navbar = () => {
     setSelectedCategories(checkedValues);
   };
 
+  const handleLogout = () => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You will be logged out of your account.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, Log out!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire("Logged out!", "You're logged out.", "success");
+        Cookies.remove("token");
+        router.push("/auth/login");
+      }
+    });
+  };
 
   const categoryMenu = (
     <div className="p-4 bg-white shadow-lg rounded-lg">
@@ -58,36 +96,39 @@ const Navbar = () => {
         className="mt-4"
       >
         {/* Category - Tutor */}
-        <Panel header="Tutor" key="1" className="text-gray-800 font-medium bg-white">
+        <Panel
+          header="Tutor"
+          key="1"
+          className="text-gray-800 font-medium bg-white"
+        >
           <Checkbox.Group onChange={onCategoryChange}>
-
-
-            {
-              pathname === '/TopRatedTutor' && <div className="flex flex-col gap-2">
-              <h3>Expertice in</h3>
-              <Checkbox value="Physics">Physics Expert</Checkbox>
-              <Checkbox value="Chemistry">Chemistry Expert</Checkbox>
-              <Checkbox value="Math">Math Expert</Checkbox>
-              <Checkbox value="biology">biology Expert</Checkbox>
-            </div>
-            }
-            {
-              pathname !== '/TopRatedTutor' && <div className="flex flex-col gap-2">
-              
-              <Checkbox value="Tutor">Tutor</Checkbox>
-            </div>
-            }
+            {pathname === "/TopRatedTutor" && (
+              <div className="flex flex-col gap-2">
+                <h3>Expertice in</h3>
+                <Checkbox value="Physics">Physics Expert</Checkbox>
+                <Checkbox value="Chemistry">Chemistry Expert</Checkbox>
+                <Checkbox value="Math">Math Expert</Checkbox>
+                <Checkbox value="biology">biology Expert</Checkbox>
+              </div>
+            )}
+            {pathname !== "/TopRatedTutor" && (
+              <div className="flex flex-col gap-2">
+                <Checkbox value="Tutor">Tutor</Checkbox>
+              </div>
+            )}
           </Checkbox.Group>
         </Panel>
 
-      {/* {
+        {/* {
         pathname == '/TopRatedTutor' && 
       } */}
         {/* Category - Online Programs */}
         <Panel
           header="Online Programs"
           key="2"
-          className={`text-gray-800 font-medium bg-white ${pathname === '/TopRatedTutor' && 'hidden'}`}
+          className={`text-gray-800 font-medium bg-white ${
+            pathname === "/TopRatedTutor" && "hidden"
+          }`}
         >
           <Collapse defaultActiveKey={["2-1"]} ghost>
             <Panel header="Data Science" key="2-1">
@@ -123,7 +164,9 @@ const Navbar = () => {
         <Panel
           header="Difficulties Level"
           key="3"
-          className={`text-gray-800 font-medium bg-white ${pathname === '/TopRatedTutor' && 'hidden'}`}
+          className={`text-gray-800 font-medium bg-white ${
+            pathname === "/TopRatedTutor" && "hidden"
+          }`}
         >
           <Checkbox.Group onChange={onCategoryChange}>
             <div className="flex flex-col gap-2">
@@ -136,44 +179,72 @@ const Navbar = () => {
       </Collapse>
     </div>
   );
+
   const TutorMewnu = (
     <Menu className="max-w-[300px] w-full   space-y-2">
-     <Menu.Item key="1">
-     <Link href={'/tutorService/inpersonTutor'}>
-        <div className="flex  space-x-1">
-          <div className="pt-2">
-            <svg width="18" height="22" viewBox="0 0 18 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M1 18.5C1 17.837 1.26339 17.2011 1.73223 16.7322C2.20107 16.2634 2.83696 16 3.5 16H17M1 18.5C1 19.163 1.26339 19.7989 1.73223 20.2678C2.20107 20.7366 2.83696 21 3.5 21H17V1H3.5C2.83696 1 2.20107 1.26339 1.73223 1.73223C1.26339 2.20107 1 2.83696 1 3.5V18.5Z" stroke="#14698A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-            </svg>
-
+      <Menu.Item key="1">
+        <Link href={"/tutorService/inpersonTutor"}>
+          <div className="flex  space-x-1">
+            <div className="pt-2">
+              <svg
+                width="18"
+                height="22"
+                viewBox="0 0 18 22"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M1 18.5C1 17.837 1.26339 17.2011 1.73223 16.7322C2.20107 16.2634 2.83696 16 3.5 16H17M1 18.5C1 19.163 1.26339 19.7989 1.73223 20.2678C2.20107 20.7366 2.83696 21 3.5 21H17V1H3.5C2.83696 1 2.20107 1.26339 1.73223 1.73223C1.26339 2.20107 1 2.83696 1 3.5V18.5Z"
+                  stroke="#14698A"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </div>
+            <div>
+              <strong className="text-lg font-semibold text-[#101828]">
+                In-person
+              </strong>
+              <p className="text-[#475467] text-sm">
+                One-on-one personalized in-person tutoring
+              </p>
+            </div>
           </div>
-          <div>
-            <strong className="text-lg font-semibold text-[#101828]">In-person</strong>
-            <p className="text-[#475467] text-sm">One-on-one personalized in-person tutoring</p>
-          </div>
-        </div>
-     </Link>
+        </Link>
       </Menu.Item>
-
 
       <Menu.Item key="2">
-<Link href={'/tutorService/onlineTutor'}>
-        <div className="flex  space-x-2">
-          <div className="pt-2">
-            <svg width="20" height="22" viewBox="0 0 20 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M11 1L1 13H10L9 21L19 9H10L11 1Z" stroke="#14698A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-            </svg>
-
-
+        <Link href={"/tutorService/onlineTutor"}>
+          <div className="flex  space-x-2">
+            <div className="pt-2">
+              <svg
+                width="20"
+                height="22"
+                viewBox="0 0 20 22"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M11 1L1 13H10L9 21L19 9H10L11 1Z"
+                  stroke="#14698A"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </div>
+            <div>
+              <strong className="text-lg font-semibold text-[#101828]">
+                Online
+              </strong>
+              <p className="text-[#475467] text-sm">
+                Personalized online tutoring, anytime, anywhere.
+              </p>
+            </div>
           </div>
-          <div>
-            <strong className="text-lg font-semibold text-[#101828]">Online</strong>
-            <p className="text-[#475467] text-sm">Personalized online tutoring, anytime, anywhere.</p>
-          </div>
-        </div>
-</Link>
+        </Link>
       </Menu.Item>
-
     </Menu>
   );
 
@@ -200,7 +271,9 @@ const Navbar = () => {
                   overlay={categoryMenu}
                   trigger={["hover"]}
                 >
-                  <Button>Category <DownOutlined /></Button>
+                  <Button>
+                    Category <DownOutlined />
+                  </Button>
                 </Dropdown>
               </div>
             </div>
@@ -211,31 +284,70 @@ const Navbar = () => {
       {/* Right Side: Links (Hidden on small screens) */}
       <div className="">
         <ul className="hidden lg:flex items-center space-x-6">
-          <li> <Link href="/onlinePrograms" className="text-sm pl-2">
-            Online Programs
-          </Link></li>
-          <li>     <Dropdown
-            className="border-none"
-            overlay={TutorMewnu}
-            trigger={["hover"]}
-          >
-            <Button>Tutor Service <DownOutlined /></Button>
-          </Dropdown></li>
-          <li>  <Link href="/auth/Becomeatutor" className="text-sm pl-2">
-            Become a Tutor
-          </Link></li>
-          <li> <Link href={"/auth/login"} className="text-[16px] font-semibold text-[#475467]">
-            LogIn
-          </Link></li>
-          <li><Link href={"/auth/signup"}>
-            <Button className="text-[#FFFFFF] font-semibold text-[16px] p-5 bg-primary" style={{ backgroundColor: "#14698A" }} type="primary">
-
-              Sign Up
-            </Button>
-          </Link></li>
+          <li>
+            {" "}
+            <Link href="/onlinePrograms" className="text-sm pl-2">
+              Online Programs
+            </Link>
+          </li>
+          <li>
+            {" "}
+            <Dropdown
+              className="border-none"
+              overlay={TutorMewnu}
+              trigger={["hover"]}
+            >
+              <Button>
+                Tutor Service <DownOutlined />
+              </Button>
+            </Dropdown>
+          </li>
+          <li>
+            <Link
+              href={`${token ? "/auth/Becomeatutor" : "/auth/login"}`}
+              className="text-sm pl-2"
+            >
+              Become a Tutor
+            </Link>
+          </li>
+          <li> </li>
+          <li>
+            {isLoading ? (
+              <Button
+                className="text-[#FFFFFF] font-semibold text-[16px] p-5 bg-primary"
+                style={{ backgroundColor: "#14698A" }}
+                type="primary"
+                loading
+              >
+                Sign Up
+              </Button>
+            ) : (
+              <>
+                {token ? (
+                  <Button
+                    onClick={handleLogout}
+                    className="text-[#FFFFFF] font-semibold text-[16px] p-5 bg-primary"
+                    style={{ backgroundColor: "#14698A" }}
+                    type="primary"
+                  >
+                    Log Out
+                  </Button>
+                ) : (
+                  <Link href={"/auth/signup"}>
+                    <Button
+                      className="text-[#FFFFFF] font-semibold text-[16px] p-5 bg-primary"
+                      style={{ backgroundColor: "#14698A" }}
+                      type="primary"
+                    >
+                      Sign Up
+                    </Button>
+                  </Link>
+                )}
+              </>
+            )}
+          </li>
           <li></li>
         </ul>
-
 
         {/* <Button onClick={showModal} size="large">
           <GlobalOutlined />
@@ -248,22 +360,21 @@ const Navbar = () => {
       </div>
 
       {/* Modal for language selection */}
-      <Modal
+      <Modal visible={isModalVisible} onCancel={handleCancel} footer={null}>
+        <h2 className="text-lg font-semibold mb-4">
+          Choose Your Preferred Language
+        </h2>
+        <p className="mb-4 text-sm text-gray-500">
+          Select a language from the dropdown to change the language of the
+          website.
+        </p>
 
-        visible={isModalVisible}
-        onCancel={handleCancel}
-        footer={null}
-      >
-        <h2 className="text-lg font-semibold mb-4" >Choose Your Preferred Language</h2>
-        <p className="mb-4 text-sm text-gray-500">
-         Select a language from the dropdown to change the language of the website.
-        </p>
-      
         <p className=" text-sm text-gray-500">
-         Note: Changing the language will refresh the page to apply your selection.
+          Note: Changing the language will refresh the page to apply your
+          selection.
         </p>
         <p className="mb-4 text-sm text-gray-500">
-         If you encounter any issues, please try reloading the page manually.
+          If you encounter any issues, please try reloading the page manually.
         </p>
       </Modal>
 
@@ -285,11 +396,17 @@ const Navbar = () => {
           <Link className="cursor-pointer" href={"/shoppingcart"}>
             <ShoppingCartOutlined className="text-2xl" />
           </Link>
-          <Link href={"/auth/login"} className="text-[16px] font-semibold text-[#475467]">
+          <Link
+            href={"/auth/login"}
+            className="text-[16px] font-semibold text-[#475467]"
+          >
             LogIn
           </Link>
           <Link href={"/auth/signup"}>
-            <Button className="text-[#FFFFFF] font-semibold text-[16px] p-5" type="primary">
+            <Button
+              className="text-[#FFFFFF] font-semibold text-[16px] p-5"
+              type="primary"
+            >
               Sign Up
             </Button>
           </Link>

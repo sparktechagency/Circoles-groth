@@ -11,8 +11,8 @@ import {
   GlobalOutlined,
   PlayCircleOutlined,
 } from "@ant-design/icons";
-import CourseCard from "@/components/ui/CourseCard";
-import ReviewCard from "@/components/ui/ReviewCard";
+import CourseCard from "../../../../../components/ui/CourseCard";
+import ReviewCard from "../../../../../components/ui/ReviewCard";
 import Link from "next/link";
 const page = ({ params }) => {
   const [activeKey, setActiveKey] = useState("2");

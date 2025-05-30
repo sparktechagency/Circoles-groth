@@ -3,13 +3,16 @@ import React from "react";
 import { Form, Input, Button, Checkbox } from "antd";
 import { message, Space } from "antd";
 import { GoogleOutlined } from "@ant-design/icons";
-import AuthLayout from "@/components/AuthLayout";
+
 import Link from "next/link";
 import Image from "next/image";
 import logoimage from "/public/images/logoimage.png";
 import googleicon from "/public/images/google.png";
 import { useRouter } from "next/navigation";
-import { useLoginMutation } from "@/redux/features/AuthApi";
+
+import Cookies from "js-cookie";
+import AuthLayout from "../../../../components/AuthLayout";
+import { useLoginMutation } from "../../../../redux/features/AuthApi";
 
 const signIn = () => {
   const [messageApi, contextHolder] = message.useMessage();
@@ -21,14 +24,15 @@ const signIn = () => {
     try {
       const resp = await login(values).unwrap();
       console.log(resp);
-      if (resp?.success) {
+      if (resp?.access_token) {
         messageApi.open({
           type: "success",
-          content: resp.message,
+          content: resp.message || "Something went wrong",
         });
+        Cookies.set("token", resp.access_token);
         router.push("/");
       }
-      if (!resp?.success) {
+      if (!resp?.access_token) {
         messageApi.open({
           type: "error",
           content: resp.message,
@@ -47,7 +51,7 @@ const signIn = () => {
     <AuthLayout>
       {contextHolder}
       <div className="pt-12">
-        <div className="text-center px-2 py-8">
+        <div className="text-center px-2 ">
           <div className="flex justify-center items-center mb-4">
             <Image src={logoimage} />
           </div>
@@ -142,14 +146,16 @@ const signIn = () => {
 
               {/* Google Sign In Button */}
               <Form.Item>
-                <Button
-                  block
-                  className="btn-google text-[#344054] text-[16px] font-semibold p-6 hover:border-[#344054] hover:bg-[#344054] hover:text-[#FFFFFF]"
-                  style={{ marginBottom: "10px" }}
-                >
-                  <Image src={googleicon} width={24} height={24} />
-                  Log in with Google
-                </Button>
+                <Link href="http://10.0.80.13:8050/api/auth/google?=http://10.0.80.13:8050/api/auth/google">
+                  <Button
+                    block
+                    className="btn-google text-[#344054] text-[16px] font-semibold p-6 hover:border-[#344054] hover:bg-[#344054] hover:text-[#FFFFFF]"
+                    style={{ marginBottom: "10px" }}
+                  >
+                    <Image src={googleicon} width={24} height={24} />
+                    Log in with Google
+                  </Button>
+                </Link>
               </Form.Item>
             </Form>
           </div>

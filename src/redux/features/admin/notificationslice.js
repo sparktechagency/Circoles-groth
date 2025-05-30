@@ -1,4 +1,4 @@
-const { api } = require("@/baseApi");
+const { api } = require("../../baseApi");
 
 const notification = api.injectEndpoints({
   endpoints: (builder) => ({
@@ -23,17 +23,11 @@ const notification = api.injectEndpoints({
 
       providesTags: ["notification"],
     }),
-
-
-   
-
-
-
   }),
 });
 
 export const {
- useGetallnotificationQuery,
+  useGetallnotificationQuery,
 
   useReadNotificationMutation,
   useRedallnotificationMutation,

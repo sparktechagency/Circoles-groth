@@ -7,7 +7,8 @@ export const api = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: "http://10.0.80.13:8050/api/",
     prepareHeaders: (headers) => {
-      const token = Cookies.get("token"); // Correct usage
+      const token = Cookies.get("token");
+      console.log("tokenFromBaseApi", token);
       if (token) {
         headers.set("Authorization", `Bearer ${token}`);
         headers.set("Accept", `*/*`);

@@ -1,4 +1,4 @@
-const { api } = require("@/baseApi");
+const { api } = require("../../baseApi");
 
 const productSlice = api.injectEndpoints({
   endpoints: (builder) => ({
@@ -17,15 +17,12 @@ const productSlice = api.injectEndpoints({
     }),
     // add new products
     updateproduct: builder.mutation({
-      query: ({id,data}) => ({
+      query: ({ id, data }) => ({
         url: `product-update/${id}`,
         method: "POST",
-        body:data
-     
+        body: data,
       }),
     }),
-
-
 
     // add new products
     deleteProduct: builder.mutation({

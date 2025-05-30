@@ -1,5 +1,4 @@
-
-'use client'
+"use client";
 import React, { useState } from "react";
 import { FiCreditCard } from "react-icons/fi";
 import { GrDocumentVerified } from "react-icons/gr";
@@ -8,16 +7,16 @@ import { LuCrown } from "react-icons/lu";
 import { PlayCircleOutlined } from "@ant-design/icons";
 import { Card, Progress, Button, Rate, Image } from "antd";
 import {
-    ClockCircleOutlined,
-    UsergroupDeleteOutlined,
-  } from "@ant-design/icons";
+  ClockCircleOutlined,
+  UsergroupDeleteOutlined,
+} from "@ant-design/icons";
 import { ArrowUp } from "lucide-react";
 import Link from "next/link";
 
 import { BiRightArrow } from "react-icons/bi";
 import { MdArrowForwardIos } from "react-icons/md";
-import UserBarChart from "@/components/dashboard/userDashboard/UserBarChart";
-const Mycourses= () => {
+import UserBarChart from "../../components/dashboard/userDashboard/UserBarChart";
+const Mycourses = () => {
   const [selectedCard, setSelectedCard] = useState(null);
   const cardData = [
     {
@@ -47,7 +46,6 @@ const Mycourses= () => {
     setSelectedCard(cardIndex);
   };
 
-
   const coursemenu = [
     {
       id: 1,
@@ -57,7 +55,7 @@ const Mycourses= () => {
       courseTitle: "Product Management Basic - Course",
       duration: "40 Hours",
       students: 176,
-      price: 29.00,
+      price: 29.0,
       enrollLink: "ENROLL NOW",
       imageLink: "https://i.ibb.co.com/17pL5Qj/caourse1.png",
       category: "All courses",
@@ -70,7 +68,7 @@ const Mycourses= () => {
       courseTitle: "Advanced Product Strategy - Course",
       duration: "45 Hours",
       students: 150,
-      price: 35.00,
+      price: 35.0,
       enrollLink: "ENROLL NOW",
       imageLink: "https://i.ibb.co.com/xLN7bSQ/category2.png",
       category: "Graphic Design",
@@ -83,11 +81,11 @@ const Mycourses= () => {
       courseTitle: "Product Roadmaps for Success",
       duration: "38 Hours",
       students: 200,
-      price: 27.00,
+      price: 27.0,
       enrollLink: "ENROLL NOW",
       imageLink: "https://i.ibb.co.com/vPfYHr7/category1.png",
       category: "UI/UX Design",
-    }
+    },
   ];
   return (
     <div className="bg-white p-6">
@@ -127,7 +125,7 @@ const Mycourses= () => {
         })}
       </div>
       <div className="lg:flex md:flex flex-row space-x-4 my-8">
-      <Card
+        <Card
           className=" w-full p-4"
           style={{
             backgroundColor: "#6941C6", // Dark green background
@@ -139,9 +137,8 @@ const Mycourses= () => {
           bodyStyle={{ padding: 0 }}
         >
           <div
-          className="xl:flex flex-wrap"
+            className="xl:flex flex-wrap"
             style={{
-             
               justifyContent: "space-between",
               alignItems: "center",
             }}
@@ -157,8 +154,15 @@ const Mycourses= () => {
               }}
               format={() => (
                 <div>
-                  <strong className="text-[46px] font-bold text-white">86%</strong>
-                  <p className="font-semibold" style={{ fontSize: "22px", color: "#FFFFFF", margin: 5}}>completed</p>
+                  <strong className="text-[46px] font-bold text-white">
+                    86%
+                  </strong>
+                  <p
+                    className="font-semibold"
+                    style={{ fontSize: "22px", color: "#FFFFFF", margin: 5 }}
+                  >
+                    completed
+                  </p>
                 </div>
               )}
             />
@@ -171,33 +175,38 @@ const Mycourses= () => {
                 }}
               >
                 <div className="">
-                    <span className="py-4 rounded-full px-6 bg-white text-[#475467] text-[14px]">17/28</span>
+                  <span className="py-4 rounded-full px-6 bg-white text-[#475467] text-[14px]">
+                    17/28
+                  </span>
                 </div>
               </div>
-              <div className="pr-12" style={{ marginTop: "10px", color: "#fff" }}>
-                <h3 className="text-white font-bold text-[34px]">3D Illustration</h3>
-                <p className="text-white text-xl font-semibold">Instructor: John Doe</p>
+              <div
+                className="pr-12"
+                style={{ marginTop: "10px", color: "#fff" }}
+              >
+                <h3 className="text-white font-bold text-[34px]">
+                  3D Illustration
+                </h3>
+                <p className="text-white text-xl font-semibold">
+                  Instructor: John Doe
+                </p>
               </div>
               <Button
-              className="py-6 px-12 w-full"
-            type="primary"
-            style={{
-              marginTop: "16px",
-              backgroundColor: "#fff",
-              color: "#000000",
-            fontWeight: "bold",
-              display: "flex",
-            
-            }}
-           
-          >
-            Continue <ArrowUp className="rotate-90"/>
-          </Button>
+                className="py-6 px-12 w-full"
+                type="primary"
+                style={{
+                  marginTop: "16px",
+                  backgroundColor: "#fff",
+                  color: "#000000",
+                  fontWeight: "bold",
+                  display: "flex",
+                }}
+              >
+                Continue <ArrowUp className="rotate-90" />
+              </Button>
             </div>
           </div>
-
-          
-     </Card>
+        </Card>
 
         <Card
           className="  w-full p-4"
@@ -213,7 +222,6 @@ const Mycourses= () => {
           <div
             className="xl:flex flex-wrap"
             style={{
-              
               justifyContent: "space-between",
               alignItems: "center",
             }}
@@ -229,8 +237,15 @@ const Mycourses= () => {
               }}
               format={() => (
                 <div>
-                  <strong className="text-[46px] font-bold text-white">66%</strong>
-                  <p className="font-semibold" style={{ fontSize: "22px", color: "#FFFFFF", margin: 5}}>completed</p>
+                  <strong className="text-[46px] font-bold text-white">
+                    66%
+                  </strong>
+                  <p
+                    className="font-semibold"
+                    style={{ fontSize: "22px", color: "#FFFFFF", margin: 5 }}
+                  >
+                    completed
+                  </p>
                 </div>
               )}
             />
@@ -243,38 +258,41 @@ const Mycourses= () => {
                 }}
               >
                 <div className="">
-                    <span className="py-4 rounded-full px-6 bg-white text-[#475467] text-[14px]">17/28</span>
+                  <span className="py-4 rounded-full px-6 bg-white text-[#475467] text-[14px]">
+                    17/28
+                  </span>
                 </div>
               </div>
-              <div className="pr-12" style={{ marginTop: "10px", color: "#fff" }}>
-                <h3 className="text-white font-bold text-[34px]">UX Design Course</h3>
-                <p className="text-white text-xl font-semibold">Instructor: John Doe</p>
+              <div
+                className="pr-12"
+                style={{ marginTop: "10px", color: "#fff" }}
+              >
+                <h3 className="text-white font-bold text-[34px]">
+                  UX Design Course
+                </h3>
+                <p className="text-white text-xl font-semibold">
+                  Instructor: John Doe
+                </p>
               </div>
               <Button
-              className="py-6 px-12 w-full"
-            type="primary"
-            style={{
-              marginTop: "16px",
-              backgroundColor: "#fff",
-              color: "#000000",
-            fontWeight: "bold",
-              display: "flex",
-            
-            }}
-           
-          >
-            Continue <ArrowUp className="rotate-90"/>
-          </Button>
+                className="py-6 px-12 w-full"
+                type="primary"
+                style={{
+                  marginTop: "16px",
+                  backgroundColor: "#fff",
+                  color: "#000000",
+                  fontWeight: "bold",
+                  display: "flex",
+                }}
+              >
+                Continue <ArrowUp className="rotate-90" />
+              </Button>
             </div>
           </div>
-
-          
         </Card>
       </div>
 
-
-        <UserBarChart/>
-  
+      <UserBarChart />
     </div>
   );
 };

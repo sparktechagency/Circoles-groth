@@ -1,4 +1,4 @@
-const { api } = require("@/baseApi");
+const { api } = require("../../baseApi");
 
 const faqSlice = api.injectEndpoints({
   endpoints: (builder) => ({

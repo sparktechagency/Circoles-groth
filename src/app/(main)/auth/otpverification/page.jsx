@@ -1,15 +1,68 @@
 "use client";
 import React, { useState } from "react";
-import { Form, Input, Button } from "antd";
-import AuthLayout from "@/components/AuthLayout";
+import { Form, Input, Button, message } from "antd";
+
 import Link from "next/link";
+import { useRouter, useSearchParams } from "next/navigation";
+
+import Cookies from "js-cookie";
+import {
+  useResetpasswordMutation,
+  useVerifyemailMutation,
+} from "../../../../redux/features/AuthApi";
+import AuthLayout from "../../../../components/AuthLayout";
 
 const Page = () => {
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const email = searchParams.get("email") || "";
+  const isRegegistation = searchParams.get("isRegegistation") || null;
+
+  const [verifyemail, { isLoading }] = useVerifyemailMutation();
+  const [resetpassword, { isLoading: isLoading2 }] = useResetpasswordMutation();
+
   const [otp, setOtp] = useState(["", "", "", ""]);
 
-  const onFinish = (values) => {
-    const otpValue = otp.join(""); 
-    console.log("Success:", { ...values, otp: otpValue });
+  const onFinish = async (values) => {
+    const otpValue = otp.join("");
+    console.log("Success:", otpValue);
+
+    try {
+      const resp = await verifyemail({ otp: otpValue }).unwrap();
+      console.log("response ---------", resp);
+      if (resp?.token) {
+        message.success(resp.message);
+        Cookies.set("token", resp.token);
+        router.push(
+          `${isRegegistation && resp?.token ? "/" : "/auth/createNewPassword"}`
+        );
+        console.log("usr", resp?.user);
+        setUser(resp?.user);
+      }
+      if (!resp?.success) {
+        message.error(resp.message);
+      }
+    } catch (error) {
+      console.log(error);
+      message.error(error?.data?.message || "Something went wrong");
+    }
+  };
+
+  const handleresend = async () => {
+    try {
+      const resp = await resetpassword({ email }).unwrap();
+      console.log("response ---------", resp);
+      if (resp?.success) {
+        message.success(resp.message);
+      }
+
+      if (!resp?.success) {
+        message.error(resp.message || "Something went wrong");
+      }
+    } catch (error) {
+      console.log(error);
+      message.error(error?.data?.message || "Something went wrong");
+    }
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -32,7 +85,7 @@ const Page = () => {
         <div className="text-start">
           <h1 className="text-3xl font-bold mb-4">OTP verification</h1>
           <h3 className="text-[#475467] text-[16px]">
-            We’ve sent you a verification code to <br /> alim...@gmail.com
+            We’ve sent you a verification code to <br /> {email}
           </h3>
         </div>
         <div className="lg:max-w-lg w-full mx-auto pt-8 ">
@@ -48,8 +101,8 @@ const Page = () => {
               <div className="flex justify-between   ">
                 {otp.map((digit, index) => (
                   <Input
-                  placeholder="0"
-                  className="text-6xl text-[#D0D5DD]"
+                    placeholder="0"
+                    className="text-6xl text-[#D0D5DD]"
                     key={index}
                     id={`otpInput-${index}`}
                     maxLength={1}
@@ -66,28 +119,27 @@ const Page = () => {
               </div>
 
               <Form.Item className="pt-6">
-               <Link href="/auth/createNewPassword">
-               <Button
-                    className="text-[#FFFFFF] text-[16px] font-semibold bg-primary p-6"
-                    style={{backgroundColor:'#14698A'}}
-                    size="large"
-                    type="primary"
-                    htmlType="submit"
-                    block
+                <Button
+                  className="text-[#FFFFFF] text-[16px] font-semibold bg-primary p-6"
+                  style={{ backgroundColor: "#14698A" }}
+                  size="large"
+                  type="primary"
+                  htmlType="submit"
+                  block
                 >
-                  Submit
-                </Button></Link>
+                  {isLoading ? "Verifying..." : "Verify"}
+                </Button>
               </Form.Item>
             </Form>
           </div>
           <div className="text-start lg:mt-4">
-          Didn’t received code?{" "}
-          <Link href="#">
-            <span className="text-[#195671] font-semibold hover:underline">
-            Send again
-            </span>
-          </Link>
-        </div>
+            Didn’t received code?{" "}
+            <button onClick={handleresend}>
+              <span className="text-[#195671] font-semibold hover:underline">
+                {isLoading2 ? "Resending..." : "Resend"}
+              </span>
+            </button>
+          </div>
         </div>
       </div>
     </AuthLayout>

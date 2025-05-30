@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import { useState } from "react";
 import { Rate, Progress } from "antd";
 import {
@@ -9,9 +9,8 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import SelectBox from "@/components/share/dashboard/SelectBox";
+import SelectBox from "../../components/share/dashboard/SelectBox";
 import Title from "antd/es/skeleton/Title";
-
 
 const data = [
   { name: "Jan", amt: 12000 },
@@ -72,13 +71,13 @@ const RevenueChart = () => {
           <h1 className="text-[#1D2026] text-lg font-medium">Earnings</h1>
         </div>
         <div>
-        <Title>This month</Title>
-        <SelectBox
-          options={selectOptions}
-          placeholder="Revenue"
-          onChange={handleSelectChange}
-          style={{ width: 100 }}
-        />
+          <Title>This month</Title>
+          <SelectBox
+            options={selectOptions}
+            placeholder="Revenue"
+            onChange={handleSelectChange}
+            style={{ width: 100 }}
+          />
         </div>
       </div>
 

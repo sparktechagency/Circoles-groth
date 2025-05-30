@@ -1,9 +1,8 @@
-'use client'
+"use client";
 import React from "react";
 import { Input, Select } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
-import CourseCard from "@/components/dashboard/admindashboard/CourseCard";
-
+import CourseCard from "../../components/dashboard/admindashboard/CourseCard";
 
 const { Option } = Select;
 
@@ -17,7 +16,7 @@ const MycourseCard = () => {
       courseTitle: "Product Management Basic - Course",
       duration: "40 Hours",
       students: 176,
-      price:  29.00,
+      price: 29.0,
       enrollLink: "ENROLL NOW",
       imageLink: "https://i.ibb.co.com/17pL5Qj/caourse1.png",
       category: "All courses",
@@ -30,7 +29,7 @@ const MycourseCard = () => {
       courseTitle: "Advanced Product Strategy - Course",
       duration: "45 Hours",
       students: 150,
-      price:  35.00,
+      price: 35.0,
       enrollLink: "ENROLL NOW",
       imageLink: "https://i.ibb.co.com/xLN7bSQ/category2.png",
       category: "Graphic Design",
@@ -43,7 +42,7 @@ const MycourseCard = () => {
       courseTitle: "Product Roadmaps for Success",
       duration: "38 Hours",
       students: 200,
-      price:  27.00,
+      price: 27.0,
       enrollLink: "ENROLL NOW",
       imageLink: "https://i.ibb.co.com/vPfYHr7/category1.png",
       category: "UI/UX Design",
@@ -56,7 +55,7 @@ const MycourseCard = () => {
       courseTitle: "Mastering Agile Product Management",
       duration: "50 Hours",
       students: 250,
-      price:  40.00,
+      price: 40.0,
       enrollLink: "ENROLL NOW",
       imageLink: "https://i.ibb.co.com/xLN7bSQ/category2.png",
       category: "Programming",
@@ -69,7 +68,7 @@ const MycourseCard = () => {
       courseTitle: "Product Leadership for Managers",
       duration: "60 Hours",
       students: 300,
-      price:  50.00,
+      price: 50.0,
       enrollLink: "ENROLL NOW",
       imageLink: "https://i.ibb.co.com/17pL5Qj/caourse1.png",
       category: "Artificial Intelligence",
@@ -82,7 +81,7 @@ const MycourseCard = () => {
       courseTitle: "Foundations of Product Development",
       duration: "35 Hours",
       students: 180,
-      price:  25.00,
+      price: 25.0,
       enrollLink: "ENROLL NOW",
       imageLink: "https://i.ibb.co.com/vPfYHr7/category1.png",
       category: "Business Management",
@@ -95,7 +94,7 @@ const MycourseCard = () => {
       courseTitle: "Product Marketing Essentials",
       duration: "42 Hours",
       students: 190,
-      price:  30.00,
+      price: 30.0,
       enrollLink: "ENROLL NOW",
       imageLink: "https://i.ibb.co.com/xLN7bSQ/category2.png",
       category: "3D",
@@ -108,7 +107,7 @@ const MycourseCard = () => {
       courseTitle: "Product Analytics for Beginners",
       duration: "48 Hours",
       students: 220,
-      price:  33.00,
+      price: 33.0,
       enrollLink: "ENROLL NOW",
       imageLink: "https://i.ibb.co.com/17pL5Qj/caourse1.png",
       category: "Sports",
@@ -121,7 +120,7 @@ const MycourseCard = () => {
       courseTitle: "Building Digital Products",
       duration: "55 Hours",
       students: 210,
-      price:  37.00,
+      price: 37.0,
       enrollLink: "ENROLL NOW",
       imageLink: "https://i.ibb.co.com/vPfYHr7/category1.png",
       category: "All courses",
@@ -136,7 +135,7 @@ const MycourseCard = () => {
       {/* Dropdowns for Sort By, Category, and Ratings */}
       <div className="flex flex-wrap justify-between space-x-4">
         <div className="mb-4">
-        <p className='text-[16px] font-medium text-[#344054] pb-2'>Search</p>
+          <p className="text-[16px] font-medium text-[#344054] pb-2">Search</p>
           <Input
             className="text-[#D0D5DD] border-[1px] border-[#D0D5DD] rounded-[4px] w-[300px] h-[40px] bg-white"
             placeholder="Search your courses..."
@@ -144,7 +143,7 @@ const MycourseCard = () => {
           />
         </div>
         <div>
-        <p className='text-[16px] font-medium text-[#344054] pb-2'>Sort by</p>
+          <p className="text-[16px] font-medium text-[#344054] pb-2">Sort by</p>
           {/* Sort By Dropdown */}
           <Select
             defaultValue="Sort by"

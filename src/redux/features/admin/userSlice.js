@@ -1,4 +1,4 @@
-const { api } = require("@/baseApi");
+const { api } = require("../../baseApi");
 
 const userSlice = api.injectEndpoints({
   endpoints: (builder) => ({
@@ -7,10 +7,6 @@ const userSlice = api.injectEndpoints({
         `users?page=${page}&per_page=${perPage}&search=${search}`,
       providesTags: ["user"],
     }),
-  
-
-
-
 
     deleteUsers: builder.mutation({
       query: (id) => ({

@@ -20,10 +20,10 @@ import {
   ArrowUpOutlined,
   UsergroupAddOutlined,
 } from "@ant-design/icons";
-import ReviewCard from "@/components/ui/ReviewCard";
+import ReviewCard from "../../../../components/ui/ReviewCard";
 // import student from "./Instructor.png";
 import Link from "next/link";
-import CourseCard from "@/components/ui/CourseCard";
+import CourseCard from "../../../../components/ui/CourseCard";
 import { useRouter } from "next/navigation"; // Correct import
 
 // import coursevideo from '/public/video/video1.mp4'
@@ -764,17 +764,31 @@ const page = ({ params }) => {
                 <div className="bg-primary p-6 text-white rounded-lg shadow-lg">
                   <ul className="space-y-3">
                     <li className="flex items-center gap-2">
-                      ✅ <span className="text-lg"><Link href="/browseCourse/category/Programing">Programming</Link></span>
+                      ✅{" "}
+                      <span className="text-lg">
+                        <Link href="/browseCourse/category/Programing">
+                          Programming
+                        </Link>
+                      </span>
                     </li>
-                   
+
                     <li className="flex items-center gap-2">
-                      ✅ <span className="text-lg"><Link href="/browseCourse/category/Programing">Web development</Link></span>
+                      ✅{" "}
+                      <span className="text-lg">
+                        <Link href="/browseCourse/category/Programing">
+                          Web development
+                        </Link>
+                      </span>
                     </li>
-                   
+
                     <li className="flex items-center gap-2">
-                      ✅ <span className="text-lg"><Link href="/browseCourse/category/Programing">Web design</Link></span>
+                      ✅{" "}
+                      <span className="text-lg">
+                        <Link href="/browseCourse/category/Programing">
+                          Web design
+                        </Link>
+                      </span>
                     </li>
-                   
                   </ul>
                 </div>
               </div>

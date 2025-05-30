@@ -2,8 +2,8 @@
 
 // import React, { useState, useEffect } from "react";
 // import { usePathname } from "next/navigation";
-// import Navbar from "@/components/share/Navbar";
-// import Footer from "@/components/share/Footer";
+// import Navbar from "../../components/share/Navbar";
+// import Footer from "../../components/share/Footer";
 // import { Spin, Progress } from "antd"; // Added Progress for loading indicator
 
 // const ClientWrapper = ({ children }) => {
@@ -61,7 +61,7 @@
 //         </div>
 //       ) : (
 //         <>
-         
+
 //           {/* {!isAuthRoute && <Navbar />} */}
 //           <Navbar/>
 

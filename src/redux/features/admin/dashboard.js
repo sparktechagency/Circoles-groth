@@ -1,4 +1,4 @@
-const { api } = require("@/baseApi");
+const { api } = require("../../baseApi");
 
 const statisticsSlice = api.injectEndpoints({
   endpoints: (builder) => ({
@@ -9,8 +9,6 @@ const statisticsSlice = api.injectEndpoints({
       }),
     }),
 
-
-
     getAnalytics: builder.query({
       query: (filter) => ({
         url: `/analytics?filter=${filter}`,
@@ -18,10 +16,8 @@ const statisticsSlice = api.injectEndpoints({
       }),
     }),
 
-
-
     getMostEarning: builder.query({
-      query: ( year ) => ({
+      query: (year) => ({
         url: `/most-earning`,
         method: "GET",
       }),
@@ -29,4 +25,8 @@ const statisticsSlice = api.injectEndpoints({
   }),
 });
 
-export const { useGetStatisticsQuery,useGetAnalyticsQuery,useGetMostEarningQuery } = statisticsSlice;
+export const {
+  useGetStatisticsQuery,
+  useGetAnalyticsQuery,
+  useGetMostEarningQuery,
+} = statisticsSlice;

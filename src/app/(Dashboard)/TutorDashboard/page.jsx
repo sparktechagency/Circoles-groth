@@ -1,15 +1,15 @@
-import Status from '@/components/dashboard/Status';
-import RevenueChart from '@/components/dashboard/tutorDashboard/RevenueChart';
+import Status from "../../components/dashboard/Status";
+import RevenueChart from "../../components/dashboard/tutorDashboard/RevenueChart";
 
-import React from 'react';
+import React from "react";
 
 const page = () => {
-    return (
-        <div className='min-h-screen w-full'>
-            <Status/>
-            <RevenueChart/>
-        </div>
-    );
+  return (
+    <div className="min-h-screen w-full">
+      <Status />
+      <RevenueChart />
+    </div>
+  );
 };
 
 export default page;

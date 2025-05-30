@@ -1,15 +1,32 @@
 "use client";
 import React from "react";
-import { Form, Input, Button, Checkbox } from "antd";
+import { Form, Input, Button, Checkbox, message } from "antd";
 import { GoogleOutlined } from "@ant-design/icons";
-import AuthLayout from "@/components/AuthLayout";
+
 import Link from "next/link";
-import Image from "next/image";
-import logoimage from "/public/images/logoimage.png";
-import googleicon from "/public/images/google.png";
+
+import { useRouter } from "next/navigation";
+import { useResetpasswordMutation } from "../../../../redux/features/AuthApi";
+import AuthLayout from "../../../../components/AuthLayout";
+
 const page = () => {
-  const onFinish = (values) => {
-    console.log("Success:", values);
+  const router = useRouter();
+  const [resetpassword, { isLoading: isLoading2 }] = useResetpasswordMutation();
+  const onFinish = async (values) => {
+    try {
+      const resp = await resetpassword({ email: values.email }).unwrap();
+      console.log("response ---------", resp);
+      if (resp?.success) {
+        message.success(resp.message || "Something went wrong");
+        router.push("/auth/otpverification");
+      }
+
+      if (!resp?.success) {
+        message.error(resp.message || "Something went wrong");
+      }
+    } catch (error) {
+      message.error(error?.data?.message || "Something went wrong");
+    }
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -22,7 +39,7 @@ const page = () => {
         <div className="text-start">
           <h1 className="text-3xl font-bold mb-4">Forgot password?</h1>
           <h3 className="text-[#475467] text-[16px]">
-            We’ll send a verification code to <br /> alim...@gmail.com email
+            We’ll send a verification code to <br /> your email
           </h3>
         </div>
         <div className="lg:max-w-lg w-full mx-auto pt-8 ">
@@ -60,17 +77,16 @@ const page = () => {
               </Form.Item>
 
               <Form.Item>
-              <Link href="/auth/otpverification">
-              <Button
+                <Button
                   className="text-[#FFFFFF] text-[16px] font-semibold bg-primary p-6"
-                  style={{backgroundColor:'#14698A'}}
+                  style={{ backgroundColor: "#14698A" }}
                   size="large"
                   type="primary"
                   htmlType="submit"
                   block
                 >
-                  Submit
-                </Button></Link>
+                  {isLoading2 ? "Loading..." : "Submit"}
+                </Button>
               </Form.Item>
             </Form>
           </div>
