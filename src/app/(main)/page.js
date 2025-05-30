@@ -11,7 +11,7 @@ export default function Home() {
     <main>
       <div className=" mx-auto">
         <HeroSection />
-        <InfoSumarize />
+        {/* <InfoSumarize /> */}
         <PopularCourses />
         <RecomendedPrograms />
         <TopRatedMentor />

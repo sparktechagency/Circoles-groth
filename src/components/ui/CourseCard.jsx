@@ -38,15 +38,6 @@ const CourseCard = ({
       {/* COURSE CARD DETAILS HERE */}
       <div className="p-4">
         <div className="flex justify-between items-center pt-5">
-          <p className="text-sm text-[#475467] mb-2">
-            by
-            <Link
-              href={`/browseCourse/instructor/${enrollLink}`}
-              className=" text-[#1D2939] border-b-2 text-sm font-semibold border-[#1D2939]"
-            >
-              {instructor}
-            </Link>
-          </p>
           <div className="flex items-center justify-center mb-2">
             <span className="text-yellow-500 text-sm">
               <Rate disabled allowHalf count={1} defaultValue={rating} />{" "}
