@@ -25,6 +25,7 @@ import Link from "next/link";
 import CourseCard from "../../../../components/ui/CourseCard";
 import { useRouter } from "next/navigation";
 import { useGetCourseDetailsQuery } from "../../../../redux/features/CourseApi";
+import SkeletonLoader from "../../../../components/SkeletonLoader";
 
 const Page = ({ params }) => {
   const { id } = params;
@@ -43,11 +44,7 @@ const Page = ({ params }) => {
   };
 
   if (isLoading) {
-    return (
-      <div className="container mx-auto py-16 px-4 flex justify-center">
-        <Spin size="large" />
-      </div>
-    );
+    return <SkeletonLoader rows={4} avatar />;
   }
 
   if (isError || !courseData?.success) {
