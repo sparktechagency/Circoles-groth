@@ -4,7 +4,8 @@ import { Breadcrumb, Tabs } from "antd";
 
 import React, { useState } from "react";
 import tutor from "/public/images/tutor.png";
-import TopratedTutorCard from "@/components/ui/TopratedTutorCard";
+import TopratedTutorCard from "../../../components/ui/TopratedTutorCard";
+
 const page = () => {
   const [activeKey, setActiveKey] = useState("1");
 

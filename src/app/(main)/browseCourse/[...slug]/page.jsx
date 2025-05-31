@@ -10,6 +10,7 @@ import { SearchOutlined, DownOutlined } from "@ant-design/icons";
 import CourseCard from "../../../../components/ui/CourseCard";
 const Page = ({ data }) => {
   const { slug } = useParams(); // Use useParams to access the dynamic slug
+  console.log("Slug:-----------------", slug);
   const slugString = Array.isArray(slug) && slug.join("");
 
   const lastPart = slugString.slice(8);

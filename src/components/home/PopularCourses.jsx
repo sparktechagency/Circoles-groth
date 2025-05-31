@@ -9,6 +9,7 @@ import {
   useGetAllCourseQuery,
   useGetcategorysQuery,
 } from "../../redux/features/CourseApi";
+import SkeletonLoader from "../../components/SkeletonLoader";
 
 const PopularCourses = () => {
   const [page, setPage] = useState(1);
@@ -50,11 +51,7 @@ const PopularCourses = () => {
   ];
 
   if (coursesLoading || categoriesLoading) {
-    return (
-      <div className="container mx-auto py-16 px-4 flex justify-center">
-        <Spin size="large" />
-      </div>
-    );
+    return <SkeletonLoader rows={4} avatar />;
   }
 
   if (coursesError) {

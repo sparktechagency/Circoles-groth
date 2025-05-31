@@ -5,6 +5,7 @@ import React, { useState } from "react";
 import { useGetcategorysQuery } from "../../redux/features/CourseApi";
 import { useTopRatedTutorsQuery } from "../../redux/features/TutorApi";
 import TopratedTutorCard from "../ui/TopratedTutorCard";
+import SkeletonLoader from "../SkeletonLoader";
 const TopRatedMentor = () => {
   const [page, setPage] = useState(1);
   const per_page = 6;
@@ -48,11 +49,7 @@ const TopRatedMentor = () => {
   ];
 
   if (tutorsLoading || categoriesLoading) {
-    return (
-      <div className="flex items-center justify-center py-16">
-        <Spin size="large" />
-      </div>
-    );
+    return <SkeletonLoader rows={4} avatar />;
   }
 
   if (tutorsError) {
@@ -65,10 +62,6 @@ const TopRatedMentor = () => {
 
   return (
     <div>
-      <div className="flex items-center justify-center py-8">
-        <Breadcrumb items={[{ title: "Home" }, { title: "Top Rated Tutor" }]} />
-      </div>
-
       <div className="container mx-auto py-16 px-4">
         {/* Tabs for categories */}
         <Tabs

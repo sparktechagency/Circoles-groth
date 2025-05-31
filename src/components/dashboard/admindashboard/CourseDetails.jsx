@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import React, { useState } from "react";
 import { Upload, Button, Input, Typography, message } from "antd";
 import { UploadOutlined, VideoCameraOutlined } from "@ant-design/icons";
@@ -78,7 +78,7 @@ const CourseDetails = ({ setactivekey }) => {
     console.log("Course Requirements:", inputFields3);
 
     // Set active key to 3
-    setactivekey('3');
+    setactivekey("3");
   };
 
   return (
@@ -275,7 +275,11 @@ const CourseDetails = ({ setactivekey }) => {
         <div className="flex justify-between mt-8">
           <Button>Preview</Button>
           <Button
-               style={{ height: '44px', fontSize: '16px',backgroundColor:'#14698A'}}
+            style={{
+              height: "44px",
+              fontSize: "16px",
+              backgroundColor: "#14698A",
+            }}
             type="primary"
             onClick={handleSaveAndNext}
           >

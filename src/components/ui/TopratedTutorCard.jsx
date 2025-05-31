@@ -20,7 +20,7 @@ const TopratedTutorCard = ({
       <div className="relative">
         <Image
           className="w-full h-64 object-cover"
-          src={tutorImage}
+          src={tutorImage || "/images/tutor.png"}
           alt={`${tutorName}'s profile`}
           height={500}
           width={500}
@@ -36,10 +36,10 @@ const TopratedTutorCard = ({
         <div className="flex justify-between items-center pt-5">
           <p className="text-sm text-[#475467] mb-2">
             <Link
-              href={profileLink}
+              href={profileLink || "#"}
               className="text-[#1D2939] border-b-2 text-sm font-semibold border-[#1D2939]"
             >
-              {tutorName}
+              {tutorName || "John Doe"}
             </Link>
           </p>
           <div className="flex items-center justify-center mb-2">
@@ -93,7 +93,9 @@ const TopratedTutorCard = ({
                 strokeLinejoin="round"
               />
             </svg>
-            <span className="text-[14px] font-medium pl-1">{languages}</span>
+            <span className="text-[14px] font-medium pl-1">
+              {languages || "N/A"}
+            </span>
           </span>
         </div>
 
@@ -103,7 +105,7 @@ const TopratedTutorCard = ({
             <span className="text-[#667085]">/Session</span>
           </span>
           <Link
-            href={profileLink}
+            href={profileLink || "#"}
             className="inline-flex items-center text-[#14698A] border-b-2 border-[#14698A] text-[16px] font-semibold"
           >
             Book Session

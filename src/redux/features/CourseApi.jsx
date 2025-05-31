@@ -10,7 +10,15 @@ const CourseApi = api.injectEndpoints({
     getcategorys: builder.query({
       query: () => `/categories`,
     }),
+
+    getCourseDetails: builder.query({
+      query: (id) => `/admin/course/show/${id}`,
+    }),
   }),
 });
 
-export const { useGetAllCourseQuery, useGetcategorysQuery } = CourseApi;
+export const {
+  useGetAllCourseQuery,
+  useGetcategorysQuery,
+  useGetCourseDetailsQuery,
+} = CourseApi;
