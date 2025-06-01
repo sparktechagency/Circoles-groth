@@ -36,14 +36,12 @@ const Navbar = () => {
 
   const user = data?.user;
   const token = Cookies.get("token");
-  console.log("token--------", token);
 
   const [drawerVisible, setDrawerVisible] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const router = useRouter();
 
   const pathname = usePathname();
-  console.log(pathname);
 
   const showModal = () => {
     setIsModalVisible(true);

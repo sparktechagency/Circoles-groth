@@ -1,13 +1,12 @@
 "use client";
 import React from "react";
 import { Form, Input, Button, Select } from "antd";
-import AuthLayout from "../../components/AuthLayout";
+
 import Link from "next/link";
 import Image from "next/image";
-import signupimage from "/public/images/logo.png";
-import googleicon from "/public/images/google.png";
-import SignupCarousel from "../../components/utils/SignupCarosel";
+
 import tutorimg from "/public/images/becometutor.png";
+import AuthLayout from "../../../../components/AuthLayout";
 
 const { Option } = Select;
 const Signup = () => {

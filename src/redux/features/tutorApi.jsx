@@ -6,7 +6,11 @@ const tutorApi = api.injectEndpoints({
       query: ({ per_page = 10, page = 1 }) =>
         `/top-rated-tutors?per_page=${per_page}&page=${page}`,
     }),
+
+    // getTutorDetailsById: builder.query({
+    //   query: (id) => `/student/tutor/profile/${id}`,
+    // }),
   }),
 });
 
-export const { useTopRatedTutorsQuery } = tutorApi;
+export const { useTopRatedTutorsQuery, useGetTutorDetailsByIdQuery } = tutorApi;

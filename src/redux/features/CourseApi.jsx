@@ -14,6 +14,9 @@ const CourseApi = api.injectEndpoints({
     getCourseDetails: builder.query({
       query: (id) => `/admin/course/show/${id}`,
     }),
+    getinstrucotorDetials: builder.query({
+      query: (id) => `/student/tutor/profile/${id}`,
+    }),
   }),
 });
 
@@ -21,4 +24,5 @@ export const {
   useGetAllCourseQuery,
   useGetcategorysQuery,
   useGetCourseDetailsQuery,
+  useGetinstrucotorDetialsQuery,
 } = CourseApi;

@@ -35,6 +35,8 @@ const Page = ({ params }) => {
   const { Panel } = Collapse;
   const [messageApi, contextHolder] = message.useMessage();
 
+  console.log("courseData", courseData);
+
   const handleAddToCart = () => {
     messageApi.open({
       type: "success",
