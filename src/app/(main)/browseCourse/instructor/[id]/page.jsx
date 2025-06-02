@@ -368,7 +368,7 @@ const page = ({ params }) => {
           <div className=" bg-white ">
             <div>
               <h1 className="text-lg font-bold  text-[#475467] font-Merriweather mt-14 pb-6">
-                {tutor?.total_reviews || "4.2k"} reviews & ratings
+                {tutor?.total_reviews || "0"} reviews & ratings
               </h1>
 
               {/* Course rating and reviews here---------------------------------------------- */}

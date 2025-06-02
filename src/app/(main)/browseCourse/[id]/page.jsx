@@ -35,7 +35,7 @@ const Page = ({ params }) => {
   const { Panel } = Collapse;
   const [messageApi, contextHolder] = message.useMessage();
 
-  console.log("courseData", courseData);
+  // console.log("courseData", courseData?.course?.full_program);
 
   const handleAddToCart = () => {
     messageApi.open({
@@ -59,6 +59,7 @@ const Page = ({ params }) => {
 
   const course = courseData.course;
 
+  console.log("fullprogram", course.full_program);
   return (
     <div>
       {contextHolder}
@@ -415,32 +416,16 @@ const Page = ({ params }) => {
               </h1>
               <div className="bg-primary p-6 text-white rounded-lg shadow-lg">
                 <ul className="space-y-3">
-                  <li className="flex items-center gap-2">
-                    ✅{" "}
-                    <span className="text-lg">
-                      <Link href={`/browseCourse/category/${course.category}`}>
-                        {course.category}
-                      </Link>
-                    </span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    ✅{" "}
-                    <span className="text-lg">
-                      <Link
-                        href={`/browseCourse/category/${course.sub_category}`}
-                      >
-                        {course.sub_category}
-                      </Link>
-                    </span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    ✅{" "}
-                    <span className="text-lg">
-                      <Link href={`/browseCourse/category/${course.topic}`}>
-                        {course.topic}
-                      </Link>
-                    </span>
-                  </li>
+                  {course?.full_program?.map((item) => (
+                    <li className="flex items-center gap-2">
+                      ✅{" "}
+                      <span className="text-lg">
+                        <Link href={`/browseCourse/category/${item?.title}`}>
+                          {item?.title}
+                        </Link>
+                      </span>
+                    </li>
+                  ))}
                 </ul>
               </div>
             </div>
