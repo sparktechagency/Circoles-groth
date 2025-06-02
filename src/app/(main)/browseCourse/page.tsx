@@ -78,11 +78,21 @@ const BrowseCoursesPage = () => {
 
   if (error) {
     return (
-      <div className="flex justify-center items-center h-screen">
-        <div className="text-red-500 text-lg">
-          Error loading courses. Please try again later.
-        </div>
-      </div>
+      <Empty
+        style={{ height: '80vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+        description={
+          <div className="text-center">
+            <h3 className="text-xl font-medium text-gray-700">
+              No courses found
+            </h3>
+            <p className="text-gray-500 mt-2">
+              {searchQuery
+                ? "Try a different search term"
+                : "No courses available at the moment"}
+            </p>
+          </div>
+        }
+      />
     );
   }
 

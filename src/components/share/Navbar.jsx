@@ -32,7 +32,6 @@ import Swal from "sweetalert2";
 
 const Navbar = () => {
   const { data, isLoading } = useGetOwnprofileQuery();
-  console.log("userdata", data);
 
   const user = data?.user;
   const token = Cookies.get("token");

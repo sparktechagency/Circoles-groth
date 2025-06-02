@@ -26,6 +26,11 @@ const CourseApi = api.injectEndpoints({
       query: ({ per_page = 10, page = 1, id }) =>
         `/admin/course/?per_page=${per_page}&page=${page}&category_id=${id}`,
     }),
+
+    getAvarageRating: builder.query({
+      query: ({ per_page = 10, page = 1, id }) =>
+        `/student/tutor/average-rating/${id}?page=${page}&per_page=${per_page}`,
+    }),
   }),
 });
 
@@ -36,4 +41,5 @@ export const {
   useGetinstrucotorDetialsQuery,
   useGetAllCourseByCategoryQuery,
   useGetallOnlineProgamsQuery,
+  useGetAvarageRatingQuery,
 } = CourseApi;

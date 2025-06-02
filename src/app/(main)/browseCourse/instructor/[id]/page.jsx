@@ -48,6 +48,7 @@ const page = ({ params }) => {
 
   const tutor = data?.tutor;
 
+  console.log("tutor", data);
   return (
     <div>
       <div className="container mx-auto xl:px-6 p-4">
@@ -380,7 +381,7 @@ const page = ({ params }) => {
                 </div>
                 {tutor?.reviews?.length > 4 && (
                   <Link
-                    href={"/browseCourse/instructor/allReviewAndratings"}
+                    href={`/browseCourse/instructor/allReviewAndratings/${tutor?.id}`}
                     className="inline-flex items-center text-[#475467] border-b-2 border-[#475467] mt-8 text-[16px] font-semibold "
                   >
                     Show all reviews

@@ -13,4 +13,4 @@ const tutorApi = api.injectEndpoints({
   }),
 });
 
-export const { useTopRatedTutorsQuery, useGetTutorDetailsByIdQuery } = tutorApi;
+export const { useTopRatedTutorsQuery } = tutorApi;
