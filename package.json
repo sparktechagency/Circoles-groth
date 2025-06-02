@@ -25,7 +25,8 @@
     "rsuite": "^5.75.0",
     "sharp": "^0.33.5",
     "sweetalert2": "^11.14.5",
-    "universal-cookie": "^7.2.0"
+    "universal-cookie": "^7.2.0",
+    "use-debounce": "^10.0.4"
   },
   "devDependencies": {
     "@types/js-cookie": "^3.0.6",
