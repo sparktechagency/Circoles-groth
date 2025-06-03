@@ -24,7 +24,10 @@ import ReviewCard from "../../../../components/ui/ReviewCard";
 import Link from "next/link";
 import CourseCard from "../../../../components/ui/CourseCard";
 import { useRouter } from "next/navigation";
-import { useGetCourseDetailsQuery } from "../../../../redux/features/CourseApi";
+import {
+  useGetCourseDetailsQuery,
+  usePurchaseCourseMutation,
+} from "../../../../redux/features/CourseApi";
 import SkeletonLoader from "../../../../components/SkeletonLoader";
 
 const Page = ({ params }) => {
@@ -35,14 +38,22 @@ const Page = ({ params }) => {
   const { Panel } = Collapse;
   const [messageApi, contextHolder] = message.useMessage();
 
+  const [purchaseCourse, { isLoading: isPurchasing }] =
+    usePurchaseCourseMutation();
   // console.log("courseData", courseData?.course?.full_program);
 
-  const handleAddToCart = () => {
-    messageApi.open({
-      type: "success",
-      content: "add to cart success",
-    });
-    router.push("/checkout");
+  const handlepurchase = async () => {
+    const res = await purchaseCourse({ id }).unwrap();
+    console.log("res", res);
+    if (res?.error) {
+      messageApi.open({
+        type: "error",
+        content: res?.error?.data?.message,
+      });
+    }
+    if (res?.success) {
+      router.push(`${res?.payment_url}`);
+    }
   };
 
   if (isLoading) {
@@ -188,12 +199,14 @@ const Page = ({ params }) => {
                 </div>
 
                 <Button
+                  loading={isPurchasing}
+                  disabled={isPurchasing}
                   type="primary"
                   size="large"
                   block
                   style={{ backgroundColor: "#14698A" }}
                   className="px-6 bg-primary"
-                  onClick={handleAddToCart}
+                  onClick={handlepurchase}
                 >
                   €{course.price} ENROLL NOW
                 </Button>

@@ -1,7 +1,6 @@
-import Status from "../../components/dashboard/Status";
-import RevenueChart from "../../components/dashboard/tutorDashboard/RevenueChart";
-
 import React from "react";
+import Status from "../../../components/dashboard/Status";
+import RevenueChart from "../../../components/dashboard/tutorDashboard/RevenueChart";
 
 const page = () => {
   return (

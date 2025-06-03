@@ -31,6 +31,14 @@ const CourseApi = api.injectEndpoints({
       query: ({ per_page = 10, page = 1, id }) =>
         `/student/tutor/average-rating/${id}?page=${page}&per_page=${per_page}`,
     }),
+
+    purchaseCourse: builder.mutation({
+      query: ({ id, body = {} }) => ({
+        url: `/student/course-booking?course_id=${id}`,
+        method: "POST",
+        body,
+      }),
+    }),
   }),
 });
 
@@ -42,4 +50,5 @@ export const {
   useGetAllCourseByCategoryQuery,
   useGetallOnlineProgamsQuery,
   useGetAvarageRatingQuery,
+  usePurchaseCourseMutation,
 } = CourseApi;

@@ -5,10 +5,10 @@ import { Tabs, Input, Select, Button, Menu, Form } from "antd";
 import { GoStack } from "react-icons/go";
 import { IoClipboardOutline, IoPlayCircleOutline } from "react-icons/io5";
 import { PiMonitorLight } from "react-icons/pi";
+import PublishCourse from "../../../../components/dashboard/admindashboard/PublishCourse";
+import CurriculumSection from "../../../../components/dashboard/admindashboard/CurriculumSection";
+import CourseDetails from "../../../../components/dashboard/admindashboard/CourseDetails";
 
-import CourseDetails from "../../components/dashboard/admindashboard/CourseDetails";
-import PublishCourse from "../../components/dashboard/admindashboard/PublishCourse";
-import CurriculumSection from "../../components/dashboard/admindashboard/CurriculumSection";
 // import { GoStack, MdDetails, FaClipboardList, AiOutlineCheckCircle } from 'react-icons/all'; // Import icons
 
 const { TabPane } = Tabs;

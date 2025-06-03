@@ -1,6 +1,6 @@
-import TopHeader from "../../components/dashboard/TopHeader";
-import TutorSidebar from "../../components/dashboard/tutorDashboard/TutorSidebar";
 import React from "react";
+import TutorSidebar from "../../../components/dashboard/tutorDashboard/TutorSidebar";
+import TopHeader from "../../../components/dashboard/TopHeader";
 
 const layout = ({ children }) => {
   return (
@@ -12,7 +12,7 @@ const layout = ({ children }) => {
       </div>
 
       {/* content area */}
-      <div className="w-full ml-[312px] w-full mt-[80px]">
+      <div className="w-full ml-[312px] mt-[80px]">
         <TopHeader />
         {children}
       </div>

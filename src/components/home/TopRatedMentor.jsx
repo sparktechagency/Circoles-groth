@@ -1,54 +1,52 @@
 "use client";
 
-import { Breadcrumb, Tabs, Spin, Button } from "antd";
+import { Breadcrumb, Tabs, Button } from "antd";
 import React, { useState } from "react";
-import { useGetcategorysQuery } from "../../redux/features/CourseApi";
 import { useTopRatedTutorsQuery } from "../../redux/features/TutorApi";
 import TopratedTutorCard from "../ui/TopratedTutorCard";
 import SkeletonLoader from "../SkeletonLoader";
+
 const TopRatedMentor = () => {
   const [page, setPage] = useState(1);
   const per_page = 6;
   const [activeCategory, setActiveCategory] = useState("all");
 
-  // Fetch tutors with pagination
   const {
-    data: tutorsData,
+    data: tutorsResponse = { tutors: { data: [], total: 0, last_page: 1 } },
     isLoading: tutorsLoading,
     error: tutorsError,
-  } = useTopRatedTutorsQuery({
-    per_page,
-    page,
-  });
+  } = useTopRatedTutorsQuery({ per_page, page });
 
-  // Fetch categories
-  const { data: categoriesData, isLoading: categoriesLoading } =
-    useGetcategorysQuery();
+  const tutorsData = tutorsResponse?.tutors?.data || [];
+  const totalTutors = tutorsResponse?.tutors?.total || 0;
+  const lastPage = tutorsResponse?.tutors?.last_page || 1;
 
-  // Handle tab change
-  const handleTabChange = (key) => {
-    setActiveCategory(key);
-    setPage(1); // Reset to first page when changing category
+  // Get unique subjects from all tutors
+  const getUniqueSubjects = () => {
+    const subjects = new Set(["all"]);
+    tutorsData.forEach((tutor) => {
+      tutor.subjects?.forEach((subject) => subjects.add(subject));
+    });
+    return Array.from(subjects).map((subject) => ({
+      id: subject,
+      name: subject === "all" ? "All Tutors" : subject,
+    }));
   };
 
-  // Filter tutors by expertise area (category)
+  const categories = getUniqueSubjects();
+
+  // Filter tutors by active category
   const filteredTutors =
     activeCategory === "all"
-      ? tutorsData?.tutors?.data || []
-      : tutorsData?.tutors?.data?.filter(
-          (tutor) => tutor.expertise_area === activeCategory
-        ) || [];
+      ? tutorsData
+      : tutorsData.filter((tutor) => tutor.subjects?.includes(activeCategory));
 
-  // Prepare categories for tabs
-  const categories = [
-    { id: "all", name: "All Tutors" },
-    ...(categoriesData?.categories?.map((category) => ({
-      id: category.name, // Using category name as it matches expertise_area
-      name: category.name,
-    })) || []),
-  ];
+  const handleTabChange = (key) => {
+    setActiveCategory(key);
+    setPage(1);
+  };
 
-  if (tutorsLoading || categoriesLoading) {
+  if (tutorsLoading) {
     return <SkeletonLoader rows={4} avatar />;
   }
 
@@ -61,76 +59,84 @@ const TopRatedMentor = () => {
   }
 
   return (
-    <div>
-      <div className="container mx-auto py-16 px-4">
-        {/* Tabs for categories */}
-        <Tabs
-          defaultActiveKey="all"
-          activeKey={activeCategory}
-          onChange={handleTabChange}
-          tabBarStyle={{ borderBottom: "none" }}
-        >
-          {categories.map((category) => (
-            <Tabs.TabPane
-              tab={
-                <button
-                  className={`category-button ${
-                    activeCategory === category.id ? "active-tab" : ""
-                  }`}
-                >
-                  {category.name}
-                </button>
-              }
-              className="pt-8"
-              key={category.id}
-            >
-              {/* Tutor cards for each category */}
-              <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-3 lg:grid-cols-3 gap-4">
-                {filteredTutors.length > 0 ? (
-                  filteredTutors.map((tutor) => (
-                    <TopratedTutorCard
-                      key={tutor.id}
-                      tutorImage="/images/tutor.png" // Default image
-                      tutorName={tutor.name}
-                      expertise={tutor.expertise_area}
-                      rating={tutor.avg_rating}
-                      sessionCharge={tutor.session_charge}
-                      reviews={tutor.total_reviews}
-                      profileLink={`/browseCourse/instructor/${tutor.id}`}
-                    />
-                  ))
-                ) : (
-                  <p className="col-span-3 text-center py-8">
-                    No tutors available in this category
-                  </p>
-                )}
-              </div>
+    <div className="container mx-auto py-16 px-4">
+      {/* <Breadcrumb
+        items={[{ title: "Home" }, { title: "Tutors" }, { title: "Top Rated" }]}
+        className="mb-8"
+      /> */}
 
-              {/* Pagination controls */}
-              {activeCategory === "all" &&
-                tutorsData?.tutors?.last_page > 1 && (
-                  <div className="flex justify-center mt-8 gap-4">
-                    <Button
-                      disabled={page === 1}
-                      onClick={() => setPage(page - 1)}
-                    >
-                      Previous
-                    </Button>
-                    <span className="flex items-center">
-                      Page {page} of {tutorsData?.tutors?.last_page}
-                    </span>
-                    <Button
-                      disabled={page === tutorsData?.tutors?.last_page}
-                      onClick={() => setPage(page + 1)}
-                    >
-                      Next
-                    </Button>
-                  </div>
-                )}
-            </Tabs.TabPane>
-          ))}
-        </Tabs>
-      </div>
+      <h1 className="text-3xl font-bold mb-8">Top Rated Mentors</h1>
+
+      <Tabs
+        defaultActiveKey="all"
+        activeKey={activeCategory}
+        onChange={handleTabChange}
+        tabBarStyle={{ borderBottom: "none" }}
+        className="mb-8"
+      >
+        {categories.map((category) => (
+          <Tabs.TabPane
+            tab={
+              <button
+                className={`px-4 py-2 rounded-full ${
+                  activeCategory === category.id
+                    ? "bg-[#D1F5FC] text-[#195671]"
+                    : "bg-gray-100 hover:bg-gray-200"
+                }`}
+              >
+                {category.name}
+              </button>
+            }
+            key={category.id}
+          >
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
+              {filteredTutors.length > 0 ? (
+                filteredTutors.map((tutor) => (
+                  <TopratedTutorCard
+                    key={tutor.id}
+                    tutorImage={tutor.avatar || "/default-avatar.png"}
+                    tutorName={tutor.name}
+                    expertise={tutor.expertise_area}
+                    subjects={tutor.subjects?.join(", ")}
+                    rating={tutor.avg_rating}
+                    sessionCharge={tutor.session_charge}
+                    reviews={tutor.total_reviews}
+                    profileLink={`/browseCourse/instructor/${tutor.id}`}
+                  />
+                ))
+              ) : (
+                <div className="col-span-3 text-center py-12">
+                  <p className="text-lg text-gray-500">
+                    No tutors found in this category
+                  </p>
+                </div>
+              )}
+            </div>
+
+            {activeCategory === "all" && lastPage > 1 && (
+              <div className="flex justify-center mt-8 gap-4 items-center">
+                <Button
+                  disabled={page === 1}
+                  onClick={() => setPage(page - 1)}
+                  className="flex items-center gap-2 "
+                >
+                  Previous
+                </Button>
+                <span className="mx-4">
+                  Page {page} of {lastPage}
+                </span>
+                <Button
+                  disabled={page === lastPage}
+                  onClick={() => setPage(page + 1)}
+                  className="flex items-center gap-2"
+                >
+                  Next
+                </Button>
+              </div>
+            )}
+          </Tabs.TabPane>
+        ))}
+      </Tabs>
     </div>
   );
 };

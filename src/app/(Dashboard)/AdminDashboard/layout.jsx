@@ -1,7 +1,6 @@
-import AdminSidebar from "../../components/dashboard/admindashboard/AdminSidebar";
-import TopHeader from "../../components/dashboard/TopHeader";
-
 import React from "react";
+import AdminSidebar from "../../../components/dashboard/admindashboard/AdminSidebar";
+import TopHeader from "../../../components/dashboard/TopHeader";
 
 const layout = ({ children }) => {
   return (
@@ -13,7 +12,7 @@ const layout = ({ children }) => {
       </div>
 
       {/* content area */}
-      <div className="w-full ml-[312px] w-full mt-[80px]">
+      <div className=" ml-[312px] w-full mt-[80px]">
         <TopHeader />
         {children}
       </div>

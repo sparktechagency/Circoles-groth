@@ -16,39 +16,54 @@ const PopularCourses = () => {
   const per_page = 6;
   const [activeCategory, setActiveCategory] = useState("all");
 
-  // Fetch courses with pagination
   const {
     data: coursesData,
     isLoading: coursesLoading,
     error: coursesError,
-  } = useGetAllCourseQuery({
-    per_page,
-    page,
-  });
+  } = useGetAllCourseQuery({ per_page, page });
 
-  // Fetch categories
   const { data: categoriesData, isLoading: categoriesLoading } =
     useGetcategorysQuery();
 
-  // Handle tab change
   const handleTabChange = (key) => {
     setActiveCategory(key);
-    setPage(1); // Reset to first page when changing category
+    setPage(1);
   };
 
-  // Filter courses by category (client-side filtering)
+  // Get unique categories from both API and course data
+  const getCategories = () => {
+    const courseCategories = new Set(["all"]);
+    coursesData?.courses?.data?.forEach((course) => {
+      if (course.category) courseCategories.add(course.category);
+    });
+
+    const apiCategories = categoriesData?.categories || [];
+
+    return apiCategories.length > 0
+      ? [
+          { id: "all", name: "All Categories" },
+          ...apiCategories.map((cat) => ({
+            id: cat.slug || cat.name.toLowerCase(),
+            name: cat.name,
+          })),
+        ]
+      : Array.from(courseCategories).map((cat) => ({
+          id: cat === "all" ? "all" : cat.toLowerCase(),
+          name: cat === "all" ? "All Categories" : cat,
+        }));
+  };
+
+  const allCategories = getCategories();
+
+  // Filter courses by active category
   const filteredCourses =
     activeCategory === "all"
       ? coursesData?.courses?.data || []
       : coursesData?.courses?.data?.filter(
-          (course) => course.category === activeCategory
+          (course) =>
+            course.category_slug === activeCategory ||
+            course.category.toLowerCase() === activeCategory
         ) || [];
-
-  // Extract unique categories from courses
-  const allCategories = [
-    { id: "all", name: "All Categories" },
-    ...(categoriesData?.categories || []),
-  ];
 
   if (coursesLoading || categoriesLoading) {
     return <SkeletonLoader rows={4} avatar />;
@@ -68,7 +83,6 @@ const PopularCourses = () => {
         Featured Courses
       </h1>
 
-      {/* Tabs for categories */}
       <Tabs
         defaultActiveKey="all"
         activeKey={activeCategory}
@@ -79,8 +93,10 @@ const PopularCourses = () => {
           <Tabs.TabPane
             tab={
               <button
-                className={`category-button ${
-                  activeCategory === category.id ? "active-tab" : ""
+                className={`px-4 py-2 rounded-full ${
+                  activeCategory === category.id
+                    ? "bg-[#D1F5FC] text-[#195671]"
+                    : "bg-gray-100 hover:bg-gray-200"
                 }`}
               >
                 {category.name}
@@ -89,26 +105,30 @@ const PopularCourses = () => {
             className="pt-8"
             key={category.id}
           >
-            {/* Course cards for each category */}
             <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-3 lg:grid-cols-3 gap-4">
-              {filteredCourses.map((course) => (
-                <CourseCard
-                  key={course.id}
-                  courseimage={course.thumbnail}
-                  courseTitle={course.title}
-                  instructor="Instructor Name" // Update with actual field if available
-                  rating={course.rating}
-                  price={course.price}
-                  reviews={course.total_reviews}
-                  duration={course.duration}
-                  students={0} // Update with actual field if available
-                  enrollLink={course.id}
-                  category={course.category}
-                />
-              ))}
+              {filteredCourses.length > 0 ? (
+                filteredCourses.map((course) => (
+                  <CourseCard
+                    key={course.id}
+                    courseimage={course.thumbnail}
+                    courseTitle={course.title}
+                    instructor="Instructor Name"
+                    rating={course.rating}
+                    price={course.price}
+                    reviews={course.total_reviews}
+                    duration={course.duration}
+                    students={0}
+                    enrollLink={course.id}
+                    category={course.category}
+                  />
+                ))
+              ) : (
+                <div className="col-span-3 text-center py-8">
+                  No courses found in this category
+                </div>
+              )}
             </div>
 
-            {/* Pagination controls */}
             {activeCategory === "all" &&
               coursesData?.courses?.last_page > 1 && (
                 <div className="flex justify-center mt-8 gap-4">

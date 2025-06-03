@@ -1,5 +1,5 @@
-import CourseEnrollmentHelp from "../../components/CourseEnrollmentHelp";
 import React from "react";
+import CourseEnrollmentHelp from "../../../components/CourseEnrollmentHelp";
 
 const page = () => {
   return (

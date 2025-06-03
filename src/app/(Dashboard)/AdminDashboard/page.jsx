@@ -1,7 +1,6 @@
-import AdminRevenueChart from "../../components/dashboard/admindashboard/AdminRevenueChart";
-import Status from "../../components/dashboard/admindashboard/Status";
-
 import React from "react";
+import Status from "../../../components/dashboard/Status";
+import AdminRevenueChart from "../../../components/dashboard/admindashboard/AdminRevenueChart";
 
 const page = () => {
   return (

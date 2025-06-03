@@ -1,80 +1,148 @@
-import { Breadcrumb } from "antd";
-import React from "react";
-import ArtAndDesign from "../artAndDesign/page";
-import ProgramCard from "../../../components/ui/ProgramCard";
-import MyProgramCard from "../../../components/ui/MyProgramCard";
+"use client";
 
-const page = () => {
-  const programData = [
-    {
-      id: 1,
-      instructor: "John Michael",
-      rating: 4.7,
-      reviews: 3242,
-      courseTitle: "Product Management Master Programs",
-      duration: "40 Hours",
-      students: 176,
-      price: "€ 29.00",
-      enrollLink: "ENROLL NOW",
-      imageLink: "https://i.ibb.co.com/17pL5Qj/caourse1.png",
-      category: `All courses`,
-    },
-    {
-      id: 1,
-      instructor: "John Michael",
-      rating: 4.7,
-      reviews: 3242,
-      courseTitle: "Product Management Master Programs",
-      duration: "40 Hours",
-      students: 176,
-      price: "€ 29.00",
-      enrollLink: "ENROLL NOW",
-      imageLink: "https://i.ibb.co.com/17pL5Qj/caourse1.png",
-      category: `All courses`,
-    },
-  ];
-  return (
-    <div className="container mx-auto ">
-      <div className="flex items-center justify-center py-8">
-        <Breadcrumb
-          items={[
-            {
-              title: "Home",
-            },
+import { Breadcrumb, Pagination, Empty } from "antd";
+import React, { useState } from "react";
+import Link from "next/link";
+import { RightOutlined } from "@ant-design/icons";
+import CourseCard from "../../../components/ui/CourseCard";
+import { useGetallOnlineProgamsQuery } from "../../../redux/features/CourseApi";
 
-            {
-              title: "Online programs",
-            },
-          ]}
+const Page = () => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const per_page = 6;
+
+  const { data, isLoading, isFetching, error } = useGetallOnlineProgamsQuery({
+    per_page,
+    page: currentPage,
+    search: "",
+  });
+
+  // Group courses by category
+  const coursesByCategory = {};
+
+  if (data?.courses?.data) {
+    data.courses.data.forEach((course) => {
+      const key = `${course.category}-${course.category_id}`;
+      if (!coursesByCategory[key]) {
+        coursesByCategory[key] = [];
+      }
+      coursesByCategory[key].push(course);
+    });
+  }
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
+
+  if (isLoading || isFetching) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <div className="animate-pulse text-lg">Loading courses...</div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <Empty
+          description={
+            <div className="text-center">
+              <h3 className="text-xl font-medium text-gray-700">
+                Error loading courses
+              </h3>
+              <p className="text-gray-500 mt-2">Please try again later</p>
+            </div>
+          }
         />
       </div>
-      {/* TO DO MY PROGRAMS --------------------------------------- */}
-      <div className="border p-8 rounded-[24px] ">
-        <h1 className=" text-[24px] font-normal italic my-4 text-[#344054]">
-          My Programs
-        </h1>
-        <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-3 lg:grid-cols-3 gap-4 my-8">
-          {programData.map((item) => (
-            <MyProgramCard
-              key={item.id}
-              courseimage={item.imageLink}
-              courseTitle={item.courseTitle}
-              instructor={item.instructor}
-              rating={item.rating}
-              price={item.price}
-              reviews={item.reviews}
-              duration={item.duration}
-              students={item.students}
-              enrollLink={item.id}
-            />
-          ))}
-        </div>
+    );
+  }
+
+  return (
+    <div className="container mx-auto">
+      <div className="flex items-center justify-center py-8">
+        <Breadcrumb items={[{ title: "Home" }, { title: "Online programs" }]} />
       </div>
 
-      {/* ART AND DESIGN -----------> */}
-      <ArtAndDesign />
+      <div className="container mx-auto px-4">
+        {data?.courses?.data?.length ? (
+          Object.entries(coursesByCategory).map(([key, courses]) => {
+            const [category, category_id] = key.split("-");
+
+            return (
+              <React.Fragment key={key}>
+                <div className="flex justify-between pb-[32px] pt-[82px]">
+                  <h2 className="lg:text-[36px] md:text-[28px] text-2xl font-normal text-[#101828] font-Merriweather text-start italic">
+                    {category}
+                  </h2>
+                  <div>
+                    <Link
+                      className="font-bold border-b-2 pb-0 border-[#1D2939] text-[#000000] hover:text-[#1D2939] transition-colors"
+                      href={`/browseCourse/category/${encodeURIComponent(
+                        category
+                      )}/${encodeURIComponent(category_id)}`}
+                      passHref
+                    >
+                      View all <RightOutlined className="font-bold pl-1" />
+                    </Link>
+                  </div>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-3 lg:grid-cols-3 gap-6 pb-[82px]">
+                  {courses.map((course) => (
+                    <CourseCard
+                      key={course.id}
+                      courseimage={course.thumbnail}
+                      courseTitle={course.title}
+                      instructor={course.instructor_name || "Instructor Name"}
+                      rating={course.rating || 0}
+                      price={`€ ${course.price.toLocaleString()}`}
+                      reviews={course.total_reviews || 0}
+                      duration={`${course.duration} Hours`}
+                      students={course.total_students || 0}
+                      enrollLink={course.slug}
+                    />
+                  ))}
+                </div>
+              </React.Fragment>
+            );
+          })
+        ) : (
+          <div className="flex justify-center items-center py-28">
+            <Empty
+              description={
+                <div className="text-center">
+                  <h3 className="text-xl font-medium text-gray-700">
+                    No courses found
+                  </h3>
+                  <p className="text-gray-500 mt-2">
+                    {searchQuery
+                      ? "Try a different search term"
+                      : "No courses available at the moment"}
+                  </p>
+                </div>
+              }
+            />
+          </div>
+        )}
+
+        {data?.courses?.total > per_page && (
+          <div className="flex justify-center my-8">
+            <Pagination
+              current={currentPage}
+              total={data?.courses?.total || 0}
+              pageSize={per_page}
+              onChange={handlePageChange}
+              showSizeChanger={false}
+              showQuickJumper
+              disabled={isFetching}
+              className="ant-pagination-custom"
+            />
+          </div>
+        )}
+      </div>
     </div>
   );
 };
 
-export default page;
+export default Page;

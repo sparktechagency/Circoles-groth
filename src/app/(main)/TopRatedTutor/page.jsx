@@ -5,6 +5,7 @@ import { Breadcrumb, Tabs } from "antd";
 import React, { useState } from "react";
 import tutor from "/public/images/tutor.png";
 import TopratedTutorCard from "../../../components/ui/TopratedTutorCard";
+import TopRatedMentor from "../../../components/home/TopRatedMentor";
 
 const page = () => {
   const [activeKey, setActiveKey] = useState("1");
@@ -248,8 +249,7 @@ const page = () => {
       </div>
 
       <div className="container mx-auto py-16 px-4">
-        {/* Tabs for categories */}
-        <Tabs
+        {/* <Tabs
           defaultActiveKey="1"
           activeKey={activeKey}
           onChange={handleTabChange}
@@ -271,7 +271,7 @@ const page = () => {
               className="pt-8"
               key={index + 1}
             >
-              {/* Course cards for each category */}
+    
               <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-3 lg:grid-cols-3 gap-4">
                 {filterCoursesByCategory(category).map((item) => (
                   <TopratedTutorCard
@@ -290,7 +290,9 @@ const page = () => {
               </div>
             </Tabs.TabPane>
           ))}
-        </Tabs>
+        </Tabs> */}
+
+        <TopRatedMentor />
 
         {/* Custom styles */}
       </div>

@@ -9,8 +9,8 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import SelectBox from "../../components/share/dashboard/SelectBox";
 import Title from "antd/es/skeleton/Title";
+import SelectBox from "../../share/dashboard/SelectBox";
 
 const data = [
   { name: "Jan", amt: 12000 },

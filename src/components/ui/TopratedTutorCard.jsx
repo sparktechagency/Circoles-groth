@@ -5,7 +5,7 @@ import { Rate } from "antd";
 import { ArrowUpOutlined } from "@ant-design/icons";
 
 const TopratedTutorCard = ({
-  tutorImage = "/images/tutor.png",
+  tutorImage,
   tutorName,
   expertise,
   rating,

@@ -2,7 +2,7 @@
 import React from "react";
 import { Input, Select } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
-import CourseCard from "../../components/dashboard/admindashboard/CourseCard";
+import CourseCard from "../../../../components/ui/CourseCard";
 
 const { Option } = Select;
 
