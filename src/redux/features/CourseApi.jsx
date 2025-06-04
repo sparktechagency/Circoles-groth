@@ -39,6 +39,13 @@ const CourseApi = api.injectEndpoints({
         body,
       }),
     }),
+
+    // getStatistics: builder.query({
+    //   query: (filter = "all") => ({
+    //     url: `/admin/dashboard?filter=${filter}`,
+    //     method: "GET",
+    //   }),
+    // }),
   }),
 });
 

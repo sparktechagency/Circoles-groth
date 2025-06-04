@@ -156,7 +156,7 @@ const Footer = () => {
                   <div className="pl-2">
                     <MailFilled className=" text-lg text-[#4BCAE9] pr-2" />
                     <span className="text-[#E4E7EC]">
-                      support@pantognostis.com
+                      support@circooles.com
                     </span>
                   </div>
                 </div>
@@ -166,7 +166,7 @@ const Footer = () => {
           {/* copyright  */}
           <div className="flex justify-center  border-t-2 border-[#475467] py-4">
             <p className="text-sm text-[#E4E7EC]">
-              © Pantagonostis 2024 | All rights reserved.
+              © Circooles 2025 | All rights reserved.
             </p>
           </div>
         </div>

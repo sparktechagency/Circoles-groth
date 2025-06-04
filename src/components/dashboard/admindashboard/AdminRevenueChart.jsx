@@ -11,58 +11,38 @@ import {
 } from "recharts";
 import Title from "antd/es/skeleton/Title";
 import SelectBox from "../../share/dashboard/SelectBox";
-
-const data = [
-  { name: "Jan", amt: 12000 },
-  { name: "Feb", amt: 12000 },
-  { name: "Mar", amt: 7000 },
-  { name: "Apr", amt: 15000 },
-  { name: "May", amt: 8000 },
-  { name: "Jun", amt: 16000 },
-  { name: "Jul", amt: 9000 },
-  { name: "Aug", amt: 14000 },
-  { name: "Sep", amt: 8500 },
-  { name: "Oct", amt: 13000 },
-  { name: "Nov", amt: 7500 },
-  { name: "Dec", amt: 6000 },
-];
-
-const ratingData = [
-  { name: "Jan", amt: 18000 },
-  { name: "Feb", amt: 14000 },
-  { name: "Mar", amt: 22000 },
-  { name: "Apr", amt: 9000 },
-  { name: "May", amt: 8000 },
-  { name: "Jun", amt: 16000 },
-  { name: "Jul", amt: 9000 },
-  { name: "Aug", amt: 14000 },
-  { name: "Sep", amt: 8500 },
-  { name: "Oct", amt: 13000 },
-  { name: "Nov", amt: 7500 },
-  { name: "Dec", amt: 6000 },
-];
+import { useEarningQuery } from "../../../redux/features/adminapis/AdminApi";
 
 const AdminRevenueChart = () => {
-  const [selectedValue, setSelectedValue] = useState();
+  const [filter, setFilter] = useState("monthly");
+
+  const { data, isLoading } = useEarningQuery(filter);
+  console.log("data", data);
+
+  // Transform the API data for the chart
+  const chartData =
+    data?.totalEarnings?.map((item) => ({
+      name: item.month?.substring(0, 3), // Short month name (Jan, Feb, etc)
+      amt: parseFloat(item.total_earnings) || 0, // Convert string to number, default to 0
+    })) || [];
 
   const formatYAxis = (tickItem) => {
-    return `${tickItem / 1000}k`;
+    return `$${tickItem}`;
   };
 
   const handleSelectChange = (value) => {
-    setSelectedValue(value);
+    setFilter(value);
     console.log("Selected", value);
   };
 
   const selectOptions = [
-    { value: "1", label: "this month" },
-    { value: "3", label: "this Year" },
+    { value: "monthly", label: "this month" },
+    { value: "yearly", label: "this Year" },
   ];
 
-  const courseratingSelectOptions = [
-    { value: "1", label: "this month" },
-    { value: "3", label: "this Year" },
-  ];
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="bg-[#FFFFFF] rounded-2xl rounded-t-none p-2 pr-14">
@@ -83,21 +63,23 @@ const AdminRevenueChart = () => {
 
       <br />
       <ResponsiveContainer width="100%" height={480}>
-        <AreaChart data={data} syncId="anyId">
+        <AreaChart data={chartData} syncId="anyId">
           <defs>
             <linearGradient id="colorAmt" x1="0" y1="0" x2="0" y2="1">
               <stop offset="0%" stopColor="#564FFD" stopOpacity={0.8} />
               <stop offset="95%" stopColor="#564FFD" stopOpacity={0} />
             </linearGradient>
           </defs>
-          <XAxis axisLine={false} dataKey="name" />
+          <XAxis axisLine={false} dataKey="name" tick={{ fontSize: 12 }} />
           <YAxis
             axisLine={false}
             tickFormatter={formatYAxis}
-            ticks={[0, 2000, 4000, 6000, 8000, 10000, 12000, 14000]}
-            interval={0}
+            tick={{ fontSize: 12 }}
           />
-          <Tooltip />
+          <Tooltip
+            formatter={(value) => [`$${value}`, "Earnings"]}
+            labelFormatter={(label) => `Month: ${label}`}
+          />
           <Area
             isAnimationActive={false}
             strokeWidth={3}

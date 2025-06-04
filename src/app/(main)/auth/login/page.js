@@ -29,7 +29,12 @@ const signIn = () => {
           type: "success",
           content: resp.message || "Something went wrong",
         });
-        Cookies.set("token", resp.access_token);
+        Cookies.set("token", resp.access_token, {
+          path: "/", // So it's accessible across all routes
+          secure: true, // Required for HTTPS (like Vercel)
+          sameSite: "Strict",
+        });
+
         router.push("/");
       }
       if (!resp?.access_token) {
