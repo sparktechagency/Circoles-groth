@@ -1,173 +1,39 @@
-'use client'
+"use client";
 import React, { useState } from "react";
-import { Table, Tag, Dropdown, Menu, Input, Space, Checkbox, message } from "antd";
-import { SearchOutlined, MoreOutlined, DeleteOutlined } from "@ant-design/icons";
-import userimg from '/public/images/Avatar.png'
+import {
+  Table,
+  Tag,
+  Dropdown,
+  Menu,
+  Input,
+  Space,
+  Checkbox,
+  message,
+} from "antd";
+import {
+  SearchOutlined,
+  MoreOutlined,
+  DeleteOutlined,
+} from "@ant-design/icons";
 import Image from "next/image";
+import {
+  useDeleteVerifyuserMutation,
+  useVerificationQuery,
+} from "../../../../redux/features/adminapis/AdminApi";
+import Swal from "sweetalert2";
+
 const VerificationTable = () => {
   const [searchText, setSearchText] = useState("");
-  const [data, setData] = useState([
-    {
-      key: "1",
-      name: "Olivia Rhye",
-      username: "@olivia",
-      email: "olivia@untitledui.com",
-      paymentStatus: "Paid",
-      status: "Verified",
-    },
-    {
-      key: "2",
-      name: "Phoenix Baker",
-      username: "@phoenix",
-      email: "phoenix@untitledui.com",
-      paymentStatus: "Paid",
-      status: "Declined",
-    },
-    {
-      key: "3",
-      name: "Lana Steiner",
-      username: "@lana",
-      email: "lana@untitledui.com",
-      paymentStatus: "Paid",
-      status: "Pending",
-    },
-    {
-      key: "4",
-      name: "Demi Wilkinson",
-      username: "@demi",
-      email: "demi@untitledui.com",
-      paymentStatus: "Paid",
-      status: "Pending",
-    },
-    {
-      key: "5",
-      name: "Candice Wu",
-      username: "@candice",
-      email: "candice@untitledui.com",
-      paymentStatus: "Paid",
-      status: "Pending",
-    },
-    {
-      key: "6",
-      name: "Olivia Rhye",
-      username: "@olivia",
-      email: "olivia@untitledui.com",
-      paymentStatus: "Paid",
-      status: "Verified",
-    },
-    {
-      key: "7",
-      name: "Phoenix Baker",
-      username: "@phoenix",
-      email: "phoenix@untitledui.com",
-      paymentStatus: "Paid",
-      status: "Declined",
-    },
-    {
-      key: "8",
-      name: "Lana Steiner",
-      username: "@lana",
-      email: "lana@untitledui.com",
-      paymentStatus: "Paid",
-      status: "Pending",
-    },
-    {
-      key: "9",
-      name: "Demi Wilkinson",
-      username: "@demi",
-      email: "demi@untitledui.com",
-      paymentStatus: "Paid",
-      status: "Pending",
-    },
-    {
-      key: "10",
-      name: "Candice Wu",
-      username: "@candice",
-      email: "candice@untitledui.com",
-      paymentStatus: "Paid",
-      status: "Pending",
-    },
-    {
-      key: "11",
-      name: "Olivia Rhye",
-      username: "@olivia",
-      email: "olivia@untitledui.com",
-      paymentStatus: "Paid",
-      status: "Verified",
-    },
-    {
-      key: "12",
-      name: "Phoenix Baker",
-      username: "@phoenix",
-      email: "phoenix@untitledui.com",
-      paymentStatus: "Paid",
-      status: "Declined",
-    },
-    {
-      key: "13",
-      name: "Lana Steiner",
-      username: "@lana",
-      email: "lana@untitledui.com",
-      paymentStatus: "Paid",
-      status: "Pending",
-    },
-    {
-      key: "14",
-      name: "Demi Wilkinson",
-      username: "@demi",
-      email: "demi@untitledui.com",
-      paymentStatus: "Paid",
-      status: "Pending",
-    },
-    {
-      key: "15",
-      name: "Candice Wu",
-      username: "@candice",
-      email: "candice@untitledui.com",
-      paymentStatus: "Paid",
-      status: "Pending",
-    },
-    {
-      key: "16",
-      name: "Olivia Rhye",
-      username: "@olivia",
-      email: "olivia@untitledui.com",
-      paymentStatus: "Paid",
-      status: "Verified",
-    },
-    {
-      key: "17",
-      name: "Phoenix Baker",
-      username: "@phoenix",
-      email: "phoenix@untitledui.com",
-      paymentStatus: "Paid",
-      status: "Declined",
-    },
-    {
-      key: "18",
-      name: "Lana Steiner",
-      username: "@lana",
-      email: "lana@untitledui.com",
-      paymentStatus: "Paid",
-      status: "Pending",
-    },
-    {
-      key: "19",
-      name: "Demi Wilkinson",
-      username: "@demi",
-      email: "demi@untitledui.com",
-      paymentStatus: "Paid",
-      status: "Pending",
-    },
-    {
-      key: "20",
-      name: "Candice Wu",
-      username: "@candice",
-      email: "candice@untitledui.com",
-      paymentStatus: "Paid",
-      status: "Pending",
-    },
-  ]);
+  const [page, setPage] = useState(1);
+  const per_page = 10;
+
+  const { data: verificationData, isLoading } = useVerificationQuery({
+    per_page,
+    page,
+    search: searchText,
+  });
+  const [deleteVerifyuser, { isLoading: deleting }] =
+    useDeleteVerifyuserMutation();
   const [selectedRows, setSelectedRows] = useState([]);
 
   const columns = [
@@ -176,8 +42,8 @@ const VerificationTable = () => {
       key: "select",
       render: (_, record) => (
         <Checkbox
-          onChange={(e) => handleRowSelect(e, record.key)}
-          checked={selectedRows.includes(record.key)}
+          onChange={(e) => handleRowSelect(e, record.id)}
+          checked={selectedRows.includes(record.id)}
         />
       ),
     },
@@ -188,13 +54,17 @@ const VerificationTable = () => {
       render: (text, record) => (
         <Space className="flex items-center">
           <Image
-            src={userimg}
+            src={`https://ui-avatars.com/api/?name=${encodeURIComponent(
+              record.name
+            )}`}
             alt="Avatar"
+            width={32}
+            height={32}
             className="w-8 h-8 rounded-full"
           />
           <div>
             <p className="mb-0 font-medium">{record.name}</p>
-            <p className="text-sm text-gray-500">{record.username}</p>
+            <p className="text-sm text-gray-500">{record.email}</p>
           </div>
         </Space>
       ),
@@ -206,8 +76,13 @@ const VerificationTable = () => {
     },
     {
       title: "Payment Status",
-      dataIndex: "paymentStatus",
-      key: "paymentStatus",
+      dataIndex: "payment_status",
+      key: "payment_status",
+      render: (status) => (
+        <Tag color={status === "paid" ? "green" : "red"}>
+          {status.toUpperCase()}
+        </Tag>
+      ),
     },
     {
       title: "Status",
@@ -216,13 +91,13 @@ const VerificationTable = () => {
       render: (status) => {
         let color;
         switch (status) {
-          case "Verified":
+          case "verified":
             color = "green";
             break;
-          case "Declined":
+          case "declined":
             color = "red";
             break;
-          case "Pending":
+          case "pending":
             color = "yellow";
             break;
           default:
@@ -230,7 +105,7 @@ const VerificationTable = () => {
         }
         return (
           <Tag color={color} className="capitalize">
-          <span className="font-bold">  {status}</span>
+            <span className="font-bold">{status}</span>
           </Tag>
         );
       },
@@ -241,15 +116,18 @@ const VerificationTable = () => {
       render: (_, record) => (
         <Space>
           <DeleteOutlined
-            className="text-red-500 cursor-pointer"
-            onClick={() => handleDelete(record.key)}
+            className="text-red-500 cursor-pointer text-lg"
+            onClick={() => handleDelete(record.id)}
           />
-          <Dropdown
+          {/* <Dropdown
             overlay={
               <Menu>
                 <Menu.Item key="view">View Details</Menu.Item>
-                {record.status === "Pending" && (
-                  <Menu.Item key="verify" onClick={() => handleVerify(record.key)}>
+                {record.status === "pending" && (
+                  <Menu.Item
+                    key="verify"
+                    onClick={() => handleVerify(record.id)}
+                  >
                     Verify
                   </Menu.Item>
                 )}
@@ -258,14 +136,15 @@ const VerificationTable = () => {
             trigger={["click"]}
           >
             <MoreOutlined className="cursor-pointer" />
-          </Dropdown>
+          </Dropdown> */}
         </Space>
       ),
     },
   ];
 
   const handleSearch = (e) => {
-    setSearchText(e.target.value.toLowerCase());
+    setSearchText(e.target.value);
+    setPage(1); // Reset to first page when searching
   };
 
   const handleRowSelect = (e, key) => {
@@ -277,50 +156,67 @@ const VerificationTable = () => {
   };
 
   const handleVerify = (key) => {
-    const updatedData = data.map((row) =>
-      row.key === key ? { ...row, status: "Verified" } : row
-    );
-    setData(updatedData);
-    message.success('User has been verified.')
+    // In a real app, you would call an API to verify the tutor
+    message.success(`Tutor with ID ${key} would be verified in a real app`);
   };
 
-  const handleDelete = (key) => {
-    const updatedData = data.filter((row) => row.key !== key);
-    setData(updatedData);
-    message.success(`User has been deleted.`);
+  const handleDelete = async (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        const response = await deleteVerifyuser(id).unwrap();
+        console.log("response", response);
+        if (response?.success) {
+          setSelectedRows(selectedRows.filter((rowKey) => rowKey !== id));
+          Swal.fire("Deleted!", "User has been deleted.", "success");
+        }
+      }
+    });
   };
-
-  const filteredData = data.filter(
-    (item) =>
-      item.name.toLowerCase().includes(searchText) ||
-      item.email.toLowerCase().includes(searchText)
-  );
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="p-6 bg-white rounded-lg shadow">
       {/* Search Bar */}
       <Input
-      style={{height:'44px'}}
-        placeholder="Search users by name or email"
+        style={{ height: "44px" }}
+        placeholder="Search tutors by name or email"
         prefix={<SearchOutlined />}
         className="mb-4"
         onChange={handleSearch}
+        value={searchText}
       />
       {/* Table */}
       <Table
-     title={() => (
-      <div style={{ color: '#475467', fontWeight: 'bold', fontSize: '16px' }}>
-        Verification Requests
-      </div>
-    )}
-      style={{color:'#475467'}}
+        title={() => (
+          <div
+            style={{ color: "#475467", fontWeight: "bold", fontSize: "16px" }}
+          >
+            Verification Requests
+          </div>
+        )}
+        style={{ color: "#475467" }}
         columns={columns}
-        dataSource={filteredData}
+        dataSource={verificationData?.tutor_infos?.data || []}
         bordered
         pagination={{
-          pageSize: 10,
+          current: verificationData?.tutor_infos?.current_page || 1,
+          pageSize: verificationData?.tutor_infos?.per_page || per_page,
+          total: verificationData?.tutor_infos?.total || 0,
+          onChange: (page) => setPage(page),
           position: ["bottomCenter"],
+          showSizeChanger: false,
         }}
+        rowKey="id"
         rowClassName="hover:bg-gray-50"
       />
     </div>

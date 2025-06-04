@@ -20,7 +20,15 @@ export const api = createApi({
     },
   }),
 
-  tagTypes: ["user", "blog", "faq", "about", "notification"],
+  tagTypes: [
+    "user",
+    "blog",
+    "faq",
+    "about",
+    "notification",
+    "verifyuser",
+    "transaction",
+  ],
   endpoints: () => ({}),
 });
 

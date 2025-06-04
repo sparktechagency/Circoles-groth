@@ -1,56 +1,16 @@
-'use client'
+"use client";
 import React, { useState } from "react";
 import { Table, Tag } from "antd";
+import { useTransectionQuery } from "../../../../redux/features/adminapis/AdminApi";
 
 const TransactionHistory = () => {
-  const [data, setData] = useState([
-    {
-      key: "1",
-      date: "Jan 6, 2024",
-      status: "Paid",
-      name: "Olivia Rhye",
-      email: "olivia@untitledui.com",
-      avatar: "https://i.pravatar.cc/300?img=1",
-      amount: "+€5.00",
-    },
-    {
-      key: "2",
-      date: "Jan 6, 2024",
-      status: "Paid",
-      name: "Phoenix Baker",
-      email: "phoenix@untitledui.com",
-      avatar: "https://i.pravatar.cc/300?img=2",
-      amount: "+€5.00",
-    },
-    {
-      key: "3",
-      date: "Jan 6, 2024",
-      status: "Paid",
-      name: "Lana Steiner",
-      email: "lana@untitledui.com",
-      avatar: "https://i.pravatar.cc/300?img=3",
-      amount: "+€5.00",
-    },
-    {
-      key: "4",
-      date: "Jan 5, 2024",
-      status: "Paid",
-      name: "Demi Wilkinson",
-      email: "demi@untitledui.com",
-      avatar: "https://i.pravatar.cc/300?img=4",
-      amount: "+€5.00",
-    },
-    {
-      key: "5",
-      date: "Jan 5, 2024",
-      status: "Paid",
-      name: "Candice Wu",
-      email: "candice@untitledui.com",
-      avatar: "https://i.pravatar.cc/300?img=5",
-      amount: "+€5.00",
-    },
-    // Add more rows as needed...
-  ]);
+  const [page, setPage] = useState(1);
+  const per_page = 10;
+
+  const { data: transectionData, isLoading } = useTransectionQuery({
+    per_page,
+    page,
+  });
 
   const columns = [
     {
@@ -63,11 +23,14 @@ const TransactionHistory = () => {
       title: "Status",
       dataIndex: "status",
       key: "status",
-      render: (status) => (
-        <Tag color="green" className="rounded-full">
-          <span className="capitalize">{status}</span>
-        </Tag>
-      ),
+      render: (status) => {
+        let color = status === "paid" ? "green" : "orange";
+        return (
+          <Tag color={color} className="rounded-full capitalize">
+            {status}
+          </Tag>
+        );
+      },
     },
     {
       title: "From",
@@ -75,7 +38,9 @@ const TransactionHistory = () => {
       render: (record) => (
         <div className="flex items-center">
           <img
-            src={record.avatar}
+            src={`https://ui-avatars.com/api/?name=${encodeURIComponent(
+              record.name
+            )}&background=random`}
             alt={record.name}
             className="w-8 h-8 rounded-full mr-3"
           />
@@ -91,25 +56,34 @@ const TransactionHistory = () => {
       dataIndex: "amount",
       key: "amount",
       render: (amount) => (
-        <span className="text-green-600 font-medium">{amount}</span>
+        <span className="text-green-600 font-medium">${amount}</span>
       ),
     },
   ];
 
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
   return (
-    <div className="p-6 bg-white h-screen ">
+    <div className="p-6 bg-white h-screen">
       <h1 className="text-xl font-bold text-gray-800 mb-4">
         Transaction History
       </h1>
       <Table
-      className="shadow-lg rounded-lg"
+        className="shadow-lg rounded-lg"
         columns={columns}
-        dataSource={data}
+        dataSource={transectionData?.transactions?.data || []}
         pagination={{
-          pageSize: 10,
+          current: page,
+          pageSize: per_page,
+          total: transectionData?.transactions?.total || 0,
+          onChange: (page) => setPage(page),
           position: ["bottomCenter"],
+          showSizeChanger: false,
         }}
         bordered
+        rowKey="id"
         rowClassName="hover:bg-gray-50"
       />
     </div>
