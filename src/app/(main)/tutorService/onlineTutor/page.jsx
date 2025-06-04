@@ -18,7 +18,7 @@ const page = () => {
   const handlePageChange = (page) => {
     setCurrentPage(page);
   };
-
+  console.log("onlineturor", data);
   // Extract unique categories from tutor data
   const getUniqueCategories = () => {
     if (!data?.tutors?.data) return ["All"];
@@ -135,9 +135,8 @@ const page = () => {
             </Tabs.TabPane>
           ))}
         </Tabs>
-
         {/* Pagination */}
-        <div className="flex justify-center items-center gap-4 mt-8 border-t-2 border-[#424242] p-6 w-full">
+        <div className="flex justify-center items-center gap-4 mt-8  p-6 w-full">
           <div className="flex justify-center items-center gap-4 w-full">
             <div className="text-center text-white mt-2">
               Page {currentPage} of{" "}
