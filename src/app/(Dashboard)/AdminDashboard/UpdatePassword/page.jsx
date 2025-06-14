@@ -30,7 +30,7 @@ const UpdatePassword = () => {
 
   return (
     <AuthLayout>
-      <div className=" max-w-xl mx-auto pt-32 px-4  rounded-lg">
+      <div className=" max-w-xl mx-auto pt-32 px-4  h-[830px] rounded-lg">
         {alertMessage && (
           <Alert
             message={alertMessage}

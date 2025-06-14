@@ -11,7 +11,6 @@ import { Rate } from "antd";
 const CourseCard = ({
   courseimage,
   courseTitle,
-  instructor,
   rating,
   price,
   reviews,
@@ -50,9 +49,11 @@ const CourseCard = ({
             </span>
           </div>
         </div>
+
         <h5 className="text-lg font-bold tracking-tight text-[#1D2939] mb-2">
           {courseTitle}
         </h5>
+
         <div className="flex items-center justify-between text-[#475467] text-sm py-4 border-b border-[#E5E7EB]">
           <span className="mr-4 flex items-center font-medium">
             <ClockCircleOutlined className="text-lg pr-2 " />
@@ -77,7 +78,9 @@ const CourseCard = ({
           </span>
         </div>
         <div className="flex justify-between items-center py-4">
-          <span className="text-lg font-semibold text-[#000000]">€ 29.00</span>
+          <span className="text-lg font-semibold text-[#000000]">
+            € {price}
+          </span>
           <Link
             href={`/browseCourse/${enrollLink}`}
             className="inline-flex items-center text-[#14698A] border-b-2 border-[#14698A] text-[16px] font-semibold "

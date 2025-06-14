@@ -83,7 +83,7 @@ const AdminSidebar = () => {
     },
     {
       path: "/AdminDashboard/OnlinePrograms",
-      title: "Online Programs",
+      title: "Manage Courses",
       icon: (
         <svg
           width="24"

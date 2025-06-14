@@ -330,13 +330,13 @@ const Navbar = () => {
                     Log Out
                   </Button>
                 ) : (
-                  <Link href={"/auth/signup"}>
+                  <Link href={"/auth/login"}>
                     <Button
                       className="text-[#FFFFFF] font-semibold text-[16px] p-5 bg-primary"
                       style={{ backgroundColor: "#14698A" }}
                       type="primary"
                     >
-                      Sign Up
+                      Sign In
                     </Button>
                   </Link>
                 )}

@@ -1,28 +1,69 @@
 "use client";
 
-import React, { useState } from "react";
-import { Tabs, Input, Select, Button, Menu, Form } from "antd";
+import React, { useState, useEffect } from "react";
+import { Tabs, Input, Select, Button, Form, message } from "antd";
 import { GoStack } from "react-icons/go";
 import { IoClipboardOutline, IoPlayCircleOutline } from "react-icons/io5";
 import { PiMonitorLight } from "react-icons/pi";
 import PublishCourse from "../../../../components/dashboard/admindashboard/PublishCourse";
 import CurriculumSection from "../../../../components/dashboard/admindashboard/CurriculumSection";
 import CourseDetails from "../../../../components/dashboard/admindashboard/CourseDetails";
-
-// import { GoStack, MdDetails, FaClipboardList, AiOutlineCheckCircle } from 'react-icons/all'; // Import icons
+import { useGetAllCategoryQuery } from "../../../../redux/features/adminapis/AdminApi";
 
 const { TabPane } = Tabs;
 const { Option } = Select;
+const { TextArea } = Input;
 
 const CreateNewCourse = () => {
+  const { data: categoriesData, isLoading } = useGetAllCategoryQuery();
   const [activekey, setactivekey] = useState("1");
-
+  const [subCategories, setSubCategories] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState(null);
   const [form] = Form.useForm();
+
+  const [allDeta, setAllDeta] = useState();
+
+  // const formData = new FormData();
+
+  // for (let [key, value] of formData.entries()) {
+  //   console.log(`${key}:`, value);
+  // }
+
+  // Initialize categories and subcategories
+  useEffect(() => {
+    if (categoriesData?.categories?.length > 0) {
+      const firstCategory = categoriesData.categories[0];
+      setSelectedCategory(firstCategory.id);
+      setSubCategories(firstCategory.sub_categories || []);
+
+      // If first category has no subcategories, show a message
+      if (firstCategory.sub_categories?.length === 0) {
+        message.info(`${firstCategory.name} has no subcategories`);
+      }
+    }
+  }, [categoriesData]);
+
+  const handleCategoryChange = (value) => {
+    const category = categoriesData.categories.find((cat) => cat.id === value);
+    setSelectedCategory(value);
+    setSubCategories(category?.sub_categories || []);
+    form.setFieldsValue({ sub_category_id: undefined }); // Reset subcategory
+
+    // Show message if category has no subcategories
+    if (category?.sub_categories?.length === 0) {
+      message.info(`${category.name} has no subcategories`);
+    }
+  };
 
   const handleSave = () => {
     form
       .validateFields()
       .then((values) => {
+        setAllDeta(values);
+        // If category has no subcategories, set sub_category_id to null
+        if (subCategories.length === 0) {
+          values.sub_category_id = null;
+        }
         setactivekey("2");
         console.log("Form Data:", values);
       })
@@ -62,7 +103,12 @@ const CreateNewCourse = () => {
                   ]}
                 >
                   <Input
-                    style={{ height: "44px", fontSize: "16px" }}
+                    style={{
+                      height: "44px",
+                      fontSize: "16px",
+                      border: "1px solid #D0D5DD",
+                      borderRadius: "5px",
+                    }}
                     placeholder="Your course title"
                   />
                 </Form.Item>
@@ -76,37 +122,38 @@ const CreateNewCourse = () => {
                   ]}
                 >
                   <Input
-                    style={{ height: "44px", fontSize: "16px" }}
+                    style={{
+                      height: "44px",
+                      fontSize: "16px",
+                      border: "1px solid #D0D5DD",
+                      borderRadius: "5px",
+                    }}
                     placeholder="Your course subtitle"
                   />
                 </Form.Item>
 
-                {/* Pricing */}
+                {/* Price */}
                 <Form.Item
-                  label="Pricing"
-                  name="pricing"
+                  label="Price"
+                  name="price"
                   rules={[
-                    { required: true, message: "Please select the pricing" },
+                    { required: true, message: "Please enter the price" },
+                    {
+                      pattern: /^\d+(\.\d{1,2})?$/,
+                      message: "Please enter a valid price (e.g. 89.99)",
+                    },
                   ]}
                 >
-                  <Select
-                    placeholder="Select..."
-                    style={{ height: "44px", fontSize: "16px" }}
-                  >
-                    <Option value="free">Free</Option>
-                    <Option value="paid">Paid</Option>
-                  </Select>
-                </Form.Item>
-
-                {/* Platform Fees */}
-                <Form.Item
-                  label="Platform Fees"
-                  name="platformFees"
-                  initialValue="20%"
-                >
                   <Input
-                    style={{ height: "44px", fontSize: "16px" }}
-                    disabled
+                    style={{
+                      height: "44px",
+                      fontSize: "16px",
+                      border: "1px solid #D0D5DD",
+                      borderRadius: "5px",
+                    }}
+                    placeholder="Your course price"
+                    type="number"
+                    step="0.01"
                   />
                 </Form.Item>
 
@@ -114,39 +161,63 @@ const CreateNewCourse = () => {
                   {/* Course Category */}
                   <Form.Item
                     label="Course Category"
-                    name="category"
+                    name="category_id"
                     rules={[
                       { required: true, message: "Please select a category" },
                     ]}
                     className="w-full"
                   >
                     <Select
-                      placeholder="Select..."
-                      style={{ height: "44px", fontSize: "16px" }}
+                      placeholder="Select category"
+                      style={{
+                        height: "44px",
+                        fontSize: "16px",
+                        border: "1px solid #D0D5DD",
+                        borderRadius: "5px",
+                      }}
+                      onChange={handleCategoryChange}
+                      loading={isLoading}
                     >
-                      <Option value="development">Development</Option>
-                      <Option value="design">Design</Option>
+                      {categoriesData?.categories?.map((category) => (
+                        <Option key={category.id} value={category.id}>
+                          {category.name}
+                        </Option>
+                      ))}
                     </Select>
                   </Form.Item>
 
                   {/* Course Sub-category */}
                   <Form.Item
                     label="Course Sub-category"
-                    name="subCategory"
+                    name="sub_category_id"
                     rules={[
                       {
-                        required: true,
+                        required: subCategories.length > 0,
                         message: "Please select a sub-category",
                       },
                     ]}
                     className="w-full"
                   >
                     <Select
-                      placeholder="Select..."
-                      style={{ height: "44px", fontSize: "16px" }}
+                      placeholder={
+                        subCategories.length > 0
+                          ? "Select sub-category"
+                          : "No subcategories available"
+                      }
+                      style={{
+                        height: "44px",
+                        fontSize: "16px",
+                        border: "1px solid #D0D5DD",
+                        borderRadius: "5px",
+                      }}
+                      disabled={!selectedCategory || subCategories.length === 0}
+                      loading={isLoading}
                     >
-                      <Option value="web-development">Web Development</Option>
-                      <Option value="graphic-design">Graphic Design</Option>
+                      {subCategories?.map((subCategory) => (
+                        <Option key={subCategory.id} value={subCategory.id}>
+                          {subCategory.name}
+                        </Option>
+                      ))}
                     </Select>
                   </Form.Item>
                 </div>
@@ -163,7 +234,12 @@ const CreateNewCourse = () => {
                   ]}
                 >
                   <Input
-                    style={{ height: "44px", fontSize: "16px" }}
+                    style={{
+                      height: "44px",
+                      fontSize: "16px",
+                      border: "1px solid #D0D5DD",
+                      borderRadius: "5px",
+                    }}
                     placeholder="What is primarily taught in your course?"
                   />
                 </Form.Item>
@@ -171,66 +247,73 @@ const CreateNewCourse = () => {
                 <div className="grid grid-cols-4 gap-6">
                   {/* Select Language */}
                   <Form.Item
-                    label="Select Language"
+                    label="Language"
                     name="language"
                     rules={[
                       { required: true, message: "Please select a language" },
                     ]}
                   >
                     <Select
-                      placeholder="Select..."
-                      style={{ height: "44px", fontSize: "16px" }}
+                      placeholder="Select language"
+                      style={{
+                        height: "44px",
+                        fontSize: "16px",
+                        border: "1px solid #D0D5DD",
+                        borderRadius: "5px",
+                      }}
                     >
-                      <Option value="english">English</Option>
-                      <Option value="spanish">Spanish</Option>
-                    </Select>
-                  </Form.Item>
-                  {/* Subtitle Language */}
-                  <Form.Item
-                    label="Subtitle Language (Optional)"
-                    name="subtitleLanguage"
-                  >
-                    <Select
-                      placeholder="Select..."
-                      style={{ height: "44px", fontSize: "16px" }}
-                    >
-                      <Option value="english">English</Option>
-                      <Option value="spanish">Spanish</Option>
+                      <Option value="English">English</Option>
+                      <Option value="Spanish">Spanish</Option>
+                      <Option value="French">French</Option>
+                      <Option value="German">German</Option>
                     </Select>
                   </Form.Item>
 
                   {/* Course Level */}
                   <Form.Item
                     label="Course Level"
-                    name="level"
+                    name="c_level"
                     rules={[
                       { required: true, message: "Please select a level" },
                     ]}
                   >
                     <Select
-                      placeholder="Select..."
-                      style={{ height: "44px", fontSize: "16px" }}
+                      placeholder="Select level"
+                      style={{
+                        height: "44px",
+                        fontSize: "16px",
+                        border: "1px solid #D0D5DD",
+                        borderRadius: "5px",
+                      }}
                     >
-                      <Option value="beginner">Beginner</Option>
-                      <Option value="intermediate">Intermediate</Option>
+                      <Option value="Beginner">Beginner</Option>
+                      <Option value="Intermediate">Intermediate</Option>
+                      <Option value="Advanced">Advanced</Option>
                     </Select>
                   </Form.Item>
 
                   {/* Duration */}
                   <Form.Item
-                    label="Duration"
+                    label="Duration (hours)"
                     name="duration"
                     rules={[
-                      { required: true, message: "Please select a duration" },
+                      { required: true, message: "Please add a duration" },
+                      {
+                        pattern: /^[0-9]+$/,
+                        message: "Please enter a valid number",
+                      },
                     ]}
                   >
-                    <Select
-                      placeholder="Select..."
-                      style={{ height: "44px", fontSize: "16px" }}
-                    >
-                      <Option value="1">1 Hour</Option>
-                      <Option value="2">2 Hours</Option>
-                    </Select>
+                    <Input
+                      style={{
+                        height: "44px",
+                        fontSize: "16px",
+                        border: "1px solid #D0D5DD",
+                        borderRadius: "5px",
+                      }}
+                      placeholder="Course duration in hours"
+                      type="number"
+                    />
                   </Form.Item>
                 </div>
 
@@ -263,11 +346,15 @@ const CreateNewCourse = () => {
             key="2"
           >
             <div>
-              <CourseDetails setactivekey={setactivekey} />
+              <CourseDetails
+                setactivekey={setactivekey}
+                setAllDeta={setAllDeta}
+                // formdata={formData}
+              />
             </div>
           </TabPane>
 
-          <TabPane
+          {/* <TabPane
             tab={
               <span className="flex items-center gap-2 text-[#1D2939] font-semibold">
                 <PiMonitorLight size={24} />
@@ -277,11 +364,9 @@ const CreateNewCourse = () => {
             key="3"
           >
             <div>
-              {" "}
-              {/* Add content for the Curriculum tab here */}
               <CurriculumSection setactivekey={setactivekey} />
             </div>
-          </TabPane>
+          </TabPane> */}
 
           <TabPane
             tab={
@@ -290,11 +375,10 @@ const CreateNewCourse = () => {
                 Publish Course
               </span>
             }
-            key="4"
+            key="3"
           >
             <div>
-              {/* Add content for the Publish Course tab here */}
-              <PublishCourse />
+              <PublishCourse allDeta={allDeta} />
             </div>
           </TabPane>
         </Tabs>

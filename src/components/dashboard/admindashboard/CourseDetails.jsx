@@ -8,15 +8,19 @@ const { Paragraph } = Typography;
 const MAX_FIELDS = 8;
 const MAX_CHARACTERS = 120;
 
-const CourseDetails = ({ setactivekey }) => {
+const CourseDetails = ({ setactivekey, setAllDeta }) => {
   const [thumbnail, setThumbnail] = useState(null);
+  const [thumbnailFile, setThumbnailFile] = useState(null);
   const [video, setVideo] = useState(null);
-  const [inputFields, setInputFields] = useState(Array(4).fill(""));
+  const [videoFile, setVideoFile] = useState(null);
+  const [description, setDescription] = useState("");
+  const [inputFields, setInputFields] = useState([""]);
   const [inputFields2, setInputFields2] = useState(Array(4).fill(""));
   const [inputFields3, setInputFields3] = useState(Array(4).fill(""));
 
   // Helper function to handle image preview
   const handlePreviewImage = (file) => {
+    setThumbnailFile(file);
     const reader = new FileReader();
     reader.onload = () => {
       setThumbnail(reader.result);
@@ -26,6 +30,7 @@ const CourseDetails = ({ setactivekey }) => {
 
   // Helper function to handle video preview
   const handlePreviewVideo = (file) => {
+    setVideoFile(file);
     const reader = new FileReader();
     reader.onload = () => {
       setVideo(reader.result);
@@ -70,14 +75,17 @@ const CourseDetails = ({ setactivekey }) => {
   };
 
   const handleSaveAndNext = () => {
-    // Log all values to the console
-    console.log("Course Thumbnail:", thumbnail);
-    console.log("Course Video:", video);
-    console.log("What you will teach in this course:", inputFields);
-    console.log("Target Audience:", inputFields2);
-    console.log("Course Requirements:", inputFields3);
+    setAllDeta((prev) => ({
+      ...prev,
+      thumbnail: thumbnailFile,
+      trailer_video: videoFile,
+      teach_course: inputFields,
+      targer_audience: inputFields2,
+      requirements: inputFields3,
 
-    // Set active key to 3
+      description: description,
+    }));
+
     setactivekey("3");
   };
 
@@ -159,6 +167,24 @@ const CourseDetails = ({ setactivekey }) => {
       {/* Course Descriptions */}
       <div>
         <h3 className="text-lg font-semibold mb-2">Course Descriptions</h3>
+        <div className="p-4">
+          <Input.TextArea
+            style={{
+              width: "100%",
+              height: "200px",
+              borderColor: "#D0D5DD",
+              color: "#667085",
+              fontSize: "16px",
+              fontWeight: 400,
+            }}
+            className="w-full"
+            rows={4}
+            name="description"
+            placeholder="What is the course about?"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+          />
+        </div>
 
         <div className="p-4">
           {/* Header with Flexbox */}

@@ -10,7 +10,7 @@ import {
   useGetcategorysQuery,
 } from "../../redux/features/CourseApi";
 import SkeletonLoader from "../../components/SkeletonLoader";
-
+import CourseReloade from "../ui/CourseReloade";
 const PopularCourses = () => {
   const [page, setPage] = useState(1);
   const per_page = 6;
@@ -70,11 +70,7 @@ const PopularCourses = () => {
   }
 
   if (coursesError) {
-    return (
-      <div className="container mx-auto py-16 px-4">
-        <p>Error loading courses. Please try again later.</p>
-      </div>
-    );
+    return <CourseReloade name="courses" />;
   }
 
   return (

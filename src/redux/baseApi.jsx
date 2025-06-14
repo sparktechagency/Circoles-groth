@@ -28,6 +28,10 @@ export const api = createApi({
     "notification",
     "verifyuser",
     "transaction",
+    "category",
+    "course",
+    "section",
+    "lecture",
   ],
   endpoints: () => ({}),
 });

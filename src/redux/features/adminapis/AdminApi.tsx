@@ -45,6 +45,53 @@ export const AdminApi = api.injectEndpoints({
       providesTags: ["transaction"],
     }),
 
+    getAllCategory: builder.query({
+      query: () =>
+        `/admin/category`,
+      providesTags: ["category"],
+    }),
+
+    createACourse: builder.mutation({
+      query: (formdata) => ({
+        url: `/admin/course/store`,
+        method: "POST",
+        body: formdata,
+
+      }),
+
+      invalidatesTags: ["course"],
+    }),
+    manageallCourse: builder.query({
+      query: ({ per_page = 10, page = 1, search, sort, rating }) =>
+        `/admin/course?per_page=${per_page}&page=${page}&search_by_title=${search}&sort_by=${sort}&rating=${rating}`,
+      providesTags: ["course"],
+    }),
+
+    deleteCourse: builder.mutation({
+      query: (id) => ({
+        url: `/admin/course/destroy/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["course"],
+    }),
+
+    createAsection: builder.mutation({
+      query: ({ id, body }) => ({
+        url: `/admin/course/curriculum/store/${id}`,
+        method: "POST",
+        body,
+      }),
+      invalidatesTags: ["section"],
+    }),
+
+    createAlecture: builder.mutation({
+      query: ({ id, body }) => ({
+        url: `/admin/course/lecture/store/${id}`,
+        method: "POST",
+        body,
+      }),
+      invalidatesTags: ["lecture"],
+    }),
 
   }),
 });
@@ -56,5 +103,12 @@ export const {
   useDeleteuserMutation,
   useVerificationQuery,
   useDeleteVerifyuserMutation,
-  useTransectionQuery
+  useTransectionQuery,
+  useGetAllCategoryQuery,
+  useCreateACourseMutation,
+  useManageallCourseQuery,
+  useDeleteCourseMutation,
+  useCreateAsectionMutation,
+  useCreateAlectureMutation
+
 } = AdminApi;

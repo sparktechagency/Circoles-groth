@@ -7,6 +7,7 @@ import Link from "next/link";
 import { RightOutlined } from "@ant-design/icons";
 import { useGetallprogramsQuery } from "../../redux/features/programsApi";
 import SkeletonLoader from "../SkeletonLoader";
+import CourseReloade from "../ui/CourseReloade";
 
 const RecomendedPrograms = () => {
   const [page, setPage] = useState(1);
@@ -37,11 +38,7 @@ const RecomendedPrograms = () => {
   }
 
   if (programsError) {
-    return (
-      <div className="container mx-auto py-16 px-4">
-        <p>Error loading programs. Please try again later.</p>
-      </div>
-    );
+    return <CourseReloade name="Programs" />;
   }
 
   return (

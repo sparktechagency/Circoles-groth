@@ -5,6 +5,7 @@ import React, { useState } from "react";
 import { useTopRatedTutorsQuery } from "../../redux/features/TutorApi";
 import TopratedTutorCard from "../ui/TopratedTutorCard";
 import SkeletonLoader from "../SkeletonLoader";
+import CourseReloade from "../ui/CourseReloade";
 
 const TopRatedMentor = () => {
   const [page, setPage] = useState(1);
@@ -51,11 +52,7 @@ const TopRatedMentor = () => {
   }
 
   if (tutorsError) {
-    return (
-      <div className="container mx-auto py-16 px-4">
-        <p>Error loading tutors. Please try again later.</p>
-      </div>
-    );
+    return <CourseReloade name="tutors" />;
   }
 
   return (
