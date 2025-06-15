@@ -1,8 +1,9 @@
 "use client";
 import React, { useState } from "react";
 import { Form, Input, Button, Checkbox, Alert } from "antd";
-import AuthLayout from "../../components/AuthLayout";
+
 import { useRouter } from "next/navigation";
+import AuthLayout from "../../../../components/AuthLayout";
 
 const UpdatePassword = () => {
   const router = useRouter();
@@ -25,7 +26,7 @@ const UpdatePassword = () => {
 
   return (
     <AuthLayout>
-      <div className=" max-w-xl mx-auto pt-32 px-4  rounded-lg">
+      <div className=" max-w-xl mx-auto pt-32 px-4 h-screen  rounded-lg">
         {alertMessage && (
           <Alert
             message={alertMessage}

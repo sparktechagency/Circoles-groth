@@ -12,7 +12,9 @@ import { useParams } from "next/navigation";
 import {
   useCreateAlectureMutation,
   useCreateAsectionMutation,
+  useDeleteAlectureMutation,
   useDeleteAsectionMutation,
+  useUpdateAlectureMutation,
   useUpdateAsectionMutation,
 } from "../../../redux/features/adminapis/AdminApi";
 import Swal from "sweetalert2";
@@ -31,6 +33,11 @@ const CurriculumSection = () => {
   const [createAlecture, { isLoading: createAlectureLoading }] =
     useCreateAlectureMutation();
 
+  const [deleteAlecture, { isLoading: deleteAlectureLoading }] =
+    useDeleteAlectureMutation();
+  const [updateAlecture, { isLoading: updateAlectureLoading }] =
+    useUpdateAlectureMutation();
+
   // Initialize state with API data or default empty structure
   const [sections, setSections] = useState([]);
   const [isDataLoaded, setIsDataLoaded] = useState(false);
@@ -39,6 +46,7 @@ const CurriculumSection = () => {
   const [sectionModalVisible, setSectionModalVisible] = useState(false);
   const [lectureModalVisible, setLectureModalVisible] = useState(false);
   const [currentSectionId, setCurrentSectionId] = useState(null);
+  const [currentLectureId, setCurrentLectureId] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
   const [currentItem, setCurrentItem] = useState(null);
   console.log("currentItem", currentSectionId);
@@ -177,6 +185,7 @@ const CurriculumSection = () => {
     setCurrentSectionId(sectionId);
     setIsEditing(false);
     setCurrentItem(null);
+
     lectureForm.resetFields();
     setLectureModalVisible(true);
   };
@@ -184,8 +193,9 @@ const CurriculumSection = () => {
   const showEditLectureModal = (lecture) => {
     setIsEditing(true);
     setCurrentItem(lecture);
+    setCurrentLectureId(lecture.id);
     lectureForm.setFieldsValue({
-      title: lecture.name, // Make sure these field names match your API
+      title: lecture.name,
       description: lecture.description,
       video_url: lecture.videoUrl,
     });
@@ -194,18 +204,37 @@ const CurriculumSection = () => {
 
   const handleLectureSubmit = () => {
     lectureForm.validateFields().then(async (values) => {
+      const formdata = new FormData();
+      formdata.append("title", values.title);
+      formdata.append("description", values.description);
+      formdata.append("video_url", values.video_url);
       if (isEditing) {
-        // Update existing lecture
-        setSections(
-          sections.map(async (section) => ({
-            ...section,
-            lectures: section.lectures.map((lecture) =>
-              lecture.id === currentItem.id
-                ? { ...lecture, ...values }
-                : lecture
-            ),
-          }))
-        );
+        formdata.append("_method", "PUT");
+        console.log("Updating lecture with ID:", currentItem.id);
+        try {
+          const resp = await updateAlecture({
+            id: currentItem.id,
+            body: formdata,
+          }).unwrap();
+          console.log("section resp", resp);
+          if (resp?.success) {
+            Swal.fire({
+              icon: "success",
+              title: "Lecture updated successfully",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+            lectureForm.resetFields();
+          }
+        } catch (error) {
+          console.error("Update error:", error);
+          Swal.fire({
+            icon: "error",
+            title: "Lecture update failed",
+            showConfirmButton: true,
+            confirmButtonText: "OK",
+          });
+        }
       } else {
         try {
           const resp = await createAlecture({
@@ -236,17 +265,38 @@ const CurriculumSection = () => {
     });
   };
 
-  const handleDeleteLecture = (sectionId, lectureId) => {
-    setSections(
-      sections.map((section) =>
-        section.id === sectionId
-          ? {
-              ...section,
-              lectures: section.lectures.filter((l) => l.id !== lectureId),
-            }
-          : section
-      )
-    );
+  // Updated delete function
+  const handleDeleteLecture = (id) => {
+    console.log("Deleting lecture with ID:", id);
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          const resp = await deleteAlecture(id).unwrap();
+
+          if (resp?.success) {
+            // Update local state
+            setSections((prevSections) =>
+              prevSections.map((section) => ({
+                ...section,
+                lectures: section.lectures.filter((l) => l.id !== id),
+              }))
+            );
+            Swal.fire("Deleted!", "Lecture has been deleted.", "success");
+          }
+        } catch (error) {
+          console.error("Delete error:", error.response?.data || error.message);
+          Swal.fire("Error", "Failed to delete lecture.", "error");
+        }
+      }
+    });
   };
 
   if (isLoading) {
@@ -361,7 +411,7 @@ const CurriculumSection = () => {
                   />
                   <DeleteOutlined
                     className="cursor-pointer text-xl text-red-500"
-                    onClick={() => handleDeleteLecture(section.id, lecture.id)}
+                    onClick={() => handleDeleteLecture(lecture.id)}
                   />
                 </div>
               </div>
@@ -406,7 +456,7 @@ const CurriculumSection = () => {
         {/* <button className="h-[48px] text-[#475467] text-[16px] border-none font-semibold">
           Previous
         </button> */}
-        <Button
+        {/* <Button
           style={{
             backgroundColor: "#14698A",
             fontSize: "16px",
@@ -415,7 +465,7 @@ const CurriculumSection = () => {
           className=" h-[48px]"
         >
           Save & Next
-        </Button>
+        </Button> */}
       </div>
 
       {/* Section Modal */}

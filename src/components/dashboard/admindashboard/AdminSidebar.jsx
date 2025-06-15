@@ -24,11 +24,14 @@ import { IoMdMenu } from "react-icons/io";
 
 import avater from "/public/images/Avatar.png";
 import Image from "next/image";
+import { useGetOwnprofileQuery } from "../../../redux/features/AuthApi";
 const AdminSidebar = () => {
   const router = useRouter();
   const [mobileMenu, setMobileMenu] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
-
+  const { data, isLoading } = useGetOwnprofileQuery();
+  const user = data?.user[0];
+  console.log("user", user);
   // Ensure the component is mounted before rendering
   useEffect(() => {
     setIsMounted(true);
@@ -167,22 +170,6 @@ const AdminSidebar = () => {
     },
   ];
 
-  const content = (
-    <div className="w-40">
-      <p className="mb-2">
-        <Link href="/profile" className="flex items-center gap-2">
-          <UserOutlined size={18} /> <span className="text-md">Profile</span>
-        </Link>
-      </p>
-      <p className="mb-3">
-        <Link href="/change-password" className="flex items-center gap-2">
-          <LockFilled size={18} />{" "}
-          <span className="text-md">Change Password</span>
-        </Link>
-      </p>
-    </div>
-  );
-
   const handleLogout = () => {
     Swal.fire({
       title: "Are you sure?",
@@ -242,13 +229,13 @@ const AdminSidebar = () => {
         }}
       >
         <img src={logo.src} alt="Logo" className="mx-auto py-6 w-[264px]" />
-        <div className="px-2">
+        {/* <div className="px-2">
           <Input
             placeholder="Search"
             className="w-full mt-4 px-4 py-2 mb-6"
             prefix={<SearchOutlined className="text-xl text-gray-500" />}
           />
-        </div>
+        </div> */}
         <div className={` `}>
           <Menu
             className={`h-[calc(100vh-400px)]  flex-cols items-center justify-between`}
@@ -300,23 +287,14 @@ const AdminSidebar = () => {
               </div>
 
               <div className="flex gap-8 mt-6 px-4">
-                <Popover
-                  className="cursor-pointer"
-                  placement="bottom"
-                  content={content}
-                >
-                  <Avatar
-                    style={{
-                      width: "40px",
-                      height: "40px",
-                      backgroundColor: "gray",
-                    }}
-                    icon={<Image src={avater} />}
-                  />
-                </Popover>
+                <Avatar
+                  size={40}
+                  icon={<Image height={40} width={40} src={user?.avatar} />}
+                />
+
                 <div>
-                  <h1 className="text-black text-sm">John Doe</h1>
-                  <h1 className="text-black text-sm">ex@ample.com</h1>
+                  <h1 className="text-black text-sm">{user?.name}</h1>
+                  <h1 className="text-black text-sm">{user?.email}</h1>
                 </div>
                 <div onClick={handleLogout} className="cursor-pointer ">
                   <svg

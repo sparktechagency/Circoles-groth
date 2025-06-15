@@ -53,6 +53,15 @@ const AuthApi = api.injectEndpoints({
       }),
       providesTags: ["user"],
     }),
+
+    updatePassword: builder.mutation({
+      query: (formdata) => ({
+        url: `/update-password`,
+        method: "POST",
+        body: formdata,
+      }),
+      invalidatesTags: ["user"],
+    }),
   }),
 });
 
@@ -63,4 +72,5 @@ export const {
   useResetpasswordMutation,
   useCreateNewpasswordMutation,
   useGetOwnprofileQuery,
+  useUpdatePasswordMutation,
 } = AuthApi;

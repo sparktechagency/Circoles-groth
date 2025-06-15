@@ -1,26 +1,50 @@
 "use client";
 import React, { useState } from "react";
-import { Form, Input, Button, Checkbox, Alert } from "antd";
+import { Form, Input, Button, Checkbox, Alert, message } from "antd";
 
 import { useRouter } from "next/navigation";
 import AuthLayout from "../../../../components/AuthLayout";
+import { useUpdatePasswordMutation } from "../../../../redux/features/AuthApi";
+import Swal from "sweetalert2";
 
 const UpdatePassword = () => {
   const router = useRouter();
   const [alertMessage, setAlertMessage] = useState(null); // State for alert message
   const [alertType, setAlertType] = useState(null);
-  const onFinish = (values) => {
-    console.log("Success:", values);
-    const newpassword = values.newpassword;
-    const confirmPassword = values.Confirmpassword;
-    if (newpassword !== confirmPassword) {
+  const [updatePassword, { isLoading }] = useUpdatePasswordMutation();
+  const [form] = Form.useForm();
+  const onFinish = async (values) => {
+    const formdata = new FormData();
+    const { old_password, password, password_confirmation } = values;
+    formdata.append("old_password", old_password);
+    formdata.append("password", password);
+    formdata.append("password_confirmation", password_confirmation);
+    if (password !== password_confirmation) {
       setAlertMessage("Passwords do not match");
       setAlertType("error");
     } else {
-      setAlertMessage("Password created successfully");
-      setAlertType("success");
+      try {
+        const resp = await updatePassword(formdata).unwrap();
+        console.log("response ---------", resp);
+        if (resp?.success) {
+          Swal.fire("Success", resp?.message, "success");
+          form.resetFields();
+          router.push("/AdminDashboard");
+        }
 
-      router.push("/AdminDashboard");
+        if (!resp?.success) {
+          Swal.fire(
+            "Warning",
+            resp?.message || "Something went wrong",
+            "error"
+          );
+        }
+      } catch (error) {
+        Swal.fire("Error", "Something went wrong", "error");
+        console.log("error", error);
+      }
+
+      // router.push("/AdminDashboard");
     }
   };
 
@@ -55,13 +79,13 @@ const UpdatePassword = () => {
                 <Form.Item
                   label={
                     <label
-                      htmlFor="currentPasword"
+                      htmlFor="old_password"
                       className="text-sm text-[#344054] font-medium"
                     >
                       Current password
                     </label>
                   }
-                  name="currentPasword"
+                  name="old_password"
                   rules={[
                     {
                       required: true,
@@ -79,13 +103,13 @@ const UpdatePassword = () => {
                 <Form.Item
                   label={
                     <label
-                      htmlFor="newpassword"
+                      htmlFor="password"
                       className="text-sm text-[#344054] font-medium"
                     >
                       New password
                     </label>
                   }
-                  name="newpassword"
+                  name="password"
                   rules={[
                     {
                       required: true,
@@ -103,13 +127,13 @@ const UpdatePassword = () => {
                 <Form.Item
                   label={
                     <label
-                      htmlFor="newpassword"
+                      htmlFor="password"
                       className="text-sm text-[#344054] font-medium"
                     >
                       Confirm password
                     </label>
                   }
-                  name="Confirmpassword"
+                  name="password_confirmation"
                   rules={[
                     {
                       required: true,
@@ -144,6 +168,8 @@ const UpdatePassword = () => {
                   </Form.Item>
                   <Form.Item>
                     <Button
+                      loading={isLoading}
+                      disabled={isLoading}
                       className="text-[#FFFFFF] text-[16px] font-semibold bg-primary p-6"
                       style={{ backgroundColor: "#14698A" }}
                       size="large"
