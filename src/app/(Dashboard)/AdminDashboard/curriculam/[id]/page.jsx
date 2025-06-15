@@ -66,7 +66,7 @@ const AddCurriculam = () => {
               <CurriculumSection setactivekey={setactivekey} />
             </div>
           </TabPane>
-
+          {/* 
           <TabPane
             tab={
               <span className="flex items-center gap-2 text-[#1D2939] font-semibold">
@@ -79,7 +79,7 @@ const AddCurriculam = () => {
             <div>
               <PublishCourse allDeta={allDeta} />
             </div>
-          </TabPane>
+          </TabPane> */}
         </Tabs>
       </div>
     </div>

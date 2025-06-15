@@ -12,15 +12,22 @@ import { useParams } from "next/navigation";
 import {
   useCreateAlectureMutation,
   useCreateAsectionMutation,
+  useDeleteAsectionMutation,
+  useUpdateAsectionMutation,
 } from "../../../redux/features/adminapis/AdminApi";
 import Swal from "sweetalert2";
 
 const CurriculumSection = () => {
   const { id } = useParams();
   const { data: courseData, isLoading } = useGetCourseDetailsQuery(id);
-
+  console.log("courseData", courseData);
   const [createAsection, { isLoading: createAsectionLoading }] =
     useCreateAsectionMutation();
+  const [updateAsection, { isLoading: updateAsectionLoading }] =
+    useUpdateAsectionMutation();
+  const [deleteAsection, { isLoading: deleteAsectionLoading }] =
+    useDeleteAsectionMutation();
+
   const [createAlecture, { isLoading: createAlectureLoading }] =
     useCreateAlectureMutation();
 
@@ -70,23 +77,46 @@ const CurriculumSection = () => {
   const showEditSectionModal = (section) => {
     setIsEditing(true);
     setCurrentItem(section);
+    setCurrentSectionId(section.id);
     sectionForm.setFieldsValue({
-      name: section.name,
-      description: section.description,
+      section_name: section.name,
     });
     setSectionModalVisible(true);
   };
 
   const handleSectionSubmit = async () => {
     sectionForm.validateFields().then(async (values) => {
-      console.log("Form Data:", values);
+      const formdata = new FormData();
+      formdata.append("section_name", values.section_name);
+
+      console.log("secid", currentSectionId);
       if (isEditing) {
-        // Update existing section
-        setSections(
-          sections.map((section) =>
-            section.id === currentItem.id ? { ...section, ...values } : section
-          )
-        );
+        formdata.append("_method", "PUT");
+        console.log("Updating section with ID:", currentItem.id);
+        try {
+          const resp = await updateAsection({
+            id: currentItem.id, // Use currentItem.id
+            body: formdata,
+          }).unwrap();
+          console.log("section resp", resp);
+          if (resp?.success) {
+            Swal.fire({
+              icon: "success",
+              title: "Section updated successfully",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+            sectionForm.resetFields();
+          }
+        } catch (error) {
+          console.error("Update error:", error);
+          Swal.fire({
+            icon: "error",
+            title: "Section update failed",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
       } else {
         try {
           const resp = await createAsection({ id, body: values }).unwrap();
@@ -115,8 +145,31 @@ const CurriculumSection = () => {
     });
   };
 
-  const handleDeleteSection = (sectionId) => {
-    setSections(sections.filter((section) => section.id !== sectionId));
+  const handleDeleteSection = (id) => {
+    console.log("sectionId", id);
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          const resp = await deleteAsection(id).unwrap();
+
+          if (resp?.success) {
+            // setSections(sections.filter((section) => section.id !== sectionId));
+            Swal.fire("Deleted!", "Section has been deleted.", "success");
+          }
+        } catch (error) {
+          console.error("Error deleting section:", error);
+          Swal.fire("Error", "Failed to delete section.", "error");
+        }
+      }
+    });
   };
 
   // LECTURE HANDLERS
@@ -132,9 +185,9 @@ const CurriculumSection = () => {
     setIsEditing(true);
     setCurrentItem(lecture);
     lectureForm.setFieldsValue({
-      name: lecture.name,
+      title: lecture.name, // Make sure these field names match your API
       description: lecture.description,
-      videoUrl: lecture.videoUrl,
+      video_url: lecture.videoUrl,
     });
     setLectureModalVisible(true);
   };
@@ -349,10 +402,10 @@ const CurriculumSection = () => {
       </Button>
 
       {/* Navigation Buttons */}
-      <div className="flex justify-between mt-8">
-        <button className="h-[48px] text-[#475467] text-[16px] border-none font-semibold">
+      <div className="flex justify-end mt-8">
+        {/* <button className="h-[48px] text-[#475467] text-[16px] border-none font-semibold">
           Previous
-        </button>
+        </button> */}
         <Button
           style={{
             backgroundColor: "#14698A",

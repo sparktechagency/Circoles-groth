@@ -75,6 +75,12 @@ export const AdminApi = api.injectEndpoints({
       invalidatesTags: ["course"],
     }),
 
+
+
+    // COURSE_CURRICULAM SECTION ADD/EDIT/DELETE -------------------------------------------------------------------
+
+
+    //  SECTION
     createAsection: builder.mutation({
       query: ({ id, body }) => ({
         url: `/admin/course/curriculum/store/${id}`,
@@ -84,6 +90,29 @@ export const AdminApi = api.injectEndpoints({
       invalidatesTags: ["section"],
     }),
 
+    updateAsection: builder.mutation({
+      query: ({ id, body }) => ({
+        url: `/admin/course/curriculum/update/${id}`,
+        method: "POST",
+        body,
+      }),
+      invalidatesTags: ["section"],
+    }),
+
+    deleteAsection: builder.mutation({
+      query: (id) => ({
+        url: `/admin/course/curriculum/destroy/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["section"],
+    }),
+
+    //  SECTION END
+
+
+
+
+    //  LECTURE HANDLERS
     createAlecture: builder.mutation({
       query: ({ id, body }) => ({
         url: `/admin/course/lecture/store/${id}`,
@@ -92,6 +121,25 @@ export const AdminApi = api.injectEndpoints({
       }),
       invalidatesTags: ["lecture"],
     }),
+
+    updateAlecture: builder.mutation({
+      query: ({ id, body }) => ({
+        url: `/admin/course/lecture/update/${id}`,
+        method: "POST",
+        body,
+      }),
+      invalidatesTags: ["lecture"],
+    }),
+
+    deleteAlecture: builder.mutation({
+      query: (id) => ({
+        url: `/admin/course/lecture/destroy/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["lecture"],
+    }),
+
+    // LECTURE END
 
   }),
 });
@@ -109,6 +157,10 @@ export const {
   useManageallCourseQuery,
   useDeleteCourseMutation,
   useCreateAsectionMutation,
-  useCreateAlectureMutation
+  useCreateAlectureMutation,
+  useDeleteAsectionMutation,
+  useDeleteAlectureMutation,
+  useUpdateAsectionMutation,
+  useUpdateAlectureMutation,
 
 } = AdminApi;
