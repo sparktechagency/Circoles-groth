@@ -4,7 +4,7 @@ import { Badge } from "antd";
 import { Header } from "antd/es/layout/layout";
 import { usePathname, useRouter } from "next/navigation";
 
-const TopHeader = () => {
+const TopHeader = ({ isOpen }) => {
   const pathname = usePathname();
   const router = useRouter();
   const getTitle = () => {
@@ -239,7 +239,6 @@ const TopHeader = () => {
         );
     }
   };
-
   const handleNotifications = () => {
     console.log("clicked");
     router.push("/notifications");
@@ -248,14 +247,10 @@ const TopHeader = () => {
     <div>
       <Header
         style={{
-          position: "fixed",
-          width: "83vw",
-          top: 0,
-          left: 312,
           background: "#F6F6F6",
           height: "80px",
           paddingTop: "20px",
-          zIndex: 10, // Increased z-index
+
           display: "flex",
           justifyContent: "flex-end",
           alignItems: "center",

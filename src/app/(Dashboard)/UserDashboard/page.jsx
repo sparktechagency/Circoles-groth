@@ -1,21 +1,14 @@
 "use client";
 import React, { useState } from "react";
-import { FiCreditCard } from "react-icons/fi";
+
 import { GrDocumentVerified } from "react-icons/gr";
 import { IoIosTrophy } from "react-icons/io";
-import { LuCrown } from "react-icons/lu";
 import { PlayCircleOutlined } from "@ant-design/icons";
 import { Card, Progress, Button, Rate, Image } from "antd";
-import {
-  ClockCircleOutlined,
-  UsergroupDeleteOutlined,
-} from "@ant-design/icons";
-import { ArrowUp } from "lucide-react";
-import Link from "next/link";
 
-import { BiRightArrow } from "react-icons/bi";
-import { MdArrowForwardIos } from "react-icons/md";
-import UserBarChart from "../../components/dashboard/userDashboard/UserBarChart";
+import { ArrowUp } from "lucide-react";
+import UserBarChart from "../../../components/dashboard/userDashboard/UserBarChart";
+
 const Mycourses = () => {
   const [selectedCard, setSelectedCard] = useState(null);
   const cardData = [

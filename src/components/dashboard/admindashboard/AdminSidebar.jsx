@@ -25,7 +25,7 @@ import { IoMdMenu } from "react-icons/io";
 import avater from "/public/images/Avatar.png";
 import Image from "next/image";
 import { useGetOwnprofileQuery } from "../../../redux/features/AuthApi";
-const AdminSidebar = () => {
+const AdminSidebar = ({ setIsOpen, isOpen }) => {
   const router = useRouter();
   const [mobileMenu, setMobileMenu] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
@@ -39,6 +39,7 @@ const AdminSidebar = () => {
 
   const handlemobilemenu = () => {
     setMobileMenu(!mobileMenu);
+    setIsOpen(!mobileMenu);
   };
 
   const adminmenuitems = [
@@ -205,10 +206,10 @@ const AdminSidebar = () => {
       <div className="absolute top-2 xl:hidden lg:hidden block left-4 w-full h-16 z-50">
         {/* mobile menu  */}
         <button onClick={handlemobilemenu}>
-          {mobileMenu ? (
-            <IoMdMenu size={25} style={{ color: "#0E68E7" }} />
-          ) : (
+          {isOpen ? (
             <RxCross2 size={25} style={{ color: "#0E68E7" }} />
+          ) : (
+            <IoMdMenu size={25} style={{ color: "#0E68E7" }} />
           )}
         </button>
       </div>
