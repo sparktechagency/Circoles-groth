@@ -300,10 +300,7 @@ const Navbar = () => {
             </Dropdown>
           </li>
           <li>
-            <Link
-              href={`${token ? "/auth/Becomeatutor" : "/auth/login"}`}
-              className="text-sm pl-2"
-            >
+            <Link href={`/auth/Becomeatutor`} className="text-sm pl-2">
               Become a Tutor
             </Link>
           </li>

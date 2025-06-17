@@ -33,8 +33,8 @@ const Page = () => {
       if (resp?.token) {
         message.success(resp.message);
         Cookies.set("token", resp.access_token, {
-          path: "/", // So it's accessible across all routes
-          secure: true, // Required for HTTPS (like Vercel)
+          path: "/",
+          secure: true,
           sameSite: "Strict",
         });
 

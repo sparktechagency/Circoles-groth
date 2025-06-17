@@ -141,41 +141,6 @@ const Status = () => {
       title: `$${data?.totalEarnings || "0"}`,
       description: "Total Earnings",
     },
-    {
-      id: 4,
-      icon: (
-        <svg
-          width="60"
-          height="60"
-          viewBox="0 0 60 60"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <rect width="60" height="60" rx="8" fill="white" />
-          <path
-            opacity="0.2"
-            d="M19.5 19.5V38.5L21.5 40.5H40.5V19.5H19.5Z"
-            fill="#7F56D9"
-          />
-          <path
-            d="M19.5 31.9091V20.5C19.5 20.2348 19.6054 19.9804 19.7929 19.7929C19.9804 19.6054 20.2348 19.5 20.5 19.5H39.5C39.7652 19.5 40.0196 19.6054 40.2071 19.7929C40.3946 19.9804 40.5 20.2348 40.5 20.5V39.5C40.5 39.7652 40.3946 40.0196 40.2071 40.2071C40.0196 40.3946 39.7652 40.5 39.5 40.5H30.9545"
-            stroke="#7F56D9"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-          <path
-            d="M30 33L22 41L18 37"
-            stroke="#7F56D9"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
-      ),
-      title: "684",
-      description: "Enrolled Courses",
-    },
   ];
 
   const handleCardClick = (cardIndex) => {
@@ -209,7 +174,7 @@ const Status = () => {
           />
         </div>
       </div>
-      <div className="grid xl:grid-cols-4 lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-4 mt-[12px]">
+      <div className="grid xl:grid-cols-3 lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-4 mt-[12px]">
         {cardData.map((card, index) => {
           const bgColors = [
             "bg-[#F9F5FF]",

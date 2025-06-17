@@ -34,8 +34,16 @@ const CourseApi = api.injectEndpoints({
     }),
 
     purchaseCourse: builder.mutation({
-      query: ({ id, body = {} }) => ({
-        url: `/student/course-booking?course_id=${id}`,
+      query: ({ body = {} }) => ({
+        url: `/student/course-booking`,
+        method: "POST",
+        body,
+      }),
+    }),
+
+    storepayment: builder.mutation({
+      query: ({ body = {} }) => ({
+        url: `/student/course-payment/callback`,
         method: "POST",
         body,
       }),
@@ -59,4 +67,5 @@ export const {
   useGetallOnlineProgamsQuery,
   useGetAvarageRatingQuery,
   usePurchaseCourseMutation,
+  useStorepaymentMutation,
 } = CourseApi;

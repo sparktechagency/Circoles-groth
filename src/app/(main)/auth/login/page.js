@@ -23,7 +23,7 @@ const signIn = () => {
     console.log(values);
     try {
       const resp = await login(values).unwrap();
-      console.log(resp);
+      console.log(resp?.access_token);
       if (resp?.access_token) {
         messageApi.open({
           type: "success",

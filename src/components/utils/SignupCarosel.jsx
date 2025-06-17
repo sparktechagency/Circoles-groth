@@ -20,7 +20,9 @@ const SignupCarousel = () => {
   };
 
   return (
-    <div className="relative h-full lg:p-0 md:p-0 overflow-hidden"> {/* Added h-screen and overflow-hidden */}
+    <div className="relative h-full lg:p-0 md:p-0 overflow-hidden">
+      {" "}
+      {/* Added h-screen and overflow-hidden */}
       {/* Custom Left Arrow */}
       <div
         className="absolute xl:bottom-8 lg:bottom-8 bottom-8 xl:left-[60%] lg:left-[40%] left-[40%] transform -translate-y-1/2 bg-transparent border rounded-full h-[56px] w-[56px] flex items-center justify-center z-10 cursor-pointer"
@@ -28,24 +30,24 @@ const SignupCarousel = () => {
       >
         <ArrowLeftOutlined style={{ color: "#fff", fontSize: "20px" }} />
       </div>
-
       {/* Carousel */}
       <Carousel ref={carouselRef} dots={false} arrows={false} infinite>
         {/* First Slide */}
-        <div className="relative h-screen w-full rounded-bl-[10%] rounded-tl-[10%] overflow-hidden"> {/* Updated to h-full */}
+        <div className="relative h-screen w-full rounded-bl-[10%] rounded-tl-[10%] overflow-hidden">
+          {" "}
+          {/* Updated to h-full */}
           {/* Image */}
           <Image
             className="w-full h-full object-cover rounded-bl-[10%] rounded-tl-[10%]" // Ensures the image covers the entire container
             src={SignupImage}
             alt="carousel1"
           />
-
           {/* Black Overlay */}
           <div className="absolute inset-0 bg-gradient-to-t from-[#000000b4] top-[#00000080] flex flex-col justify-end items-start p-4 text-white text-start font-Merriweather rounded-bl-[10%] rounded-tl-[10%]">
             <div className="xl:p-11 lg:p-11 p-6">
               <h1 className="xl:text-[36px] lg:text-[28px] text-[24px] text-[#FCFCFD] font-bold mb-4">
-                “We’ve been using PANTAGONOSTIS to kick start every new course
-                and can’t imagine working without it.”
+                “We’ve been using Circooles to kick start every new course and
+                can’t imagine working without it.”
               </h1>
               <h3 className="xl:text-xl text-sm font-bold text-[#FFFFFF] font-Inter xl:py-4 lg:py-4">
                 Amélie Laurent
@@ -61,20 +63,21 @@ const SignupCarousel = () => {
         </div>
 
         {/* Second Slide */}
-        <div className="relative h-screen w-full rounded-bl-[10%] rounded-tl-[10%] overflow-hidden"> {/* Updated to h-full */}
+        <div className="relative h-screen w-full rounded-bl-[10%] rounded-tl-[10%] overflow-hidden">
+          {" "}
+          {/* Updated to h-full */}
           {/* Image */}
           <Image
             className="w-full h-full  object-cover rounded-bl-[10%] rounded-tl-[10%]" // Ensures the image covers the entire container
             src={SignupImage1}
             alt="carousel1"
           />
-
           {/* Black Overlay */}
           <div className="absolute inset-0 bg-gradient-to-t from-[#000000b4] top-[#00000080] flex flex-col justify-end items-start p-4 text-white text-start font-Merriweather rounded-bl-[10%] rounded-tl-[10%]">
             <div className="xl:p-11 lg:p-11 p-6">
               <h1 className="xl:text-[36px] lg:text-[28px] text-[24px] text-[#FCFCFD] font-bold mb-4">
-                “We’ve been using PANTAGONOSTIS to kick start every new course
-                and can’t imagine working without it.”
+                “We’ve been using Circooles to kick start every new course and
+                can’t imagine working without it.”
               </h1>
               <h3 className="xl:text-xl text-sm font-bold text-[#FFFFFF] font-Inter xl:py-4 lg:py-4">
                 Amélie Laurent
@@ -90,20 +93,21 @@ const SignupCarousel = () => {
         </div>
 
         {/* Third Slide */}
-        <div className="relative h-screen w-full rounded-bl-[10%] rounded-tl-[10%] overflow-hidden"> {/* Updated to h-full */}
+        <div className="relative h-screen w-full rounded-bl-[10%] rounded-tl-[10%] overflow-hidden">
+          {" "}
+          {/* Updated to h-full */}
           {/* Image */}
           <Image
             className="w-full h-full object-cover rounded-bl-[10%] rounded-tl-[10%]" // Ensures the image covers the entire container
             src={SignupImage}
             alt="carousel1"
           />
-
           {/* Black Overlay */}
           <div className="absolute inset-0 bg-gradient-to-t from-[#000000b4] top-[#00000080] flex flex-col justify-end items-start p-4 text-white text-start font-Merriweather rounded-bl-[10%] rounded-tl-[10%]">
             <div className="xl:p-11 lg:p-11 p-6">
               <h1 className="xl:text-[36px] lg:text-[28px] text-[24px] text-[#FCFCFD] font-bold mb-4">
-                “We’ve been using PANTAGONOSTIS to kick start every new course
-                and can’t imagine working without it.”
+                “We’ve been using Circooles to kick start every new course and
+                can’t imagine working without it.”
               </h1>
               <h3 className="xl:text-xl text-sm font-bold text-[#FFFFFF] font-Inter xl:py-4 lg:py-4">
                 Amélie Laurent
@@ -118,7 +122,6 @@ const SignupCarousel = () => {
           </div>
         </div>
       </Carousel>
-
       {/* Custom Right Arrow */}
       <div
         className="absolute right-[10%] xl:bottom-8 lg:bottom-8 bottom-8 transform -translate-y-1/2 bg-transparent border rounded-full h-[56px] w-[56px] flex items-center justify-center z-10 cursor-pointer"

@@ -37,13 +37,17 @@ const Page = ({ params }) => {
   const router = useRouter();
   const { Panel } = Collapse;
   const [messageApi, contextHolder] = message.useMessage();
-
+  // const redirect_url = "http://localhost:3000/browseCourse/success";
   const [purchaseCourse, { isLoading: isPurchasing }] =
     usePurchaseCourseMutation();
   // console.log("courseData", courseData?.course?.full_program);
 
   const handlepurchase = async () => {
-    const res = await purchaseCourse({ id }).unwrap();
+    const alldata = {
+      course_id: id,
+      redirect_url: "http://localhost:3000/browseCourse/success",
+    };
+    const res = await purchaseCourse({ body: alldata }).unwrap();
     console.log("res", res);
     if (res?.error) {
       messageApi.open({

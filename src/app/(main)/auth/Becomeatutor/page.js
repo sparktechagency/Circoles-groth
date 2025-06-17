@@ -1,66 +1,88 @@
 "use client";
 import React from "react";
-import { Form, Input, Button, Select } from "antd";
-
+import { Form, Input, Button, Select, message } from "antd";
 import Link from "next/link";
 import Image from "next/image";
-
 import tutorimg from "/public/images/becometutor.png";
 import AuthLayout from "../../../../components/AuthLayout";
+import { useRegisterMutation } from "../../../../redux/features/AuthApi";
+import { useRouter } from "next/navigation";
 
 const { Option } = Select;
+
 const Signup = () => {
-  const onFinish = (values) => {
-    console.log("Success:", values);
+  const [form] = Form.useForm();
+  const router = useRouter();
+  const [register, { isLoading }] = useRegisterMutation();
+  const onFinish = async (values) => {
+    const allData = { ...values, role: "tutor" };
+    try {
+      const resp = await register(allData).unwrap();
+      console.log("response ---------", resp);
+      if (resp?.success) {
+        message.success(resp.message);
+        form.resetFields();
+        router.push(
+          `/auth/otpverification?email=${values.email}&isRegegistation=true`
+        );
+      }
+      if (!resp?.success) {
+        message.error(resp.message);
+      }
+    } catch (error) {
+      message.error(error.data.message);
+    }
   };
 
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
 
+  const inputStyles =
+    "w-full h-11 border border-[#D0D5DD] rounded-lg p-2.5 text-base text-[#667085] font-normal hover:border-[#D0D5DD] focus:border-[#14698A] focus:shadow-sm";
+  const selectStyles =
+    "w-full h-11 border border-[#D0D5DD] rounded-lg text-base text-[#667085] font-normal hover:border-[#D0D5DD] focus:border-[#14698A]";
+  const buttonStyles =
+    "bg-[#14698A] text-white text-base font-semibold h-11 rounded-lg hover:bg-[#105a75] focus:bg-[#105a75]";
+
   return (
     <AuthLayout>
-      <div className="xl:flex lg:flex md:flex lg:max-h-screen lg:h-screen md:flex-row items-center justify-between mx-auto overflow-hidden">
+      <div className="flex flex-col lg:flex-row items-center justify-between min-h-screen">
         {/* Left Section */}
-        <div className="min-[1440px]:px-[40px] min-[1440px]:mt-[30px] xl:px-24 lg:px-12 lg:py-36 md:mx-auto md:px-3 xl:w-6/12 md:w-6/12 h-full xl:pb-0 md:pb-0 pb-12 flex flex-col justify-center">
-          <div className="min-[2035px]:px-[200px] lg:px-12 xl:px-36 md:px-0">
-            <div className="md:text-start text-center lg:my-4 my-8">
-              <h1 className="text-3xl font-bold mb-4 md:text-start text-center">
-                Become Tutor
-              </h1>
-              <h3 className="text-[#475467] text-[16px]">
+        <div className="w-full lg:w-1/2 px-4 py-12 lg:px-12 lg:py-24 flex flex-col justify-center">
+          <div className="max-w-md mx-auto w-full">
+            <div className="text-center lg:text-left mb-8">
+              <h1 className="text-3xl font-bold mb-2">Become Tutor</h1>
+              <p className="text-[#475467] text-base">
                 Please enter your details.
-              </h3>
+              </p>
             </div>
+
             <Form
-              className="md:px-0 px-6 md:mx-0 mx-auto"
               name="signin"
               layout="vertical"
               onFinish={onFinish}
               onFinishFailed={onFinishFailed}
-              style={{ maxWidth: "400px", width: "100%" }}
+              initialValues={{ role: "tutor" }}
             >
               <Form.Item
                 label={
-                  <label className="text-sm text-[#344054] font-medium">
+                  <span className="text-sm text-[#344054] font-medium">
                     Name*
-                  </label>
+                  </span>
                 }
                 name="name"
                 rules={[{ required: true, message: "Please input your name!" }]}
                 required={false}
               >
-                <Input
-                  className="min-[2035px]:w-[500px] min-[2035px]:h-[50px] min-[375px]:w-[330px] min-[320px]:w-[290px] w-[360px] h-[44px] border border-[#D0D5DD] p-2 text-[16px] text-[#667085] font-normal hover:border-[#D0D5DD] focus:border-[#dde2eb]"
-                  placeholder="Enter your Name"
-                />
+                <Input className={inputStyles} placeholder="Enter your Name" />
               </Form.Item>
 
               <Form.Item
                 label={
-                  <label className="text-sm text-[#344054] font-medium">
+                  <span className="text-sm text-[#344054] font-medium">
                     Email*
-                  </label>
+                  </span>
                 }
                 name="email"
                 rules={[
@@ -72,61 +94,116 @@ const Signup = () => {
                 ]}
                 required={false}
               >
-                <Input
-                  className="min-[2035px]:w-[500px] min-[2035px]:h-[50px] min-[375px]:w-[330px] min-[320px]:w-[290px]  w-[360px] h-[44px] border border-[#D0D5DD] p-2 text-[16px] text-[#667085] font-normal hover:border-[#D0D5DD] focus:border-[#dde2eb]"
-                  placeholder="Enter your email"
+                <Input className={inputStyles} placeholder="Enter your email" />
+              </Form.Item>
+
+              <Form.Item
+                label={
+                  <span className="text-sm text-[#344054] font-medium">
+                    Password*
+                  </span>
+                }
+                name="password"
+                rules={[
+                  { required: true, message: "Please input your password!" },
+                ]}
+                required={false}
+              >
+                <Input.Password
+                  className={inputStyles}
+                  placeholder="Enter your password"
                 />
               </Form.Item>
 
               <Form.Item
                 label={
-                  <label
-                    htmlFor="education-levels"
-                    className="text-sm text-[#344054] font-medium"
-                  >
-                    Which education levels are you interested in tutoring?*
-                  </label>
+                  <span className="text-sm text-[#344054] font-medium">
+                    Confirm Password*
+                  </span>
                 }
+                name="password_confirmation"
+                dependencies={["password"]}
+                rules={[
+                  { required: true, message: "Please confirm your password!" },
+                  ({ getFieldValue }) => ({
+                    validator(_, value) {
+                      if (!value || getFieldValue("password") === value) {
+                        return Promise.resolve();
+                      }
+                      return Promise.reject(
+                        new Error("The two passwords do not match!")
+                      );
+                    },
+                  }),
+                ]}
+                required={false}
               >
-                <div>
-                  <Select
-                    className="min-[2035px]:w-[500px] min-[2035px]:h-[50px] min-[375px]:w-[330px] min-[320px]:w-[290px]  w-[360px] h-[44px] border border-[#D0D5DD] p-2 text-[16px] text-[#667085] font-normal hover:border-[#D0D5DD] focus:border-[#dde2eb]"
-                    id="education-levels"
-                    mode="multiple" // Enables multiple selections
-                    allowClear // Adds a clear button
-                    placeholder="Select education levels"
-                  >
-                    <Option value="Primary">Primary</Option>
-                    <Option value="Middle School">Middle School</Option>
-                    <Option value="High School">High School</Option>
-                    <Option value="College">College</Option>
-                    <Option value="Graduate">Graduate</Option>
-                    <Option value="Post-Graduate">Post-Graduate</Option>
-                  </Select>
-                </div>
+                <Input.Password
+                  className={inputStyles}
+                  placeholder="Confirm your password"
+                />
               </Form.Item>
 
-              <Form.Item className=" min-[2035px]:w-[500px] min-[2035px]:h-[50px] min-[375px]:w-[330px] min-[320px]:w-[290px]  w-[360px] h-[44px]">
-                <Link href="/auth/signup/intarest">
-                  <Button
-                    style={{ backgroundColor: "#14698A" }}
-                    className="text-[#FFFFFF] text-[16px] font-semibold p-6"
-                    size=""
-                    type="primary"
-                    htmlType="submit"
-                    block
-                  >
-                    Submit
-                  </Button>
-                </Link>
+              <Form.Item
+                label={
+                  <span className="text-sm text-[#344054] font-medium">
+                    Which education levels are you interested in tutoring?*
+                  </span>
+                }
+                name="edu_level"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please select at least one education level!",
+                  },
+                ]}
+              >
+                <Select
+                  className={selectStyles}
+                  allowClear
+                  placeholder="Select education levels"
+                  dropdownStyle={{ borderRadius: "8px" }}
+                >
+                  <Option value="1">Primary</Option>
+                  <Option value="2">Middle School</Option>
+                  <Option value="3">High School</Option>
+                  <Option value="4">College</Option>
+                  <Option value="5">Graduate</Option>
+                  <Option value="6">Post-Graduate</Option>
+                </Select>
+              </Form.Item>
+
+              {/* Hidden role field */}
+              <Form.Item name="role" hidden>
+                <Input type="hidden" />
+              </Form.Item>
+
+              <Form.Item>
+                <Button
+                  loading={isLoading}
+                  className={buttonStyles}
+                  type="primary"
+                  htmlType="submit"
+                  block
+                >
+                  Submit
+                </Button>
               </Form.Item>
             </Form>
           </div>
         </div>
 
-        {/* Right Section (Carousel) */}
-        <div className="order-first md:order-last h-screen overflow-hidden md:w-6/12">
-          <Image src={tutorimg} />
+        {/* Right Section (Image) */}
+        <div className="w-full lg:w-1/2 lg:h-screen order-first lg:order-last">
+          <div className="relative w-full h-64 lg:h-full">
+            <Image
+              src={tutorimg}
+              alt="Tutor illustration"
+              layout="fill"
+              objectFit="cover"
+              priority
+            />
+          </div>
         </div>
       </div>
     </AuthLayout>
