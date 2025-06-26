@@ -1,473 +1,399 @@
-
-'use client';
+"use client";
 
 import React, { useState } from "react";
-import { Steps, Form, Input, Select, Tag, Button, Switch, message } from "antd";
+import {
+  Steps,
+  Form,
+  Input,
+  Select,
+  Button,
+  Switch,
+  message,
+  TimePicker,
+} from "antd";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
+import dayjs from "dayjs";
 
 const { Step } = Steps;
 const { Option } = Select;
 
 const Availability = () => {
-
-
   const [isInPerson, setIsInPerson] = useState(true);
   const [isOnline, setIsOnline] = useState(false);
-  const [days, setDays] = useState([]);
-  const [timeSlots, setTimeSlots] = useState([]);
-  const [rate, setRate] = useState("");
-
-  const [currentSetp, setCurrentrSetps] = useState(3)
-  const [selectedSubjects, setSelectedSubjects] = useState(["Physics", "Chemistry", "Biology"]);
-  const suggestions = ["Physics", "Chemistry", "Biology", "Philosophy", "Architecture"];
-  const [form] = Form.useForm(); // Form instance
+  const [timeZone, setTimeZone] = useState("GMT+6");
+  const [sessionCharge, setSessionCharge] = useState("");
+  const [offlineAvailability, setOfflineAvailability] = useState([]);
+  const [onlineAvailability, setOnlineAvailability] = useState([]);
+  const [currentStep] = useState(3);
+  const [form] = Form.useForm();
   const router = useRouter();
 
-  const handleAddSubject = (subject) => {
-    if (selectedSubjects.length < 3 && !selectedSubjects.includes(subject)) {
-      setSelectedSubjects([...selectedSubjects, subject]);
+  const daysOfWeek = [
+    "saturday",
+    "sunday",
+    "monday",
+    "tuesday",
+    "wednesday",
+    "thursday",
+    "friday",
+  ];
+
+  const handleAddAvailability = (type, day, startTime, endTime) => {
+    if (!day) {
+      message.error("Please select a day");
+      return;
+    }
+    if (!startTime || !endTime) {
+      message.error("Please select start and end time");
+      return;
+    }
+
+    const newSlot = {
+      day: day.toLowerCase(),
+      time: `${dayjs(startTime).format("hh:mm A")} - ${dayjs(endTime).format(
+        "hh:mm A"
+      )}`,
+    };
+
+    if (type === "offline") {
+      setOfflineAvailability([...offlineAvailability, newSlot]);
+    } else {
+      setOnlineAvailability([...onlineAvailability, newSlot]);
+    }
+
+    message.success("Time slot added!");
+    form.resetFields([`${type}Day`, `${type}StartTime`, `${type}EndTime`]);
+  };
+
+  const handleRemoveAvailability = (type, index) => {
+    if (type === "offline") {
+      setOfflineAvailability(offlineAvailability.filter((_, i) => i !== index));
+    } else {
+      setOnlineAvailability(onlineAvailability.filter((_, i) => i !== index));
     }
   };
 
-  const handleRemoveSubject = (removedSubject) => {
-    setSelectedSubjects(selectedSubjects.filter((subject) => subject !== removedSubject));
+  const handleFormSubmit = () => {
+    const formData = {
+      time_zone: timeZone,
+      online: onlineAvailability,
+      offline: offlineAvailability,
+      session_charge: sessionCharge,
+    };
+
+    console.log("formData", formData);
+
+    localStorage.setItem("profilesetup4", JSON.stringify(formData));
+    router.push("/TutorDashboard/publishToComunity");
   };
-
-  // Handle form submission
-  const handleFormSubmit = (values) => {
-    console.log({
-      ...values,
-      selectedSubjects,
-    });
-    setCurrentrSetps(4)
-
-
-    router.push('/TutorDashboard/publishToComunity')
-  };
-
-
-  const handleDaySelection = (value) => {
-    setDays(value);
-  };
-
-  const addTimeSlot = (start, end) => {
-    if (start && end) {
-      setTimeSlots([...timeSlots, { start, end }]);
-      message.success("Time slot added!");
-    }
-  };
-
-  const removeTimeSlot = (index) => {
-    setTimeSlots(timeSlots.filter((_, i) => i !== index));
-  };
-
 
   return (
-    <div className="flex gap-8 p-6 bg-white h-screen pt-8">
+    <div className="flex gap-8 p-6 bg-white min-h-screen pt-8">
       {/* Sidebar */}
       <div className="w-1/4 bg-[#F9FAFB] p-4 h-fit rounded-lg">
         <div className="py-6 space-y-2">
-          <h1>Welcome to Circooles</h1>
+          <h1 className="text-xl font-bold">Welcome to Circooles</h1>
           <p className="text-sm text-[#667085]">
-            Follow these steps to apply for an account on the Circooles Tutor Platform:
+            Follow these steps to apply for an account on the Circooles Tutor
+            Platform:
           </p>
         </div>
 
-        <Steps direction="vertical" current={currentSetp} className="text-left">
-          <Step className="h-[60px] font-bold text-[#000000]" title="Basic Info" />
-          <Step className="h-[60px] font-bold text-[#000000]" title="Professional Info" />
-          <Step className="h-[60px] font-bold text-[#000000]" title="Qualifications" />
-          <Step className="h-[60px] font-bold text-[#000000]" title="Availability" />
+        <Steps direction="vertical" current={currentStep} className="text-left">
+          <Step
+            className="h-[60px] font-bold text-[#000000]"
+            title="Basic Info"
+          />
+          <Step
+            className="h-[60px] font-bold text-[#000000]"
+            title="Professional Info"
+          />
+          <Step
+            className="h-[60px] font-bold text-[#000000]"
+            title="Qualifications"
+          />
+          <Step
+            className="h-[60px] font-bold text-[#000000]"
+            title="Availability"
+          />
         </Steps>
       </div>
 
-      <div className="p-6 w-full bg-white shadow-md rounded-lg">
-        <h2 className="text-2xl font-semibold mb-4">Availability</h2>
+      {/* Main Form */}
+      <div className="w-3/4 p-6 bg-white rounded-lg">
+        <h1 className="text-lg mb-4 text-[30px] font-semibold pl-2 border-l-4 border-[#14698A]">
+          Availability
+        </h1>
 
-        {/* In-Person Availability */}
-        <div className="mb-6">
-          <div className="flex items-center mb-4">
-            <Switch
-              checked={isInPerson}
-              onChange={(checked) => setIsInPerson(checked)}
-            />
-            <p className="ml-3">I’m able to take session in-person.</p>
-          </div>
-
-          {isInPerson && (
-            <div className="space-y-4">
-              <Select
-
-                mode="multiple"
-                placeholder="Select available days"
-                className="w-full border rounded-lg p-2"
-                onChange={handleDaySelection}
-                allowClear
-              >
-                {["Saturday", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"].map((day) => (
-                  <Option key={day} value={day}>
-                    {day}
-                  </Option>
-                ))}
-              </Select>
-
-              <div className="flex space-x-4 items-center">
-                <Input placeholder="Start Time" className="w-1/2" type="time" />
-                <Input placeholder="End Time" className="w-1/2" type="time" />
-                <Button
-                  onClick={() =>
-                    addTimeSlot("10:00 AM", "11:00 AM") // Example: Replace with state inputs
-                  }
-                  className="bg-blue-500 text-white"
-                >
-                  Add
-                </Button>
-              </div>
-
-              <div className="mt-4">
-                {timeSlots.map((slot, index) => (
-                  <div
-                    key={index}
-                    className="flex justify-between items-center p-2 bg-gray-100 rounded-lg mb-2"
-                  >
-                    <p>
-                      {slot.start} - {slot.end}
-                    </p>
-                    <Button
-                      danger
-                      onClick={() => removeTimeSlot(index)}
-                      size="small"
-                    >
-                      Remove
-                    </Button>
-                  </div>
-                ))}
-              </div>
+        <Form form={form} onFinish={handleFormSubmit}>
+          {/* In-Person Availability */}
+          <div className="mb-8 p-6 bg-gray-50 rounded-lg">
+            <div className="flex items-center mb-4">
+              <Switch
+                checked={isInPerson}
+                onChange={setIsInPerson}
+                className="bg-gray-300"
+              />
+              <span className="ml-3 text-gray-700">
+                I'm able to take session in-person
+              </span>
             </div>
-          )}
-        </div>
 
-        {/* Online Availability */}
-        <div className="mb-6">
-          <div className="flex items-center mb-4">
-            <Switch
-              checked={isOnline}
-              onChange={(checked) => setIsOnline(checked)}
-            />
-            <p className="ml-3">I’m able to take session online only.</p>
-          </div>
-
-          {isOnline && (
-            <div className="space-y-4">
-              <Select
-                mode="multiple"
-                placeholder="Select available days"
-                className="w-full"
-                onChange={handleDaySelection}
-                allowClear
-              >
-                {["Saturday", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"].map((day) => (
-                  <Option key={day} value={day}>
-                    {day}
-                  </Option>
-                ))}
-              </Select>
-
-              <div className="flex space-x-4 items-center">
-                <Input classNames="h-[44px]" placeholder="Start Time" className="w-1/2" type="time" />
-                <Input classNames="h-[44px]" placeholder="End Time" className="w-1/2" type="time" />
-                <Button
-                  onClick={() =>
-                    addTimeSlot("10:00 AM", "11:00 AM") // Example: Replace with state inputs
-                  }
-                  className="bg-blue-500 text-white h-[44px]"
-                >
-                  Add
-                </Button>
-              </div>
-
-              <div className="mt-4">
-                {timeSlots.map((slot, index) => (
-                  <div
-                    key={index}
-                    className="flex justify-between items-center p-2 bg-gray-100 rounded-lg mb-2"
-                  >
-                    <p>
-                      {slot.start} - {slot.end}
-                    </p>
-                    <Button
-                      danger
-                      onClick={() => removeTimeSlot(index)}
-                      size="small"
+            {isInPerson && (
+              <div className="space-y-4">
+                <div className="flex gap-4">
+                  <Form.Item name="offlineDay" className="flex-1 mb-0">
+                    <Select
+                      placeholder="Select day"
+                      className="w-full h-[44px] border bg-white rounded-md"
                     >
-                      Remove
-                    </Button>
+                      {daysOfWeek.map((day) => (
+                        <Option key={day} value={day}>
+                          {day.charAt(0).toUpperCase() + day.slice(1)}
+                        </Option>
+                      ))}
+                    </Select>
+                  </Form.Item>
+
+                  <Form.Item name="offlineStartTime" className="flex-1 mb-0">
+                    <TimePicker
+                      format="hh:mm A"
+                      className="w-full h-[44px] border bg-white rounded-md"
+                      placeholder="Start Time"
+                    />
+                  </Form.Item>
+
+                  <Form.Item name="offlineEndTime" className="flex-1 mb-0">
+                    <TimePicker
+                      format="hh:mm A"
+                      className="w-full h-[44px] border bg-white rounded-md"
+                      placeholder="End Time"
+                    />
+                  </Form.Item>
+
+                  <Button
+                    onClick={() => {
+                      form
+                        .validateFields([
+                          "offlineDay",
+                          "offlineStartTime",
+                          "offlineEndTime",
+                        ])
+                        .then((values) => {
+                          handleAddAvailability(
+                            "offline",
+                            values.offlineDay,
+                            values.offlineStartTime,
+                            values.offlineEndTime
+                          );
+                        })
+                        .catch(() => {});
+                    }}
+                    className="h-[44px] bg-[#14698A] text-white"
+                  >
+                    Add
+                  </Button>
+                </div>
+
+                {offlineAvailability.length > 0 && (
+                  <div className="mt-4">
+                    <h3 className="font-medium mb-2">
+                      In-Person Availability:
+                    </h3>
+                    <div className="space-y-2">
+                      {offlineAvailability.map((slot, index) => (
+                        <div
+                          key={index}
+                          className="flex justify-between items-center p-3 bg-white rounded-lg border"
+                        >
+                          <span className="text-gray-700">
+                            {slot.day.charAt(0).toUpperCase() +
+                              slot.day.slice(1)}
+                            : {slot.time}
+                          </span>
+                          <Button
+                            danger
+                            onClick={() =>
+                              handleRemoveAvailability("offline", index)
+                            }
+                            size="small"
+                          >
+                            Remove
+                          </Button>
+                        </div>
+                      ))}
+                    </div>
                   </div>
-                ))}
+                )}
               </div>
-            </div>
-          )}
-        </div>
-
-        {/* Time Zone and Rate */}
-        <div className="mb-6">
-          <Select placeholder="Time Zone" className="w-full mb-4  h-[44px] border rounded-lg">
-            {["GMT", "EST", "PST", "IST"].map((zone) => (
-              <Option key={zone} value={zone}>
-                {zone}
-              </Option>
-            ))}
-          </Select>
-          <Input
-            placeholder="I will charge per session"
-            type="number"
-            value={rate}
-            onChange={(e) => setRate(e.target.value)}
-            className="w-full h-[44px]"
-          />
-          <p className="mt-2 text-sm text-gray-600">
-            20% platform fee will be applied to your rate. You will receive €12.00
-            after the fee.
-          </p>
-        </div>
-        <Link href={'/TutorDashboard/publishToComunity'}>
-
-          <div className="flex items-center justify-end">
-          <Button
-          
-          type="primary"
-style={{height:'44px',backgroundColor:'#14698A',width:'fit-content'}}
-          className="w-full"
-        >
-          Save Availability
-        </Button>
+            )}
           </div>
-        </Link>
+
+          {/* Online Availability */}
+          <div className="mb-8 p-6 bg-gray-50 rounded-lg">
+            <div className="flex items-center mb-4">
+              <Switch
+                checked={isOnline}
+                onChange={setIsOnline}
+                className="bg-gray-300"
+              />
+              <span className="ml-3 text-gray-700">
+                I'm able to take session online only
+              </span>
+            </div>
+
+            {isOnline && (
+              <div className="space-y-4">
+                <div className="flex gap-4">
+                  <Form.Item name="onlineDay" className="flex-1 mb-0">
+                    <Select
+                      placeholder="Select day"
+                      className="w-full h-[44px] border bg-white rounded-md"
+                    >
+                      {daysOfWeek.map((day) => (
+                        <Option key={day} value={day}>
+                          {day.charAt(0).toUpperCase() + day.slice(1)}
+                        </Option>
+                      ))}
+                    </Select>
+                  </Form.Item>
+
+                  <Form.Item name="onlineStartTime" className="flex-1 mb-0">
+                    <TimePicker
+                      format="hh:mm A"
+                      className="w-full h-[44px] border bg-white rounded-md"
+                      placeholder="Start Time"
+                    />
+                  </Form.Item>
+
+                  <Form.Item name="onlineEndTime" className="flex-1 mb-0">
+                    <TimePicker
+                      format="hh:mm A"
+                      className="w-full h-[44px] border bg-white rounded-md"
+                      placeholder="End Time"
+                    />
+                  </Form.Item>
+
+                  <Button
+                    onClick={() => {
+                      form
+                        .validateFields([
+                          "onlineDay",
+                          "onlineStartTime",
+                          "onlineEndTime",
+                        ])
+                        .then((values) => {
+                          handleAddAvailability(
+                            "online",
+                            values.onlineDay,
+                            values.onlineStartTime,
+                            values.onlineEndTime
+                          );
+                        })
+                        .catch(() => {});
+                    }}
+                    className="h-[44px] bg-[#14698A] text-white"
+                  >
+                    Add
+                  </Button>
+                </div>
+
+                {onlineAvailability.length > 0 && (
+                  <div className="mt-4">
+                    <h3 className="font-medium mb-2">Online Availability:</h3>
+                    <div className="space-y-2">
+                      {onlineAvailability.map((slot, index) => (
+                        <div
+                          key={index}
+                          className="flex justify-between items-center p-3 bg-white rounded-lg border"
+                        >
+                          <span className="text-gray-700">
+                            {slot.day.charAt(0).toUpperCase() +
+                              slot.day.slice(1)}
+                            : {slot.time}
+                          </span>
+                          <Button
+                            danger
+                            onClick={() =>
+                              handleRemoveAvailability("online", index)
+                            }
+                            size="small"
+                          >
+                            Remove
+                          </Button>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+
+          {/* Time Zone and Session Charge */}
+          <div className="mb-8 p-6 bg-gray-50 rounded-lg">
+            <div className="grid grid-cols-2 gap-6">
+              <Form.Item
+                label="Time Zone"
+                name="timeZone"
+                rules={[{ required: true, message: "Please select time zone" }]}
+              >
+                <Select
+                  className="w-full h-[44px] border bg-white rounded-md"
+                  value={timeZone}
+                  onChange={setTimeZone}
+                >
+                  {[
+                    "GMT",
+                    "GMT+1",
+                    "GMT+2",
+                    "GMT+3",
+                    "GMT+4",
+                    "GMT+5",
+                    "GMT+6",
+                  ].map((zone) => (
+                    <Option key={zone} value={zone}>
+                      {zone}
+                    </Option>
+                  ))}
+                </Select>
+              </Form.Item>
+
+              <Form.Item
+                label="Session Charge"
+                name="sessionCharge"
+                rules={[
+                  { required: true, message: "Please enter session charge" },
+                ]}
+              >
+                <Input
+                  type="number"
+                  value={sessionCharge}
+                  onChange={(e) => setSessionCharge(e.target.value)}
+                  className="w-full  bg-white rounded-md"
+                  addonAfter="$"
+                />
+              </Form.Item>
+            </div>
+            <p className="mt-2 text-sm text-gray-600">
+              20% platform fee will be applied to your rate. You will receive
+              €12.00 after the fee.
+            </p>
+          </div>
+
+          <div className="flex justify-end">
+            <Button
+              type="primary"
+              htmlType="submit"
+              className="h-[44px] bg-[#14698A] text-white px-6"
+            >
+              Save Availability
+            </Button>
+          </div>
+        </Form>
       </div>
     </div>
   );
 };
 
 export default Availability;
-
-
-// 'use client';
-
-// import React, { useState } from "react";
-// import { Steps, Form, Input, Select, Tag, Button, Switch, message } from "antd";
-// import { useRouter } from "next/navigation";
-
-// const { Step } = Steps;
-// const { Option } = Select;
-
-// const Availability = () => {
-//   const [isInPerson, setIsInPerson] = useState(true);
-//   const [isOnline, setIsOnline] = useState(false);
-//   const [availability, setAvailability] = useState({});
-//   const [currentDay, setCurrentDay] = useState("");
-//   const [startTime, setStartTime] = useState("");
-//   const [endTime, setEndTime] = useState("");
-//   const [rate, setRate] = useState("");
-
-//   const [currentStep, setCurrentStep] = useState(3);
-//   const [timeZone, setTimeZone] = useState("");
-
-//   const router = useRouter();
-
-//   const days = [
-//     "Saturday",
-//     "Sunday",
-//     "Monday",
-//     "Tuesday",
-//     "Wednesday",
-//     "Thursday",
-//     "Friday",
-//   ];
-
-//   const addTimeSlot = () => {
-//     if (!currentDay) {
-//       message.error("Please select a day.");
-//       return;
-//     }
-//     if (!startTime || !endTime) {
-//       message.error("Please enter both start and end times.");
-//       return;
-//     }
-//     if (startTime >= endTime) {
-//       message.error("Start time must be earlier than end time.");
-//       return;
-//     }
-
-//     setAvailability((prev) => {
-//       const daySlots = prev[currentDay] || [];
-//       return {
-//         ...prev,
-//         [currentDay]: [...daySlots, { start: startTime, end: endTime }],
-//       };
-//     });
-//     setStartTime("");
-//     setEndTime("");
-//     message.success("Time slot added!");
-//   };
-
-//   const removeTimeSlot = (day, index) => {
-//     setAvailability((prev) => {
-//       const daySlots = prev[day].filter((_, i) => i !== index);
-//       return { ...prev, [day]: daySlots };
-//     });
-//   };
-
-//   const handleFormSubmit = () => {
-//     console.log({
-//       isInPerson,
-//       isOnline,
-//       availability,
-//       rate,
-//       timeZone,
-//     });
-//     message.success("Availability saved!");
-//     setCurrentStep(4);
-//     router.push('/TutorDashboard/publishToComunity');
-//   };
-
-//   return (
-//     <div className="flex gap-8 p-6 bg-white h-screen pt-8">
-//       {/* Sidebar */}
-//       <div className="w-1/4 bg-[#F9FAFB] p-4 h-fit rounded-lg">
-//         <div className="py-6 space-y-2">
-//           <h1>Welcome to Circooles</h1>
-//           <p className="text-sm text-[#667085]">
-//             Follow these steps to apply for an account on the Circooles Tutor Platform:
-//           </p>
-//         </div>
-
-//         <Steps direction="vertical" current={currentStep} className="text-left">
-//           <Step className="h-[60px] font-bold text-[#000000]" title="Basic Info" />
-//           <Step className="h-[60px] font-bold text-[#000000]" title="Professional Info" />
-//           <Step className="h-[60px] font-bold text-[#000000]" title="Qualifications" />
-//           <Step className="h-[60px] font-bold text-[#000000]" title="Availability" />
-//         </Steps>
-//       </div>
-
-//       {/* Main Content */}
-//       <div className="p-6 max-w-4xl mx-auto bg-white shadow-md rounded-lg">
-//         <h2 className="text-2xl font-semibold mb-4">Availability</h2>
-
-//         {/* Availability Toggle */}
-//         <div className="mb-6">
-//           <Switch
-//             checked={isInPerson}
-//             onChange={(checked) => setIsInPerson(checked)}
-//           />
-//           <p className="ml-3 inline-block">I’m able to take sessions in-person.</p>
-//         </div>
-
-//         <div className="mb-6">
-//           <Switch
-//             checked={isOnline}
-//             onChange={(checked) => setIsOnline(checked)}
-//           />
-//           <p className="ml-3 inline-block">I’m able to take sessions online only.</p>
-//         </div>
-
-//         {/* Day and Time Selection */}
-//         <div className="mb-6">
-//           <Select
-//             placeholder="Select a day"
-//             className="w-full mb-4"
-//             onChange={setCurrentDay}
-//           >
-//             {days.map((day) => (
-//               <Option key={day} value={day}>
-//                 {day}
-//               </Option>
-//             ))}
-//           </Select>
-
-//           <div className="flex space-x-4 items-center">
-//             <Input
-//               placeholder="Start Time"
-//               className="w-1/2"
-//               type="time"
-//               value={startTime}
-//               onChange={(e) => setStartTime(e.target.value)}
-//             />
-//             <Input
-//               placeholder="End Time"
-//               className="w-1/2"
-//               type="time"
-//               value={endTime}
-//               onChange={(e) => setEndTime(e.target.value)}
-//             />
-//             <Button
-//               onClick={addTimeSlot}
-//               className="bg-blue-500 text-white"
-//             >
-//               Add
-//             </Button>
-//           </div>
-//         </div>
-
-//         {/* Time Slots Display */}
-//         {Object.keys(availability).map((day) => (
-//           <div key={day} className="mb-4">
-//             <h3 className="text-lg font-semibold">{day}</h3>
-//             {availability[day].map((slot, index) => (
-//               <div
-//                 key={index}
-//                 className="flex justify-between items-center p-2 bg-gray-100 rounded-lg mb-2"
-//               >
-//                 <p>
-//                   {slot.start} - {slot.end}
-//                 </p>
-//                 <Button
-//                   danger
-//                   onClick={() => removeTimeSlot(day, index)}
-//                   size="small"
-//                 >
-//                   Remove
-//                 </Button>
-//               </div>
-//             ))}
-//           </div>
-//         ))}
-
-//         {/* Time Zone and Rate */}
-//         <div className="mb-6">
-//           <Select
-//             placeholder="Time Zone"
-//             className="w-full mb-4"
-//             onChange={setTimeZone}
-//           >
-//             {["GMT", "EST", "PST", "IST"].map((zone) => (
-//               <Option key={zone} value={zone}>
-//                 {zone}
-//               </Option>
-//             ))}
-//           </Select>
-//           <Input
-//             placeholder="I will charge per session"
-//             type="number"
-//             value={rate}
-//             onChange={(e) => setRate(e.target.value)}
-//             className="w-full"
-//           />
-//           <p className="mt-2 text-sm text-gray-600">
-//             20% platform fee will be applied to your rate. You will receive €12.00 after the fee.
-//           </p>
-//         </div>
-
-// <Button
-//   type="primary"
-//   onClick={handleFormSubmit}
-//   className="w-full"
-// >
-//   Save Availability
-// </Button>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default Availability;

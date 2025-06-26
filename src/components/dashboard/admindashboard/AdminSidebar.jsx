@@ -25,6 +25,7 @@ import { IoMdMenu } from "react-icons/io";
 import avater from "/public/images/Avatar.png";
 import Image from "next/image";
 import { useGetOwnprofileQuery } from "../../../redux/features/AuthApi";
+import Cookies from "js-cookie";
 const AdminSidebar = ({ setIsOpen, isOpen }) => {
   const router = useRouter();
   const [mobileMenu, setMobileMenu] = useState(false);
@@ -183,6 +184,7 @@ const AdminSidebar = ({ setIsOpen, isOpen }) => {
     }).then((result) => {
       if (result.isConfirmed) {
         Swal.fire("Logged out!", "You're logged out.", "success");
+        Cookies.remove("token");
         router.push("/auth/login");
       }
     });

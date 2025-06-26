@@ -14,7 +14,7 @@ export const metadata = {
 // Fetch locale and messages on the server side
 export default async function Layout({ children }) {
   return (
-    <section className={` antialiased font-Inter`}>
+    <section suppressHydrationWarning className={` antialiased font-Inter`}>
       <Navbar />
       <main>{children}</main>
       <Footer />

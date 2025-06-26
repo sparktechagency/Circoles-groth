@@ -71,7 +71,7 @@ const page = ({ params }) => {
                   {tutor?.name || "John Doe"}
                 </h1>
                 <p className="text-[#475467] flex items-center space-x-2">
-                  <span>
+                  <>
                     <svg
                       width="16"
                       height="14"
@@ -86,12 +86,12 @@ const page = ({ params }) => {
                         strokeLinejoin="round"
                       />
                     </svg>
-                  </span>{" "}
-                  <span>
+                  </>{" "}
+                  <>
                     {tutor?.expertise_area
                       ? `Expert in ${tutor.expertise_area}`
                       : "Head of Product Management at Google"}
-                  </span>
+                  </>
                 </p>
                 <p className="text-[#475467]">
                   {tutor?.address || "Los Angeles, Southern California, U.S"}

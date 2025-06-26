@@ -1,41 +1,65 @@
+"use client";
 
-'use client';
-
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Steps, Form, Input, Select, Tag, Button } from "antd";
 import { useRouter } from "next/navigation";
+import { useGetsubjectsQuery } from "../../../../redux/features/tutorapis/TutorApi";
 
 const { Step } = Steps;
 const { Option } = Select;
 
 const ProfessionalInfo = () => {
-  const [currentSetp, setCurrentrSetps] = useState(1)
-  const [selectedSubjects, setSelectedSubjects] = useState(["Physics", "Chemistry", "Biology"]);
-  const suggestions = ["Physics", "Chemistry", "Biology", "Philosophy", "Architecture"];
-  const [form] = Form.useForm(); // Form instance
-  const router = useRouter();
+  const [currentStep, setCurrentStep] = useState(1);
+  const [selectedSubjects, setSelectedSubjects] = useState([]);
+  const [subjectOptions, setSubjectOptions] = useState([]);
 
-  const handleAddSubject = (subject) => {
-    if (selectedSubjects.length < 3 && !selectedSubjects.includes(subject)) {
-      setSelectedSubjects([...selectedSubjects, subject]);
+  const { data, isLoading } = useGetsubjectsQuery();
+  const router = useRouter();
+  const [form] = Form.useForm();
+
+  // Transform API data into usable options
+  useEffect(() => {
+    if (data?.subjects) {
+      const options = data.subjects.map((subject) => ({
+        id: subject.id,
+        name: subject.name,
+      }));
+      setSubjectOptions(options);
+    }
+  }, [data]);
+
+  const handleAddSubject = (subjectId) => {
+    const subjectToAdd = subjectOptions.find((sub) => sub.id === subjectId);
+    if (
+      subjectToAdd &&
+      selectedSubjects.length < 3 &&
+      !selectedSubjects.some((sub) => sub.id === subjectId)
+    ) {
+      setSelectedSubjects([...selectedSubjects, subjectToAdd]);
     }
   };
 
-  const handleRemoveSubject = (removedSubject) => {
-    setSelectedSubjects(selectedSubjects.filter((subject) => subject !== removedSubject));
+  const handleRemoveSubject = (removedSubjectId) => {
+    setSelectedSubjects(
+      selectedSubjects.filter((subject) => subject.id !== removedSubjectId)
+    );
   };
 
-  // Handle form submission
   const handleFormSubmit = (values) => {
-    console.log({
+    const formData = {
       ...values,
-      selectedSubjects,
-    });
-setCurrentrSetps(2)
+      subjects_id: selectedSubjects.map((subject) => subject.id),
+    };
 
+    localStorage.setItem("profilesetup2", JSON.stringify(formData));
 
-    router.push('/TutorDashboard/TutorProfileSetupStep-3')
+    setCurrentStep(2);
+    router.push("/TutorDashboard/TutorProfileSetupStep-3");
   };
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="flex gap-8 p-6 bg-white h-screen pt-8">
@@ -44,29 +68,50 @@ setCurrentrSetps(2)
         <div className="py-6 space-y-2">
           <h1>Welcome to Circooles</h1>
           <p className="text-sm text-[#667085]">
-            Follow these steps to apply for an account on the Circooles Tutor Platform:
+            Follow these steps to apply for an account on the Circooles Tutor
+            Platform:
           </p>
         </div>
 
-        <Steps direction="vertical" current={currentSetp} className="text-left">
-          <Step className="h-[60px] font-bold text-[#000000]" title="Basic Info" />
-          <Step className="h-[60px] font-bold text-[#000000]" title="Professional Info" />
-          <Step className="h-[60px] font-bold text-[#000000]" title="Qualifications" />
-          <Step className="h-[60px] font-bold text-[#000000]" title="Availability" />
+        <Steps direction="vertical" current={currentStep} className="text-left">
+          <Step
+            className="h-[60px] font-bold text-[#000000]"
+            title="Basic Info"
+          />
+          <Step
+            className="h-[60px] font-bold text-[#000000]"
+            title="Professional Info"
+          />
+          <Step
+            className="h-[60px] font-bold text-[#000000]"
+            title="Qualifications"
+          />
+          <Step
+            className="h-[60px] font-bold text-[#000000]"
+            title="Availability"
+          />
         </Steps>
       </div>
 
       {/* Form Section */}
       <div className="w-3/4">
-        <h1 className="text-lg mb-4 text-[30px] font-semibold pl-2 border-l-4 border-[#14698A]">Professional Info</h1>
+        <h1 className="text-lg mb-4 text-[30px] font-semibold pl-2 border-l-4 border-[#14698A]">
+          Professional Info
+        </h1>
         <Form
           form={form}
           className="pt-[48px]"
           layout="vertical"
-          onFinish={handleFormSubmit} // Form submission handler
+          onFinish={handleFormSubmit}
         >
           {/* Subject Taught */}
-          <Form.Item label={<p className="text-[#344054] text-[14px] font-medium">Subject Taught</p>}>
+          <Form.Item
+            label={
+              <p className="text-[#344054] text-[14px] font-medium">
+                Subject Taught
+              </p>
+            }
+          >
             <Select
               style={{
                 height: "44px",
@@ -75,13 +120,18 @@ setCurrentrSetps(2)
                 color: "#667085",
                 fontSize: "16px",
               }}
-              placeholder="Select"
+              placeholder="Select subject"
               className="w-full mt-2"
               onSelect={handleAddSubject}
+              optionFilterProp="children"
+              showSearch
+              filterOption={(input, option) =>
+                option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+              }
             >
-              {suggestions.map((subject) => (
-                <Option key={subject} value={subject}>
-                  {subject}
+              {subjectOptions.map((subject) => (
+                <Option key={subject.id} value={subject.id}>
+                  {subject.name}
                 </Option>
               ))}
             </Select>
@@ -96,14 +146,17 @@ setCurrentrSetps(2)
                     fontSize: "14px",
                     fontWeight: "600",
                   }}
-                  key={subject}
+                  key={subject.id}
                   closable
-                  onClose={() => handleRemoveSubject(subject)}
+                  onClose={() => handleRemoveSubject(subject.id)}
                 >
-                  {subject}
+                  {subject.name}
                 </Tag>
               ))}
             </div>
+            <p className="text-sm text-gray-500 mt-1">
+              {selectedSubjects.length}/3 subjects selected
+            </p>
           </Form.Item>
 
           {/* Designation */}
@@ -135,7 +188,7 @@ setCurrentrSetps(2)
           </Form.Item>
 
           {/* Teaching Experience */}
-          <Form.Item label="Teaching Experience" name="teachingExperience">
+          <Form.Item label="Teaching Experience" name="teaching_experience">
             <Select
               style={{
                 height: "44px",
@@ -144,7 +197,7 @@ setCurrentrSetps(2)
                 color: "#667085",
                 fontSize: "16px",
               }}
-              placeholder="Select"
+              placeholder="Select experience"
               className="w-full"
             >
               <Option value="1">1 year</Option>
@@ -154,7 +207,7 @@ setCurrentrSetps(2)
           </Form.Item>
 
           {/* Expertise Area */}
-          <Form.Item label="Expertise Area" name="expertiseArea">
+          <Form.Item label="Expertise Area" name="expertise_area">
             <Input
               style={{
                 height: "44px",

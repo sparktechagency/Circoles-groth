@@ -9,7 +9,7 @@ import store from "../redux/store";
 export default async function RootLayout({ children }) {
   return (
     <html>
-      <body className={` antialiased font-Inter`}>
+      <body suppressHydrationWarning className={` antialiased font-Inter`}>
         <Provider store={store}>{children}</Provider>
       </body>
     </html>

@@ -11,10 +11,26 @@ export const TutorApi = api.injectEndpoints({
       query: () => `/tutor/upcoming-session`,
     }),
 
+    getsubjects: builder.query({
+      query: () => `/admin/subject`,
+    }),
+
+    tutorProfileSetup: builder.mutation({
+      query: (formData) => ({
+        url: "/tutor/update-profile",
+        method: "POST",
+        body: formData, // directly pass the FormData
+      }),
+      invalidatesTags: ["user"],
+    }),
+
+
   }),
 });
 
 export const {
   useTutorstaticsQuery,
-  useUpcommingseassionsQuery
+  useUpcommingseassionsQuery,
+  useGetsubjectsQuery,
+  useTutorProfileSetupMutation
 } = TutorApi;

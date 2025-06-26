@@ -23,19 +23,21 @@ const signIn = () => {
     console.log(values);
     try {
       const resp = await login(values).unwrap();
-      console.log(resp?.access_token);
+      console.log("resp", resp);
       if (resp?.access_token) {
         messageApi.open({
           type: "success",
           content: resp.message || "login successfully",
         });
-        Cookies.set("token", resp.access_token, {
-          path: "/",
-          secure: true,
-          sameSite: "Strict",
-        });
+        Cookies.set("token", resp.access_token);
 
-        router.push("/");
+        if (resp?.user?.role === "admin") {
+          router.push("/AdminDashboard");
+        } else if (resp?.user?.role === "tutor") {
+          router.push("/TutorDashboard");
+        } else {
+          router.push("/");
+        }
       }
       if (!resp?.access_token) {
         messageApi.open({

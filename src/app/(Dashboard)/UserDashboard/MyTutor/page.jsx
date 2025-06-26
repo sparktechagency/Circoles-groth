@@ -3,7 +3,7 @@
 import tutor from "/public/images/tutor.png";
 import { Tabs } from "antd";
 import Link from "next/link";
-import MyTutorCard from "../../components/dashboard/userDashboard/MyTutorCard";
+import MyTutorCard from "../../../../components/dashboard/userDashboard/MyTutorCard";
 
 const page = () => {
   const mytutor = true;

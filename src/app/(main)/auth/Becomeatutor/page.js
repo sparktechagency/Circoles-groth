@@ -66,11 +66,7 @@ const Signup = () => {
               initialValues={{ role: "tutor" }}
             >
               <Form.Item
-                label={
-                  <span className="text-sm text-[#344054] font-medium">
-                    Name*
-                  </span>
-                }
+                label="Name*"
                 name="name"
                 rules={[{ required: true, message: "Please input your name!" }]}
                 required={false}
@@ -79,11 +75,7 @@ const Signup = () => {
               </Form.Item>
 
               <Form.Item
-                label={
-                  <span className="text-sm text-[#344054] font-medium">
-                    Email*
-                  </span>
-                }
+                label="Email*"
                 name="email"
                 rules={[
                   {
@@ -98,11 +90,7 @@ const Signup = () => {
               </Form.Item>
 
               <Form.Item
-                label={
-                  <span className="text-sm text-[#344054] font-medium">
-                    Password*
-                  </span>
-                }
+                label="Password*"
                 name="password"
                 rules={[
                   { required: true, message: "Please input your password!" },
@@ -116,11 +104,7 @@ const Signup = () => {
               </Form.Item>
 
               <Form.Item
-                label={
-                  <span className="text-sm text-[#344054] font-medium">
-                    Confirm Password*
-                  </span>
-                }
+                label="Confirm Password*"
                 name="password_confirmation"
                 dependencies={["password"]}
                 rules={[
@@ -145,11 +129,7 @@ const Signup = () => {
               </Form.Item>
 
               <Form.Item
-                label={
-                  <span className="text-sm text-[#344054] font-medium">
-                    Which education levels are you interested in tutoring?*
-                  </span>
-                }
+                label="Which education levels are you interested in tutoring?*"
                 name="edu_level"
                 rules={[
                   {
