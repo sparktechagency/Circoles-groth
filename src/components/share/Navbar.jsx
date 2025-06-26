@@ -10,6 +10,7 @@ import {
   Select,
   Collapse,
   Checkbox,
+  Avatar,
 } from "antd";
 
 const { Panel } = Collapse;
@@ -19,6 +20,8 @@ import {
   SearchOutlined,
   DownOutlined,
   GlobalOutlined,
+  UserOutlined,
+  LogoutOutlined,
 } from "@ant-design/icons";
 import logo from "/public/images/logo.png";
 import Image from "next/image";
@@ -38,6 +41,7 @@ const Navbar = () => {
 
   const [drawerVisible, setDrawerVisible] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [showLogout, setShowLogout] = useState(false);
   const router = useRouter();
 
   const pathname = usePathname();
@@ -80,6 +84,10 @@ const Navbar = () => {
     });
   };
 
+  const toggleLogout = () => {
+    setShowLogout(!showLogout);
+  };
+
   const categoryMenu = (
     <div className="p-4 bg-white shadow-lg rounded-lg">
       <h3 className="text-lg font-semibold text-gray-800">Filters</h3>
@@ -116,9 +124,6 @@ const Navbar = () => {
           </Checkbox.Group>
         </Panel>
 
-        {/* {
-        pathname == '/TopRatedTutor' && 
-      } */}
         {/* Category - Online Programs */}
         <Panel
           header="Online Programs"
@@ -178,10 +183,10 @@ const Navbar = () => {
   );
 
   const TutorMewnu = (
-    <Menu className="max-w-[300px] w-full   space-y-2">
+    <Menu className="max-w-[300px] w-full space-y-2">
       <Menu.Item key="1">
         <Link href={"/tutorService/inpersonTutor"}>
-          <div className="flex  space-x-1">
+          <div className="flex space-x-1">
             <div className="pt-2">
               <svg
                 width="18"
@@ -213,7 +218,7 @@ const Navbar = () => {
 
       <Menu.Item key="2">
         <Link href={"/tutorService/onlineTutor"}>
-          <div className="flex  space-x-2">
+          <div className="flex space-x-2">
             <div className="pt-2">
               <svg
                 width="20"
@@ -245,8 +250,20 @@ const Navbar = () => {
     </Menu>
   );
 
+  const userMenu = (
+    <Menu>
+      <Menu.Item key="dashboard">
+        <Link href="/UserDashboard">Dashboard</Link>
+      </Menu.Item>
+
+      <Menu.Item key="logout" onClick={handleLogout} icon={<LogoutOutlined />}>
+        Logout
+      </Menu.Item>
+    </Menu>
+  );
+
   return (
-    <nav className="w-full p-4 bg-white mx-auto flex justify-between items-center">
+    <nav className="w-full p-4 bg-white mx-auto flex justify-between items-center shadow-sm">
       {/* Left Side: Logo */}
       <div className="flex items-center space-x-4">
         <Link href="/">
@@ -304,7 +321,6 @@ const Navbar = () => {
               Become a Tutor
             </Link>
           </li>
-          <li> </li>
           <li>
             {isLoading ? (
               <Button
@@ -313,19 +329,30 @@ const Navbar = () => {
                 type="primary"
                 loading
               >
-                Sign Up
+                Loading
               </Button>
             ) : (
               <>
                 {token ? (
-                  <Button
-                    onClick={handleLogout}
-                    className="text-[#FFFFFF] font-semibold text-[16px] p-5 bg-primary"
-                    style={{ backgroundColor: "#14698A" }}
-                    type="primary"
-                  >
-                    Log Out
-                  </Button>
+                  <div className="relative">
+                    <Dropdown overlay={userMenu} trigger={["click"]}>
+                      <div
+                        className="flex items-center space-x-2 cursor-pointer"
+                        onClick={toggleLogout}
+                      >
+                        <Avatar
+                          size="default"
+                          icon={<UserOutlined />}
+                          src={user?.avatar}
+                          className="bg-primary"
+                        />
+                        <span className="text-sm font-medium">
+                          {user?.name || "User"}
+                        </span>
+                        <DownOutlined className="text-xs" />
+                      </div>
+                    </Dropdown>
+                  </div>
                 ) : (
                   <Link href={"/auth/login"}>
                     <Button
@@ -340,12 +367,7 @@ const Navbar = () => {
               </>
             )}
           </li>
-          <li></li>
         </ul>
-
-        {/* <Button onClick={showModal} size="large">
-          <GlobalOutlined />
-        </Button> */}
       </div>
 
       {/* Mobile Menu Button (Visible on small screens) */}
@@ -374,36 +396,85 @@ const Navbar = () => {
 
       {/* Drawer for mobile menu */}
       <Drawer
-        title="Menu"
+        title={
+          <div className="flex items-center justify-between">
+            <span>Menu</span>
+            {token && (
+              <div className="flex items-center space-x-2">
+                <Avatar
+                  size="small"
+                  icon={<UserOutlined />}
+                  src={user?.avatar}
+                  className="bg-primary"
+                />
+                <span className="text-sm font-medium">
+                  {user?.name || "User"}
+                </span>
+              </div>
+            )}
+          </div>
+        }
         placement="left"
         onClose={closeDrawer}
         open={drawerVisible}
+        width={300}
       >
-        <Input.Search placeholder="Search course" className="mb-4" />
-        <Dropdown overlay={categoryMenu} trigger={["click"]}>
-          <Button className="mb-4">Category</Button>
-        </Dropdown>
-        <div className="flex flex-col space-y-4">
-          <Link href="/becomeInstructor" className="text-sm">
-            BecomeInstructor
-          </Link>
-          <Link className="cursor-pointer" href={"/shoppingcart"}>
-            <ShoppingCartOutlined className="text-2xl" />
-          </Link>
-          <Link
-            href={"/auth/login"}
-            className="text-[16px] font-semibold text-[#475467]"
-          >
-            LogIn
-          </Link>
-          <Link href={"/auth/signup"}>
-            <Button
-              className="text-[#FFFFFF] font-semibold text-[16px] p-5"
-              type="primary"
-            >
-              Sign Up
-            </Button>
-          </Link>
+        <div className="flex flex-col h-full">
+          <div className="flex-grow">
+            <Dropdown overlay={categoryMenu} trigger={["click"]}>
+              <Button className="mb-4 w-full">Category</Button>
+            </Dropdown>
+            <Dropdown overlay={TutorMewnu} trigger={["click"]}>
+              <Button className="w-full text-left mb-2">
+                Tutor Service <DownOutlined />
+              </Button>
+            </Dropdown>
+            <div className="flex flex-col ">
+              <Link
+                href="/onlinePrograms"
+                className="text-base font-medium py-2 px-2 rounded hover:bg-gray-100"
+                onClick={closeDrawer}
+              >
+                Online Programs
+              </Link>
+
+              <Link
+                href="/auth/Becomeatutor"
+                className="text-base font-medium py-2 px-2 rounded hover:bg-gray-100"
+                onClick={closeDrawer}
+              >
+                Become a Tutor
+              </Link>
+            </div>
+          </div>
+
+          <div className="mt-auto pb-4">
+            {token ? (
+              <Button
+                onClick={() => {
+                  handleLogout();
+                  closeDrawer();
+                }}
+                className="w-full"
+                type="primary"
+                danger
+                icon={<LogoutOutlined />}
+              >
+                Log Out
+              </Button>
+            ) : (
+              <div className="flex flex-col space-y-2">
+                <Link href={"/auth/login"} onClick={closeDrawer}>
+                  <Button className="w-full">Log In</Button>
+                </Link>
+                <Link href={"/auth/signup"} onClick={closeDrawer}>
+                  <Button className="w-full" type="primary">
+                    Sign Up
+                  </Button>
+                </Link>
+              </div>
+            )}
+          </div>
         </div>
       </Drawer>
     </nav>

@@ -27,11 +27,11 @@ const signIn = () => {
       if (resp?.access_token) {
         messageApi.open({
           type: "success",
-          content: resp.message || "Something went wrong",
+          content: resp.message || "login successfully",
         });
         Cookies.set("token", resp.access_token, {
-          path: "/", // So it's accessible across all routes
-          secure: true, // Required for HTTPS (like Vercel)
+          path: "/",
+          secure: true,
           sameSite: "Strict",
         });
 
@@ -45,6 +45,10 @@ const signIn = () => {
       }
     } catch (error) {
       console.log(error);
+      messageApi.open({
+        type: "error",
+        content: error?.data?.message || "Something went wrong",
+      });
     }
   };
 
@@ -145,7 +149,7 @@ const signIn = () => {
                   htmlType="submit"
                   block
                 >
-                  Log In
+                  {isLoading ? "Loading..." : "Log in"}
                 </Button>
               </Form.Item>
 

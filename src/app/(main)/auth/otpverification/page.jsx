@@ -32,7 +32,7 @@ const Page = () => {
       console.log("response ---------", resp);
       if (resp?.token) {
         message.success(resp.message);
-        Cookies.set("token", resp.access_token, {
+        Cookies.set("token", resp.token, {
           path: "/",
           secure: true,
           sameSite: "Strict",
