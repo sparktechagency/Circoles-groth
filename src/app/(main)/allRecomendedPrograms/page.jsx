@@ -1,233 +1,43 @@
 "use client";
-import ProgramCard from "../../../components/ui/ProgramCard";
-import { Breadcrumb, Tabs } from "antd";
+
+import { Breadcrumb } from "antd";
 import React, { useState } from "react";
-
+import RecomendedPrograms from "../../../components/home/RecomendedPrograms";
+import CourseReloade from "../../../components/ui/CourseReloade";
+import { useGetallprogramsQuery } from "../../../redux/features/programsApi";
+import SkeletonLoader from "../../../components/SkeletonLoader";
+import ProgramCard from "../../../components/ui/ProgramCard";
 const page = () => {
-  const [activeKey, setActiveKey] = useState("1");
+  const [page, setPage] = useState(1);
+  const per_page = 6;
 
-  //   FAKE JSON DATA FOR DEMO PURPOSES ONLY
-  const course = [
-    {
-      id: 1,
-      instructor: "John Michael",
-      rating: 4.7,
-      reviews: 3242,
-      courseTitle: "Product Management Basic - Course",
-      duration: "40 Hours",
-      students: 176,
-      price: "€ 29.00",
-      enrollLink: "ENROLL NOW",
-      imageLink: "https://i.ibb.co.com/17pL5Qj/caourse1.png",
-      category: `All courses`,
-    },
-    {
-      id: 1,
-      instructor: "John Michael",
-      rating: 4.7,
-      reviews: 3242,
-      courseTitle: "Product Management Basic - Course",
-      duration: "40 Hours",
-      students: 176,
-      price: "€ 29.00",
-      enrollLink: "ENROLL NOW",
-      imageLink: "https://i.ibb.co.com/17pL5Qj/caourse1.png",
-      category: `All courses`,
-    },
-    {
-      id: 1,
-      instructor: "John Michael",
-      rating: 4.7,
-      reviews: 3242,
-      courseTitle: "Product Management Basic - Course",
-      duration: "40 Hours",
-      students: 176,
-      price: "€ 29.00",
-      enrollLink: "ENROLL NOW",
-      imageLink: "https://i.ibb.co.com/17pL5Qj/caourse1.png",
-      category: `All courses`,
-    },
-    {
-      id: 1,
-      instructor: "John Michael",
-      rating: 4.7,
-      reviews: 3242,
-      courseTitle: "Product Management Basic - Course",
-      duration: "40 Hours",
-      students: 176,
-      price: "€ 29.00",
-      enrollLink: "ENROLL NOW",
-      imageLink: "https://i.ibb.co.com/17pL5Qj/caourse1.png",
-      category: `All courses`,
-    },
-    {
-      id: 1,
-      instructor: "John Michael",
-      rating: 4.7,
-      reviews: 3242,
-      courseTitle: "Product Management Basic - Course",
-      duration: "40 Hours",
-      students: 176,
-      price: "€ 29.00",
-      enrollLink: "ENROLL NOW",
-      imageLink: "https://i.ibb.co.com/17pL5Qj/caourse1.png",
-      category: `All courses`,
-    },
-    {
-      id: 1,
-      instructor: "John Michael",
-      rating: 4.7,
-      reviews: 3242,
-      courseTitle: "Product Management Basic - Course",
-      duration: "40 Hours",
-      students: 176,
-      price: "€ 29.00",
-      enrollLink: "ENROLL NOW",
-      imageLink: "https://i.ibb.co.com/17pL5Qj/caourse1.png",
-      category: `All courses`,
-    },
-    {
-      id: 1,
-      instructor: "John Michael",
-      rating: 4.7,
-      reviews: 3242,
-      courseTitle: "Product Management Basic - Course",
-      duration: "40 Hours",
-      students: 176,
-      price: "€ 29.00",
-      enrollLink: "ENROLL NOW",
-      imageLink: "https://i.ibb.co.com/17pL5Qj/caourse1.png",
-      category: `All courses`,
-    },
-    {
-      id: 1,
-      instructor: "John Michael",
-      rating: 4.7,
-      reviews: 3242,
-      courseTitle: "Product Management Basic - Course",
-      duration: "40 Hours",
-      students: 176,
-      price: "€ 29.00",
-      enrollLink: "ENROLL NOW",
-      imageLink: "https://i.ibb.co.com/17pL5Qj/caourse1.png",
-      category: `All courses`,
-    },
-    {
-      id: 2,
-      instructor: "John Michael",
-      rating: 4.7,
-      reviews: 3242,
-      courseTitle: "Advanced Product Strategy - Course",
-      duration: "45 Hours",
-      students: 150,
-      price: "€ 35.00",
-      enrollLink: "ENROLL NOW",
-      imageLink: "https://i.ibb.co.com/xLN7bSQ/category2.png",
-      category: `Graphic Design`,
-    },
-    {
-      id: 3,
-      instructor: "John Michael",
-      rating: 4.6,
-      reviews: 2987,
-      courseTitle: "Product Roadmaps for Success",
-      duration: "38 Hours",
-      students: 200,
-      price: "€ 27.00",
-      enrollLink: "ENROLL NOW",
-      imageLink: "https://i.ibb.co.com/vPfYHr7/category1.png",
-      category: `UI/UX Design`,
-    },
-    {
-      id: 4,
-      instructor: "John Michael",
-      rating: 4.8,
-      reviews: 3500,
-      courseTitle: "Mastering Agile Product Management",
-      duration: "50 Hours",
-      students: 250,
-      price: "€ 40.00",
-      enrollLink: "ENROLL NOW",
-      imageLink: "https://i.ibb.co.com/xLN7bSQ/category2.png",
-      category: `Programming`,
-    },
-    {
-      id: 5,
-      instructor: "John Michael",
-      rating: 4.9,
-      reviews: 3800,
-      courseTitle: "Product Leadership for Managers",
-      duration: "60 Hours",
-      students: 300,
-      price: "€ 50.00",
-      enrollLink: "ENROLL NOW",
-      imageLink: "https://i.ibb.co.com/17pL5Qj/caourse1.png",
-      category: `Artificial Intelligence`,
-    },
-    {
-      id: 6,
-      instructor: "John Michael",
-      rating: 4.5,
-      reviews: 2800,
-      courseTitle: "Foundations of Product Development",
-      duration: "35 Hours",
-      students: 180,
-      price: "€ 25.00",
-      enrollLink: "ENROLL NOW",
-      imageLink: "https://i.ibb.co.com/vPfYHr7/category1.png",
-      category: `Business Management`,
-    },
-    {
-      id: 7,
-      instructor: "John Michael",
-      rating: 4.7,
-      reviews: 3242,
-      courseTitle: "Product Marketing Essentials",
-      duration: "42 Hours",
-      students: 190,
-      price: "€ 30.00",
-      enrollLink: "ENROLL NOW",
-      imageLink: "https://i.ibb.co.com/xLN7bSQ/category2.png",
-      category: `3D`,
-    },
-    {
-      id: 8,
-      instructor: "John Michael",
-      rating: 4.7,
-      reviews: 3242,
-      courseTitle: "Product Analytics for Beginners",
-      duration: "48 Hours",
-      students: 220,
-      price: "€ 33.00",
-      enrollLink: "ENROLL NOW",
-      imageLink: "https://i.ibb.co.com/17pL5Qj/caourse1.png",
-      category: `Sports`,
-    },
-    {
-      id: 9,
-      instructor: "John Michael",
-      rating: 4.6,
-      reviews: 3100,
-      courseTitle: "Building Digital Products",
-      duration: "55 Hours",
-      students: 210,
-      price: "€ 37.00",
-      enrollLink: "ENROLL NOW",
-      imageLink: "https://i.ibb.co.com/vPfYHr7/category1.png",
-      category: `All courses`,
-    },
-  ];
+  // Fetch programs with pagination
+  const {
+    data: programsData,
+    isLoading: programsLoading,
+    error: programsError,
+  } = useGetallprogramsQuery({
+    per_page,
+    page,
+  });
 
-  //   FILTER COURSES BY CATEGORY
-  const categories = [...new Set(course.map((item) => item.category))];
-  const filterCoursesByCategory = (category) => {
-    return course.filter((item) => item.category === category);
-  };
+  // Combine all programs from all categories
+  const allPrograms =
+    programsData?.categories?.data?.flatMap((category) =>
+      category.courses.map((course) => ({
+        ...course,
+        categoryName: category.name,
+        categoryTotalCourses: category.total_courses,
+      }))
+    ) || [];
 
-  // Handle tab change OR ACTIVE KEY
-  const handleTabChange = (key) => {
-    setActiveKey(key);
-  };
+  if (programsLoading) {
+    return <SkeletonLoader rows={4} avatar />;
+  }
+
+  if (programsError) {
+    return <CourseReloade name="Programs" />;
+  }
 
   return (
     <div>
@@ -243,53 +53,51 @@ const page = () => {
           ]}
         />
       </div>
+      <div className="container mx-auto px-4 my-4">
+        <h1 className="xl:text-[32px] lg:text-[32px] font-black leading-none text-2xl text-[#000000] font-Merriweather italic pb-8">
+          All Recomended Programs
+        </h1>
+        {/* Program cards */}
+        <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-3 lg:grid-cols-3 gap-4">
+          {allPrograms.length > 0 ? (
+            allPrograms.map((program) => (
+              <ProgramCard
+                key={program.id}
+                categoryName={program.categoryName}
+                totalCourses={program.categoryTotalCourses}
+                courseimage={program.thumbnail}
+                courseTitle={program.title}
+                instructor="Instructor Name"
+                rating={program.rating}
+                price={program.price}
+                reviews={program.total_reviews}
+                duration={program.duration}
+                students={0}
+                enrollLink={program.id}
+              />
+            ))
+          ) : (
+            <p className="col-span-3 text-center py-8">No programs available</p>
+          )}
+        </div>
 
-      <div className="container mx-auto py-16 px-4">
-        {/* Tabs for categories */}
-        <Tabs
-          defaultActiveKey="1"
-          activeKey={activeKey}
-          onChange={handleTabChange}
-          tabBarStyle={{
-            borderBottom: "none",
-          }}
-        >
-          {categories.map((category, index) => (
-            <Tabs.TabPane
-              tab={
-                <button
-                  className={`category-button ${
-                    activeKey === String(index + 1) ? "active-tab" : ""
-                  }`}
-                >
-                  {category}
-                </button>
-              }
-              className="pt-8"
-              key={index + 1}
+        {/* Pagination controls */}
+        {programsData?.categories?.last_page > 2 && (
+          <div className="flex justify-center mt-8 gap-4">
+            <Button disabled={page === 1} onClick={() => setPage(page - 1)}>
+              Previous
+            </Button>
+            <span className="flex items-center">
+              Page {page} of {programsData?.categories?.last_page}
+            </span>
+            <Button
+              disabled={page === programsData?.categories?.last_page}
+              onClick={() => setPage(page + 1)}
             >
-              {/* Course cards for each category */}
-              <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-3 lg:grid-cols-3 gap-4">
-                {filterCoursesByCategory(category).map((item) => (
-                  <ProgramCard
-                    key={item.id}
-                    courseimage={item.imageLink}
-                    courseTitle={item.courseTitle}
-                    instructor={item.instructor}
-                    rating={item.rating}
-                    price={item.price}
-                    reviews={item.reviews}
-                    duration={item.duration}
-                    students={item.students}
-                    enrollLink={item.id}
-                  />
-                ))}
-              </div>
-            </Tabs.TabPane>
-          ))}
-        </Tabs>
-
-        {/* Custom styles */}
+              Next
+            </Button>
+          </div>
+        )}
       </div>
     </div>
   );

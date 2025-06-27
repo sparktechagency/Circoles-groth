@@ -425,13 +425,6 @@ const page = ({ params }) => {
                   <ReviewCard key={index} review={review} />
                 ))}
               </div>
-              <Link
-                href={" #"}
-                className="inline-flex items-center text-[#475467] border-b-2 border-[#475467] mt-8 text-[16px] font-semibold "
-              >
-                Show all reviews
-                <ArrowUpOutlined className="rotate-45 text-xl pl-2" />
-              </Link>
             </div>
           </div>
         </div>

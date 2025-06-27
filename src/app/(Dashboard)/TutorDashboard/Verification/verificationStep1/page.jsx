@@ -5,10 +5,13 @@ import { Button, Form, Select, Steps, message } from "antd";
 import Dragger from "antd/es/upload/Dragger";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useContext } from "react";
+import { FormDataContext } from "../../../../../components/utils/FormDataContext";
 const { Step } = Steps;
 const { Option } = Select;
 
 const Page = () => {
+  const { formData, updateFormData } = useContext(FormDataContext);
   const [form] = Form.useForm();
   const router = useRouter();
   // Upload props
@@ -25,15 +28,32 @@ const Page = () => {
         message.success(`${info.file.name} file uploaded successfully.`);
       } else if (status === "error") {
         console.log("Upload Error:", info.file);
-        message.error(`${info.file.name} file upload failed.`);
+        // message.error(`${info.file.name} file upload failed.`);
       }
     },
   };
 
   // Handle form submission
   const onFinish = (values) => {
-    console.log("Form Values:", values);
-    // router.push("/TutorDashboard/Verification/verificationStep2");
+    const alldata = {
+      "academic_certificates[0][certificate]":
+        values["academic_certificates[0][certificate]"],
+      "academic_certificates[0][image]":
+        values["academic_certificates[0][image]"]?.[0]?.originFileObj,
+      "academic_certificates[1][certificate]":
+        values["academic_certificates[1][certificate]"],
+      "academic_certificates[1][image]":
+        values["academic_certificates[1][image]"]?.[0]?.originFileObj,
+      "academic_certificates[2][certificate]":
+        values["academic_certificates[2][certificate]"],
+      "academic_certificates[2][image]":
+        values["academic_certificates[2][image]"]?.[0]?.originFileObj,
+    };
+
+    updateFormData(alldata);
+
+    console.log("Final Form Data:", alldata);
+    router.push("/TutorDashboard/Verification/verificationStep2");
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -79,7 +99,7 @@ const Page = () => {
         {/* Academic Certificate */}
         <Form.Item
           label="Select Academic Certificate"
-          name="academicCertificate"
+          name="academic_certificates[0][certificate]"
           rules={[
             {
               required: true,
@@ -98,9 +118,10 @@ const Page = () => {
             placeholder="Select"
             className="w-full"
           >
-            <Option value="1">SSC</Option>
-            <Option value="2">HSC</Option>
-            <Option value="3">Diploma</Option>
+            <Option value="SSC">SSC</Option>
+            <Option value="HSC">HSC</Option>
+            <Option value="MSC">MSC</Option>
+            <Option value="Diploma">Diploma</Option>
           </Select>
         </Form.Item>
 
@@ -108,7 +129,7 @@ const Page = () => {
         <Form.Item
           style={{ backgroundColor: "white" }}
           label="Upload Profile Picture"
-          name="profilePicture"
+          name="academic_certificates[0][image]"
           valuePropName="fileList"
           getValueFromEvent={(e) => (Array.isArray(e) ? e : e?.fileList)}
         >
@@ -175,7 +196,7 @@ const Page = () => {
 
         <Form.Item
           label="Select Academic Certificate"
-          name="academicCertificate2"
+          name="academic_certificates[1][certificate]"
           rules={[
             {
               required: true,
@@ -194,9 +215,10 @@ const Page = () => {
             placeholder="Select"
             className="w-full"
           >
-            <Option value="1">SSC</Option>
-            <Option value="2">HSC</Option>
-            <Option value="3">Diploma</Option>
+            <Option value="SSC">SSC</Option>
+            <Option value="HSC">HSC</Option>
+            <Option value="MSC">MSC</Option>
+            <Option value="Diploma">Diploma</Option>
           </Select>
         </Form.Item>
 
@@ -204,7 +226,7 @@ const Page = () => {
         <Form.Item
           style={{ backgroundColor: "white" }}
           label="Upload Profile Picture"
-          name="profilePicture2"
+          name="academic_certificates[1][image]"
           valuePropName="fileList"
           getValueFromEvent={(e) => (Array.isArray(e) ? e : e?.fileList)}
         >
@@ -270,7 +292,7 @@ const Page = () => {
         {/* Academic Certificate */}
         <Form.Item
           label="Select Academic Certificate"
-          name="academicCertificate3"
+          name="academic_certificates[2][certificate]"
           rules={[
             {
               required: true,
@@ -289,9 +311,10 @@ const Page = () => {
             placeholder="Select"
             className="w-full"
           >
-            <Option value="1">SSC</Option>
-            <Option value="2">HSC</Option>
-            <Option value="3">Diploma</Option>
+            <Option value="SSC">SSC</Option>
+            <Option value="HSC">HSC</Option>
+            <Option value="MSC">MSC</Option>
+            <Option value="Diploma">Diploma</Option>
           </Select>
         </Form.Item>
 
@@ -299,7 +322,7 @@ const Page = () => {
         <Form.Item
           style={{ backgroundColor: "white" }}
           label="Upload Profile Picture"
-          name="profilePicture3"
+          name="academic_certificates[2][image]"
           valuePropName="fileList"
           getValueFromEvent={(e) => (Array.isArray(e) ? e : e?.fileList)}
         >

@@ -19,7 +19,16 @@ export const TutorApi = api.injectEndpoints({
       query: (formData) => ({
         url: "/tutor/update-profile",
         method: "POST",
-        body: formData, // directly pass the FormData
+        body: formData,
+      }),
+      invalidatesTags: ["user"],
+    }),
+
+    tutorVerify: builder.mutation({
+      query: (formDataToSend) => ({
+        url: "/tutor/verify-tutor-info",
+        method: "POST",
+        body: formDataToSend,
       }),
       invalidatesTags: ["user"],
     }),
@@ -32,5 +41,6 @@ export const {
   useTutorstaticsQuery,
   useUpcommingseassionsQuery,
   useGetsubjectsQuery,
-  useTutorProfileSetupMutation
+  useTutorProfileSetupMutation,
+  useTutorVerifyMutation
 } = TutorApi;
