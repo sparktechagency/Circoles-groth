@@ -24,11 +24,16 @@ import { IoMdMenu } from "react-icons/io";
 
 import avater from "/public/images/Avatar.png";
 import Image from "next/image";
+import { useGetOwnprofileQuery } from "../../../redux/features/AuthApi";
+import Cookies from "js-cookie";
 const TutorSidebar = ({ setIsOpen, isOpen }) => {
   const router = useRouter();
   const [mobileMenu, setMobileMenu] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
+  const { data, isLoading } = useGetOwnprofileQuery();
 
+  const user = data?.user[0];
+  console.log("user", user);
   // Ensure the component is mounted before rendering
   useEffect(() => {
     setIsMounted(true);
@@ -174,6 +179,7 @@ const TutorSidebar = ({ setIsOpen, isOpen }) => {
       confirmButtonText: "Yes, Log out!",
     }).then((result) => {
       if (result.isConfirmed) {
+        Cookies.remove("token");
         Swal.fire("Logged out!", "You're logged out.", "success");
         router.push("/auth/login");
       }
@@ -271,23 +277,20 @@ const TutorSidebar = ({ setIsOpen, isOpen }) => {
               </div>
 
               <div className="flex gap-8 mt-6 px-4">
-                <Popover
-                  className="cursor-pointer"
-                  placement="bottom"
-                  content={content}
-                >
-                  <Avatar
-                    style={{
-                      width: "40px",
-                      height: "40px",
-                      backgroundColor: "gray",
-                    }}
-                    icon={<Image src={avater} />}
-                  />
-                </Popover>
+                <Avatar
+                  style={{
+                    width: "40px",
+                    height: "40px",
+                    backgroundColor: "gray",
+                  }}
+                  icon={<Image width={40} height={40} src={user?.avatar} />}
+                />
+
                 <div>
-                  <h1 className="text-black text-sm">John Doe</h1>
-                  <h1 className="text-black text-sm">ex@ample.com</h1>
+                  <h1 className="text-black text-sm">{user?.name}</h1>
+                  <h1 className="text-black text-sm">
+                    {user?.email?.slice(0, 10) + "..."}
+                  </h1>
                 </div>
                 <div onClick={handleLogout} className="cursor-pointer ">
                   <svg

@@ -15,7 +15,8 @@ function SuccessPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const reference = searchParams.get("reference");
-  const [status, setStatus] = useState<keyof typeof PaymentStatus>(PaymentStatus.PENDING);
+  const [status, setStatus] = useState<(typeof PaymentStatus)[keyof typeof PaymentStatus]>(PaymentStatus.PENDING);
+
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [paymentData, setPaymentData] = useState<any>(null);
   const [showDetails, setShowDetails] = useState(false);

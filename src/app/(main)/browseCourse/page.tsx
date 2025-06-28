@@ -153,7 +153,6 @@ const BrowseCoursesPage = () => {
                       key={course.id}
                       courseimage={course.thumbnail}
                       courseTitle={course.title}
-                      instructor={course.instructor_name || "Instructor Name"}
                       rating={course.rating || 0}
                       price={`€ ${course.price.toLocaleString()}`}
                       reviews={course.total_reviews || 0}

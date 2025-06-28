@@ -20,17 +20,17 @@ const Signup = () => {
       const resp = await register(allData).unwrap();
       console.log("response ---------", resp);
       if (resp?.success) {
-        message.success(resp.message);
+        message.success(resp.message || "successfully registered");
         form.resetFields();
         router.push(
           `/auth/otpverification?email=${values.email}&isRegegistation=true`
         );
       }
-      if (!resp?.success) {
-        message.error(resp.message);
+      if (resp?.success === false) {
+        message.error(resp.message || "Something went wrong");
       }
     } catch (error) {
-      message.error(error.data.message);
+      message.error(error.data.message || "Something went wrong");
     }
   };
 

@@ -24,7 +24,11 @@ import { IoMdMenu } from "react-icons/io";
 
 import avater from "/public/images/Avatar.png";
 import Image from "next/image";
+import { useGetOwnprofileQuery } from "../../../redux/features/AuthApi";
 const UserSidebar = ({ isOpen, setIsOpen }) => {
+  const { data, isLoading } = useGetOwnprofileQuery();
+
+  const user = data?.user[0];
   const router = useRouter();
   const [mobileMenu, setMobileMenu] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
@@ -216,14 +220,8 @@ const UserSidebar = ({ isOpen, setIsOpen }) => {
         }}
       >
         <img src={logo.src} alt="Logo" className="mx-auto py-6 w-[264px]" />
-        <div className="px-2">
-          <Input
-            placeholder="Search"
-            className="w-full mt-4 px-4 py-2 mb-6"
-            prefix={<SearchOutlined className="text-xl text-gray-500" />}
-          />
-        </div>
-        <div className={`  `}>
+
+        <div className={` mt-4 `}>
           <Menu
             className={` h-[calc(100vh-500px)] `}
             mode="inline"
@@ -279,23 +277,20 @@ const UserSidebar = ({ isOpen, setIsOpen }) => {
           </div> */}
 
               <div className="flex gap-8 mt-6 px-4">
-                <Popover
-                  className="cursor-pointer"
-                  placement="bottom"
-                  content={content}
-                >
-                  <Avatar
-                    style={{
-                      width: "40px",
-                      height: "40px",
-                      backgroundColor: "gray",
-                    }}
-                    icon={<Image src={avater} />}
-                  />
-                </Popover>
+                <Avatar
+                  style={{
+                    width: "40px",
+                    height: "40px",
+                    backgroundColor: "gray",
+                  }}
+                  icon={<Image width={40} height={40} src={user?.avatar} />}
+                />
+
                 <div>
-                  <h1 className="text-black text-sm">John Doe</h1>
-                  <h1 className="text-black text-sm">ex@ample.com</h1>
+                  <h1 className="text-black text-sm">{user?.name}</h1>
+                  <h1 className="text-black text-sm">
+                    {user?.email?.slice(0, 10) + "...com"}
+                  </h1>
                 </div>
                 <div onClick={handleLogout} className="cursor-pointer ">
                   <svg

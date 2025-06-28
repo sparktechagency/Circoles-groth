@@ -1,7 +1,7 @@
 "use client";
 
 import { Button, Card, Descriptions } from "antd";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import avater from "/public/images/profile.png";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -9,6 +9,13 @@ import { useTutorProfileSetupMutation } from "../../../../redux/features/tutorap
 import Swal from "sweetalert2";
 
 const PublishToCommunity = () => {
+  const [profileSetup1, setProfileSetup1] = useState({});
+  const [profileSetup2, setProfileSetup2] = useState({});
+  const [profileSetup3, setProfileSetup3] = useState([]);
+  const [profileSetup4, setProfileSetup4] = useState({});
+  const [base64String, setBase64String] = useState(null);
+  const [meta, setMeta] = useState({});
+
   const router = useRouter();
   const [tutorProfileSetup, { isLoading }] = useTutorProfileSetupMutation();
   const base64ToFile = (base64Data, fileName, mimeType) => {
@@ -27,13 +34,15 @@ const PublishToCommunity = () => {
     return new File([ab], fileName, { type: mimeType });
   };
   const formData = new FormData();
-  // Get all profile data from localStorage
-  const profileSetup1 = JSON.parse(
-    localStorage.getItem("profielsetup1") || "{}"
-  );
-  console.log("profielsetup1", profileSetup1);
-  const base64String = localStorage.getItem("profileimage");
-  const meta = JSON.parse(localStorage.getItem("profileimage_meta") || "{}");
+  useEffect(() => {
+    // Load data from localStorage only on the client side
+    setProfileSetup1(JSON.parse(localStorage.getItem("profielsetup1") || "{}"));
+    setProfileSetup2(JSON.parse(localStorage.getItem("profilesetup2") || "{}"));
+    setProfileSetup3(JSON.parse(localStorage.getItem("profilesetup3") || "[]"));
+    setProfileSetup4(JSON.parse(localStorage.getItem("profilesetup4") || "{}"));
+    setBase64String(localStorage.getItem("profileimage"));
+    setMeta(JSON.parse(localStorage.getItem("profileimage_meta") || "{}"));
+  }, []);
 
   if (base64String && base64String.startsWith("data:image")) {
     const file = base64ToFile(
@@ -43,16 +52,6 @@ const PublishToCommunity = () => {
     );
     formData.append("avatar", file); // ✅ Real File now
   }
-
-  const profileSetup2 = JSON.parse(
-    localStorage.getItem("profilesetup2") || "{}"
-  );
-  const profileSetup3 = JSON.parse(
-    localStorage.getItem("profilesetup3") || "[]"
-  );
-  const profileSetup4 = JSON.parse(
-    localStorage.getItem("profilesetup4") || "{}"
-  );
 
   // Use actual file from input
   //   formData.append("avatar", profileSetup1.avatar);

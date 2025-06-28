@@ -36,6 +36,10 @@ const Page = () => {
         // message.error(`${info.file.name} file upload failed.`);
       }
     },
+    beforeUpload(file) {
+      // Return false to handle upload manually
+      return false;
+    },
   };
 
   // Handle form submission
@@ -73,8 +77,10 @@ const Page = () => {
       const response = await tutorVerify(formDataToSend).unwrap();
       console.log("response", response);
       if (response?.success) {
-        Swal.fire("Success", response.message, "success");
-        router.push("/TutorDashboard/Verification");
+        router.push(response?.payment_url);
+      }
+      if (!response?.success) {
+        message.error(response?.message || "Something went wrong");
       }
     } catch (error) {
       console.error("❌ API Error:", error);
@@ -87,7 +93,7 @@ const Page = () => {
               .join("\n")
           : error?.data?.message || "Something went wrong";
 
-      Swal.fire("Oops!", errorMessage, "error");
+      Swal.fire("Oops!", errorMessage || error?.message);
     }
 
     // 🔁 Optionally send with tutorVerify(formDataToSend)

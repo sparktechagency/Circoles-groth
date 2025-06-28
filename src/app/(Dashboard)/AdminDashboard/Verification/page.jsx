@@ -21,6 +21,7 @@ import {
   useVerificationQuery,
 } from "../../../../redux/features/adminapis/AdminApi";
 import Swal from "sweetalert2";
+import Link from "next/link";
 
 const VerificationTable = () => {
   const [searchText, setSearchText] = useState("");
@@ -32,6 +33,9 @@ const VerificationTable = () => {
     page,
     search: searchText,
   });
+
+  console.log("verificationData", verificationData);
+
   const [deleteVerifyuser, { isLoading: deleting }] =
     useDeleteVerifyuserMutation();
   const [selectedRows, setSelectedRows] = useState([]);
@@ -85,7 +89,7 @@ const VerificationTable = () => {
       ),
     },
     {
-      title: "Status",
+      title: "Verification Status",
       dataIndex: "status",
       key: "status",
       render: (status) => {
@@ -119,10 +123,21 @@ const VerificationTable = () => {
             className="text-red-500 cursor-pointer text-lg"
             onClick={() => handleDelete(record.id)}
           />
-          {/* <Dropdown
+          <Dropdown
             overlay={
               <Menu>
-                <Menu.Item key="view">View Details</Menu.Item>
+                {record?.status === "verified" ? (
+                  <Menu.Item key="view">
+                    <Link href={`#`}>Tutor is Verified</Link>
+                  </Menu.Item>
+                ) : (
+                  <Menu.Item key="view">
+                    <Link href={`/AdminDashboard/Verification/${record.id}`}>
+                      View Details
+                    </Link>
+                  </Menu.Item>
+                )}
+
                 {record.status === "pending" && (
                   <Menu.Item
                     key="verify"
@@ -135,8 +150,11 @@ const VerificationTable = () => {
             }
             trigger={["click"]}
           >
-            <MoreOutlined className="cursor-pointer" />
-          </Dropdown> */}
+            <MoreOutlined
+              style={{ fontSize: "20px", marginLeft: "18px" }}
+              className="cursor-pointer"
+            />
+          </Dropdown>
         </Space>
       ),
     },

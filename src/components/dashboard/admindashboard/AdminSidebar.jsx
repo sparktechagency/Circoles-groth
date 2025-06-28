@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import logo from "/public/images/logo.png";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { Avatar, Input, Layout, Menu, Popover, Progress } from "antd";
 import {
   SearchOutlined,
@@ -28,6 +28,7 @@ import { useGetOwnprofileQuery } from "../../../redux/features/AuthApi";
 import Cookies from "js-cookie";
 const AdminSidebar = ({ setIsOpen, isOpen }) => {
   const router = useRouter();
+  const pathname = usePathname();
   const [mobileMenu, setMobileMenu] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
   const { data, isLoading } = useGetOwnprofileQuery();
@@ -201,7 +202,6 @@ const AdminSidebar = ({ setIsOpen, isOpen }) => {
 
   // Render nothing until client-side hydration
   if (!isMounted) return null;
-
   return (
     <div>
       {/* Mobile menu button */}
@@ -241,26 +241,37 @@ const AdminSidebar = ({ setIsOpen, isOpen }) => {
         </div> */}
         <div className={` `}>
           <Menu
-            className={`h-[calc(100vh-400px)]  flex-cols items-center justify-between`}
-            defaultSelectedKeys={["1"]}
+            className={`h-[calc(100vh-400px)] flex-cols items-center justify-between`}
             mode="inline"
-            style={{ background: "#ffffff", color: "black" }}
+            style={{ background: "#ffffff" }}
           >
-            {adminmenuitems.map((item, index) => (
-              <Menu.Item
-                key={index}
-                icon={item.icon}
-                style={{
-                  color: router.pathname === item.path ? "red" : "#000000",
-                  fontWeight: router.pathname === item.path ? "bold" : "normal",
-                  fontSize: "16px",
-                }}
-              >
-                <Link className="font-bold text-black" href={item.path}>
-                  <span className="text-[#344054]">{item.title}</span>
-                </Link>
-              </Menu.Item>
-            ))}
+            {adminmenuitems.map((item, index) => {
+              const isActive = pathname === item.path;
+              return (
+                <Menu.Item
+                  key={index}
+                  icon={item.icon}
+                  style={{
+                    backgroundColor: isActive ? "#F2F5FC" : "transparent",
+                    margin: "4px 8px",
+                    borderRadius: "6px",
+                  }}
+                >
+                  <Link href={item.path}>
+                    <span
+                      className="text-[#344054]"
+                      style={{
+                        // Keep text style consistent for all items
+                        fontWeight: "normal",
+                        color: "#344054",
+                      }}
+                    >
+                      {item.title}
+                    </span>
+                  </Link>
+                </Menu.Item>
+              );
+            })}
           </Menu>
 
           <Menu>

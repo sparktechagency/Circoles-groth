@@ -1,8 +1,9 @@
 "use client";
 import React, { useState } from "react";
 import { Form, Input, Button, Checkbox, Alert } from "antd";
-import AuthLayout from "../../components/AuthLayout";
+
 import { useRouter } from "next/navigation";
+import AuthLayout from "../../../components/AuthLayout";
 
 const UpdatePassword = () => {
   const router = useRouter();

@@ -1,17 +1,5 @@
 "use client";
 import React, { useState } from "react";
-
-import { HiMiniUsers } from "react-icons/hi2";
-import { FaArrowTrendUp, FaUser } from "react-icons/fa6";
-import { SiCoursera, SiPaypal } from "react-icons/si";
-import { FcComboChart, FcDocument } from "react-icons/fc";
-import { PlayCircleOutlined } from "@ant-design/icons";
-import { DiStackoverflow } from "react-icons/di";
-import { GrDocumentVerified } from "react-icons/gr";
-import { CiCreditCard1, CiTrophy } from "react-icons/ci";
-import { FaRegUserCircle } from "react-icons/fa";
-import { BsStack } from "react-icons/bs";
-import { IoIosTrophy } from "react-icons/io";
 import SelectBox from "../../components/share/dashboard/SelectBox";
 
 const cardData = [

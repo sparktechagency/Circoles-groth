@@ -141,6 +141,20 @@ export const AdminApi = api.injectEndpoints({
 
     // LECTURE END
 
+    getTutorVerificationDetails: builder.query({
+      query: (id) => `/admin/tutor/verify-info/${id}`,
+      providesTags: ["verifyuser"],
+    }),
+
+
+    markAsVerified: builder.mutation({
+      query: (id) => ({
+        url: `/admin/tutor/verify-status/${id}?status=verified&_method=PUT`,
+        method: "POST",
+      }),
+      invalidatesTags: ["verifyuser"],
+    }),
+
   }),
 });
 
@@ -162,5 +176,7 @@ export const {
   useDeleteAlectureMutation,
   useUpdateAsectionMutation,
   useUpdateAlectureMutation,
+  useGetTutorVerificationDetailsQuery,
+  useMarkAsVerifiedMutation
 
 } = AdminApi;

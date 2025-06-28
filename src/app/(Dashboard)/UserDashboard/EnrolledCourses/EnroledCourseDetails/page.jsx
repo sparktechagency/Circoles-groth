@@ -1,6 +1,4 @@
-
-
-'use client'
+"use client";
 import { Avatar, Button, Collapse } from "antd";
 const { Panel } = Collapse;
 
@@ -20,22 +18,17 @@ import {
   FileOutlined,
 } from "@ant-design/icons";
 
-
-
-import { DownloadCloud, File } from "lucide-react";
-import { FcDocument } from "react-icons/fc";
-
 const EnroledCourse = () => {
   return (
     <div className="bg-white p-6">
       <h1 className="text-[24px] font-bold ">UX Design Course</h1>
-      <div className="xl:flex justify-between gap-6 item-center justify-between mb-4 container mx-auto">
+      <div className="xl:flex justify-between gap-6 item-center  mb-4 container mx-auto">
         {/* left content ---------- */}
         <div className=" w-full">
           <video
-          type="video/mp4"
+            type="video/mp4"
             className="w-full mt-24 rounded-2xl"
-            src='https://videos.pexels.com/video-files/4629800/4629800-uhd_2560_1440_25fps.mp4'
+            src="https://videos.pexels.com/video-files/4629800/4629800-uhd_2560_1440_25fps.mp4"
             controls
           ></video>
           <h1 className="text-[24px] font-bold py-4 ">Getting started</h1>
@@ -43,20 +36,16 @@ const EnroledCourse = () => {
           {/* avater  */}
           <div>
             <div className="lg:flex flex-col justify-between space-x-2">
-
-            <div>
-                    <p className="text-[#263238] text-[14px] font-normal flex items-center gap-2">
-                      Last updated :{" "}
-                      <span className="text-[#1D2939] block text-[14px] font-semibold">
-                        Oct 26, 2024
-                      </span>
-                    </p>
-            </div>
-                  
-             
+              <div>
+                <p className="text-[#263238] text-[14px] font-normal flex items-center gap-2">
+                  Last updated :{" "}
+                  <span className="text-[#1D2939] block text-[14px] font-semibold">
+                    Oct 26, 2024
+                  </span>
+                </p>
+              </div>
             </div>
           </div>
-
 
           {/* decription here */}
           <div>
@@ -64,12 +53,22 @@ const EnroledCourse = () => {
               Lectures Description
             </h1>
             <p className="text-[14px] font-normal leading-8">
-            We cover everything you need to build your first website. From creating your first page through to uploading your website to the internet. We’ll use the world’s most popular (and free) web design tool called Visual Studio Code. There are exercise files you can download and then work along with me. At the end of each video I have a downloadable version of where we are in the process so that you can compare your project with mine. This will enable you to see easily where you might have a problem. We will delve into all the good stuff such as how to create your very own mobile burger menu from scratch learning some basic JavaScript and jQuery.
-
-If that all sounds a little too fancy - don’t worry, this course is aimed at people new to web design and who have never coded before. We’ll start right at the beginning and work our way through step by step. 
+              We cover everything you need to build your first website. From
+              creating your first page through to uploading your website to the
+              internet. We’ll use the world’s most popular (and free) web design
+              tool called Visual Studio Code. There are exercise files you can
+              download and then work along with me. At the end of each video I
+              have a downloadable version of where we are in the process so that
+              you can compare your project with mine. This will enable you to
+              see easily where you might have a problem. We will delve into all
+              the good stuff such as how to create your very own mobile burger
+              menu from scratch learning some basic JavaScript and jQuery. If
+              that all sounds a little too fancy - don’t worry, this course is
+              aimed at people new to web design and who have never coded before.
+              We’ll start right at the beginning and work our way through step
+              by step.
             </p>
           </div>
-   
         </div>
 
         {/* ritht content --------------- */}

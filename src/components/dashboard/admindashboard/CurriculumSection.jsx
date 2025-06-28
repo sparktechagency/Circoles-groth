@@ -92,7 +92,7 @@ const CurriculumSection = () => {
     setSectionModalVisible(true);
   };
 
-  const handleSectionSubmit = async () => {
+  const handleSectionSubmit = () => {
     sectionForm.validateFields().then(async (values) => {
       const formdata = new FormData();
       formdata.append("section_name", values.section_name);
