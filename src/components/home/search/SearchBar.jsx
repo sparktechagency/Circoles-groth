@@ -9,6 +9,8 @@ const SearchBar = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [showResults, setShowResults] = useState(false);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const [category_id, setCategoryId] = useState(1);
+  const [type, setType] = useState("course");
   const searchRef = useRef(null);
   const inputRef = useRef(null);
 
@@ -49,7 +51,9 @@ const SearchBar = () => {
           suffix={
             <Dropdown
               overlayClassName=""
-              overlay={<FilterMenu />}
+              overlay={
+                <FilterMenu setCategoryId={setCategoryId} setType={setType} />
+              }
               trigger={["hover"]}
               placement="bottomRight"
               onVisibleChange={handleFilterVisibleChange}

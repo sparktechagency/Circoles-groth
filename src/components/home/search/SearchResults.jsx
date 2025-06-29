@@ -1,112 +1,19 @@
 "use client";
 import { motion, AnimatePresence } from "framer-motion";
-import { Spin, Card } from "antd";
+import { Spin, Card, Rate, Empty } from "antd";
 import { UserOutlined, BookOutlined } from "@ant-design/icons";
 import { useEffect, useState } from "react";
-
-const demoCourses = [
-  {
-    id: 3,
-    title: "Mastering Laravel Framework",
-    slug: "mastering-laravel-framework-1",
-    thumbnail:
-      "http://10.0.80.13:8050/uploads/admin/course/thumbnail/1733735815_image-1200x800.png",
-    category: "Technology",
-    category_slug: "technology",
-    category_id: 1,
-    duration: 40,
-    language: "English",
-    price: "99.99",
-    rating: 4.5,
-    total_reviews: 2,
-    type: "course",
-  },
-  {
-    id: 4,
-    title: "Advanced Physics Tutoring",
-    slug: "advanced-physics-tutoring",
-    thumbnail: "http://example.com/physics-thumbnail.jpg",
-    category: "Science",
-    category_slug: "science",
-    category_id: 2,
-    duration: 30,
-    language: "English",
-    price: "79.99",
-    rating: 4.8,
-    total_reviews: 15,
-    type: "tutor",
-    subject: "Physics",
-  },
-];
-
-const defaultCourses = [
-  {
-    id: 1,
-    title: "Popular: Web Development Bootcamp",
-    type: "course",
-    category: "Programming",
-    rating: 4.7,
-    price: "89.99",
-  },
-  {
-    id: 2,
-    title: "Featured: Math Tutoring",
-    type: "tutor",
-    subject: "Mathematics",
-    rating: 4.9,
-    price: "59.99",
-  },
-  {
-    id: 3,
-    title: "Popular: Web Development Bootcamp",
-    type: "course",
-    category: "Programming",
-    rating: 4.7,
-    price: "89.99",
-  },
-  {
-    id: 4,
-    title: "Featured: Math Tutoring",
-    type: "tutor",
-    subject: "Mathematics",
-    rating: 4.9,
-    price: "59.99",
-  },
-  {
-    id: 5,
-    title: "Popular: Web Development Bootcamp",
-    type: "course",
-    category: "Programming",
-    rating: 4.7,
-    price: "89.99",
-  },
-  {
-    id: 6,
-    title: "Featured: Math Tutoring",
-    type: "tutor",
-    subject: "Mathematics",
-    rating: 4.9,
-    price: "59.99",
-  },
-  {
-    id: 7,
-    title: "Popular: Web Development Bootcamp",
-    type: "course",
-    category: "Programming",
-    rating: 4.7,
-    price: "89.99",
-  },
-  {
-    id: 8,
-    title: "Featured: Math Tutoring",
-    type: "tutor",
-    subject: "Mathematics",
-    rating: 4.9,
-    price: "59.99",
-  },
-];
+import { useSearchQuery } from "../../../redux/features/CourseApi";
+import Link from "next/link";
 
 const SearchResults = ({ visible, searchQuery, onClose }) => {
+  const { data: searchResult, isLoading: isSearchLoading } = useSearchQuery({
+    search: searchQuery,
+    // category_id: 1,
+    // type: "tutor",
+    // subject_id: [1, 2, 3],
+  });
+
   const [filteredCourses, setFilteredCourses] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -114,23 +21,17 @@ const SearchResults = ({ visible, searchQuery, onClose }) => {
     if (!visible) return;
 
     if (searchQuery.trim() === "") {
-      setFilteredCourses(defaultCourses);
+      setFilteredCourses([]);
       return;
     }
 
     setIsLoading(true);
 
-    // Simulate API call
-    const timer = setTimeout(() => {
-      const filtered = demoCourses.filter((course) =>
-        course.title.toLowerCase().includes(searchQuery.toLowerCase())
-      );
-      setFilteredCourses(filtered);
+    if (searchResult?.success) {
+      setFilteredCourses(searchResult.courses.data);
       setIsLoading(false);
-    }, 500);
-
-    return () => clearTimeout(timer);
-  }, [visible, searchQuery]);
+    }
+  }, [visible, searchQuery, searchResult]);
 
   return (
     <AnimatePresence>
@@ -140,14 +41,14 @@ const SearchResults = ({ visible, searchQuery, onClose }) => {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -10 }}
           transition={{ duration: 0.2 }}
-          className="absolute z-10 mt-2 w-full bg-white rounded-lg shadow-xl border border-gray-200 max-h-72 overflow-y-auto"
+          className="absolute z-[999] mt-2 w-full bg-white rounded-lg shadow-xl border border-gray-200 max-h-96 overflow-y-auto"
         >
-          {isLoading ? (
+          {isLoading || isSearchLoading ? (
             <div className="p-4 flex justify-center">
               <Spin />
             </div>
-          ) : filteredCourses.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4">
+          ) : filteredCourses?.length > 0 ? (
+            <div className="grid grid-cols-1 lg:grid-cols-2  gap-4 p-4">
               {filteredCourses.map((course) => (
                 <motion.div
                   key={course.id}
@@ -160,12 +61,18 @@ const SearchResults = ({ visible, searchQuery, onClose }) => {
               ))}
             </div>
           ) : searchQuery ? (
-            <div className="p-4 text-center text-gray-500">
-              No results found for "{searchQuery}"
+            <div className="p-4">
+              <Empty
+                description={
+                  <span className="text-gray-500">
+                    No results found for "{searchQuery}"
+                  </span>
+                }
+              />
             </div>
           ) : (
-            <div className="p-4 text-center text-gray-500">
-              Start typing to search
+            <div className="p-4">
+              <Empty description="Start typing to search" />
             </div>
           )}
         </motion.div>
@@ -174,42 +81,69 @@ const SearchResults = ({ visible, searchQuery, onClose }) => {
   );
 };
 
-const CourseCard = ({ course, onClick }) => (
+const CourseCard = ({ course, onClick, onClose }) => (
   <Card
-    hoverable
-    className="border-0 rounded-md h-full"
     onClick={onClick}
-    cover={
-      course.thumbnail ? (
-        <img
-          alt={course.title}
-          src={course.thumbnail}
-          className="h-40 object-cover"
-        />
-      ) : null
-    }
+    hoverable
+    className="border border-gray-100 rounded-md h-full hover:shadow-md transition-shadow "
   >
-    <div className="flex items-start">
-      <div className="bg-blue-100 p-2 rounded-lg mr-3">
-        {course.type === "tutor" ? (
-          <UserOutlined className="text-blue-500 text-lg" />
-        ) : (
-          <BookOutlined className="text-blue-500 text-lg" />
-        )}
-      </div>
-      <div>
-        <h4 className="font-medium text-gray-800">{course.title}</h4>
-        <p className="text-sm text-gray-500">
-          {course.type === "tutor"
-            ? `Tutor - ${course.subject}`
-            : `Course - ${course.category}`}
-        </p>
-        <div className="flex justify-between mt-2">
-          <span className="text-primary font-semibold">${course.price}</span>
-          <span className="text-yellow-500">★ {course.rating}</span>
+    <Link href={`/browseCourse/${course.id}`}>
+      <div className="flex  flex-row items-center justify-center gap-8">
+        <div className="w-1/3">
+          {course.thumbnail ? (
+            <img
+              alt={course.title}
+              src={course.thumbnail}
+              className="w-full object-cover rounded-lg"
+              onError={(e) => {
+                e.target.src =
+                  "https://via.placeholder.com/300x200?text=Course+Image";
+              }}
+            />
+          ) : (
+            <div className="h-40 bg-gray-100 flex items-center justify-center rounded-t-lg">
+              <BookOutlined className="text-3xl text-gray-400" />
+            </div>
+          )}
+        </div>
+        <div className="flex flex-col h-full ">
+          <h4 className="font-medium text-gray-800 mb-2 line-clamp-2">
+            {course.title}
+          </h4>
+          <p className="text-sm text-gray-500 mb-2">
+            {course.category} • {course.language}
+          </p>
+          <div className="mt-auto">
+            <div className="flex justify-between items-center">
+              <span className="text-primary font-semibold">
+                ${course.price}
+              </span>
+              {course.rating ? (
+                <div className="flex items-center">
+                  <Rate
+                    disabled
+                    allowHalf
+                    value={course.rating}
+                    className="text-sm"
+                  />
+                  <span className="text-xs text-gray-500 ml-1">
+                    ({course.total_reviews})
+                  </span>
+                </div>
+              ) : (
+                <span className="text-xs text-gray-400">No ratings yet</span>
+              )}
+            </div>
+            <div className="flex justify-between items-center mt-2 text-xs text-gray-500">
+              <span>
+                <BookOutlined className="mr-1" />
+                {course.duration} hours
+              </span>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
+    </Link>
   </Card>
 );
 

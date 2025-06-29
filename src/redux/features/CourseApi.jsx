@@ -49,6 +49,25 @@ const CourseApi = api.injectEndpoints({
       }),
     }),
 
+    search: builder.query({
+      query: ({ search, category_id, type, subject_id }) => {
+        let url = `/search/?`;
+
+        if (search) url += `search=${search}&`;
+        if (category_id) url += `category_id=${category_id}&`;
+        if (type) url += `type=${type}&`;
+
+        // ✅ Format array as JSON-like string
+        if (Array.isArray(subject_id)) {
+          url += `subject_id=[${subject_id.join(",")}]`;
+        } else if (subject_id) {
+          url += `subject_id=[${subject_id}]`;
+        }
+
+        return url;
+      },
+    }),
+
     // getStatistics: builder.query({
     //   query: (filter = "all") => ({
     //     url: `/admin/dashboard?filter=${filter}`,
@@ -68,4 +87,5 @@ export const {
   useGetAvarageRatingQuery,
   usePurchaseCourseMutation,
   useStorepaymentMutation,
+  useSearchQuery,
 } = CourseApi;

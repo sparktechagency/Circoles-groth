@@ -3,7 +3,7 @@ import { Checkbox, Collapse } from "antd";
 import { useState } from "react";
 const { Panel } = Collapse;
 
-const FilterMenu = () => {
+const FilterMenu = ({ setCategoryId, setType }) => {
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [selectedTypes, setSelectedTypes] = useState([]);
 
