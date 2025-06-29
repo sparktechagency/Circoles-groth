@@ -17,8 +17,11 @@ import {
   FolderOutlined,
   FileOutlined,
 } from "@ant-design/icons";
+import { useParams } from "next/navigation";
 
 const EnroledCourse = () => {
+  const { id } = useParams();
+  console.log("id", id);
   return (
     <div className="bg-white p-6">
       <h1 className="text-[24px] font-bold ">UX Design Course</h1>

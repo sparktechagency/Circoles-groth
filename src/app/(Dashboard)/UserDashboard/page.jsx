@@ -14,8 +14,10 @@ import {
   useEnrolledCourseProgressQuery,
   useGetStudentStatusQuery,
 } from "../../../redux/features/userDashboard/UserDashboardApi";
+import { useRouter } from "next/navigation";
 
 const Mycourses = () => {
+  const router = useRouter();
   const { data: statusData, isLoading: statusLoading } =
     useGetStudentStatusQuery();
   const { data: enrolledCourseData, isLoading: enrolledCourseLoading } =
@@ -197,6 +199,7 @@ const Mycourses = () => {
 
 // Extracted CourseCard component for better reusability
 const CourseCard = ({ course, colors }) => {
+  const router = useRouter();
   const progressPercent = Math.round(course.progress);
 
   return (
@@ -236,7 +239,7 @@ const CourseCard = ({ course, colors }) => {
                 className="font-semibold"
                 style={{ fontSize: "22px", color: "#FFFFFF", margin: 5 }}
               >
-                completed
+                Completed
               </p>
             </div>
           )}
@@ -264,6 +267,11 @@ const CourseCard = ({ course, colors }) => {
             </p>
           </div>
           <Button
+            onClick={() =>
+              router.push(
+                `/UserDashboard/EnrolledCourses/EnroledCourseDetails/${course.id}`
+              )
+            }
             className="py-6 px-12 w-full mt-4"
             type="primary"
             style={{

@@ -29,6 +29,9 @@ const Signup = () => {
       if (resp?.success === false) {
         message.error(resp.message || "Something went wrong");
       }
+      if (resp?.email) {
+        message.error(resp.email[0] || "Something went wrong");
+      }
     } catch (error) {
       message.error(error.data.message || "Something went wrong");
     }

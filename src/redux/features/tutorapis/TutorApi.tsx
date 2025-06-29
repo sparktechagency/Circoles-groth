@@ -33,6 +33,25 @@ export const TutorApi = api.injectEndpoints({
       invalidatesTags: ["user"],
     }),
 
+    bookAtutor: builder.mutation({
+      query: (formData) => ({
+        url: "/student/book-tutor",
+        method: "POST",
+        body: formData,
+      }),
+      invalidatesTags: ["user"],
+    }),
+
+
+    storetutorpayment: builder.mutation({
+      query: ({ body = {} }) => ({
+        url: `/student/book-tutor/callback`,
+        method: "POST",
+        body,
+      }),
+    }),
+
+
 
   }),
 });
@@ -42,5 +61,7 @@ export const {
   useUpcommingseassionsQuery,
   useGetsubjectsQuery,
   useTutorProfileSetupMutation,
-  useTutorVerifyMutation
+  useTutorVerifyMutation,
+  useBookAtutorMutation,
+  useStoretutorpaymentMutation
 } = TutorApi;

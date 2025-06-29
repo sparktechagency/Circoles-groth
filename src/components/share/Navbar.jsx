@@ -32,7 +32,7 @@ import { useSelector } from "react-redux";
 import { useGetOwnprofileQuery } from "../../redux/features/AuthApi";
 import Cookies from "js-cookie";
 import Swal from "sweetalert2";
-
+import SearchBar from "../home/search/SearchBar";
 const Navbar = () => {
   const { data, isLoading } = useGetOwnprofileQuery();
 
@@ -270,29 +270,8 @@ const Navbar = () => {
           <Image src={logo} alt="Logo" />
         </Link>
       </div>
-
-      {/* Middle: Search bar with category button (Hidden on small screens) */}
-      <div className="hidden w-full max-w-lg lg:flex items-center space-x-2 px-2">
-        <Input
-          placeholder="Looking for..."
-          className="w-full text-[#667085] text-[16px]"
-          prefix={<SearchOutlined size={15} className="text-[#667085]" />}
-          suffix={
-            <div>
-              <div className="border-l-2 text-sm text-[#1D2939] font-normal border-[#D0D5DD]">
-                <Dropdown
-                  className="border-none"
-                  overlay={categoryMenu}
-                  trigger={["hover"]}
-                >
-                  <Button>
-                    Category <DownOutlined />
-                  </Button>
-                </Dropdown>
-              </div>
-            </div>
-          }
-        />
+      <div className="w-full flex-1">
+        <SearchBar pathname={pathname} />
       </div>
 
       {/* Right Side: Links (Hidden on small screens) */}
