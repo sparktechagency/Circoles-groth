@@ -21,8 +21,6 @@ const Page = () => {
   const totalCourses = enrolledCourseData?.courses?.total || 0;
   const courses = enrolledCourseData?.courses?.data || [];
 
-  console.log("enrolledCourseData", courses);
-
   const onChange = (key) => {
     console.log(key);
   };
@@ -52,7 +50,7 @@ const Page = () => {
                     rating={item?.rating}
                     reviews={item?.total_reviews}
                     duration={item?.duration}
-                    enrollLink={item?.id}
+                    enrollLink={item?.course_id}
                     progress={item?.progress}
                     language={item?.language}
                   />

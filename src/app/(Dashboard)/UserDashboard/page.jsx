@@ -269,7 +269,7 @@ const CourseCard = ({ course, colors }) => {
           <Button
             onClick={() =>
               router.push(
-                `/UserDashboard/EnrolledCourses/EnroledCourseDetails/${course.id}`
+                `/UserDashboard/EnrolledCourses/EnroledCourseDetails/${course.course_id}`
               )
             }
             className="py-6 px-12 w-full mt-4"

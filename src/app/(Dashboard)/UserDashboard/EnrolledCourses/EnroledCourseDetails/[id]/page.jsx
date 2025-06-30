@@ -1,275 +1,510 @@
 "use client";
-import { Avatar, Button, Collapse } from "antd";
-const { Panel } = Collapse;
-
-const panels = [
-  { id: "01", title: "Getting started", time: "02:30 min", isVideo: true },
-  { id: "02", title: "Basic Fundamental", time: "10:30 min", isVideo: true },
-  { id: "03", title: "Practice Project", fileSize: "5.3 MB", isVideo: false },
-  { id: "04", title: "Basic Fundamental", time: "10:30 min", isVideo: true },
-  { id: "05", title: "Basic Fundamental", time: "10:30 min", isVideo: true },
-  { id: "06", title: "Basic Fundamental", time: "10:30 min", isVideo: true },
-];
-
-import React from "react";
+import React, { useState, useEffect } from "react";
+import {
+  Avatar,
+  Button,
+  Collapse,
+  Spin,
+  Empty,
+  message,
+  Modal,
+  Divider,
+  Tag,
+  Progress,
+  Popconfirm,
+} from "antd";
 import {
   ClockCircleOutlined,
   PlayCircleOutlined,
   FolderOutlined,
   FileOutlined,
+  UserOutlined,
+  CheckOutlined,
+  LockOutlined,
 } from "@ant-design/icons";
 import { useParams } from "next/navigation";
+import { useGetCourseDetailsQuery } from "../../../../../../redux/features/CourseApi";
+const { Panel } = Collapse;
 
 const EnroledCourse = () => {
   const { id } = useParams();
-  console.log("id", id);
-  return (
-    <div className="bg-white p-6">
-      <h1 className="text-[24px] font-bold ">UX Design Course</h1>
-      <div className="xl:flex justify-between gap-6 item-center  mb-4 container mx-auto">
-        {/* left content ---------- */}
-        <div className=" w-full">
-          <video
-            type="video/mp4"
-            className="w-full mt-24 rounded-2xl"
-            src="https://videos.pexels.com/video-files/4629800/4629800-uhd_2560_1440_25fps.mp4"
-            controls
-          ></video>
-          <h1 className="text-[24px] font-bold py-4 ">Getting started</h1>
+  const [currentVideo, setCurrentVideo] = useState(null);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [watchedVideos, setWatchedVideos] = useState([]);
+  const [lockedVideos, setLockedVideos] = useState([]);
+  const [progress, setProgress] = useState(0);
 
-          {/* avater  */}
-          <div>
-            <div className="lg:flex flex-col justify-between space-x-2">
-              <div>
-                <p className="text-[#263238] text-[14px] font-normal flex items-center gap-2">
-                  Last updated :{" "}
-                  <span className="text-[#1D2939] block text-[14px] font-semibold">
-                    Oct 26, 2024
-                  </span>
-                </p>
-              </div>
-            </div>
+  const { data: courseData, isLoading, isError } = useGetCourseDetailsQuery(id);
+
+  useEffect(() => {
+    if (courseData?.success && courseData.course?.curriculum?.length > 0) {
+      // Load progress from localStorage
+      const savedProgress = JSON.parse(
+        localStorage.getItem(`courseProgress_${id}`)
+      ) || {
+        watchedVideos: [],
+        lastWatched: null,
+      };
+
+      setWatchedVideos(savedProgress.watchedVideos);
+      calculateLockedVideos(
+        courseData.course.curriculum,
+        savedProgress.watchedVideos
+      );
+
+      // Calculate initial progress
+      const totalVideos = courseData.course.curriculum.reduce(
+        (total, section) => total + section.lectures.length,
+        0
+      );
+      const watchedCount = savedProgress.watchedVideos.length;
+      setProgress(Math.round((watchedCount / totalVideos) * 100));
+
+      // Set initial video
+      setInitialVideo(courseData.course, savedProgress.lastWatched);
+    }
+  }, [courseData, id]);
+  const calculateTotalDuration = () => {
+    if (!courseData?.course?.duration) return "0 hours";
+    return `${courseData.course.duration} hours`;
+  };
+  const calculateLockedVideos = (curriculum, watched) => {
+    const allVideos = curriculum.flatMap((section) => section.lectures);
+    const locked = [];
+    let foundFirstUnwatched = false;
+
+    for (const video of allVideos) {
+      if (!watched.includes(video.id.toString())) {
+        if (!foundFirstUnwatched) {
+          foundFirstUnwatched = true;
+        } else {
+          locked.push(video.id.toString());
+        }
+      }
+    }
+
+    setLockedVideos(locked);
+  };
+
+  const setInitialVideo = (course, lastWatchedId) => {
+    const allVideos = course.curriculum.flatMap((section) => section.lectures);
+
+    // 1. Try to resume last watched
+    if (lastWatchedId) {
+      const lastWatched = allVideos.find(
+        (v) => v.id.toString() === lastWatchedId
+      );
+      if (lastWatched) {
+        setCurrentVideo(lastWatched);
+        return;
+      }
+    }
+
+    // 2. Find first unwatched video
+    const firstUnwatched = allVideos.find(
+      (v) =>
+        !watchedVideos.includes(v.id.toString()) &&
+        !lockedVideos.includes(v.id.toString())
+    );
+
+    // 3. Fallback to first video or trailer
+    setCurrentVideo(
+      firstUnwatched ||
+        allVideos[0] || {
+          title: "Course Trailer",
+          video_url: course.trailer_video,
+          id: "trailer",
+        }
+    );
+  };
+
+  const handleVideoPlay = (video) => {
+    if (isVideoLocked(video)) {
+      message.warning("Please complete the previous videos first");
+      return;
+    }
+    setCurrentVideo(video);
+    setIsModalVisible(true);
+  };
+
+  const isVideoLocked = (video) => {
+    return lockedVideos.includes(video.id.toString());
+  };
+
+  const markVideoAsCompleted = (videoId) => {
+    if (!videoId) return;
+
+    const updatedWatched = [...new Set([...watchedVideos, videoId.toString()])];
+    setWatchedVideos(updatedWatched);
+
+    // Recalculate locked videos
+    calculateLockedVideos(courseData.course.curriculum, updatedWatched);
+
+    // Calculate new progress
+    const totalVideos = courseData.course.curriculum.reduce(
+      (total, section) => total + section.lectures.length,
+      0
+    );
+    const newProgress = Math.round((updatedWatched.length / totalVideos) * 100);
+    setProgress(newProgress);
+
+    // Save to localStorage
+    localStorage.setItem(
+      `courseProgress_${id}`,
+      JSON.stringify({
+        lastWatched: videoId.toString(),
+        watchedVideos: updatedWatched,
+      })
+    );
+
+    // Auto-play next video if available
+    if (videoId !== "trailer") {
+      const allVideos = courseData.course.curriculum.flatMap(
+        (section) => section.lectures
+      );
+      const currentIndex = allVideos.findIndex((v) => v.id === videoId);
+      if (currentIndex < allVideos.length - 1) {
+        const nextVideo = allVideos[currentIndex + 1];
+        if (!isVideoLocked(nextVideo)) {
+          setCurrentVideo(nextVideo);
+        }
+      }
+    }
+
+    message.success("Video marked as completed!");
+  };
+
+  const renderVideoItem = (lecture, sectionIndex, lectureIndex) => {
+    const isWatched = watchedVideos.includes(lecture.id.toString());
+    const isLocked = isVideoLocked(lecture);
+    const isCurrent = currentVideo?.id === lecture.id;
+
+    return (
+      <div
+        key={lecture.id}
+        className={`flex justify-between items-center p-4 rounded-lg mb-4 ${
+          isCurrent ? "bg-blue-50 border border-blue-200" : "bg-white"
+        } ${isWatched ? "border-l-4 border-l-green-500" : ""} ${
+          isLocked
+            ? "opacity-60 cursor-not-allowed"
+            : "cursor-pointer hover:bg-gray-50"
+        }`}
+        onClick={() => !isLocked && handleVideoPlay(lecture)}
+      >
+        <div className="flex items-center">
+          <div
+            className={`w-10 h-10 rounded-lg flex items-center justify-center mr-4 ${
+              isWatched
+                ? "bg-green-100 text-green-600"
+                : isLocked
+                ? "bg-gray-100 text-gray-400"
+                : "bg-[#F2F4F7] text-[#475467]"
+            }`}
+          >
+            {isLocked ? <LockOutlined /> : lectureIndex + 1}
           </div>
-
-          {/* decription here */}
           <div>
-            <h1 className="text-[24px] font-bold py-4 ">
-              Lectures Description
-            </h1>
-            <p className="text-[14px] font-normal leading-8">
-              We cover everything you need to build your first website. From
-              creating your first page through to uploading your website to the
-              internet. We’ll use the world’s most popular (and free) web design
-              tool called Visual Studio Code. There are exercise files you can
-              download and then work along with me. At the end of each video I
-              have a downloadable version of where we are in the process so that
-              you can compare your project with mine. This will enable you to
-              see easily where you might have a problem. We will delve into all
-              the good stuff such as how to create your very own mobile burger
-              menu from scratch learning some basic JavaScript and jQuery. If
-              that all sounds a little too fancy - don’t worry, this course is
-              aimed at people new to web design and who have never coded before.
-              We’ll start right at the beginning and work our way through step
-              by step.
+            <p className="font-semibold text-[#475467] text-[16px]">
+              {lecture.title}
+              {isLocked && <LockOutlined className="ml-2 text-gray-400" />}
+            </p>
+            <p className="text-sm text-[#98A2B3]">
+              {lecture.description || "Lecture video"}
             </p>
           </div>
         </div>
+        <div>
+          {isWatched ? (
+            <CheckOutlined className="text-green-500 text-2xl" />
+          ) : (
+            <PlayCircleOutlined
+              className={`text-2xl ${
+                isLocked ? "text-gray-400" : "text-[#14698A]"
+              }`}
+            />
+          )}
+        </div>
+      </div>
+    );
+  };
 
-        {/* ritht content --------------- */}
-        <div className="xl:max-w-2xl  w-full">
-          {/* Course curriculum section here ------------- */}
-          <div className="xl:max-w-2xl  w-full  my-12  lg:p-4 p-0">
-            {/* lacture folder ----------------- */}
-            <div className="flex items-center justify-between mb-4 pl-8 ">
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <Spin size="large" />
+      </div>
+    );
+  }
+
+  if (isError || !courseData?.success) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <Empty description="Failed to load course details" />
+      </div>
+    );
+  }
+
+  const course = courseData.course;
+
+  return (
+    <div className="bg-white p-6">
+      <h1 className="text-[24px] font-bold">{course.title}</h1>
+
+      {/* Progress Bar */}
+      <div className="mb-6">
+        <div className="flex justify-between items-center mb-2">
+          <span className="font-medium">Course Progress</span>
+          <span>{progress}%</span>
+        </div>
+        <Progress percent={progress} status="active" />
+      </div>
+
+      <div className="xl:flex justify-between gap-6 item-center mb-4 container mx-auto">
+        {/* Left content */}
+        <div className="w-full">
+          {/* Main Video Player */}
+          {currentVideo ? (
+            <div className="w-full mt-6 rounded-2xl">
+              {currentVideo.video_url?.includes("youtube.com") ? (
+                <iframe
+                  width="100%"
+                  height="500"
+                  src={currentVideo.video_url}
+                  title={currentVideo.title}
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                ></iframe>
+              ) : currentVideo.video_url ? (
+                <video
+                  className="w-full rounded-2xl"
+                  controls
+                  autoPlay
+                  muted
+                  onEnded={() => markVideoAsCompleted(currentVideo.id)}
+                >
+                  <source src={currentVideo.video_url} type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
+              ) : (
+                <div className="w-full h-96 bg-gray-100 flex items-center justify-center">
+                  <p>No video available</p>
+                </div>
+              )}
+            </div>
+          ) : (
+            <div className="w-full mt-6 rounded-2xl bg-gray-100 h-96 flex items-center justify-center">
+              <p>No video available</p>
+            </div>
+          )}
+
+          {/* Completion Button */}
+          {currentVideo?.id && currentVideo.id !== "trailer" && (
+            <div className="mt-4 text-right">
+              <Popconfirm
+                title="Mark this video as completed?"
+                onConfirm={() => markVideoAsCompleted(currentVideo.id)}
+                okText="Yes"
+                cancelText="No"
+              >
+                <Button type="primary">I've completed this video</Button>
+              </Popconfirm>
+            </div>
+          )}
+
+          <h1 className="text-[24px] font-bold py-4">
+            {currentVideo ? currentVideo.title : "Course Introduction"}
+          </h1>
+
+          {/* Course Info */}
+          <div>
+            <div className="flex flex-wrap gap-4 mb-4">
+              <Tag color="blue" icon={<UserOutlined />}>
+                {course.language}
+              </Tag>
+              <Tag color="green" icon={<CheckOutlined />}>
+                {course.c_level}
+              </Tag>
+              <Tag color="orange" icon={<ClockCircleOutlined />}>
+                {calculateTotalDuration()}
+              </Tag>
+            </div>
+
+            <p className="text-[#263238] text-[14px] font-normal flex items-center gap-2 mb-4">
+              Last updated:{" "}
+              <span className="text-[#1D2939] block text-[14px] font-semibold">
+                {course.last_updated}
+              </span>
+            </p>
+          </div>
+
+          {/* Description */}
+          <div>
+            <h1 className="text-[24px] font-bold py-4">Course Description</h1>
+            <p className="text-[14px] font-normal leading-8">
+              {course.description}
+            </p>
+          </div>
+
+          {/* What You'll Learn */}
+          {course.teach_course?.length > 0 && (
+            <div className="mt-8">
+              <h1 className="text-[24px] font-bold py-4">What You'll Learn</h1>
+              <ul className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                {course.teach_course.map((item, index) => (
+                  <li key={index} className="flex items-start">
+                    <CheckOutlined className="text-green-500 mt-1 mr-2" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {/* Requirements */}
+          {course.requirements?.length > 0 && (
+            <div className="mt-8">
+              <h1 className="text-[24px] font-bold py-4">Requirements</h1>
+              <ul className="list-disc pl-5">
+                {course.requirements.map((req, index) => (
+                  <li key={index} className="mb-2">
+                    {req}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {/* Target Audience */}
+          {course.targer_audience?.length > 0 && (
+            <div className="mt-8">
+              <h1 className="text-[24px] font-bold py-4">Target Audience</h1>
+              <div className="flex flex-wrap gap-2">
+                {course.targer_audience.map((audience, index) => (
+                  <Tag key={index} color="purple">
+                    {audience}
+                  </Tag>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* Right content - Curriculum */}
+        <div className="xl:max-w-2xl w-full">
+          <div className="xl:max-w-2xl w-full my-12 lg:p-4 p-0">
+            {/* Course Stats */}
+            <div className="flex items-center justify-between mb-4 pl-8">
               <div className="flex flex-wrap items-center justify-between lg:gap-6 md:gap-6 gap-1">
                 <div className="lg:text-[16px] text-sm font-normal text-[#4E5566] flex items-center gap-3">
-                  <FolderOutlined className="lg:text-2xl text-xl text-[#4E5566]" />{" "}
-                  6 Sections
+                  <FolderOutlined className="lg:text-2xl text-xl text-[#4E5566]" />
+                  {course.total_section} Sections
                 </div>
                 <div className="lg:text-[16px] text-sm font-normal text-[#4E5566] flex items-center gap-3">
-                  <PlayCircleOutlined className="lg:text-2xl text-xl text-[#4E5566]" />{" "}
-                  202 lectures
+                  <PlayCircleOutlined className="lg:text-2xl text-xl text-[#4E5566]" />
+                  {course.total_lecture} lectures
                 </div>
                 <div className="lg:text-[16px] text-sm font-normal text-[#4E5566] flex items-center gap-3">
-                  <ClockCircleOutlined className="lg:text-2xl text-xl text-[#4E5566]" />{" "}
-                  19h 37m
+                  <ClockCircleOutlined className="lg:text-2xl text-xl text-[#4E5566]" />
+                  {calculateTotalDuration()}
                 </div>
               </div>
             </div>
 
-            {/* course outline here----------------------------------------------------------- */}
-            <div className=" mx-auto  rounded-md lg:p-4 md:p-4 p-0 border-none">
+            {/* Course Curriculum */}
+            <div className="mx-auto rounded-md lg:p-4 md:p-4 p-0 border-none">
               <Collapse
                 defaultActiveKey={["1"]}
                 accordion
                 expandIconPosition="right"
-                className=" p-4 rounded-lg border-none"
+                className="p-4 rounded-lg border-none"
               >
-                {/* dropswon/panel one --------------- */}
-                <Panel
-                  header={
-                    <div className="">
-                      <div className="text-lg font-semibold text-[#475467]">
-                        Introduction to Product Management
+                {course.curriculum?.map((section, sectionIndex) => (
+                  <Panel
+                    header={
+                      <div className="">
+                        <div className="text-lg font-semibold text-[#475467]">
+                          {section.section_name}
+                        </div>
+                        <div className="text-xs text-[#98A2B3] font-normal">
+                          {section.lectures.length} Lectures •{" "}
+                          {Math.ceil(section.lectures.length * 10)} Minutes
+                        </div>
                       </div>
-                      <div className="text-xs text-[#98A2B3] font-normal">
-                        06 Lectures • 30 Minutes
-                      </div>
+                    }
+                    key={sectionIndex + 1}
+                    className="mb-2 bg-transparent"
+                    style={{ backgroundColor: "transparent" }}
+                  >
+                    <div className="space-y-3 cursor-pointer">
+                      {section.lectures.map((lecture, lectureIndex) =>
+                        renderVideoItem(lecture, sectionIndex, lectureIndex)
+                      )}
                     </div>
-                  }
-                  key="1"
-                  className="mb-2 bg-transparent "
-                  style={{ backgroundColor: "transparent" }}
-                >
-                  <div className="space-y-3 cursor-pointer">
-                    {/* Add space between items */}
-                    {panels.map((panel) => (
-                      <div
-                        key={panel.id}
-                        className="flex justify-between items-center p-4 bg-white rounded-lg shadow mb-4" // Adjust margin, padding and shadow
-                      >
-                        <div className="flex items-center">
-                          <div className="bg-[#F2F4F7] text-[#475467] w-10 h-10 rounded-lg flex items-center justify-center mr-4 font-bold">
-                            {panel.id}
-                          </div>
-                          <div>
-                            <p className="font-semibold text-[#475467] text-[16px]">
-                              {panel.title}
-                            </p>
-                            {panel.isVideo ? (
-                              <p className="text-sm text-[#98A2B3]">
-                                {panel.time}
-                              </p>
-                            ) : (
-                              <p className="text-sm text-[#98A2B3]">
-                                {panel.fileSize}
-                              </p>
-                            )}
-                          </div>
-                        </div>
-                        <div>
-                          {panel.isVideo ? (
-                            <PlayCircleOutlined className="text-[#14698A] text-2xl" />
-                          ) : (
-                            <FileOutlined className="text-[#14698A] text-2xl" />
-                          )}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </Panel>
-
-                {/* dropswon/panel tow --------------- */}
-                <Panel
-                  header={
-                    <div className="">
-                      <div className="text-lg font-semibold text-[#475467]">
-                        Introduction to Product Management
-                      </div>
-                      <div className="text-xs text-[#98A2B3] font-normal">
-                        06 Lectures • 30 Minutes
-                      </div>
-                    </div>
-                  }
-                  key="2"
-                  className="mb-2 bg-transparent"
-                  style={{ backgroundColor: "transparent" }}
-                >
-                  <div className="space-y-3 cursor-pointer">
-                    {/* Add space between items */}
-                    {panels.map((panel) => (
-                      <div
-                        key={panel.id}
-                        className="flex justify-between items-center p-4 bg-white rounded-lg shadow mb-4" // Adjust margin, padding and shadow
-                      >
-                        <div className="flex items-center">
-                          <div className="bg-[#F2F4F7] text-[#475467] w-10 h-10 rounded-lg flex items-center justify-center mr-4 font-bold">
-                            {panel.id}
-                          </div>
-                          <div>
-                            <p className="font-semibold text-[#475467] text-[16px]">
-                              {panel.title}
-                            </p>
-                            {panel.isVideo ? (
-                              <p className="text-sm text-[#98A2B3]">
-                                {panel.time}
-                              </p>
-                            ) : (
-                              <p className="text-sm text-[#98A2B3]">
-                                {panel.fileSize}
-                              </p>
-                            )}
-                          </div>
-                        </div>
-                        <div>
-                          {panel.isVideo ? (
-                            <PlayCircleOutlined className="text-[#14698A] text-2xl" />
-                          ) : (
-                            <FileOutlined className="text-[#14698A] text-2xl" />
-                          )}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </Panel>
-                {/* dropswon/panel three --------------- */}
-                <Panel
-                  header={
-                    <div className="">
-                      <div className="text-lg font-semibold text-[#475467]">
-                        Introduction to Product Management
-                      </div>
-                      <div className="text-xs text-[#98A2B3] font-normal">
-                        06 Lectures • 30 Minutes
-                      </div>
-                    </div>
-                  }
-                  key="3"
-                  className="mb-2 bg-transparent"
-                  style={{ backgroundColor: "transparent" }}
-                >
-                  <div className="space-y-3 cursor-pointer">
-                    {/* Add space between items */}
-                    {panels.map((panel) => (
-                      <div
-                        key={panel.id}
-                        className="flex justify-between items-center p-4 bg-white rounded-lg shadow mb-4" // Adjust margin, padding and shadow
-                      >
-                        <div className="flex items-center">
-                          <div className="bg-[#F2F4F7] text-[#475467] w-10 h-10 rounded-lg flex items-center justify-center mr-4 font-bold">
-                            {panel.id}
-                          </div>
-                          <div>
-                            <p className="font-semibold text-[#475467] text-[16px]">
-                              {panel.title}
-                            </p>
-                            {panel.isVideo ? (
-                              <p className="text-sm text-[#98A2B3]">
-                                {panel.time}
-                              </p>
-                            ) : (
-                              <p className="text-sm text-[#98A2B3]">
-                                {panel.fileSize}
-                              </p>
-                            )}
-                          </div>
-                        </div>
-                        <div>
-                          {panel.isVideo ? (
-                            <PlayCircleOutlined className="text-[#14698A] text-2xl" />
-                          ) : (
-                            <FileOutlined className="text-[#14698A] text-2xl" />
-                          )}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </Panel>
+                  </Panel>
+                ))}
               </Collapse>
             </div>
           </div>
         </div>
       </div>
+
+      {/* Video Modal */}
+      <Modal
+        title={currentVideo?.title || "Video Player"}
+        visible={isModalVisible}
+        onCancel={() => setIsModalVisible(false)}
+        footer={null}
+        width="80%"
+        style={{ top: 20 }}
+        destroyOnClose
+      >
+        {currentVideo && (
+          <div className="aspect-w-16 aspect-h-9">
+            {currentVideo.video_url?.includes("youtube.com") ? (
+              <iframe
+                width="100%"
+                height="500"
+                src={currentVideo.video_url}
+                title={currentVideo.title}
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              ></iframe>
+            ) : (
+              <video
+                width="100%"
+                height="500"
+                controls
+                autoPlay
+                onEnded={() => {
+                  markVideoAsCompleted(currentVideo.id);
+                  setIsModalVisible(false);
+                }}
+              >
+                <source src={currentVideo.video_url} type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+            )}
+          </div>
+        )}
+        <Divider />
+        <h3 className="text-lg font-semibold">Description</h3>
+        <p>{currentVideo?.description || "No description available"}</p>
+        {currentVideo?.id && currentVideo.id !== "trailer" && (
+          <div className="mt-4 text-right">
+            <Button
+              type="primary"
+              onClick={() => {
+                markVideoAsCompleted(currentVideo.id);
+                setIsModalVisible(false);
+              }}
+            >
+              Mark as Completed
+            </Button>
+          </div>
+        )}
+      </Modal>
     </div>
   );
 };

@@ -52,6 +52,15 @@ export const TutorApi = api.injectEndpoints({
     }),
 
 
+    mytutor: builder.query({
+      query: () => `/student/my-tutor`,
+    }),
+
+    studentUpcommingseassions: builder.query({
+      query: () => `/student/upcoming-session`,
+    })
+
+
 
   }),
 });
@@ -63,5 +72,7 @@ export const {
   useTutorProfileSetupMutation,
   useTutorVerifyMutation,
   useBookAtutorMutation,
-  useStoretutorpaymentMutation
+  useStoretutorpaymentMutation,
+  useMytutorQuery,
+  useStudentUpcommingseassionsQuery
 } = TutorApi;

@@ -168,7 +168,7 @@ const TutorCard = ({ tutor, onClick }) => (
     hoverable
     className="border border-gray-100 rounded-md h-full hover:shadow-md transition-shadow"
   >
-    <Link href={`/tutor/${tutor.id}`}>
+    <Link href={`/browseCourse/instructor/${tutor.id}`}>
       <div className="flex flex-row items-center gap-4">
         <div className="w-1/4">
           <Avatar

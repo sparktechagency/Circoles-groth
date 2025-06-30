@@ -60,11 +60,11 @@ const MyCourseCard = ({
             <Progress
               strokeColor={"#039855"}
               trailColor="#D1FADF"
-              percent={70}
+              percent={progress}
             />
 
             <span className="text-[#667085] text-[16px]">
-              {progress} completed
+              {progress} % completed
             </span>
           </div>
           <div className="flex items-center justify-between text-[#475467] text-sm py-4 ">

@@ -161,13 +161,6 @@ const ManageCourseCard = ({
           <span className="text-lg font-semibold text-[#000000]">
             € {price}
           </span>
-          <Link
-            href={`/browseCourse/${enrollLink}`}
-            className="inline-flex items-center text-[#14698A] border-b-2 border-[#14698A] text-[16px] font-semibold"
-          >
-            ENROLL NOW
-            <ArrowUpOutlined className="rotate-45 text-xl pl-2" />
-          </Link>
         </div>
       </div>
     </div>
