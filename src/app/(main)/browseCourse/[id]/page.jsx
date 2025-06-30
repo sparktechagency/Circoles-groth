@@ -29,8 +29,10 @@ import {
   usePurchaseCourseMutation,
 } from "../../../../redux/features/CourseApi";
 import SkeletonLoader from "../../../../components/SkeletonLoader";
+import Cookies from "js-cookie";
 
 const Page = ({ params }) => {
+  const token = Cookies.get("token");
   const { id } = params;
   const { data: courseData, isLoading, isError } = useGetCourseDetailsQuery(id);
   const [isExpanded, setIsExpanded] = useState(false);
@@ -204,7 +206,7 @@ const Page = ({ params }) => {
 
                 <Button
                   loading={isPurchasing}
-                  disabled={isPurchasing}
+                  disabled={isPurchasing || !token}
                   type="primary"
                   size="large"
                   block

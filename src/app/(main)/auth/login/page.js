@@ -33,7 +33,9 @@ const signIn = () => {
 
         if (resp?.user?.role === "admin") {
           router.push("/AdminDashboard");
-        } else if (resp?.user?.role === "tutor") {
+        }
+
+        if (resp?.user?.role === "tutor") {
           router.push("/TutorDashboard");
         } else {
           router.push("/");

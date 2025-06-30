@@ -1,14 +1,30 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import AdminSidebar from "../../../components/dashboard/admindashboard/AdminSidebar";
 import TopHeader from "../../../components/dashboard/TopHeader";
+import { useRouter } from "next/navigation";
+import { useGetOwnprofileQuery } from "../../../redux/features/AuthApi";
 
-const layout = ({ children }) => {
+const Layout = ({ children }) => {
+  const { data, isLoading } = useGetOwnprofileQuery();
   const [isOpen, setIsOpen] = useState(false);
+  const router = useRouter();
+
+  const admin = data?.user?.[0]?.role === "admin";
+  console.log("admin", admin);
+  useEffect(() => {
+    if (!isLoading && !admin) {
+      router.push("/");
+    }
+  }, [isLoading, admin, router]);
+
+  if (isLoading) {
+    return <p className="text-center w-full">Loading...</p>;
+  }
+
   return (
     <div className="flex items-center bg-gray-200">
       {/* sidebar  */}
-
       <div>
         <AdminSidebar isOpen={isOpen} setIsOpen={setIsOpen} />
       </div>
@@ -22,4 +38,4 @@ const layout = ({ children }) => {
   );
 };
 
-export default layout;
+export default Layout;

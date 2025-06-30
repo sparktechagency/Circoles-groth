@@ -34,7 +34,7 @@ import Cookies from "js-cookie";
 import Swal from "sweetalert2";
 import SearchBar from "../home/search/SearchBar";
 const Navbar = () => {
-  const { data, isLoading } = useGetOwnprofileQuery();
+  const { data, isLoading, refetch } = useGetOwnprofileQuery();
 
   const user = data?.user;
   const token = Cookies.get("token");
@@ -87,6 +87,12 @@ const Navbar = () => {
   const toggleLogout = () => {
     setShowLogout(!showLogout);
   };
+
+  useEffect(() => {
+    if (token) {
+      refetch();
+    }
+  }, [token]);
 
   const categoryMenu = (
     <div className="p-4 bg-white shadow-lg rounded-lg">
@@ -253,7 +259,13 @@ const Navbar = () => {
   const userMenu = (
     <Menu>
       <Menu.Item key="dashboard">
-        <Link href="/UserDashboard">Dashboard</Link>
+        <Link
+          href={`${
+            user?.[0]?.role === "tutor" ? "/TutorDashboard" : "/UserDashboard"
+          }`}
+        >
+          Dashboard
+        </Link>
       </Menu.Item>
 
       <Menu.Item key="logout" onClick={handleLogout} icon={<LogoutOutlined />}>

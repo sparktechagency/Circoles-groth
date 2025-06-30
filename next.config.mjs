@@ -9,6 +9,9 @@ const nextConfig = {
       "ui-avatars.com",
     ],
   },
+  experimental: {
+    nodeMiddleware: true,
+  },
 };
 
 export default nextConfig;
