@@ -13,6 +13,20 @@ const SearchBar = () => {
   const [type, setType] = useState("course");
   const searchRef = useRef(null);
   const inputRef = useRef(null);
+  const [filters, setFilters] = useState({});
+
+  // Use the filters to fetch data
+  useEffect(() => {
+    if (filters.type) {
+      if (filters.type === "tutor" && filters.subject_id) {
+        // Fetch tutors by subject_id
+      } else if (filters.type === "course" && filters.category_id) {
+        // Fetch courses by category_id
+      }
+    }
+  }, [filters]);
+
+  console.log("filters", filters);
 
   // Close results when clicking outside
   useEffect(() => {
@@ -51,9 +65,7 @@ const SearchBar = () => {
           suffix={
             <Dropdown
               overlayClassName=""
-              overlay={
-                <FilterMenu setCategoryId={setCategoryId} setType={setType} />
-              }
+              overlay={<FilterMenu setFilters={setFilters} />}
               trigger={["hover"]}
               placement="bottomRight"
               onVisibleChange={handleFilterVisibleChange}
@@ -83,6 +95,7 @@ const SearchBar = () => {
       </div>
 
       <SearchResults
+        filters={filters}
         visible={showResults}
         searchQuery={searchQuery}
         onClose={() => setShowResults(false)}

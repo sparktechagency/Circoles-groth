@@ -1,37 +1,41 @@
 "use client";
 import { motion, AnimatePresence } from "framer-motion";
-import { Spin, Card, Rate, Empty } from "antd";
+import { Spin, Card, Rate, Empty, Avatar, Tag } from "antd";
 import { UserOutlined, BookOutlined } from "@ant-design/icons";
 import { useEffect, useState } from "react";
 import { useSearchQuery } from "../../../redux/features/CourseApi";
 import Link from "next/link";
 
-const SearchResults = ({ visible, searchQuery, onClose }) => {
+const SearchResults = ({ visible, searchQuery, onClose, filters }) => {
   const { data: searchResult, isLoading: isSearchLoading } = useSearchQuery({
     search: searchQuery,
-    // category_id: 1,
-    // type: "tutor",
-    // subject_id: [1, 2, 3],
+    category_id: filters?.category_id,
+    type: filters?.type,
+    subject_id: filters?.subject_id,
   });
 
-  const [filteredCourses, setFilteredCourses] = useState([]);
+  const [filteredResults, setFilteredResults] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     if (!visible) return;
 
     if (searchQuery.trim() === "") {
-      setFilteredCourses([]);
+      setFilteredResults([]);
       return;
     }
 
     setIsLoading(true);
 
     if (searchResult?.success) {
-      setFilteredCourses(searchResult.courses.data);
+      if (filters?.type === "tutor") {
+        setFilteredResults(searchResult.tutors?.data || []);
+      } else {
+        setFilteredResults(searchResult.courses?.data || []);
+      }
       setIsLoading(false);
     }
-  }, [visible, searchQuery, searchResult]);
+  }, [visible, searchQuery, searchResult, filters?.type]);
 
   return (
     <AnimatePresence>
@@ -47,18 +51,29 @@ const SearchResults = ({ visible, searchQuery, onClose }) => {
             <div className="p-4 flex justify-center">
               <Spin />
             </div>
-          ) : filteredCourses?.length > 0 ? (
-            <div className="grid grid-cols-1 lg:grid-cols-2  gap-4 p-4">
-              {filteredCourses.map((course) => (
-                <motion.div
-                  key={course.id}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <CourseCard course={course} onClick={onClose} />
-                </motion.div>
-              ))}
+          ) : filteredResults?.length > 0 ? (
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 p-4">
+              {filters?.type === "tutor"
+                ? filteredResults.map((tutor) => (
+                    <motion.div
+                      key={tutor.id}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      <TutorCard tutor={tutor} onClick={onClose} />
+                    </motion.div>
+                  ))
+                : filteredResults.map((course) => (
+                    <motion.div
+                      key={course.id}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      <CourseCard course={course} onClick={onClose} />
+                    </motion.div>
+                  ))}
             </div>
           ) : searchQuery ? (
             <div className="p-4">
@@ -81,14 +96,14 @@ const SearchResults = ({ visible, searchQuery, onClose }) => {
   );
 };
 
-const CourseCard = ({ course, onClick, onClose }) => (
+const CourseCard = ({ course, onClick }) => (
   <Card
     onClick={onClick}
     hoverable
-    className="border border-gray-100 rounded-md h-full hover:shadow-md transition-shadow "
+    className="border border-gray-100 rounded-md h-full hover:shadow-md transition-shadow"
   >
     <Link href={`/browseCourse/${course.id}`}>
-      <div className="flex  flex-row items-center justify-center gap-8">
+      <div className="flex flex-row items-center justify-center gap-8">
         <div className="w-1/3">
           {course.thumbnail ? (
             <img
@@ -106,7 +121,7 @@ const CourseCard = ({ course, onClick, onClose }) => (
             </div>
           )}
         </div>
-        <div className="flex flex-col h-full ">
+        <div className="flex flex-col h-full">
           <h4 className="font-medium text-gray-800 mb-2 line-clamp-2">
             {course.title}
           </h4>
@@ -139,6 +154,50 @@ const CourseCard = ({ course, onClick, onClose }) => (
                 <BookOutlined className="mr-1" />
                 {course.duration} hours
               </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </Link>
+  </Card>
+);
+
+const TutorCard = ({ tutor, onClick }) => (
+  <Card
+    onClick={onClick}
+    hoverable
+    className="border border-gray-100 rounded-md h-full hover:shadow-md transition-shadow"
+  >
+    <Link href={`/tutor/${tutor.id}`}>
+      <div className="flex flex-row items-center gap-4">
+        <div className="w-1/4">
+          <Avatar
+            size={80}
+            src={tutor.avatar}
+            icon={<UserOutlined />}
+            className="rounded-lg"
+          />
+        </div>
+        <div className="flex flex-col flex-1">
+          <h4 className="font-medium text-gray-800 mb-1">{tutor.name}</h4>
+          <p className="text-sm text-gray-500 mb-2">{tutor.expertise_area}</p>
+
+          <div className="flex flex-wrap gap-1 mb-2">
+            {tutor.subjects?.map((subject, index) => (
+              <Tag key={index} color="blue">
+                {subject}
+              </Tag>
+            ))}
+          </div>
+
+          <div className="mt-auto">
+            <div className="flex justify-between items-center">
+              <span className="text-primary font-semibold">
+                {tutor.session_charge}
+              </span>
+              {tutor.language && (
+                <span className="text-xs text-gray-500">{tutor.language}</span>
+              )}
             </div>
           </div>
         </div>

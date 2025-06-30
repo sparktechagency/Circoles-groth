@@ -1,18 +1,39 @@
 "use client";
-import { Checkbox, Collapse } from "antd";
+import { Radio, Collapse } from "antd";
 import { useState } from "react";
+import { useGetsubjectsQuery } from "../../../redux/features/tutorapis/TutorApi";
+import {
+  useGetallsubjectsQuery,
+  useGetcategorysQuery,
+} from "../../../redux/features/CourseApi";
 const { Panel } = Collapse;
 
-const FilterMenu = ({ setCategoryId, setType }) => {
-  const [selectedCategories, setSelectedCategories] = useState([]);
-  const [selectedTypes, setSelectedTypes] = useState([]);
+const FilterMenu = ({ setFilters }) => {
+  const [selectedType, setSelectedType] = useState(null);
+  const [selectedId, setSelectedId] = useState(null);
 
-  const onCategoryChange = (checkedValues) => {
-    setSelectedCategories(checkedValues);
+  const { data: subjectsData, isLoading: subjectsLoading } =
+    useGetallsubjectsQuery();
+  const { data: categoriesData, isLoading: categoriesLoading } =
+    useGetcategorysQuery();
+
+  const onTypeChange = (e) => {
+    const type = e.target.value;
+    setSelectedType(type);
+    setSelectedId(null); // Reset ID when type changes
+    setFilters({
+      type,
+      [type === "tutor" ? "subject_id" : "category_id"]: null,
+    });
   };
 
-  const onTypeChange = (checkedValues) => {
-    setSelectedTypes(checkedValues);
+  const onIdChange = (e) => {
+    const id = e.target.value;
+    setSelectedId(id);
+    setFilters({
+      type: selectedType,
+      [selectedType === "tutor" ? "subject_id" : "category_id"]: id,
+    });
   };
 
   return (
@@ -25,49 +46,60 @@ const FilterMenu = ({ setCategoryId, setType }) => {
         expandIconPosition="end"
       >
         <Panel header="Search Type" key="type" className="font-medium">
-          <Checkbox.Group
+          <Radio.Group
             onChange={onTypeChange}
+            value={selectedType}
             className="flex flex-col gap-2"
           >
-            <Checkbox value="tutor">Tutors</Checkbox>
-            <Checkbox value="course">Courses</Checkbox>
-          </Checkbox.Group>
+            <Radio value="tutor">Tutors</Radio>
+            <Radio value="course">Courses</Radio>
+          </Radio.Group>
         </Panel>
 
         <Panel
           header="Tutor Subjects"
           key="tutor-subjects"
           className="font-medium"
-          collapsible={selectedTypes.includes("tutor") ? undefined : "disabled"}
+          collapsible={selectedType === "tutor" ? undefined : "disabled"}
         >
-          <Checkbox.Group
-            onChange={onCategoryChange}
-            className="flex flex-col gap-2"
-          >
-            <Checkbox value="Physics">Physics</Checkbox>
-            <Checkbox value="Chemistry">Chemistry</Checkbox>
-            <Checkbox value="Math">Mathematics</Checkbox>
-            <Checkbox value="Biology">Biology</Checkbox>
-          </Checkbox.Group>
+          {subjectsLoading ? (
+            <div>Loading subjects...</div>
+          ) : (
+            <Radio.Group
+              onChange={onIdChange}
+              value={selectedType === "tutor" ? selectedId : null}
+              className="flex flex-col gap-2"
+            >
+              {subjectsData?.subjects?.map((subject) => (
+                <Radio key={subject.id} value={subject.id}>
+                  {subject.name}
+                </Radio>
+              ))}
+            </Radio.Group>
+          )}
         </Panel>
 
         <Panel
           header="Course Categories"
           key="course-categories"
           className="font-medium"
-          collapsible={
-            selectedTypes.includes("course") ? undefined : "disabled"
-          }
+          collapsible={selectedType === "course" ? undefined : "disabled"}
         >
-          <Checkbox.Group
-            onChange={onCategoryChange}
-            className="flex flex-col gap-2"
-          >
-            <Checkbox value="Data Science">Data Science</Checkbox>
-            <Checkbox value="Programming">Programming</Checkbox>
-            <Checkbox value="Machine Learning">Machine Learning</Checkbox>
-            <Checkbox value="AI">Artificial Intelligence</Checkbox>
-          </Checkbox.Group>
+          {categoriesLoading ? (
+            <div>Loading categories...</div>
+          ) : (
+            <Radio.Group
+              onChange={onIdChange}
+              value={selectedType === "course" ? selectedId : null}
+              className="flex flex-col gap-2"
+            >
+              {categoriesData?.categories?.map((category) => (
+                <Radio key={category.id} value={category.id}>
+                  {category.name}
+                </Radio>
+              ))}
+            </Radio.Group>
+          )}
         </Panel>
       </Collapse>
     </div>

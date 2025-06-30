@@ -68,6 +68,14 @@ const CourseApi = api.injectEndpoints({
       },
     }),
 
+    getallsubjects: builder.query({
+      query: () => `/admin/subject`,
+    }),
+
+    getallcategories: builder.query({
+      query: () => `/admin/category`,
+    }),
+
     // getStatistics: builder.query({
     //   query: (filter = "all") => ({
     //     url: `/admin/dashboard?filter=${filter}`,
@@ -88,4 +96,6 @@ export const {
   usePurchaseCourseMutation,
   useStorepaymentMutation,
   useSearchQuery,
+  useGetallsubjectsQuery,
+  useGetallcategoriesQuery,
 } = CourseApi;
