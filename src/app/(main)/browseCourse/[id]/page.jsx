@@ -45,7 +45,7 @@ const Page = ({ params }) => {
   const handlepurchase = async () => {
     const alldata = {
       course_id: id,
-      redirect_url: "http://localhost:3000/browseCourse/success",
+      redirect_url: process.env.NEXT_PUBLIC_BASE_URL,
     };
     const res = await purchaseCourse({ body: alldata }).unwrap();
     console.log("res", res);

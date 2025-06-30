@@ -1,12 +1,22 @@
 "use client";
-import { Tabs, Spin, Empty, Avatar, Rate, Tag } from "antd";
+import { Spin, Empty, Avatar, Rate, Tag, message } from "antd";
 import Link from "next/link";
 import { useMytutorQuery } from "../../../../redux/features/tutorapis/TutorApi";
+import { useEffect } from "react";
 
 const MyTutorsPage = () => {
-  const { data, isLoading, isError } = useMytutorQuery();
+  const { data, isLoading, isError, error } = useMytutorQuery();
   const mytutor = true; // Assuming user has tutors
 
+  useEffect(() => {
+    if (isError) {
+      message.error(error?.data?.message || "Failed to load tutor data");
+    }
+  }, [isError, error]);
+
+  const tutors = data ? Object.values(data.tutors) : [];
+  const pagination = data?.pagination || { from: 0, to: 0, total: 0 };
+  console.log("tutors", tutors);
   if (isLoading) {
     return (
       <div className="flex justify-center items-center h-screen">
@@ -15,87 +25,81 @@ const MyTutorsPage = () => {
     );
   }
 
-  if (isError) {
-    return (
-      <div className="flex justify-center items-center h-screen">
-        <Empty description="Failed to load tutor data" />
-      </div>
-    );
-  }
-
-  const tutors = data?.tutors || [];
-  const pagination = data?.pagination;
-  console.log("tutors", tutors);
   return (
-    <div className="bg-white h-screen p-6">
+    <div className="bg-white min-h-screen p-6">
       {mytutor ? (
         <div>
           <div className="mb-6">
             <h1 className="text-2xl font-bold">My Tutors</h1>
-            {pagination && (
-              <p className="text-gray-500">
-                Showing {pagination.from}-{pagination.to} of {pagination.total}{" "}
-                tutors
-              </p>
-            )}
+            <p className="text-gray-500">
+              Showing {pagination.from}-{pagination.to} of {pagination.total}{" "}
+              tutors
+            </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-3 lg:grid-cols-3 gap-6">
-            {tutors.map((tutor) => (
-              <div
-                key={tutor.id}
-                className="border border-gray-200 rounded-lg p-6 hover:shadow-md transition-shadow"
-              >
-                <div className="flex items-center gap-4 mb-4">
-                  <Avatar
-                    size={64}
-                    src="https://randomuser.me/api/portraits/women/44.jpg" // Placeholder - replace with actual tutor avatar
-                    className="bg-gray-200"
-                  />
-                  <div>
-                    <h2 className="text-lg font-semibold">{tutor.name}</h2>
-                    <p className="text-gray-600">{tutor.expertise_area}</p>
-                  </div>
-                </div>
-
-                <div className="space-y-3">
-                  <div className="flex items-center gap-2">
-                    <Tag color="blue">{tutor.language}</Tag>
-                    <Tag color="green">${tutor.session_charge}/session</Tag>
+          {tutors.length > 0 ? (
+            <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-3 lg:grid-cols-3 gap-6">
+              {tutors.map((tutor) => (
+                <div
+                  key={tutor.id}
+                  className="border border-gray-200 rounded-lg p-6 hover:shadow-md transition-shadow"
+                >
+                  <div className="flex items-center gap-4 mb-4">
+                    <Avatar
+                      size={64}
+                      src={
+                        tutor.avatar ||
+                        "https://randomuser.me/api/portraits/women/44.jpg"
+                      }
+                      className="bg-gray-200"
+                    />
+                    <div>
+                      <h2 className="text-lg font-semibold">{tutor.name}</h2>
+                      <p className="text-gray-600">{tutor.expertise_area}</p>
+                    </div>
                   </div>
 
-                  <div className="flex items-center gap-2">
-                    {tutor.avg_rating ? (
-                      <>
-                        <Rate
-                          disabled
-                          allowHalf
-                          defaultValue={tutor.avg_rating}
-                          className="text-sm"
-                        />
-                        <span className="text-sm text-gray-500">
-                          ({tutor.total_reviews} reviews)
+                  <div className="space-y-3">
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <Tag color="blue">{tutor.language}</Tag>
+                      <Tag color="green">${tutor.session_charge}/session</Tag>
+                    </div>
+
+                    <div className="flex items-center gap-2">
+                      {tutor.avg_rating ? (
+                        <>
+                          <Rate
+                            disabled
+                            allowHalf
+                            defaultValue={tutor.avg_rating}
+                            className="text-sm"
+                          />
+                          <span className="text-sm text-gray-500">
+                            ({tutor.total_reviews} reviews)
+                          </span>
+                        </>
+                      ) : (
+                        <span className="text-sm text-gray-400">
+                          No ratings yet
                         </span>
-                      </>
-                    ) : (
-                      <span className="text-sm text-gray-400">
-                        No ratings yet
-                      </span>
-                    )}
-                  </div>
+                      )}
+                    </div>
 
-                  <div className="pt-4">
-                    <Link
-                      href={`/tutor/${tutor.id}`}
-                      className="text-primary hover:text-primary-dark font-medium"
-                    >
-                      View Profile →
-                    </Link>
+                    <div className="pt-4">
+                      <Link
+                        href={`/tutor/${tutor.id}`}
+                        className="text-primary hover:text-primary-dark font-medium"
+                      >
+                        View Profile →
+                      </Link>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          ) : (
+            <Empty description="No tutors found" />
+          )}
         </div>
       ) : (
         <div className="text-center w-fit mx-auto pt-[100px]">
@@ -117,7 +121,7 @@ const MyTutorsPage = () => {
           </div>
           <Link
             className="text-[#14698A] text-[16px] flex text-center w-fit mx-auto items-center space-x-2 font-medium"
-            href={"/findTutors"}
+            href="/findTutors"
           >
             Find a tutor now{" "}
             <svg

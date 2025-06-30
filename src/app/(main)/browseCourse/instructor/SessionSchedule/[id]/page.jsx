@@ -96,12 +96,9 @@ const SchedulePage = () => {
     formData.append("tutor_id", id);
     formData.append("schedule[0][date]", formattedDate);
     formData.append("schedule[0][time]", formattedTime);
-    formData.append("session_cost", numericCost); // Use the actual cost from params
+    formData.append("session_cost", numericCost);
     formData.append("type", type);
-    formData.append(
-      "redirect_url",
-      "http://localhost:3000/browseCourse/instructor/SessionSchedule/TutorBookingSuccess"
-    );
+    formData.append("redirect_url", process.env.NEXT_PUBLIC_REDIRECT_URL_TUTOR);
 
     try {
       const response = await bookAtutor(formData).unwrap();
