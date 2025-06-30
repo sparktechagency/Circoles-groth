@@ -10,6 +10,7 @@ const panels = [
   { id: "05", title: "Basic Fundamental", time: "10:30 min", isVideo: true },
   { id: "06", title: "Basic Fundamental", time: "10:30 min", isVideo: true },
 ];
+
 import React from "react";
 import {
   ClockCircleOutlined,
