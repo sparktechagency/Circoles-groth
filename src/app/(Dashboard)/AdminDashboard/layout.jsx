@@ -10,16 +10,27 @@ const Layout = ({ children }) => {
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
 
-  const admin = data?.user?.[0]?.role === "admin";
-  console.log("admin", admin);
-  useEffect(() => {
-    if (!isLoading && !admin) {
-      router.push("/");
-    }
-  }, [isLoading, admin, router]);
+  const [checkingAccess, setCheckingAccess] = useState(true);
 
-  if (isLoading) {
-    return <p className="text-center w-full">Loading...</p>;
+  useEffect(() => {
+    if (!isLoading) {
+      if (data?.user?.[0]?.role !== "admin") {
+        router.push("/");
+      } else {
+        setCheckingAccess(false); // access granted
+      }
+    }
+  }, [isLoading, data, router]);
+
+  if (isLoading || checkingAccess) {
+    return (
+      <div className="h-screen w-screen flex items-center justify-center bg-white">
+        <div className="flex flex-col items-center">
+          <div className="w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+          <p className="mt-4 text-gray-600 font-medium">Checking access...</p>
+        </div>
+      </div>
+    );
   }
 
   return (

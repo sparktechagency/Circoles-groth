@@ -12,17 +12,27 @@ const Layout = ({ children }) => {
   const { data, isLoading } = useGetOwnprofileQuery();
   const router = useRouter();
 
-  const isTutor = data?.user?.[0]?.role === "tutor";
+  const [checkingAccess, setCheckingAccess] = useState(true);
 
-  // Redirect only after loading completes and user is not tutor
   useEffect(() => {
-    if (!isLoading && !isTutor) {
-      router.push("/");
+    if (!isLoading) {
+      if (data?.user?.[0]?.role !== "tutor") {
+        router.push("/");
+      } else {
+        setCheckingAccess(false); // Access granted
+      }
     }
-  }, [isLoading, isTutor, router]);
+  }, [isLoading, data, router]);
 
-  if (isLoading) {
-    return <p className="text-center w-full">Loading...</p>;
+  if (isLoading || checkingAccess) {
+    return (
+      <div className="h-screen w-screen flex items-center justify-center bg-white">
+        <div className="flex flex-col items-center">
+          <div className="w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+          <p className="mt-4 text-gray-600 font-medium">Checking access...</p>
+        </div>
+      </div>
+    );
   }
 
   return (
