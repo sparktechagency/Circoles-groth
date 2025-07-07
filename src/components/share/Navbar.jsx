@@ -38,7 +38,6 @@ const Navbar = () => {
 
   const user = data?.user;
   const token = Cookies.get("token");
-
   const [drawerVisible, setDrawerVisible] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [showLogout, setShowLogout] = useState(false);

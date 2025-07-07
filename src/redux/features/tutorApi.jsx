@@ -1,6 +1,6 @@
 import { api } from "../baseApi";
 
-const tutorApi = api.injectEndpoints({
+const TutorApi = api.injectEndpoints({
   endpoints: (builder) => ({
     topRatedTutors: builder.query({
       query: ({ per_page = 10, page = 1 }) =>
@@ -13,4 +13,4 @@ const tutorApi = api.injectEndpoints({
   }),
 });
 
-export const { useTopRatedTutorsQuery } = tutorApi;
+export const { useTopRatedTutorsQuery } = TutorApi;

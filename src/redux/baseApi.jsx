@@ -6,7 +6,7 @@ export const api = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({
     // baseUrl: "http://137.59.180.219:8050/api",
-    baseUrl: "http://10.0.80.13:8050/api",
+    baseUrl: "http://103.186.20.110:7000/api",
     prepareHeaders: (headers) => {
       const token = Cookies.get("token");
 
@@ -38,4 +38,4 @@ export const api = createApi({
 });
 
 // export const imageUrl = "http://137.59.180.219:8050";
-export const imageUrl = "http://10.0.80.13:8050";
+export const imageUrl = "http://103.186.20.110:7000";

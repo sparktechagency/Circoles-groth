@@ -13,6 +13,7 @@ import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
 import AuthLayout from "../../../../components/AuthLayout";
 import { useLoginMutation } from "../../../../redux/features/AuthApi";
+import { el } from "date-fns/locale";
 
 const signIn = () => {
   const [messageApi, contextHolder] = message.useMessage();
@@ -33,9 +34,7 @@ const signIn = () => {
 
         if (resp?.user?.role === "admin") {
           router.push("/AdminDashboard");
-        }
-
-        if (resp?.user?.role === "tutor") {
+        } else if (resp?.user?.role === "tutor") {
           router.push("/TutorDashboard");
         } else {
           router.push("/");
