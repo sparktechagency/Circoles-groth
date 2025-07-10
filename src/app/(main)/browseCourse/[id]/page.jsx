@@ -47,9 +47,10 @@ const Page = ({ params }) => {
   const handlepurchase = async () => {
     const alldata = {
       course_id: id,
-      redirect_url: process.env.NEXT_PUBLIC_BASE_URL,
+      redirect_url: process.env.NEXT_PUBLIC_REDIRECT_URL,
     };
     const res = await purchaseCourse({ body: alldata }).unwrap();
+
     console.log("res", res);
     if (res?.error) {
       messageApi.open({
