@@ -87,11 +87,11 @@ const PaymentSuccess = () => {
             subTitle={errorMessage}
             extra={[
               <Button
-                type="primary"
+
                 key="home"
                 icon={<HomeOutlined />}
                 onClick={() => router.push("/UserDashboard")}
-                style={{ backgroundColor: "#14698A", borderColor: "#564FFD" }}
+                style={{ backgroundColor: "#08284e", borderColor: "#564FFD" }}
               >
                 Go to Dashboard
               </Button>,

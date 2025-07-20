@@ -211,7 +211,7 @@ const Page = ({ params }) => {
                   type="primary"
                   size="large"
                   block
-                  style={{ backgroundColor: "#14698A" }}
+                  style={{ backgroundColor: "#08284e" }}
                   className="px-6 bg-primary"
                   onClick={handlepurchase}
                 >

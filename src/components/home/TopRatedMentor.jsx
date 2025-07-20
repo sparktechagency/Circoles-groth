@@ -42,7 +42,6 @@ const TopRatedMentor = () => {
       ? tutorsData
       : tutorsData.filter((tutor) => tutor.subjects?.includes(activeCategory));
 
-  console.log("filteredTutors", filteredTutors);
   const handleTabChange = (key) => {
     setActiveCategory(key);
     setPage(1);

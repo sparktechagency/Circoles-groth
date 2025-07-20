@@ -15,6 +15,7 @@ import {
   useGetStudentStatusQuery,
 } from "../../../redux/features/userDashboard/UserDashboardApi";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 const Mycourses = () => {
   const router = useRouter();
@@ -186,9 +187,11 @@ const Mycourses = () => {
           <p className="text-gray-600 mt-2">
             Explore our courses and start learning today!
           </p>
-          <Button type="primary" className="mt-4">
-            Browse Courses
-          </Button>
+          <Link href="/">
+            <Button type="primary" className="mt-4">
+              Browse Courses
+            </Button>
+          </Link>
         </div>
       )}
 

@@ -1,8 +1,29 @@
+"use client";
 import { Button } from "antd";
 import Image from "next/image";
 import Link from "next/link";
+import { useGetAllCourseByCategoryQuery } from "../../../../redux/features/CourseApi";
+import Cookies from "js-cookie";
+import { useGetOwnprofileQuery } from "../../../../redux/features/AuthApi";
 
 const page = () => {
+  const token = Cookies.get("token");
+  const { data: user, isLoading } = useGetOwnprofileQuery({
+    skip: !token,
+  });
+  console.log("user--------", user);
+  console.log("token ----", token);
+
+  if (isLoading) {
+    return (
+      <div className="h-screen w-screen flex items-center justify-center bg-white">
+        <div className="flex flex-col items-center">
+          <div className="w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+          <p className="mt-4 text-gray-600 font-medium">Loading...</p>
+        </div>
+      </div>
+    );
+  }
   return (
     <div className="h-fit pt-8 bg-white p-6 flex items-center justify-center">
       <div className="text-center max-w-2xl mx-auto space-y-6">

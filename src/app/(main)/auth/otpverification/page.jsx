@@ -124,23 +124,16 @@ const Page = () => {
               </div>
 
               <Form.Item className="pt-6">
-                <Button
-                  className="text-[#FFFFFF] text-[16px] font-semibold bg-primary p-6"
-                  style={{ backgroundColor: "#14698A" }}
-                  size="large"
-                  type="primary"
-                  htmlType="submit"
-                  block
-                >
+                <button className="text-[#FFFFFF] font-semibold text-[16px] px-6 py-3 rounded-md bg-primary w-full">
                   {isLoading ? "Verifying..." : "Verify"}
-                </Button>
+                </button>
               </Form.Item>
             </Form>
           </div>
           <div className="text-start lg:mt-4">
             Didn’t received code?{" "}
             <button onClick={handleresend}>
-              <span className="text-[#195671] font-semibold hover:underline">
+              <span className="text-primary font-semibold hover:underline">
                 {isLoading2 ? "Resending..." : "Resend"}
               </span>
             </button>

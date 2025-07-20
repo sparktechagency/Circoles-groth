@@ -6,7 +6,7 @@ import { GoogleOutlined } from "@ant-design/icons";
 
 import Link from "next/link";
 import Image from "next/image";
-import logoimage from "/public/images/logoimage.png";
+import logoimage from "./logoimage.png";
 import googleicon from "/public/images/google.png";
 import { useRouter } from "next/navigation";
 
@@ -68,9 +68,9 @@ const signIn = () => {
       {contextHolder}
       <div className="pt-12">
         <div className="text-center px-2 ">
-          <div className="flex justify-center items-center mb-4">
+          {/* <div className="flex justify-center items-center mb-4">
             <Image src={logoimage} />
-          </div>
+          </div> */}
           <h1 className="text-3xl font-bold mb-4">Log in to your account</h1>
           <h3 className="text-[#475467] text-[16px]">
             Welcome back! Please enter your details.
@@ -148,16 +148,12 @@ const signIn = () => {
               </div>
 
               <Form.Item>
-                <Button
-                  className="text-[#FFFFFF] text-[16px] font-semibold p-6 bg-primary hover:bg-primary"
-                  style={{ backgroundColor: "#14698A" }}
-                  size="large"
-                  type="primary"
-                  htmlType="submit"
-                  block
+                <button
+                  type="submit"
+                  className="text-[#FFFFFF] font-semibold text-[16px] px-6 py-3 rounded-md bg-primary w-full"
                 >
                   {isLoading ? "Loading..." : "Log in"}
-                </Button>
+                </button>
               </Form.Item>
 
               {/* Google Sign In Button */}
@@ -165,7 +161,7 @@ const signIn = () => {
                 <Link href="http://10.0.80.13:8050/api/auth/google?=http://10.0.80.13:8050/api/auth/google">
                   <Button
                     block
-                    className="btn-google text-[#344054] text-[16px] font-semibold p-6 hover:border-[#344054] hover:bg-[#344054] hover:text-[#FFFFFF]"
+                    className="btn-google text-[#344054] text-[16px] font-semibold p-6 hover:border-primary hover:bg-primary hover:text-[#FFFFFF]"
                     style={{ marginBottom: "10px" }}
                   >
                     <Image src={googleicon} width={24} height={24} />
@@ -178,7 +174,7 @@ const signIn = () => {
           <div className="text-center lg:mt-4">
             Don't have an account?{" "}
             <Link href="/auth/signup">
-              <span className="text-[#195671] font-semibold hover:underline">
+              <span className="text-primary font-semibold hover:underline">
                 Sign up
               </span>
             </Link>

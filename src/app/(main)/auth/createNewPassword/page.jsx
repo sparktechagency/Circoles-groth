@@ -82,16 +82,9 @@ const PasswordResetPage = () => {
             />
 
             <Form.Item>
-              <Button
-                className="text-white text-base font-semibold bg-primary h-12"
-                style={{ backgroundColor: "#14698A" }}
-                type="primary"
-                htmlType="submit"
-                block
-                loading={isLoading}
-              >
-                Submit
-              </Button>
+              <button className="text-[#FFFFFF] font-semibold text-[16px] px-6 py-3 rounded-md bg-primary w-full">
+                {isLoading ? "Loading..." : "Submit"}
+              </button>
             </Form.Item>
           </Form>
         </div>

@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import logo from "/public/images/footerlogo.png";
+import logo from "../../assets/images/logo.png";
 import Image from "next/image";
 import { Button } from "antd";
 import {
@@ -28,7 +28,7 @@ const Footer = () => {
 
   return (
     <div>
-      <footer className="px-4 divide-y bg-[#000000] text-gray-100 relative z-50">
+      <footer className="px-4 divide-y bg-primary text-gray-100 relative z-50">
         <div className="px-4">
           <div className="flex flex-col justify-between py-10 mx-auto space-y-8 lg:flex-row lg:space-y-0">
             {/* left side menu */}
@@ -147,7 +147,7 @@ const Footer = () => {
           {/* copyright */}
           <div className="flex justify-center border-t-2 border-[#475467] py-4">
             <p className="text-sm text-[#E4E7EC]">
-              © Circooles 2025 | All rights reserved.
+              © Lernen Tech 2025 | All rights reserved.
             </p>
           </div>
         </div>

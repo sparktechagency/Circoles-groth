@@ -501,9 +501,9 @@ const TutorProfilePage = ({ params }) => {
                               tutor?.session_charge
                             }&date=${selectedDate.format("YYYY-MM-DD")}`}
                           >
-                            <Button type="primary" className="mt-4">
+                            <button className="text-[#FFFFFF] font-semibold text-[16px] px-6 py-3 rounded-md bg-primary mt-4">
                               Book Online Session
-                            </Button>
+                            </button>
                           </Link>
                         </div>
                       </div>
@@ -580,9 +580,9 @@ const TutorProfilePage = ({ params }) => {
                               tutor?.session_charge
                             }&date=${selectedDate.format("YYYY-MM-DD")}`}
                           >
-                            <Button type="primary" className="mt-4">
+                            <button className="text-[#FFFFFF] font-semibold text-[16px] px-6 py-3 rounded-md bg-primary mt-4">
                               Book In-Person Session
-                            </Button>
+                            </button>
                           </Link>
                         </div>
                       </div>
@@ -630,7 +630,7 @@ const TutorProfilePage = ({ params }) => {
                 <div className="mt-4 text-center">
                   <Link
                     href={`/browseCourse/instructor/allReviewAndratings/${tutor?.id}`}
-                    className="inline-flex items-center text-blue-600"
+                    className="inline-flex items-center text-primary"
                   >
                     View all reviews{" "}
                     <ArrowUpOutlined className="rotate-45 ml-1" />
@@ -666,7 +666,7 @@ const TutorProfilePage = ({ params }) => {
         }
 
         .availability-count {
-          background-color: #f0f0f0;
+          background-color: #08284e;
           border-radius: 4px;
           padding: 2px 4px;
           display: inline-block;
@@ -681,6 +681,10 @@ const TutorProfilePage = ({ params }) => {
           padding: 4px 0;
         }
 
+        .availability-calendar
+          :global(.ant-picker-cell-selected .ant-picker-cell-inner) {
+          background: red;
+        }
         .availability-calendar :global(.ant-picker-cell-inner) {
           min-height: 80px;
           display: flex;
@@ -731,394 +735,3 @@ const ReviewCard = ({ review }) => {
 };
 
 export default TutorProfilePage;
-// "use client";
-// import React, { useState } from "react";
-// import {
-//   Avatar,
-//   Button,
-//   Card,
-//   Calendar,
-//   Badge,
-//   Tag,
-//   Rate,
-//   Divider,
-//   Tabs,
-//   Spin,
-//   Popover,
-// } from "antd";
-// import {
-//   ArrowUpOutlined,
-//   CalendarOutlined,
-//   ClockCircleOutlined,
-//   LaptopOutlined,
-//   UserOutlined,
-//   EnvironmentOutlined,
-//   ArrowLeftOutlined,
-//   ArrowRightOutlined,
-// } from "@ant-design/icons";
-// import Link from "next/link";
-// import { useGetinstrucotorDetialsQuery } from "../../../../../redux/features/CourseApi";
-// import Image from "next/image";
-// import instactor from "/public/images/Instructor2.png";
-
-// const TutorProfilePage = ({ params }) => {
-//   const { id } = params;
-//   const { data, isLoading } = useGetinstrucotorDetialsQuery(id);
-//   const [selectedDate, setSelectedDate] = useState(null);
-//   const [activeTab, setActiveTab] = useState("online");
-//   const tutor = data?.tutor;
-
-//   if (isLoading) {
-//     return (
-//       <div className="flex justify-center items-center h-screen">
-//         <Spin size="large" />
-//       </div>
-//     );
-//   }
-
-//   // Process availability data for the calendar
-//   const processAvailability = (sessions) => {
-//     const availabilityMap = {};
-
-//     sessions?.forEach((session) => {
-//       const dayNumber = [
-//         "sunday",
-//         "monday",
-//         "tuesday",
-//         "wednesday",
-//         "thursday",
-//         "friday",
-//         "saturday",
-//       ].indexOf(session.day.toLowerCase());
-
-//       // Find next occurrence of this day
-//       const date = new Date();
-//       while (date.getDay() !== dayNumber) {
-//         date.setDate(date.getDate() + 1);
-//       }
-
-//       const dateStr = date.toISOString().split("T")[0];
-//       if (!availabilityMap[dateStr]) {
-//         availabilityMap[dateStr] = [];
-//       }
-//       availabilityMap[dateStr].push(session.time);
-//     });
-
-//     return availabilityMap;
-//   };
-
-//   const onlineAvailability = processAvailability(tutor?.online);
-//   const offlineAvailability = processAvailability(tutor?.offline);
-
-//   // Custom calendar cell renderer
-//   const dateCellRender = (value) => {
-//     const dateStr = value.format("YYYY-MM-DD");
-//     const onlineTimes = onlineAvailability[dateStr] || [];
-//     const offlineTimes = offlineAvailability[dateStr] || [];
-//     const hasAvailability = onlineTimes.length > 0 || offlineTimes.length > 0;
-
-//     return (
-//       <div className="calendar-cell">
-//         {hasAvailability && (
-//           <div className="availability-indicator">
-//             <Badge
-//               count={onlineTimes.length + offlineTimes.length}
-//               style={{
-//                 backgroundColor: activeTab === "online" ? "#1890ff" : "#52c41a",
-//               }}
-//             />
-//           </div>
-//         )}
-//       </div>
-//     );
-//   };
-
-//   // Get list of available dates for the month
-//   const getAvailableDates = (mode) => {
-//     const availability =
-//       mode === "online" ? onlineAvailability : offlineAvailability;
-//     return Object.keys(availability).filter(
-//       (date) => availability[date].length > 0
-//     );
-//   };
-
-//   // Custom month cell renderer to show availability summary
-//   const monthCellRender = (value) => {
-//     const monthStart = value.startOf("month");
-//     const monthEnd = value.endOf("month");
-//     const availableDates = getAvailableDates(activeTab);
-
-//     const datesInMonth = availableDates.filter((date) => {
-//       const dateMoment = moment(date);
-//       return (
-//         dateMoment.isSameOrAfter(monthStart) &&
-//         dateMoment.isSameOrBefore(monthEnd)
-//       );
-//     });
-
-//     return datesInMonth.length > 0 ? (
-//       <div className="month-availability">
-//         <div className="availability-count">
-//           {datesInMonth.length} available days
-//         </div>
-//       </div>
-//     ) : null;
-//   };
-
-//   return (
-//     <div className="container mx-auto xl:px-6 p-4">
-//       {/* ... (previous code remains the same until the Calendar section) ... */}
-
-//       {/* Availability Calendar Section */}
-//       <Card
-//         title="Availability Calendar"
-//         className="mb-8 shadow-sm"
-//         headStyle={{ fontSize: "18px", fontWeight: "600" }}
-//         style={{
-//           width: "100%",
-//           maxWidth: "800px",
-//         }}
-//       >
-//         <Tabs
-//           activeKey={activeTab}
-//           onChange={setActiveTab}
-//           items={[
-//             {
-//               key: "online",
-//               label: (
-//                 <span className="flex items-center">
-//                   <LaptopOutlined className="mr-2" />
-//                   Online Sessions
-//                 </span>
-//               ),
-//               children: (
-//                 <div className="availability-calendar">
-//                   <Calendar
-//                     fullscreen={false}
-//                     dateCellRender={dateCellRender}
-//                     monthCellRender={monthCellRender}
-//                     onSelect={(date) => setSelectedDate(date)}
-//                     headerRender={({ value, onChange }) => (
-//                       <div className="flex justify-between items-center mb-4">
-//                         <Button
-//                           onClick={() => {
-//                             const newValue = value.clone().subtract(1, "month");
-//                             onChange(newValue);
-//                           }}
-//                           icon={<ArrowLeftOutlined />}
-//                         />
-//                         <div className="text-lg font-semibold">
-//                           {value.format("MMMM YYYY")}
-//                         </div>
-//                         <Button
-//                           onClick={() => {
-//                             const newValue = value.clone().add(1, "month");
-//                             onChange(newValue);
-//                           }}
-//                           icon={<ArrowRightOutlined />}
-//                         />
-//                       </div>
-//                     )}
-//                   />
-//                   {selectedDate && (
-//                     <div className="mt-6 p-4 bg-gray-50 rounded-lg border border-gray-200">
-//                       <h4 className="font-medium text-lg mb-3">
-//                         {selectedDate.format("dddd, MMMM D, YYYY")}
-//                       </h4>
-//                       <div className="mt-2">
-//                         <h5 className="font-medium text-gray-700 mb-2">
-//                           Available Time Slots:
-//                         </h5>
-//                         <div className="grid grid-cols-2 gap-2">
-//                           {onlineAvailability[
-//                             selectedDate.format("YYYY-MM-DD")
-//                           ]?.map((time, i) => (
-//                             <Tag
-//                               key={i}
-//                               color="blue"
-//                               className="m-1 py-1 px-3 flex items-center"
-//                             >
-//                               <ClockCircleOutlined className="mr-2" />
-//                               {time}
-//                             </Tag>
-//                           ))}
-//                         </div>
-//                         <Button
-//                           type="primary"
-//                           className="mt-4"
-//                           onClick={() => {
-//                             // Handle booking logic here
-//                           }}
-//                         >
-//                           Book Session
-//                         </Button>
-//                       </div>
-//                     </div>
-//                   )}
-//                 </div>
-//               ),
-//             },
-//             {
-//               key: "offline",
-//               label: (
-//                 <span className="flex items-center">
-//                   <UserOutlined className="mr-2" />
-//                   In-Person Sessions
-//                 </span>
-//               ),
-//               children: (
-//                 <div className="availability-calendar">
-//                   <Calendar
-//                     fullscreen={false}
-//                     dateCellRender={dateCellRender}
-//                     monthCellRender={monthCellRender}
-//                     onSelect={(date) => setSelectedDate(date)}
-//                     headerRender={({ value, onChange }) => (
-//                       <div className="flex justify-between items-center mb-4">
-//                         <Button
-//                           onClick={() => {
-//                             const newValue = value.clone().subtract(1, "month");
-//                             onChange(newValue);
-//                           }}
-//                           icon={<ArrowLeftOutlined />}
-//                         />
-//                         <div className="text-lg font-semibold">
-//                           {value.format("MMMM YYYY")}
-//                         </div>
-//                         <Button
-//                           onClick={() => {
-//                             const newValue = value.clone().add(1, "month");
-//                             onChange(newValue);
-//                           }}
-//                           icon={<ArrowRightOutlined />}
-//                         />
-//                       </div>
-//                     )}
-//                   />
-//                   {selectedDate && (
-//                     <div className="mt-6 p-4 bg-gray-50 rounded-lg border border-gray-200">
-//                       <h4 className="font-medium text-lg mb-3">
-//                         {selectedDate.format("dddd, MMMM D, YYYY")}
-//                       </h4>
-//                       <div className="mt-2">
-//                         <h5 className="font-medium text-gray-700 mb-2">
-//                           Available Time Slots:
-//                         </h5>
-//                         <div className="grid grid-cols-2 gap-2">
-//                           {offlineAvailability[
-//                             selectedDate.format("YYYY-MM-DD")
-//                           ]?.map((time, i) => (
-//                             <Tag
-//                               key={i}
-//                               color="green"
-//                               className="m-1 py-1 px-3 flex items-center"
-//                             >
-//                               <ClockCircleOutlined className="mr-2" />
-//                               {time}
-//                             </Tag>
-//                           ))}
-//                         </div>
-//                         <Button
-//                           type="primary"
-//                           className="mt-4"
-//                           onClick={() => {
-//                             // Handle booking logic here
-//                           }}
-//                         >
-//                           Book Session
-//                         </Button>
-//                       </div>
-//                     </div>
-//                   )}
-//                 </div>
-//               ),
-//             },
-//           ]}
-//         />
-//       </Card>
-
-//       {/* ... (rest of the code remains the same) ... */}
-
-//       <style jsx>{`
-//         .calendar-cell {
-//           height: 100%;
-//           display: flex;
-//           flex-direction: column;
-//           justify-content: flex-start;
-//           align-items: flex-end;
-//           padding: 4px;
-//         }
-
-//         .availability-indicator {
-//           margin-top: 4px;
-//         }
-
-//         .month-availability {
-//           font-size: 12px;
-//           color: #666;
-//           text-align: center;
-//           margin-top: 4px;
-//         }
-
-//         .availability-count {
-//           background-color: #f0f0f0;
-//           border-radius: 4px;
-//           padding: 2px 4px;
-//           display: inline-block;
-//         }
-
-//         .availability-calendar :global(.ant-picker-calendar) {
-//           background: white;
-//           border-radius: 8px;
-//         }
-
-//         .availability-calendar :global(.ant-picker-cell) {
-//           padding: 4px 0;
-//         }
-
-//         .availability-calendar :global(.ant-picker-cell-inner) {
-//           min-height: 80px;
-//           display: flex;
-//           flex-direction: column;
-//           align-items: center;
-//           justify-content: flex-start;
-//         }
-
-//         .availability-calendar :global(.ant-picker-content th) {
-//           padding: 8px 0;
-//         }
-
-//         .availability-calendar :global(.ant-picker-date-panel) {
-//           padding: 0 8px;
-//         }
-//       `}</style>
-//     </div>
-//   );
-// };
-
-// const ReviewCard = ({ review }) => {
-//   return (
-//     <Card className="review-card">
-//       <div className="flex items-start">
-//         <Avatar src={review.avatar} size={48} />
-//         <div className="ml-4">
-//           <div className="flex items-center">
-//             <h4 className="font-medium">{review.name}</h4>
-//             <Rate
-//               disabled
-//               defaultValue={review.rating}
-//               className="ml-3 text-sm"
-//               allowHalf
-//             />
-//           </div>
-//           <p className="text-gray-500 text-sm mt-1">
-//             {new Date(review.date).toLocaleDateString()}
-//           </p>
-//           <p className="text-gray-700 mt-2">{review.comment}</p>
-//         </div>
-//       </div>
-//     </Card>
-//   );
-// };
-
-// export default TutorProfilePage;

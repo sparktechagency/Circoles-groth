@@ -83,8 +83,10 @@ const PopularCourses = () => {
           <Tabs.TabPane
             tab={
               <button
-                className={`category-button ${
-                  activeCategory === category.id ? "active-tab" : ""
+                className={`px-4 py-2 rounded-full ${
+                  activeCategory === category.id
+                    ? "bg-sixth text-primary"
+                    : "bg-gray-100 hover:bg-gray-200 hover:text-gray-400"
                 }`}
               >
                 {category.name}

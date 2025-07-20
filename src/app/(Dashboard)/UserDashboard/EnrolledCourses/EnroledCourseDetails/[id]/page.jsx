@@ -307,7 +307,12 @@ const EnroledCourse = () => {
                 okText="Yes"
                 cancelText="No"
               >
-                <Button type="primary">I've completed this video</Button>
+                <button
+                  className="bg-primary text-white py-2 px-4 rounded"
+                  type="primary"
+                >
+                  I've completed this video
+                </button>
               </Popconfirm>
             </div>
           )}

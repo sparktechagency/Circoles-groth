@@ -23,6 +23,7 @@ import google from "/public/images/icons/googlepay.svg";
 import strype from "/public/images/icons/strype.svg";
 import paypal from "/public/images/icons/paypal.svg";
 import { useRouter } from "next/navigation";
+import { useGetAllCourseByCategoryQuery } from "../../../../../redux/features/CourseApi";
 
 const VerificationFee = () => {
   const carditems = [

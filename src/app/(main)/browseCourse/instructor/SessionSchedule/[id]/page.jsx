@@ -366,15 +366,14 @@ const SchedulePage = () => {
           <Button onClick={() => router.back()} className="min-w-[120px] h-10">
             Cancel
           </Button>
-          <Button
-            loading={isBookAtutorLoading}
+          <button
             type="primary"
             onClick={handleContinue}
             disabled={!selectedTimeRange[0] || !selectedTimeRange[1]}
-            className="min-w-[120px] h-10 bg-blue-600 hover:bg-blue-700"
+            className="min-w-[120px] h-10 bg-primary hover:bg-primary text-white rounded-md"
           >
-            Continue
-          </Button>
+            {isBookAtutorLoading ? "Loading..." : "Continue"}
+          </button>
         </div>
       </Card>
     </div>

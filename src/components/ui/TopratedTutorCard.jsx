@@ -107,7 +107,7 @@ const TopratedTutorCard = ({
           </span>
           <Link
             href={profileLink || "#"}
-            className="inline-flex items-center text-[#14698A] border-b-2 border-[#14698A] text-[16px] font-semibold"
+            className="inline-flex items-center text-primary hover:text-secondary hover:border-secondary border-b-2 border-[#14698A] text-[16px] font-semibold"
           >
             Book Session
             <ArrowUpOutlined className="rotate-45 text-xl pl-2" />

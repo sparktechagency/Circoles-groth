@@ -26,32 +26,22 @@ const HeroSection = () => {
             </p>
             <div className="flex flex-col space-y-4 sm:items-center sm:justify-center sm:flex-row sm:space-y-0 sm:space-x-4 lg:justify-start">
               <Link href="/browseCourse">
-                <Button
-                  className="text-[#FFFFFF] text-[16px] font-semibold p-6 bg-primary"
-                  size="large"
-                  type="primary"
-                  style={{ backgroundColor: "#14698A" }}
-                >
+                <button className="text-[#FFFFFF] text-[16px] font-semibold p-4 rounded-md bg-primary ">
                   Explore Online Programs
                   <span>
                     {" "}
                     <ArrowUpOutlined className="rotate-45 text-xl" />
                   </span>
-                </Button>
+                </button>
               </Link>
               <Link href="/TopRatedTutor">
-                <Button
-                  className="text-[#195671] text-[16px] font-semibold p-6 bg-[#D1F5FC]"
-                  size="large"
-                  type="primary"
-                  style={{ backgroundColor: "#D1F5FC", color: "#195671" }}
-                >
+                <button className="text-white text-[16px] font-semibold p-4 rounded-md bg-fifth ">
                   FIND your TUTOR
                   <span>
                     {" "}
                     <ArrowUpOutlined className="rotate-45 text-xl" />
                   </span>
-                </Button>
+                </button>
               </Link>
             </div>
           </div>

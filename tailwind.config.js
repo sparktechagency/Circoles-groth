@@ -1,3 +1,5 @@
+const { th } = require("date-fns/locale");
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
@@ -10,24 +12,27 @@ module.exports = {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
-        primary: "#14698A",
-        secondary: "#475467",
-        boldSecoundary: "#000000"
-        
+        primary: "#08284F",
+        secondary: "#F97200",
+        third: "#395371",
+        fourth: "#5a6f88",
+        fifth: "#8d9cae",
+        sixth: "#e6eaed",
+        graycolor: "#E5E8EB",
+        boldSecoundary: "#000000",
       },
       fontFamily: {
         Merriweather: ["Merriweather", "sans-serif"],
         Inter: ["Inter", "ans-serif"],
       },
       screens: {
-        'l-mobile': '425px',
-        'm-mobile': '375px',
-        's-mobile': '320px',
+        "l-mobile": "425px",
+        "m-mobile": "375px",
+        "s-mobile": "320px",
       },
       // backgroundImage: {
       //   'herobgimg': "url('')",
       // }
-      
     },
   },
   plugins: [],

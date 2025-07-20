@@ -4,7 +4,7 @@ import { Form, Input, Button, message } from "antd";
 
 import Link from "next/link";
 import Image from "next/image";
-import signupimage from "/public/images/logo.png";
+// import signupimage from "/public/images/logo.png";
 import googleicon from "/public/images/google.png";
 
 import { useRouter } from "next/navigation";
@@ -45,11 +45,11 @@ const Signup = () => {
         {/* Left Section */}
         <div className="min-[1440px]:px-[40px] min-[1440px]:mt-[30px] xl:px-24 lg:px-12 lg:py-36 md:mx-auto md:px-3 xl:w-6/12 md:w-6/12 h-full xl:pb-0 md:pb-0 pb-12 flex flex-col justify-center">
           <div className="flex justify-start items-center xl:-mt-48 xl:py-12 lg:mt-6 md:mt-6 mt-6 md:mb-0 mb-4">
-            <Image
+            {/* <Image
               className="min-[2035px]:w-[600px] min-[1440px]:w-[400px] min-[2035px]:px-[60px] min-[1440px]:px-[40px] xl:w-[600px] lg:w-[300px] md:mx-0 mx-auto md:py-0 py-4"
               src={signupimage}
               alt="Logo"
-            />
+            /> */}
           </div>
           <div className="min-[2035px]:px-[200px] lg:px-12 xl:px-36 md:px-0">
             <div className="md:text-start text-center lg:my-4 my-8">
@@ -171,15 +171,9 @@ const Signup = () => {
               </Form.Item>
 
               <Form.Item className=" min-[2035px]:w-[500px] min-[2035px]:h-[50px] min-[375px]:w-[330px] min-[320px]:w-[290px]  w-[360px] h-[44px]">
-                <Button
-                  className="text-[#FFFFFF] text-[16px] font-semibold p-6 bg-primary hover:bg-primary"
-                  size=""
-                  type="primary"
-                  htmlType="submit"
-                  block
-                >
+                <button className="text-[#FFFFFF] font-semibold text-[16px] px-6 py-3 rounded-md bg-primary w-full">
                   Create account
-                </Button>
+                </button>
               </Form.Item>
 
               <Form.Item className=" min-[2035px]:w-[500px] min-[2035px]:h-[50px] min-[375px]:w-[330px] min-[320px]:w-[290px]  w-[360px] h-[44px]">

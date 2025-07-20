@@ -47,7 +47,7 @@ const Page = () => {
     const allnidData = {
       "tsc[number]": values["tsc[number]"],
       "tsc[image]": values["tsc[image]"]?.[0]?.originFileObj,
-      verification_fee: "15",
+      verification_fee: "250",
     };
 
     // Merge context + local form
@@ -228,7 +228,7 @@ const Page = () => {
             name="verification_fee"
             style={{ height: "44px", borderRadius: "8px" }}
             disabled
-            value="$15"
+            value="KES 250"
           />
         </Form.Item>
 

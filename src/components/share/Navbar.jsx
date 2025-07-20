@@ -23,7 +23,7 @@ import {
   UserOutlined,
   LogoutOutlined,
 } from "@ant-design/icons";
-import logo from "/public/images/logo.png";
+import logo from "../../assets/images/logo.png";
 import Image from "next/image";
 import Link from "next/link";
 import { Option } from "antd/es/mentions";
@@ -96,7 +96,7 @@ const Navbar = () => {
   const categoryMenu = (
     <div className="p-4 bg-white shadow-lg rounded-lg">
       <h3 className="text-lg font-semibold text-gray-800">Filters</h3>
-      <p className="text-sm text-gray-500">
+      <p className="text-base text-gray-500">
         Helps you to find what actually you're looking for
       </p>
       <Collapse
@@ -213,7 +213,7 @@ const Navbar = () => {
               <strong className="text-lg font-semibold text-[#101828]">
                 In-person
               </strong>
-              <p className="text-[#475467] text-sm">
+              <p className="text-[#475467] text-base">
                 One-on-one personalized in-person tutoring
               </p>
             </div>
@@ -245,7 +245,7 @@ const Navbar = () => {
               <strong className="text-lg font-semibold text-[#101828]">
                 Online
               </strong>
-              <p className="text-[#475467] text-sm">
+              <p className="text-[#475467] text-base">
                 Personalized online tutoring, anytime, anywhere.
               </p>
             </div>
@@ -274,7 +274,7 @@ const Navbar = () => {
   );
 
   return (
-    <nav className="w-full p-4 bg-white mx-auto flex justify-between items-center shadow-sm">
+    <nav className="w-full px-8 py-2 bg-primary mx-auto flex justify-between items-center shadow-sm b-4">
       {/* Left Side: Logo */}
       <div className="flex items-center space-x-4">
         <Link href="/">
@@ -290,14 +290,14 @@ const Navbar = () => {
         <ul className="hidden lg:flex items-center space-x-6">
           <li>
             {" "}
-            <Link href="/onlinePrograms" className="text-sm pl-2">
+            <Link href="/onlinePrograms" className="text-base pl-2 text-white">
               Online Programs
             </Link>
           </li>
           <li>
             {" "}
             <Dropdown
-              className="border-none"
+              className="border-none h-[40px]"
               overlay={TutorMewnu}
               trigger={["hover"]}
             >
@@ -307,20 +307,18 @@ const Navbar = () => {
             </Dropdown>
           </li>
           <li>
-            <Link href={`/auth/Becomeatutor`} className="text-sm pl-2">
+            <Link
+              href={`/auth/Becomeatutor`}
+              className="text-base pl-2 text-white"
+            >
               Become a Tutor
             </Link>
           </li>
           <li>
             {isLoading ? (
-              <Button
-                className="text-[#FFFFFF] font-semibold text-[16px] p-5 bg-primary"
-                style={{ backgroundColor: "#14698A" }}
-                type="primary"
-                loading
-              >
+              <button className="text-[#FFFFFF] font-semibold text-[16px] px-6 py-3 rounded-md bg-fourth">
                 Loading
-              </Button>
+              </button>
             ) : (
               <>
                 {token ? (
@@ -336,22 +334,18 @@ const Navbar = () => {
                           src={user?.avatar}
                           className="bg-primary"
                         />
-                        <span className="text-sm font-medium">
+                        <span className="text-base font-medium text-white">
                           {user?.name || "User"}
                         </span>
-                        <DownOutlined className="text-xs" />
+                        <DownOutlined className="text-xs text-white" />
                       </div>
                     </Dropdown>
                   </div>
                 ) : (
                   <Link href={"/auth/login"}>
-                    <Button
-                      className="text-[#FFFFFF] font-semibold text-[16px] p-5 bg-primary"
-                      style={{ backgroundColor: "#14698A" }}
-                      type="primary"
-                    >
+                    <button className="text-[#FFFFFF] font-semibold text-[16px] px-6 py-3 rounded-md bg-fourth">
                       Sign In
-                    </Button>
+                    </button>
                   </Link>
                 )}
               </>
@@ -370,16 +364,16 @@ const Navbar = () => {
         <h2 className="text-lg font-semibold mb-4">
           Choose Your Preferred Language
         </h2>
-        <p className="mb-4 text-sm text-gray-500">
+        <p className="mb-4 text-base text-gray-500">
           Select a language from the dropdown to change the language of the
           website.
         </p>
 
-        <p className=" text-sm text-gray-500">
+        <p className=" text-base text-gray-500">
           Note: Changing the language will refresh the page to apply your
           selection.
         </p>
-        <p className="mb-4 text-sm text-gray-500">
+        <p className="mb-4 text-base text-gray-500">
           If you encounter any issues, please try reloading the page manually.
         </p>
       </Modal>
@@ -397,7 +391,7 @@ const Navbar = () => {
                   src={user?.avatar}
                   className="bg-primary"
                 />
-                <span className="text-sm font-medium">
+                <span className="text-base font-medium">
                   {user?.name || "User"}
                 </span>
               </div>

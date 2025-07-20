@@ -60,7 +60,7 @@ const SearchBar = () => {
         <Input
           ref={inputRef}
           placeholder="Search tutors, courses..."
-          className="w-full text-gray-700"
+          className="w-full text-gray-700  h-[44px] bg-white"
           prefix={<SearchOutlined className="text-gray-400" />}
           suffix={
             <Dropdown

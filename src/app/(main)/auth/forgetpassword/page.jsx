@@ -77,16 +77,9 @@ const page = () => {
               </Form.Item>
 
               <Form.Item>
-                <Button
-                  className="text-[#FFFFFF] text-[16px] font-semibold bg-primary p-6"
-                  style={{ backgroundColor: "#14698A" }}
-                  size="large"
-                  type="primary"
-                  htmlType="submit"
-                  block
-                >
+                <button className="text-[#FFFFFF] font-semibold text-[16px] px-6 py-3 rounded-md bg-primary w-full">
                   {isLoading2 ? "Loading..." : "Submit"}
-                </Button>
+                </button>
               </Form.Item>
             </Form>
           </div>

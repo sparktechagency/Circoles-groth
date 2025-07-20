@@ -83,7 +83,7 @@ const CourseCard = ({
           </span>
           <Link
             href={`/browseCourse/${enrollLink}`}
-            className="inline-flex items-center text-[#14698A] border-b-2 border-[#14698A] text-[16px] font-semibold "
+            className="inline-flex items-center text-primary border-b-2 border-primary hover:text-secondary hover:border-secondary text-[16px] font-semibold "
           >
             ENROLL NOW
             <ArrowUpOutlined className="rotate-45 text-xl pl-2" />
