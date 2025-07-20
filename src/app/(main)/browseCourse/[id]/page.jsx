@@ -186,7 +186,7 @@ const Page = ({ params }) => {
                 </div>
 
                 <div className="flex items-center justify-between xl:py-4">
-                  <h3 className="text-2xl font-bold mt-2">€{course.price}</h3>
+                  <h3 className="text-2xl font-bold mt-2">KES{course.price}</h3>
                   <span className="bg-[#F2F4F7] h-[44px] px-4 text-[#344054] font-semibold rounded-sm flex items-center justify-center py-1 text-xs">
                     {course.c_level}
                   </span>
@@ -215,7 +215,7 @@ const Page = ({ params }) => {
                   className="px-6 bg-primary"
                   onClick={handlepurchase}
                 >
-                  €{course.price} ENROLL NOW
+                  KES{course.price} ENROLL NOW
                 </Button>
               </div>
             </div>

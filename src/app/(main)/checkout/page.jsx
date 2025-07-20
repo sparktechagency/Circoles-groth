@@ -33,7 +33,7 @@ const page = () => {
       courseTitle: "Product Management Basic - Course",
       duration: "40 Hours",
       students: 176,
-      price: "€ 29.00",
+      price: "KES 29.00",
       enrollLink: "ENROLL NOW",
       imageLink: "https://i.ibb.co.com/17pL5Qj/caourse1.png",
       category: "All courses",
@@ -46,7 +46,7 @@ const page = () => {
       courseTitle: "Advanced Product Strategy - Course",
       duration: "45 Hours",
       students: 150,
-      price: "€ 35.00",
+      price: "KES 35.00",
       enrollLink: "ENROLL NOW",
       imageLink: "https://i.ibb.co.com/xLN7bSQ/category2.png",
       category: "Graphic Design",
@@ -59,7 +59,7 @@ const page = () => {
       courseTitle: "Product Roadmaps for Success",
       duration: "38 Hours",
       students: 200,
-      price: "€ 27.00",
+      price: "KES 27.00",
       enrollLink: "ENROLL NOW",
       imageLink: "https://i.ibb.co.com/vPfYHr7/category1.png",
       category: "UI/UX Design",
@@ -72,7 +72,7 @@ const page = () => {
       courseTitle: "Mastering Agile Product Management",
       duration: "50 Hours",
       students: 250,
-      price: "€ 40.00",
+      price: "KES 40.00",
       enrollLink: "ENROLL NOW",
       imageLink: "https://i.ibb.co.com/xLN7bSQ/category2.png",
       category: "Programming",
@@ -98,10 +98,13 @@ const page = () => {
       ),
       okText: <Link href="/UserDashboard">Go to Dashboard</Link>, // Customize the button text
       okButtonProps: {
-        style: { backgroundColor: '#564FFD', borderColor: '#564FFD', color: '#fff' }, // Customize button styles
+        style: {
+          backgroundColor: "#564FFD",
+          borderColor: "#564FFD",
+          color: "#fff",
+        }, // Customize button styles
       },
     });
-    
   };
   return (
     <div className="max-w-[1056px] p-4 mx-auto">
@@ -171,7 +174,7 @@ const page = () => {
                       </div>
                       <div className="flex justify-between items-center py-4">
                         <span className="text-lg font-semibold text-[#000000]">
-                          € 29.00
+                          KES 29.00
                         </span>
 
                         <button className="text-sm text-[#B42318] border-b-2 border-[#B42318] font-normal">
@@ -190,11 +193,11 @@ const page = () => {
                 </div>
                 <div className="flex items-center justify-between text-[16px] text-[#344054] font-semibold border-b border-[#E5E7EB] py-4">
                   <h3>Sub-total :</h3>
-                  <span>€87.00</span>
+                  <span>KES87.00</span>
                 </div>
                 <div className="flex items-center justify-between text-[16px] text-[#344054] font-semibold  py-4">
                   <h3>Total :</h3>
-                  <span>€87.00</span>
+                  <span>KES87.00</span>
                 </div>
               </div>
             </div>
@@ -383,7 +386,7 @@ const page = () => {
                   htmlType="submit"
                   block
                 >
-                  Enroll and Pay €87.00
+                  Enroll and Pay KES87.00
                 </Button>
               </Form.Item>
             </Form>

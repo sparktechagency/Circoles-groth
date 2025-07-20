@@ -20,7 +20,7 @@ const page = () => {
       courseTitle: "Product Management Basic - Course",
       duration: "40 Hours",
       students: 176,
-      price: "€ 29.00",
+      price: "KES 29.00",
       enrollLink: "ENROLL NOW",
       imageLink: "https://i.ibb.co.com/17pL5Qj/caourse1.png",
       category: "All courses",
@@ -33,7 +33,7 @@ const page = () => {
       courseTitle: "Advanced Product Strategy - Course",
       duration: "45 Hours",
       students: 150,
-      price: "€ 35.00",
+      price: "KES 35.00",
       enrollLink: "ENROLL NOW",
       imageLink: "https://i.ibb.co.com/xLN7bSQ/category2.png",
       category: "Graphic Design",
@@ -46,7 +46,7 @@ const page = () => {
       courseTitle: "Product Roadmaps for Success",
       duration: "38 Hours",
       students: 200,
-      price: "€ 27.00",
+      price: "KES 27.00",
       enrollLink: "ENROLL NOW",
       imageLink: "https://i.ibb.co.com/vPfYHr7/category1.png",
       category: "UI/UX Design",
@@ -59,7 +59,7 @@ const page = () => {
       courseTitle: "Mastering Agile Product Management",
       duration: "50 Hours",
       students: 250,
-      price: "€ 40.00",
+      price: "KES 40.00",
       enrollLink: "ENROLL NOW",
       imageLink: "https://i.ibb.co.com/xLN7bSQ/category2.png",
       category: "Programming",
@@ -144,7 +144,7 @@ const page = () => {
                   </div>
                   <div className="flex justify-between items-center py-4">
                     <span className="text-xl font-semibold text-[#000000]">
-                      € 29.00
+                      KES 29.00
                     </span>
                     <div className="flex items-center justify-center xl:gap-12 lg:gap-12 md:gap-12 gap-4">
                       <button className="text-[16px] text-[#B42318] border-b-2 border-[#B42318] font-normal">
@@ -240,7 +240,7 @@ const page = () => {
                   </div>
                   <div className="flex justify-between items-center py-4">
                     <span className="text-xl font-semibold text-[#000000]">
-                      € 29.00
+                      KES 29.00
                     </span>
                     <div className="flex items-center justify-center xl:gap-12 lg:gap-12 md:gap-12 gap-2">
                       <button className="text-[16px] text-[#B42318] border-b-2 border-[#B42318] font-normal">
@@ -252,7 +252,7 @@ const page = () => {
                       >
                         Checkout
                         <div className="xl:block md:block hidden">
-                        <ArrowUpOutlined className="rotate-45 text-xl pl-2" />
+                          <ArrowUpOutlined className="rotate-45 text-xl pl-2" />
                         </div>
                       </Link>
                     </div>

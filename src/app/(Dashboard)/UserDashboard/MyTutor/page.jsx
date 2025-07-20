@@ -87,7 +87,7 @@ const MyTutorsPage = () => {
 
                     <div className="pt-4">
                       <Link
-                        href={`/tutor/${tutor.id}`}
+                        href={`/browseCourse/instructor/${tutor.id}`}
                         className="text-primary hover:text-primary-dark font-medium"
                       >
                         View Profile →

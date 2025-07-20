@@ -78,7 +78,7 @@ const Page = () => {
               courseTitle={course.title}
               instructor={course.instructor || "Expert Instructor"} // Fallback if no instructor
               rating={course.rating || 0} // Default to 0 if no rating
-              price={`€ ${course.price}`}
+              price={`KES ${course.price}`}
               reviews={course.total_reviews}
               duration={`${course.duration} Hours`}
               students={course.total_enrollment || 0}

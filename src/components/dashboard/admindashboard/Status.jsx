@@ -138,7 +138,7 @@ const cardData = [
       </svg>
     ),
 
-    title: "€7,461,767.00",
+    title: "KES7,461,767.00",
     description: "USD Total Earning",
   },
 ];

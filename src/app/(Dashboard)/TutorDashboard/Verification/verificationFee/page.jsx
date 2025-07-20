@@ -34,7 +34,7 @@ const VerificationFee = () => {
       courseTitle: "Product Management Basic - Course",
       duration: "40 Hours",
       students: 176,
-      price: "€ 29.00",
+      price: "KES 29.00",
       enrollLink: "ENROLL NOW",
       imageLink: "https://i.ibb.co.com/17pL5Qj/caourse1.png",
       category: "All courses",
@@ -47,7 +47,7 @@ const VerificationFee = () => {
       courseTitle: "Advanced Product Strategy - Course",
       duration: "45 Hours",
       students: 150,
-      price: "€ 35.00",
+      price: "KES 35.00",
       enrollLink: "ENROLL NOW",
       imageLink: "https://i.ibb.co.com/xLN7bSQ/category2.png",
       category: "Graphic Design",
@@ -60,7 +60,7 @@ const VerificationFee = () => {
       courseTitle: "Product Roadmaps for Success",
       duration: "38 Hours",
       students: 200,
-      price: "€ 27.00",
+      price: "KES 27.00",
       enrollLink: "ENROLL NOW",
       imageLink: "https://i.ibb.co.com/vPfYHr7/category1.png",
       category: "UI/UX Design",
@@ -73,7 +73,7 @@ const VerificationFee = () => {
       courseTitle: "Mastering Agile Product Management",
       duration: "50 Hours",
       students: 250,
-      price: "€ 40.00",
+      price: "KES 40.00",
       enrollLink: "ENROLL NOW",
       imageLink: "https://i.ibb.co.com/xLN7bSQ/category2.png",
       category: "Programming",
@@ -97,24 +97,21 @@ const VerificationFee = () => {
           </h1>
         </div>
       ),
-      okText: <Link href={'/TutorDashboard'}>Go to Dashboard</Link>, // Customize the button text
+      okText: <Link href={"/TutorDashboard"}>Go to Dashboard</Link>, // Customize the button text
       okButtonProps: {
-        style:{backgroundColor:'#14698A',hight:'44px'} // Customize button styles
+        style: { backgroundColor: "#14698A", hight: "44px" }, // Customize button styles
       },
     });
-    
   };
-  
-  const router=useRouter()
+
+  const router = useRouter();
   const handleCancel = () => {
     router.back(); // Go to the previous page
   };
-  
+
   return (
     <div className=" bg-white  p-4 mx-auto">
       <div className="max-w-xl mx-auto ">
-
-
         {/* right side of checkout page - */}
         <div className="">
           <h3 className="text-2xl font-bold mb-4 uppercase">Payment</h3>
@@ -290,13 +287,16 @@ const VerificationFee = () => {
 
               {/* Submit button */}
               <Form.Item>
-                  {/* Action Buttons */}
-        <div className="w-full">
-    
-          <Button style={{backgroundColor:'#14698A'}} onClick={success} className='bg-white h-[48px] border border-[#D0D5DD] min-w-[156px]  w-full font-semibold text-white'>
-          €87.00 Pay & Submit for Review
-          </Button>
-        </div>
+                {/* Action Buttons */}
+                <div className="w-full">
+                  <Button
+                    style={{ backgroundColor: "#14698A" }}
+                    onClick={success}
+                    className="bg-white h-[48px] border border-[#D0D5DD] min-w-[156px]  w-full font-semibold text-white"
+                  >
+                    KES87.00 Pay & Submit for Review
+                  </Button>
+                </div>
               </Form.Item>
             </Form>
           </div>
@@ -307,5 +307,3 @@ const VerificationFee = () => {
 };
 
 export default VerificationFee;
-
-  

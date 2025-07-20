@@ -1,7 +1,6 @@
 import { Button, Card } from "antd";
 import VerificationFee from "../../TutorDashboard/Verification/verificationFee/page";
 
-
 const Page = () => {
   // Default data for the booking summary
   const tutor = "Richardo Mathew";
@@ -28,15 +27,21 @@ const Page = () => {
           <div className="space-y-2">
             <SummaryRow label="Tutor" value={tutor} />
             <SummaryRow label="Session Booked:" value={`${sessions}x`} />
-            <SummaryRow label="Cost per session" value={`€${costPerSession.toFixed(2)}`} />
+            <SummaryRow
+              label="Cost per session"
+              value={`KES${costPerSession.toFixed(2)}`}
+            />
             <SummaryRow label="Schedule" value={schedule.join(", ")} />
             <SummaryRow label="Repeat" value={repeat} />
             <div className="my-4 border-t border-gray-200" />
-            <SummaryRow label="Sub-total:" value={`€${subTotal.toFixed(2)}`} />
+            <SummaryRow
+              label="Sub-total:"
+              value={`KES${subTotal.toFixed(2)}`}
+            />
             <div className="pt-2">
               <div className="flex justify-between text-base font-semibold">
                 <span>Total:</span>
-                <span>€{subTotal.toFixed(2)}</span>
+                <span>KES{subTotal.toFixed(2)}</span>
               </div>
             </div>
           </div>
@@ -47,8 +52,6 @@ const Page = () => {
       <div className="w-full">
         <VerificationFee />
       </div>
-
-   
     </div>
   );
 };

@@ -159,7 +159,7 @@ const ManageCourseCard = ({
         </div>
         <div className="flex justify-between items-center py-4">
           <span className="text-lg font-semibold text-[#000000]">
-            € {price}
+            KES {price}
           </span>
         </div>
       </div>

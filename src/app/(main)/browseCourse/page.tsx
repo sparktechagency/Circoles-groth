@@ -154,7 +154,7 @@ const BrowseCoursesPage = () => {
                       courseimage={course.thumbnail}
                       courseTitle={course.title}
                       rating={course.rating || 0}
-                      price={`€ ${course.price.toLocaleString()}`}
+                      price={`KES ${course.price.toLocaleString()}`}
                       reviews={course.total_reviews || 0}
                       duration={`${course.duration} Hours`}
                       students={course.total_students || 0}

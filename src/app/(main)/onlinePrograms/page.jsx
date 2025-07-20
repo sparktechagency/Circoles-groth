@@ -96,7 +96,7 @@ const Page = () => {
                       courseTitle={course.title}
                       instructor={course.instructor_name || "Instructor Name"}
                       rating={course.rating || 0}
-                      price={`€ ${course.price.toLocaleString()}`}
+                      price={`KES ${course.price.toLocaleString()}`}
                       reviews={course.total_reviews || 0}
                       duration={`${course.duration} Hours`}
                       students={course.total_students || 0}

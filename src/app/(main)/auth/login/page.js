@@ -25,24 +25,29 @@ const signIn = () => {
     try {
       const resp = await login(values).unwrap();
       console.log("resp", resp);
+      console.log("role", resp?.user?.role);
+
       if (resp?.access_token) {
         messageApi.open({
           type: "success",
-          content: resp.message || "login successfully",
+          content: resp.message || "Login successfully",
         });
+
+        // Token সেট করো
         Cookies.set("token", resp.access_token);
+
+        // ✅ Role অনুযায়ী রিডিরেক্ট করো with page reload
         if (resp?.user?.role === "admin") {
-          router.push("/AdminDashboard");
+          window.location.href = "/AdminDashboard";
         } else if (resp?.user?.role === "tutor") {
-          router.push("/TutorDashboard");
+          window.location.href = "/TutorDashboard";
         } else {
-          router.push("/");
+          window.location.href = "/UserDashboard"; // সাধারন ইউজার
         }
-      }
-      if (!resp?.access_token) {
+      } else {
         messageApi.open({
           type: "error",
-          content: resp.message,
+          content: resp.message || "Login failed",
         });
       }
     } catch (error) {

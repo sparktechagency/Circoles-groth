@@ -13,9 +13,9 @@ const Layout = ({ children }) => {
   const router = useRouter();
 
   const [checkingAccess, setCheckingAccess] = useState(true);
-
+  console.log("data", data?.user);
   useEffect(() => {
-    if (!isLoading) {
+    if (!isLoading && data) {
       if (data?.user?.[0]?.role !== "tutor") {
         router.push("/");
       } else {

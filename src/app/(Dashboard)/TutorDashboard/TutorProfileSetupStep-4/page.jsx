@@ -377,7 +377,7 @@ const Availability = () => {
             </div>
             <p className="mt-2 text-sm text-gray-600">
               20% platform fee will be applied to your rate. You will receive
-              €12.00 after the fee.
+              KES12.00 after the fee.
             </p>
           </div>
 

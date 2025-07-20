@@ -42,6 +42,7 @@ const TopRatedMentor = () => {
       ? tutorsData
       : tutorsData.filter((tutor) => tutor.subjects?.includes(activeCategory));
 
+  console.log("filteredTutors", filteredTutors);
   const handleTabChange = (key) => {
     setActiveCategory(key);
     setPage(1);
@@ -98,6 +99,8 @@ const TopRatedMentor = () => {
                     rating={tutor.avg_rating}
                     sessionCharge={tutor.session_charge}
                     reviews={tutor.total_reviews}
+                    languages={tutor.languages?.join(", ")}
+                    timezone={tutor.timezone}
                     profileLink={`/browseCourse/instructor/${tutor.id}`}
                   />
                 ))

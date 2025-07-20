@@ -34,7 +34,7 @@ const page = () => {
       courseTitle: "Product Management Basic - Course",
       duration: "40 Hours",
       students: 176,
-      price: "€ 29.00",
+      price: "KES 29.00",
       enrollLink: "ENROLL NOW",
       imageLink: "https://i.ibb.co.com/17pL5Qj/caourse1.png",
       category: "All courses",
@@ -47,7 +47,7 @@ const page = () => {
       courseTitle: "Advanced Product Strategy - Course",
       duration: "45 Hours",
       students: 150,
-      price: "€ 35.00",
+      price: "KES 35.00",
       enrollLink: "ENROLL NOW",
       imageLink: "https://i.ibb.co.com/xLN7bSQ/category2.png",
       category: "Graphic Design",
@@ -60,7 +60,7 @@ const page = () => {
       courseTitle: "Product Roadmaps for Success",
       duration: "38 Hours",
       students: 200,
-      price: "€ 27.00",
+      price: "KES 27.00",
       enrollLink: "ENROLL NOW",
       imageLink: "https://i.ibb.co.com/vPfYHr7/category1.png",
       category: "UI/UX Design",
@@ -73,7 +73,7 @@ const page = () => {
       courseTitle: "Mastering Agile Product Management",
       duration: "50 Hours",
       students: 250,
-      price: "€ 40.00",
+      price: "KES 40.00",
       enrollLink: "ENROLL NOW",
       imageLink: "https://i.ibb.co.com/xLN7bSQ/category2.png",
       category: "Programming",
@@ -99,21 +99,24 @@ const page = () => {
       ),
       okText: <Link href="/UserDashboard">Go to Dashboard</Link>, // Customize the button text
       okButtonProps: {
-        style: { backgroundColor: '#564FFD', borderColor: '#564FFD', color: '#fff' }, // Customize button styles
+        style: {
+          backgroundColor: "#564FFD",
+          borderColor: "#564FFD",
+          color: "#fff",
+        }, // Customize button styles
       },
     });
-    
   };
-  
-  const router=useRouter()
+
+  const router = useRouter();
   const handleCancel = () => {
     router.back(); // Go to the previous page
   };
-  
+
   return (
     <div className="max-w-[1056px] p-4 mx-auto">
       <div className="">
-      <Steps current={1} className="mb-6 max-w-sm mx-auto">
+        <Steps current={1} className="mb-6 max-w-sm mx-auto">
           <Steps.Step title="Schedule" />
           <Steps.Step title="Payment" />
         </Steps>
@@ -293,15 +296,22 @@ const page = () => {
 
               {/* Submit button */}
               <Form.Item>
-                  {/* Action Buttons */}
-        <div className="flex justify-end space-x-4">
-          <Button onClick={handleCancel} className="bg-white h-[48px] border border-[#D0D5DD] min-w-[156px] font-semibold text-[#344054]">
-            Cancel
-          </Button>
-          <Button style={{backgroundColor:'#14698A'}} onClick={success} className='bg-white h-[48px] border border-[#D0D5DD] min-w-[156px] font-semibold text-white'>
-            Continue
-          </Button>
-        </div>
+                {/* Action Buttons */}
+                <div className="flex justify-end space-x-4">
+                  <Button
+                    onClick={handleCancel}
+                    className="bg-white h-[48px] border border-[#D0D5DD] min-w-[156px] font-semibold text-[#344054]"
+                  >
+                    Cancel
+                  </Button>
+                  <Button
+                    style={{ backgroundColor: "#14698A" }}
+                    onClick={success}
+                    className="bg-white h-[48px] border border-[#D0D5DD] min-w-[156px] font-semibold text-white"
+                  >
+                    Continue
+                  </Button>
+                </div>
               </Form.Item>
             </Form>
           </div>
@@ -312,5 +322,3 @@ const page = () => {
 };
 
 export default page;
-
-  

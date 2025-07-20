@@ -1,8 +1,9 @@
-
-
-import { ClockCircleOutlined, UsergroupDeleteOutlined, EditOutlined } from "@ant-design/icons";
+import {
+  ClockCircleOutlined,
+  UsergroupDeleteOutlined,
+  EditOutlined,
+} from "@ant-design/icons";
 import { Rate, Dropdown, Menu, Image } from "antd";
-
 
 const CourseCard = ({
   courseimage,
@@ -13,20 +14,17 @@ const CourseCard = ({
   reviews,
   duration,
   students,
-
 }) => {
-
-
   // Menu for Edit, View Details, Delete actions
   const menu = (
     <Menu>
-      <Menu.Item key="edit" onClick={() => alert('Edit clicked')}>
+      <Menu.Item key="edit" onClick={() => alert("Edit clicked")}>
         Edit
       </Menu.Item>
-      <Menu.Item key="view" onClick={() => alert('View Details clicked')}>
+      <Menu.Item key="view" onClick={() => alert("View Details clicked")}>
         View Details
       </Menu.Item>
-      <Menu.Item key="delete" onClick={() => alert('Delete clicked')}>
+      <Menu.Item key="delete" onClick={() => alert("Delete clicked")}>
         Delete
       </Menu.Item>
     </Menu>
@@ -36,7 +34,7 @@ const CourseCard = ({
     <div className="w-full bg-white border border-gray-200 rounded-lg shadow-md overflow-hidden">
       {/* Course Image */}
       <Image
-      preview={false}
+        preview={false}
         className="w-full  object-cover"
         src={courseimage}
         alt="Course"
@@ -45,28 +43,33 @@ const CourseCard = ({
       />
       {/* Course Details */}
       <div className="p-4">
-       
-        <h5 className="text-lg font-bold tracking-tight text-[#1D2939] mb-2">{courseTitle}</h5>
+        <h5 className="text-lg font-bold tracking-tight text-[#1D2939] mb-2">
+          {courseTitle}
+        </h5>
         <div className="flex items-center justify-between text-[#475467] text-sm py-4 border-b border-[#E5E7EB]">
-          
           <span className="flex items-center font-normal">
             <UsergroupDeleteOutlined className="text-lg pr-2" />
             {students} Students
           </span>
-        
+
           <div className="flex items-center justify-center mb-2">
-            <Rate  count={1} disabled allowHalf value={rating} />
-            <span className="text-[#475467] font-bold text-[16px] ml-2">{rating}</span>
-            <span className="text-[#475467] font-normal text-sm ml-2">({reviews})</span>
+            <Rate count={1} disabled allowHalf value={rating} />
+            <span className="text-[#475467] font-bold text-[16px] ml-2">
+              {rating}
+            </span>
+            <span className="text-[#475467] font-normal text-sm ml-2">
+              ({reviews})
+            </span>
           </div>
-     
         </div>
         <div className="flex justify-between items-center py-4">
-          <span className="text-lg font-semibold text-[#000000]">€ {price}</span>
+          <span className="text-lg font-semibold text-[#000000]">
+            KES {price}
+          </span>
 
           {/* Edit Icon with Dropdown Menu */}
-          <Dropdown overlay={menu} trigger={['click']}>
-          <EditOutlined className="text-xl cursor-pointer" />
+          <Dropdown overlay={menu} trigger={["click"]}>
+            <EditOutlined className="text-xl cursor-pointer" />
           </Dropdown>
         </div>
       </div>

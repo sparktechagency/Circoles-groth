@@ -13,6 +13,7 @@ const TopratedTutorCard = ({
   reviews,
   languages,
   profileLink,
+  timezone,
 }) => {
   return (
     <div className="w-full bg-white border border-gray-200 rounded-lg shadow-md overflow-hidden">
@@ -60,7 +61,7 @@ const TopratedTutorCard = ({
         </h5>
 
         <div className="flex items-center justify-between text-[#475467] text-sm py-4 border-b border-[#E5E7EB]">
-          <span className="mr-4 flex items-center font-medium">
+          {/* <span className="mr-4 flex items-center font-medium">
             <svg
               width="12"
               height="15"
@@ -75,8 +76,8 @@ const TopratedTutorCard = ({
                 strokeLinejoin="round"
               />
             </svg>
-            <span className="pl-2">30 min session</span>
-          </span>
+            <span className="pl-2">{timezone} min session</span>
+          </span> */}
 
           <span className="flex items-center font-normal">
             <svg
@@ -101,7 +102,7 @@ const TopratedTutorCard = ({
 
         <div className="flex justify-between items-center py-4">
           <span className="text-lg font-semibold text-[#000000]">
-            {sessionCharge || "$0"}{" "}
+            KES {sessionCharge || "KES 0"}{" "}
             <span className="text-[#667085]">/Session</span>
           </span>
           <Link

@@ -13,15 +13,18 @@ const Layout = ({ children }) => {
 
   const [checkingAccess, setCheckingAccess] = useState(true);
 
+  console.log("data", data?.user);
   useEffect(() => {
-    if (!isLoading) {
-      if (data?.user?.[0]?.role !== "user") {
+    if (!isLoading && data) {
+      const role = data?.user?.[0]?.role;
+
+      if (!role || role !== "user") {
         router.push("/");
       } else {
-        setCheckingAccess(false); // Access granted
+        setCheckingAccess(false);
       }
     }
-  }, [isLoading, data, router]);
+  }, [isLoading, data]);
 
   if (isLoading || checkingAccess) {
     return (
