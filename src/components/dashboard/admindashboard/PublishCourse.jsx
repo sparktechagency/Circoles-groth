@@ -30,24 +30,25 @@ const PublishCourse = ({ allDeta }) => {
   const handlePublish = async () => {
     try {
       const res = await createACourse(formdata).unwrap();
-      console.log("res", res);
+      console.log("course publish response", res);
       if (res?.success) {
         setIsModalVisible(true);
       } else {
         message.error(res?.message);
       }
     } catch (error) {
-      console.log(error);
+      console.log("course publish response", error);
+      message.error(error?.data?.message);
     }
   };
 
   const handleOk = () => {
-    // router.push("/AdminDashboard");
-    setIsModalVisible(false); // Close the modal
+    router.push("/AdminDashboard");
+    setIsModalVisible(false);
   };
 
   const handleCancel = () => {
-    setIsModalVisible(false); // Close the modal
+    setIsModalVisible(false);
   };
 
   return (

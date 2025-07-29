@@ -9,6 +9,7 @@ export const TutorApi = api.injectEndpoints({
 
     upcommingseassions: builder.query({
       query: () => `/tutor/upcoming-session`,
+      providesTags: ["upcommingseassions"],
     }),
 
     getsubjects: builder.query({
@@ -58,9 +59,18 @@ export const TutorApi = api.injectEndpoints({
 
     studentUpcommingseassions: builder.query({
       query: () => `/student/upcoming-session`,
-    })
+    }),
 
-
+    // --- ADD THIS NEW MUTATION ---
+    updateSessionZoomLink: builder.mutation({
+      query: (formData) => ({
+        url: `/tutor/update-link`, // Example API endpoint
+        method: "PUT", // Or PUT, depending on your API design
+        body: formData,
+      }),
+      // This will automatically refresh the upcoming sessions data after a successful update
+      invalidatesTags: ["upcommingseassions"],
+    }),
 
   }),
 });
@@ -74,5 +84,7 @@ export const {
   useBookAtutorMutation,
   useStoretutorpaymentMutation,
   useMytutorQuery,
-  useStudentUpcommingseassionsQuery
+  useStudentUpcommingseassionsQuery,
+
+  useUpdateSessionZoomLinkMutation
 } = TutorApi;

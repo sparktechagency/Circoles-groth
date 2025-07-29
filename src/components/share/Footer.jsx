@@ -136,7 +136,7 @@ const Footer = () => {
                   <div className="pl-2">
                     <MailFilled className="text-lg text-[#4BCAE9] pr-2" />
                     <span className="text-[#E4E7EC]">
-                      support@circooles.com
+                      support@LearnenTech.com
                     </span>
                   </div>
                 </div>

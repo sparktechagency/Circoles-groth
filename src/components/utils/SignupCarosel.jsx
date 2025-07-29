@@ -46,7 +46,7 @@ const SignupCarousel = () => {
           <div className="absolute inset-0 bg-gradient-to-t from-[#000000b4] top-[#00000080] flex flex-col justify-end items-start p-4 text-white text-start font-Merriweather rounded-bl-[10%] rounded-tl-[10%]">
             <div className="xl:p-11 lg:p-11 p-6">
               <h1 className="xl:text-[36px] lg:text-[28px] text-[24px] text-[#FCFCFD] font-bold mb-4">
-                “We’ve been using Circooles to kick start every new course and
+                “We’ve been using LearnenTech to kick start every new course and
                 can’t imagine working without it.”
               </h1>
               <h3 className="xl:text-xl text-sm font-bold text-[#FFFFFF] font-Inter xl:py-4 lg:py-4">
@@ -76,7 +76,7 @@ const SignupCarousel = () => {
           <div className="absolute inset-0 bg-gradient-to-t from-[#000000b4] top-[#00000080] flex flex-col justify-end items-start p-4 text-white text-start font-Merriweather rounded-bl-[10%] rounded-tl-[10%]">
             <div className="xl:p-11 lg:p-11 p-6">
               <h1 className="xl:text-[36px] lg:text-[28px] text-[24px] text-[#FCFCFD] font-bold mb-4">
-                “We’ve been using Circooles to kick start every new course and
+                “We’ve been using LearnenTech to kick start every new course and
                 can’t imagine working without it.”
               </h1>
               <h3 className="xl:text-xl text-sm font-bold text-[#FFFFFF] font-Inter xl:py-4 lg:py-4">
@@ -106,7 +106,7 @@ const SignupCarousel = () => {
           <div className="absolute inset-0 bg-gradient-to-t from-[#000000b4] top-[#00000080] flex flex-col justify-end items-start p-4 text-white text-start font-Merriweather rounded-bl-[10%] rounded-tl-[10%]">
             <div className="xl:p-11 lg:p-11 p-6">
               <h1 className="xl:text-[36px] lg:text-[28px] text-[24px] text-[#FCFCFD] font-bold mb-4">
-                “We’ve been using Circooles to kick start every new course and
+                “We’ve been using LearnenTech to kick start every new course and
                 can’t imagine working without it.”
               </h1>
               <h3 className="xl:text-xl text-sm font-bold text-[#FFFFFF] font-Inter xl:py-4 lg:py-4">

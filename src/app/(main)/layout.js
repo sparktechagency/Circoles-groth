@@ -5,7 +5,7 @@ import Footer from "../../components/share/Footer";
 // Define a local font
 
 export const metadata = {
-  title: "Circooles",
+  title: "LearnenTech",
   icons: {
     icon: "/favicon.ico",
   },
