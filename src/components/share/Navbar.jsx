@@ -29,6 +29,7 @@ import { useGetOwnprofileQuery } from "../../redux/features/AuthApi";
 import Cookies from "js-cookie";
 import Swal from "sweetalert2";
 import SearchBar from "../home/search/SearchBar";
+import { RxCross2 } from "react-icons/rx";
 
 const { Panel } = Collapse;
 
@@ -107,7 +108,7 @@ const Navbar = () => {
 
   // Reusable Menu Content Components
   const TutorMenuContent = () => (
-    <div className="p-2 space-y-2">
+    <div className="p-2 space-y-2 bg-[#F9FAFB] rounded-lg">
       <Link
         href={"/tutorService/inpersonTutor"}
         onClick={closeDrawer}
@@ -263,8 +264,8 @@ const Navbar = () => {
               <Image
                 src={logo}
                 alt="Logo"
-                width={130}
-                height={40}
+                width={150}
+                height={50}
                 priority
                 style={{ height: "auto" }}
               />
@@ -272,7 +273,7 @@ const Navbar = () => {
           </div>
 
           {/* Center: Search Bar (Desktop Only) */}
-          <div className="hidden lg:flex flex-1 max-w-2xl mx-4">
+          <div className="hidden lg:flex flex-1   max-w-4xl mx-4">
             <SearchBar pathname={pathname} />
           </div>
 
@@ -294,7 +295,8 @@ const Navbar = () => {
                     type="text"
                     className="text-white text-base p-0 h-auto hover:!bg-transparent hover:text-gray-200"
                   >
-                    Tutor Service <DownOutlined />
+                    <p className="text-white"> Tutor Service</p>{" "}
+                    <DownOutlined className="text-xs text-white" />
                   </Button>
                 </Dropdown>
               </li>
@@ -330,12 +332,9 @@ const Navbar = () => {
                 </Dropdown>
               ) : (
                 <Link href={"/auth/login"}>
-                  <Button
-                    type="primary"
-                    className="bg-fourth hover:bg-fourth-dark"
-                  >
+                  <button className=" bg-fourth h-[44px]  w-[100px] rounded-lg text-base text-white hover:text-gray-200">
                     Sign In
-                  </Button>
+                  </button>
                 </Link>
               )}
             </div>
@@ -371,7 +370,15 @@ const Navbar = () => {
         placement="left"
         onClose={closeDrawer}
         open={drawerVisible}
+        closeIcon={<RxCross2 className="text-white" size={24} />}
         width={300}
+        style={{
+          zIndex: 9999,
+          overflow: "auto",
+          height: "100vh",
+          color: "white",
+          backgroundColor: "#08284F",
+        }}
       >
         <div className="flex flex-col h-full">
           {token && user && (
@@ -379,7 +386,7 @@ const Navbar = () => {
               <div className="flex items-center space-x-3">
                 <Avatar
                   size="large"
-                  icon={<UserOutlined />}
+                  icon={<UserOutlined className="text-white" />}
                   src={user.avatar}
                 />
                 <div>
@@ -410,14 +417,14 @@ const Navbar = () => {
               selectable={false}
               className="border-none bg-transparent"
             >
-              <Menu.Item key="programs" icon={<AppstoreOutlined />}>
+              <Menu.Item key="programs">
                 <Link href="/onlinePrograms" onClick={closeDrawer}>
-                  Online Programs
+                  <AppstoreOutlined className="text-white" /> Online Programs
                 </Link>
               </Menu.Item>
-              <Menu.Item key="become-tutor" icon={<RocketOutlined />}>
+              <Menu.Item key="become-tutor">
                 <Link href="/auth/Becomeatutor" onClick={closeDrawer}>
-                  Become a Tutor
+                  <RocketOutlined className="text-white" /> Become a Tutor
                 </Link>
               </Menu.Item>
             </Menu>
@@ -425,8 +432,8 @@ const Navbar = () => {
               <Panel
                 header={
                   <>
-                    <TeamOutlined className="mr-2" />
-                    Tutor Service
+                    <TeamOutlined className="mr-2 text-white" />
+                    <span className="text-white"> Tutor Service</span>
                   </>
                 }
                 key="1"
@@ -436,8 +443,8 @@ const Navbar = () => {
               <Panel
                 header={
                   <>
-                    <FilterOutlined className="mr-2" />
-                    Category Filters
+                    <FilterOutlined className="mr-2 text-white" />
+                    <span className="text-white">Category Filters</span>
                   </>
                 }
                 key="2"
@@ -459,12 +466,27 @@ const Navbar = () => {
                 Log Out
               </Button>
             ) : (
-              <div className="space-y-2">
+              <div className="space-y-4">
                 <Link href={"/auth/login"} onClick={closeDrawer}>
-                  <Button block>Log In</Button>
+                  <Button
+                    style={{ backgroundColor: "#08284F" }}
+                    className="text-white bg-[#08284F] mb-4"
+                    block
+                  >
+                    Log In
+                  </Button>
                 </Link>
                 <Link href={"/auth/signup"} onClick={closeDrawer}>
-                  <Button block type="primary">
+                  <Button
+                    style={{
+                      backgroundColor: "#08284F",
+                      color: "white",
+                      borderColor: "#08284F",
+                    }}
+                    className="text-white bg-[#08284F] mb-4"
+                    block
+                    type="primary"
+                  >
                     Sign Up
                   </Button>
                 </Link>

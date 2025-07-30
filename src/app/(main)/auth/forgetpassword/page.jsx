@@ -1,10 +1,6 @@
 "use client";
 import React from "react";
-import { Form, Input, Button, Checkbox, message } from "antd";
-import { GoogleOutlined } from "@ant-design/icons";
-
-import Link from "next/link";
-
+import { Form, Input, message } from "antd";
 import { useRouter } from "next/navigation";
 import { useResetpasswordMutation } from "../../../../redux/features/AuthApi";
 import AuthLayout from "../../../../components/AuthLayout";

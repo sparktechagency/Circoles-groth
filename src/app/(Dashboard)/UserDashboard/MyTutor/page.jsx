@@ -14,7 +14,8 @@ const MyTutorsPage = () => {
     }
   }, [isError, error]);
 
-  const tutors = data ? Object.values(data.tutors) : [];
+  const tutors = data?.tutors ? Object.values(data.tutors) : [];
+
   const pagination = data?.pagination || { from: 0, to: 0, total: 0 };
   console.log("tutors", tutors);
   if (isLoading) {

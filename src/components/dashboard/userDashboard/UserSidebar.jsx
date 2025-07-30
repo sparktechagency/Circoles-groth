@@ -298,8 +298,8 @@ const UserSidebar = ({ isOpen, setIsOpen }) => {
                 }
                 icon={!user?.avatar && <UserOutlined />}
               />
-              <div className="flex-grow">
-                <h1
+              <div className="pr-2">
+                <span
                   style={{
                     color: colors.sixth,
                     fontWeight: "600",
@@ -307,12 +307,12 @@ const UserSidebar = ({ isOpen, setIsOpen }) => {
                   }}
                 >
                   {user?.name}
-                </h1>
-                <h1 style={{ color: colors.fifth, fontSize: "14px" }}>
-                  {user?.email}
-                </h1>
+                </span>
+                <p style={{ color: colors.fifth, fontSize: "14px" }}>
+                  {user?.email?.slice(0, 20) + "..."}
+                </p>
               </div>
-              <div onClick={handleLogout} className="cursor-pointer">
+              <div onClick={handleLogout} className="cursor-pointer ">
                 <LogoutOutlined
                   style={{ fontSize: "20px", color: colors.fifth }}
                 />

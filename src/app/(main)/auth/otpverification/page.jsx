@@ -31,7 +31,6 @@ const Page = () => {
       const resp = await verifyemail({ otp: otpValue }).unwrap();
       console.log("response ---------", resp);
       if (resp?.token) {
-        message.success(resp.message);
         Cookies.set("token", resp.token, {
           path: "/",
           secure: true,
@@ -43,13 +42,14 @@ const Page = () => {
         );
         console.log("usr", resp?.user);
         setUser(resp?.user);
+        return message.success(resp.message);
       }
       if (!resp?.success) {
-        message.error(resp.message);
+        return message.error(resp.message);
       }
     } catch (error) {
       console.log(error);
-      message.error(error?.data?.message || "Something went wrong");
+      return message.error(error?.data?.message || "Something went wrong");
     }
   };
 
@@ -58,15 +58,15 @@ const Page = () => {
       const resp = await resetpassword({ email }).unwrap();
       console.log("response ---------", resp);
       if (resp?.success) {
-        message.success(resp.message);
+        return message.success(resp.message);
       }
 
       if (!resp?.success) {
-        message.error(resp.message || "Something went wrong");
+        return message.error(resp.message || "Something went wrong");
       }
     } catch (error) {
       console.log(error);
-      message.error(error?.data?.message || "Something went wrong");
+      return message.error(error?.data?.message || "Something went wrong");
     }
   };
 

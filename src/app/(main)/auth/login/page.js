@@ -66,7 +66,7 @@ const signIn = () => {
   return (
     <AuthLayout>
       {contextHolder}
-      <div className="pt-12">
+      <div className="pt-[10%]">
         <div className="text-center px-2 ">
           {/* <div className="flex justify-center items-center mb-4">
             <Image src={logoimage} />
