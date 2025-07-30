@@ -1,68 +1,63 @@
 "use client";
 import { useState, useEffect } from "react";
 import {
-  Input,
   Button,
   Dropdown,
   Menu,
   Drawer,
   Modal,
-  Select,
   Collapse,
   Checkbox,
   Avatar,
 } from "antd";
-
-const { Panel } = Collapse;
 import {
-  ShoppingCartOutlined,
   MenuOutlined,
   SearchOutlined,
   DownOutlined,
-  GlobalOutlined,
   UserOutlined,
   LogoutOutlined,
+  AppstoreOutlined,
+  TeamOutlined,
+  RocketOutlined,
+  FilterOutlined,
 } from "@ant-design/icons";
 import logo from "../../assets/images/logo.png";
 import Image from "next/image";
 import Link from "next/link";
-import { Option } from "antd/es/mentions";
 import { usePathname, useRouter } from "next/navigation";
-import { useSelector } from "react-redux";
 import { useGetOwnprofileQuery } from "../../redux/features/AuthApi";
 import Cookies from "js-cookie";
 import Swal from "sweetalert2";
 import SearchBar from "../home/search/SearchBar";
+
+const { Panel } = Collapse;
+
 const Navbar = () => {
   const { data, isLoading, refetch } = useGetOwnprofileQuery();
-
-  const user = data?.user;
+  const user = data?.user?.[0]; // Access the first user object directly
   const token = Cookies.get("token");
-  const [drawerVisible, setDrawerVisible] = useState(false);
-  const [isModalVisible, setIsModalVisible] = useState(false);
-  const [showLogout, setShowLogout] = useState(false);
-  const router = useRouter();
 
+  const [drawerVisible, setDrawerVisible] = useState(false);
+  const [isSearchModalVisible, setIsSearchModalVisible] = useState(false);
+  const [selectedCategories, setSelectedCategories] = useState([]);
+
+  const router = useRouter();
   const pathname = usePathname();
 
-  const showModal = () => {
-    setIsModalVisible(true);
-  };
+  useEffect(() => {
+    if (token) {
+      refetch();
+    }
+  }, [token, refetch]);
 
-  const handleCancel = () => {
-    setIsModalVisible(false);
-  };
-  const showDrawer = () => {
-    setDrawerVisible(true);
-  };
-  const closeDrawer = () => {
-    setDrawerVisible(false);
-  };
-
-  const [selectedCategories, setSelectedCategories] = useState([]);
+  const showDrawer = () => setDrawerVisible(true);
+  const closeDrawer = () => setDrawerVisible(false);
+  const showSearchModal = () => setIsSearchModalVisible(true);
+  const closeSearchModal = () => setIsSearchModalVisible(false);
 
   const onCategoryChange = (checkedValues) => {
     setSelectedCategories(checkedValues);
+    // You might want to trigger a search/filter action here
   };
 
   const handleLogout = () => {
@@ -73,37 +68,117 @@ const Navbar = () => {
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, Log out!",
+      confirmButtonText: "Yes, log out!",
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire("Logged out!", "You're logged out.", "success");
+        Swal.fire(
+          "Logged out!",
+          "You've been successfully logged out.",
+          "success"
+        );
         Cookies.remove("token");
         router.push("/auth/login");
+        if (drawerVisible) closeDrawer();
       }
     });
   };
 
-  const toggleLogout = () => {
-    setShowLogout(!showLogout);
-  };
+  // User Dropdown Menu for Desktop
+  const userMenu = (
+    <Menu>
+      <Menu.Item key="dashboard">
+        <Link
+          href={
+            user?.role === "tutor"
+              ? "/TutorDashboard"
+              : user?.role === "admin"
+              ? "/AdminDashboard"
+              : "/UserDashboard"
+          }
+        >
+          Dashboard
+        </Link>
+      </Menu.Item>
+      <Menu.Item key="logout" onClick={handleLogout} icon={<LogoutOutlined />}>
+        Logout
+      </Menu.Item>
+    </Menu>
+  );
 
-  useEffect(() => {
-    if (token) {
-      refetch();
-    }
-  }, [token]);
+  // Reusable Menu Content Components
+  const TutorMenuContent = () => (
+    <div className="p-2 space-y-2">
+      <Link
+        href={"/tutorService/inpersonTutor"}
+        onClick={closeDrawer}
+        className="block rounded-md hover:bg-gray-100"
+      >
+        <div className="flex space-x-3 p-2">
+          <svg
+            width="20"
+            height="22"
+            viewBox="0 0 18 22"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            className="mt-1 flex-shrink-0"
+          >
+            <path
+              d="M1 18.5C1 17.837 1.26339 17.2011 1.73223 16.7322C2.20107 16.2634 2.83696 16 3.5 16H17M1 18.5C1 19.163 1.26339 19.7989 1.73223 20.2678C2.20107 20.7366 2.83696 21 3.5 21H17V1H3.5C2.83696 1 2.20107 1.26339 1.73223 1.73223C1.26339 2.20107 1 2.83696 1 3.5V18.5Z"
+              stroke="#14698A"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+          <div>
+            <strong className="text-base font-semibold text-[#101828]">
+              In-person
+            </strong>
+            <p className="text-[#475467] text-sm">
+              One-on-one personalized tutoring
+            </p>
+          </div>
+        </div>
+      </Link>
+      <Link
+        href={"/tutorService/onlineTutor"}
+        onClick={closeDrawer}
+        className="block rounded-md hover:bg-gray-100"
+      >
+        <div className="flex space-x-3 p-2">
+          <svg
+            width="20"
+            height="22"
+            viewBox="0 0 20 22"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            className="mt-1 flex-shrink-0"
+          >
+            <path
+              d="M11 1L1 13H10L9 21L19 9H10L11 1Z"
+              stroke="#14698A"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+          <div>
+            <strong className="text-base font-semibold text-[#101828]">
+              Online
+            </strong>
+            <p className="text-[#475467] text-sm">Tutoring anytime, anywhere</p>
+          </div>
+        </div>
+      </Link>
+    </div>
+  );
 
-  const categoryMenu = (
-    <div className="p-4 bg-white shadow-lg rounded-lg">
-      <h3 className="text-lg font-semibold text-gray-800">Filters</h3>
-      <p className="text-base text-gray-500">
-        Helps you to find what actually you're looking for
-      </p>
+  const CategoryFilterContent = () => (
+    <div className="p-4 bg-white">
       <Collapse
         defaultActiveKey={["1", "2", "3"]}
         ghost
         expandIconPosition="end"
-        className="mt-4"
       >
         {/* Category - Tutor */}
         <Panel
@@ -111,348 +186,285 @@ const Navbar = () => {
           key="1"
           className="text-gray-800 font-medium bg-white"
         >
-          <Checkbox.Group onChange={onCategoryChange}>
-            {pathname === "/TopRatedTutor" && (
-              <div className="flex flex-col gap-2">
-                <h3>Expertice in</h3>
+          <Checkbox.Group
+            onChange={onCategoryChange}
+            className="flex flex-col gap-2"
+          >
+            {pathname === "/TopRatedTutor" ? (
+              <>
+                <h3 className="mb-2 font-semibold">Expertise in</h3>
                 <Checkbox value="Physics">Physics Expert</Checkbox>
                 <Checkbox value="Chemistry">Chemistry Expert</Checkbox>
                 <Checkbox value="Math">Math Expert</Checkbox>
-                <Checkbox value="biology">biology Expert</Checkbox>
-              </div>
-            )}
-            {pathname !== "/TopRatedTutor" && (
-              <div className="flex flex-col gap-2">
-                <Checkbox value="Tutor">Tutor</Checkbox>
-              </div>
+                <Checkbox value="biology">Biology Expert</Checkbox>
+              </>
+            ) : (
+              <Checkbox value="Tutor">Tutor</Checkbox>
             )}
           </Checkbox.Group>
         </Panel>
-
         {/* Category - Online Programs */}
-        <Panel
-          header="Online Programs"
-          key="2"
-          className={`text-gray-800 font-medium bg-white ${
-            pathname === "/TopRatedTutor" && "hidden"
-          }`}
-        >
-          <Collapse defaultActiveKey={["2-1"]} ghost>
-            <Panel header="Data Science" key="2-1">
-              <Checkbox.Group onChange={onCategoryChange}>
-                <div className="flex flex-col gap-2">
+        {pathname !== "/TopRatedTutor" && (
+          <Panel
+            header="Online Programs"
+            key="2"
+            className="text-gray-800 font-medium bg-white"
+          >
+            <Collapse defaultActiveKey={["2-1"]} ghost>
+              <Panel header="Data Science" key="2-1">
+                <Checkbox.Group
+                  onChange={onCategoryChange}
+                  className="flex flex-col gap-2"
+                >
                   <Checkbox value="Introduction to Data Science">
                     Introduction to Data Science
                   </Checkbox>
                   <Checkbox value="Python for Data Science">
-                    Python for Data Science and Machine Learning Bootcamp
+                    Python for Data Science Bootcamp
                   </Checkbox>
                   <Checkbox value="Data Science Specialization">
                     Data Science Specialization
                   </Checkbox>
-                  <Checkbox value="Data Science Fundamentals">
-                    Data Science Fundamentals with Python and SQL
-                  </Checkbox>
-                  <Checkbox value="Machine Learning">Machine Learning</Checkbox>
-                  <Checkbox value="Applied Data Science">
-                    Applied Data Science with Python Specialization
-                  </Checkbox>
-                  <Checkbox value="SQL for Data Science">
-                    SQL for Data Science
-                  </Checkbox>
-                  <Checkbox value="AI Literacy">AI Literacy</Checkbox>
-                </div>
-              </Checkbox.Group>
-            </Panel>
-          </Collapse>
-        </Panel>
-
+                </Checkbox.Group>
+              </Panel>
+            </Collapse>
+          </Panel>
+        )}
         {/* Category - Difficulty Level */}
-        <Panel
-          header="Difficulties Level"
-          key="3"
-          className={`text-gray-800 font-medium bg-white ${
-            pathname === "/TopRatedTutor" && "hidden"
-          }`}
-        >
-          <Checkbox.Group onChange={onCategoryChange}>
-            <div className="flex flex-col gap-2">
+        {pathname !== "/TopRatedTutor" && (
+          <Panel
+            header="Difficulty Level"
+            key="3"
+            className="text-gray-800 font-medium bg-white"
+          >
+            <Checkbox.Group
+              onChange={onCategoryChange}
+              className="flex flex-col gap-2"
+            >
               <Checkbox value="Beginner">Beginner</Checkbox>
               <Checkbox value="Intermediate">Intermediate</Checkbox>
               <Checkbox value="Advanced">Advanced</Checkbox>
-            </div>
-          </Checkbox.Group>
-        </Panel>
+            </Checkbox.Group>
+          </Panel>
+        )}
       </Collapse>
     </div>
   );
 
-  const TutorMewnu = (
-    <Menu className="max-w-[300px] w-full space-y-2">
-      <Menu.Item key="1">
-        <Link href={"/tutorService/inpersonTutor"}>
-          <div className="flex space-x-1">
-            <div className="pt-2">
-              <svg
-                width="18"
-                height="22"
-                viewBox="0 0 18 22"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M1 18.5C1 17.837 1.26339 17.2011 1.73223 16.7322C2.20107 16.2634 2.83696 16 3.5 16H17M1 18.5C1 19.163 1.26339 19.7989 1.73223 20.2678C2.20107 20.7366 2.83696 21 3.5 21H17V1H3.5C2.83696 1 2.20107 1.26339 1.73223 1.73223C1.26339 2.20107 1 2.83696 1 3.5V18.5Z"
-                  stroke="#14698A"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-              </svg>
-            </div>
-            <div>
-              <strong className="text-lg font-semibold text-[#101828]">
-                In-person
-              </strong>
-              <p className="text-[#475467] text-base">
-                One-on-one personalized in-person tutoring
-              </p>
-            </div>
-          </div>
-        </Link>
-      </Menu.Item>
-
-      <Menu.Item key="2">
-        <Link href={"/tutorService/onlineTutor"}>
-          <div className="flex space-x-2">
-            <div className="pt-2">
-              <svg
-                width="20"
-                height="22"
-                viewBox="0 0 20 22"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M11 1L1 13H10L9 21L19 9H10L11 1Z"
-                  stroke="#14698A"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-              </svg>
-            </div>
-            <div>
-              <strong className="text-lg font-semibold text-[#101828]">
-                Online
-              </strong>
-              <p className="text-[#475467] text-base">
-                Personalized online tutoring, anytime, anywhere.
-              </p>
-            </div>
-          </div>
-        </Link>
-      </Menu.Item>
-    </Menu>
-  );
-
-  const userMenu = (
-    <Menu>
-      <Menu.Item key="dashboard">
-        <Link
-          href={`${
-            user?.[0]?.role === "tutor" ? "/TutorDashboard" : "/UserDashboard"
-          }`}
-        >
-          Dashboard
-        </Link>
-      </Menu.Item>
-
-      <Menu.Item key="logout" onClick={handleLogout} icon={<LogoutOutlined />}>
-        Logout
-      </Menu.Item>
-    </Menu>
-  );
-
   return (
-    <nav className="w-full px-8 py-2 bg-primary mx-auto flex justify-between items-center shadow-sm b-4">
-      {/* Left Side: Logo */}
-      <div className="flex items-center space-x-4">
-        <Link href="/">
-          <Image src={logo} alt="Logo" />
-        </Link>
-      </div>
-      <div className="w-full flex-1">
-        <SearchBar pathname={pathname} />
-      </div>
+    <>
+      <header className="h-[72px]">
+        {" "}
+        {/* Placeholder to prevent content overlap with fixed navbar */}
+        <nav className="w-full px-4 sm:px-8 py-4 bg-primary mx-auto flex justify-between items-center shadow-md fixed top-0 z-50 h-[72px]">
+          {/* Left Side: Logo */}
+          <div className="flex items-center">
+            <Link href="/">
+              <Image
+                src={logo}
+                alt="Logo"
+                width={130}
+                height={40}
+                priority
+                style={{ height: "auto" }}
+              />
+            </Link>
+          </div>
 
-      {/* Right Side: Links (Hidden on small screens) */}
-      <div className="">
-        <ul className="hidden lg:flex items-center space-x-6">
-          <li>
-            {" "}
-            <Link href="/onlinePrograms" className="text-base pl-2 text-white">
-              Online Programs
-            </Link>
-          </li>
-          <li>
-            {" "}
-            <Dropdown
-              className="border-none h-[40px]"
-              overlay={TutorMewnu}
-              trigger={["hover"]}
-            >
-              <Button>
-                Tutor Service <DownOutlined />
-              </Button>
-            </Dropdown>
-          </li>
-          <li>
-            <Link
-              href={`/auth/Becomeatutor`}
-              className="text-base pl-2 text-white"
-            >
-              Become a Tutor
-            </Link>
-          </li>
-          <li>
-            {isLoading ? (
-              <button className="text-[#FFFFFF] font-semibold text-[16px] px-6 py-3 rounded-md bg-fourth">
-                Loading
-              </button>
-            ) : (
-              <>
-                {token ? (
-                  <div className="relative">
-                    <Dropdown overlay={userMenu} trigger={["click"]}>
-                      <div
-                        className="flex items-center space-x-2 cursor-pointer"
-                        onClick={toggleLogout}
-                      >
-                        <Avatar
-                          size="default"
-                          icon={<UserOutlined />}
-                          src={user?.avatar}
-                          className="bg-primary"
-                        />
-                        <span className="text-base font-medium text-white">
-                          {user?.name || "User"}
-                        </span>
-                        <DownOutlined className="text-xs text-white" />
-                      </div>
-                    </Dropdown>
+          {/* Center: Search Bar (Desktop Only) */}
+          <div className="hidden lg:flex flex-1 max-w-2xl mx-4">
+            <SearchBar pathname={pathname} />
+          </div>
+
+          {/* Right Side: Links & Auth */}
+          <div className="flex items-center space-x-4">
+            {/* Desktop Links */}
+            <ul className="hidden lg:flex items-center space-x-6 text-white">
+              <li>
+                <Link
+                  href="/onlinePrograms"
+                  className="text-base hover:text-gray-200"
+                >
+                  Online Programs
+                </Link>
+              </li>
+              <li>
+                <Dropdown overlay={<TutorMenuContent />} trigger={["hover"]}>
+                  <Button
+                    type="text"
+                    className="text-white text-base p-0 h-auto hover:!bg-transparent hover:text-gray-200"
+                  >
+                    Tutor Service <DownOutlined />
+                  </Button>
+                </Dropdown>
+              </li>
+              <li>
+                <Link
+                  href="/auth/Becomeatutor"
+                  className="text-base hover:text-gray-200"
+                >
+                  Become a Tutor
+                </Link>
+              </li>
+            </ul>
+
+            {/* Auth Section (Desktop) */}
+            <div className="hidden lg:flex items-center pl-4">
+              {isLoading ? (
+                <Button type="primary" loading>
+                  Loading
+                </Button>
+              ) : token && user ? (
+                <Dropdown overlay={userMenu} trigger={["click"]}>
+                  <div className="flex items-center space-x-2 cursor-pointer">
+                    <Avatar
+                      size="default"
+                      icon={<UserOutlined />}
+                      src={user.avatar}
+                    />
+                    <span className="text-base font-medium text-white">
+                      {user.name || "User"}
+                    </span>
+                    <DownOutlined className="text-xs text-white" />
                   </div>
-                ) : (
-                  <Link href={"/auth/login"}>
-                    <button className="text-[#FFFFFF] font-semibold text-[16px] px-6 py-3 rounded-md bg-fourth">
-                      Sign In
-                    </button>
-                  </Link>
-                )}
-              </>
-            )}
-          </li>
-        </ul>
-      </div>
+                </Dropdown>
+              ) : (
+                <Link href={"/auth/login"}>
+                  <Button
+                    type="primary"
+                    className="bg-fourth hover:bg-fourth-dark"
+                  >
+                    Sign In
+                  </Button>
+                </Link>
+              )}
+            </div>
 
-      {/* Mobile Menu Button (Visible on small screens) */}
-      <div className="lg:hidden">
-        <MenuOutlined className="text-2xl" onClick={showDrawer} />
-      </div>
+            {/* Mobile Menu Icons */}
+            <div className="lg:hidden flex items-center space-x-4">
+              <SearchOutlined
+                className="text-2xl text-white cursor-pointer"
+                onClick={showSearchModal}
+              />
+              <MenuOutlined
+                className="text-2xl text-white cursor-pointer"
+                onClick={showDrawer}
+              />
+            </div>
+          </div>
+        </nav>
+      </header>
 
-      {/* Modal for language selection */}
-      <Modal visible={isModalVisible} onCancel={handleCancel} footer={null}>
-        <h2 className="text-lg font-semibold mb-4">
-          Choose Your Preferred Language
-        </h2>
-        <p className="mb-4 text-base text-gray-500">
-          Select a language from the dropdown to change the language of the
-          website.
-        </p>
-
-        <p className=" text-base text-gray-500">
-          Note: Changing the language will refresh the page to apply your
-          selection.
-        </p>
-        <p className="mb-4 text-base text-gray-500">
-          If you encounter any issues, please try reloading the page manually.
-        </p>
+      {/* Mobile Search Modal */}
+      <Modal
+        title="Search"
+        open={isSearchModalVisible}
+        onCancel={closeSearchModal}
+        footer={null}
+      >
+        <SearchBar pathname={pathname} onSearch={closeSearchModal} />
       </Modal>
 
-      {/* Drawer for mobile menu */}
+      {/* Mobile Drawer */}
       <Drawer
-        title={
-          <div className="flex items-center justify-between">
-            <span>Menu</span>
-            {token && (
-              <div className="flex items-center space-x-2">
-                <Avatar
-                  size="small"
-                  icon={<UserOutlined />}
-                  src={user?.avatar}
-                  className="bg-primary"
-                />
-                <span className="text-base font-medium">
-                  {user?.name || "User"}
-                </span>
-              </div>
-            )}
-          </div>
-        }
+        title={<Image src={logo} alt="Menu Logo" width={100} height={30} />}
         placement="left"
         onClose={closeDrawer}
         open={drawerVisible}
         width={300}
       >
         <div className="flex flex-col h-full">
-          <div className="flex-grow">
-            <Dropdown overlay={categoryMenu} trigger={["click"]}>
-              <Button className="mb-4 w-full">Category</Button>
-            </Dropdown>
-            <Dropdown overlay={TutorMewnu} trigger={["click"]}>
-              <Button className="w-full text-left mb-2">
-                Tutor Service <DownOutlined />
-              </Button>
-            </Dropdown>
-            <div className="flex flex-col ">
+          {token && user && (
+            <div className="p-4 mb-4 bg-gray-50 rounded-lg border border-gray-200">
+              <div className="flex items-center space-x-3">
+                <Avatar
+                  size="large"
+                  icon={<UserOutlined />}
+                  src={user.avatar}
+                />
+                <div>
+                  <p className="font-semibold text-gray-800">{user.name}</p>
+                  <p className="text-sm text-gray-500 truncate">{user.email}</p>
+                </div>
+              </div>
               <Link
-                href="/onlinePrograms"
-                className="text-base font-medium py-2 px-2 rounded hover:bg-gray-100"
+                href={
+                  user.role === "tutor"
+                    ? "/TutorDashboard"
+                    : user.role === "admin"
+                    ? "/AdminDashboard"
+                    : "/UserDashboard"
+                }
                 onClick={closeDrawer}
               >
-                Online Programs
-              </Link>
-
-              <Link
-                href="/auth/Becomeatutor"
-                className="text-base font-medium py-2 px-2 rounded hover:bg-gray-100"
-                onClick={closeDrawer}
-              >
-                Become a Tutor
+                <Button type="primary" block className="mt-4">
+                  Go to Dashboard
+                </Button>
               </Link>
             </div>
+          )}
+
+          <div className="flex-grow space-y-2">
+            <Menu
+              mode="vertical"
+              selectable={false}
+              className="border-none bg-transparent"
+            >
+              <Menu.Item key="programs" icon={<AppstoreOutlined />}>
+                <Link href="/onlinePrograms" onClick={closeDrawer}>
+                  Online Programs
+                </Link>
+              </Menu.Item>
+              <Menu.Item key="become-tutor" icon={<RocketOutlined />}>
+                <Link href="/auth/Becomeatutor" onClick={closeDrawer}>
+                  Become a Tutor
+                </Link>
+              </Menu.Item>
+            </Menu>
+            <Collapse ghost expandIconPosition="end" className="bg-transparent">
+              <Panel
+                header={
+                  <>
+                    <TeamOutlined className="mr-2" />
+                    Tutor Service
+                  </>
+                }
+                key="1"
+              >
+                <TutorMenuContent />
+              </Panel>
+              <Panel
+                header={
+                  <>
+                    <FilterOutlined className="mr-2" />
+                    Category Filters
+                  </>
+                }
+                key="2"
+              >
+                <CategoryFilterContent />
+              </Panel>
+            </Collapse>
           </div>
 
-          <div className="mt-auto pb-4">
+          <div className="mt-auto pt-4 border-t border-gray-200">
             {token ? (
               <Button
-                onClick={() => {
-                  handleLogout();
-                  closeDrawer();
-                }}
-                className="w-full"
+                onClick={handleLogout}
                 type="primary"
                 danger
+                block
                 icon={<LogoutOutlined />}
               >
                 Log Out
               </Button>
             ) : (
-              <div className="flex flex-col space-y-2">
+              <div className="space-y-2">
                 <Link href={"/auth/login"} onClick={closeDrawer}>
-                  <Button className="w-full">Log In</Button>
+                  <Button block>Log In</Button>
                 </Link>
                 <Link href={"/auth/signup"} onClick={closeDrawer}>
-                  <Button className="w-full" type="primary">
+                  <Button block type="primary">
                     Sign Up
                   </Button>
                 </Link>
@@ -461,7 +473,7 @@ const Navbar = () => {
           </div>
         </div>
       </Drawer>
-    </nav>
+    </>
   );
 };
 

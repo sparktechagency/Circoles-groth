@@ -28,10 +28,14 @@ const Signup = () => {
         );
       }
       if (!resp?.success) {
-        message.error(resp.message);
+        if (resp?.email) {
+          return message.error(resp.email[0] || "Something went wrong");
+        }
+
+        message.error(resp.message || "Something went wrong");
       }
     } catch (error) {
-      message.error(error.data.message);
+      message.error(error.data.message || "Something went wrong");
     }
   };
 
@@ -176,7 +180,7 @@ const Signup = () => {
                 </button>
               </Form.Item>
 
-              <Form.Item className=" min-[2035px]:w-[500px] min-[2035px]:h-[50px] min-[375px]:w-[330px] min-[320px]:w-[290px]  w-[360px] h-[44px]">
+              {/* <Form.Item className=" min-[2035px]:w-[500px] min-[2035px]:h-[50px] min-[375px]:w-[330px] min-[320px]:w-[290px]  w-[360px] h-[44px]">
                 <Button
                   block
                   className="btn-google text-[#344054] min-[375px]:w-[330px]  text-[16px] font-semibold p-6 hover:bg-[#344054] hover:text-[#FFFFFF]"
@@ -190,7 +194,7 @@ const Signup = () => {
                   />
                   Sign up with Google
                 </Button>
-              </Form.Item>
+              </Form.Item> */}
             </Form>
             <div className="lg:mt-2 flex px-8">
               <h1 className="text-[16px]"> Already have an account? </h1>

@@ -106,9 +106,9 @@ const BasicInfo = () => {
       {/* Sidebar */}
       <div className="lg:w-1/4 w-full bg-[#F9FAFB] p-4 h-fit rounded-lg">
         <div className="py-6 space-y-2">
-          <h1 className="text-xl font-bold">Welcome to Circooles</h1>
+          <h1 className="text-xl font-bold">Welcome to LearnenTech</h1>
           <p className="text-sm text-[#667085]">
-            Follow these steps to apply for an account on the Circooles Tutor
+            Follow these steps to apply for an account on the LearnenTech Tutor
             Platform:
           </p>
         </div>

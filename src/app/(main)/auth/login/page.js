@@ -157,7 +157,7 @@ const signIn = () => {
               </Form.Item>
 
               {/* Google Sign In Button */}
-              <Form.Item>
+              {/* <Form.Item>
                 <Link href="http://10.0.80.13:8050/api/auth/google?=http://10.0.80.13:8050/api/auth/google">
                   <Button
                     block
@@ -168,7 +168,7 @@ const signIn = () => {
                     Log in with Google
                   </Button>
                 </Link>
-              </Form.Item>
+              </Form.Item> */}
             </Form>
           </div>
           <div className="text-center lg:mt-4">
