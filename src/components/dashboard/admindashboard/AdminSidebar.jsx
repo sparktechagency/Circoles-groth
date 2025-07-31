@@ -1,22 +1,23 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import Link from "next/link";
-import logo from "../../../assets/images/logo.png"; // Assuming logo is in this path
-import { usePathname, useRouter } from "next/navigation";
-import { Avatar, Layout, Menu } from "antd";
 import { LogoutOutlined, UserOutlined } from "@ant-design/icons";
-import { IoSettingsOutline } from "react-icons/io5";
-import Swal from "sweetalert2";
-const { Sider } = Layout;
-import { RxCross2 } from "react-icons/rx";
-import { IoMdMenu } from "react-icons/io";
-import Image from "next/image";
-import { useGetOwnprofileQuery } from "../../../redux/features/AuthApi";
+import { Avatar, Layout, Menu } from "antd";
 import Cookies from "js-cookie";
+import Image from "next/image";
+import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
+import React, { useEffect, useState } from "react";
+import { IoMdMenu } from "react-icons/io";
+import { IoSettingsOutline } from "react-icons/io5";
+import { RxCross2 } from "react-icons/rx";
+import Swal from "sweetalert2";
+import logo from "../../../assets/images/logo.png";
+import { useGetOwnprofileQuery } from "../../../redux/features/AuthApi";
 
-const AdminSidebar = ({ setIsOpen, isOpen }) => {
-  // --- Your Provided Color Palette ---
+const { Sider } = Layout;
+
+const AdminSidebar = ({ isOpen, setIsOpen }) => {
+  // --- Color Palette ---
   const colors = {
     primary: "#08284F",
     secondary: "#F97200",
@@ -26,26 +27,18 @@ const AdminSidebar = ({ setIsOpen, isOpen }) => {
     sixth: "#e6eaed",
   };
 
+  const { data } = useGetOwnprofileQuery();
+  const user = data?.user?.[0];
   const router = useRouter();
   const pathname = usePathname();
-  const [mobileMenu, setMobileMenu] = useState(false);
+
+  const [selectedKey, setSelectedKey] = useState("");
   const [isMounted, setIsMounted] = useState(false);
-  const { data } = useGetOwnprofileQuery();
-  const user = data?.user[0];
-
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
-
-  const handlemobilemenu = () => {
-    setMobileMenu(!mobileMenu);
-    setIsOpen(!mobileMenu);
-  };
 
   // --- Menu Item Definitions ---
-  // Icons are now functions that accept a color prop for dynamic styling.
-  const adminmenuitems = [
+  const adminMenuItems = [
     {
+      key: "/AdminDashboard",
       path: "/AdminDashboard",
       title: "Dashboard",
       icon: (props) => (
@@ -67,6 +60,7 @@ const AdminSidebar = ({ setIsOpen, isOpen }) => {
       ),
     },
     {
+      key: "/AdminDashboard/CreateNewcourse",
       path: "/AdminDashboard/CreateNewcourse",
       title: "Create new course",
       icon: (props) => (
@@ -88,6 +82,7 @@ const AdminSidebar = ({ setIsOpen, isOpen }) => {
       ),
     },
     {
+      key: "/AdminDashboard/OnlinePrograms",
       path: "/AdminDashboard/OnlinePrograms",
       title: "Manage Courses",
       icon: (props) => (
@@ -109,6 +104,7 @@ const AdminSidebar = ({ setIsOpen, isOpen }) => {
       ),
     },
     {
+      key: "/AdminDashboard/ManageUsers",
       path: "/AdminDashboard/ManageUsers",
       title: "Users",
       icon: (props) => (
@@ -130,6 +126,7 @@ const AdminSidebar = ({ setIsOpen, isOpen }) => {
       ),
     },
     {
+      key: "/AdminDashboard/Verification",
       path: "/AdminDashboard/Verification",
       title: "Verification",
       icon: (props) => (
@@ -151,6 +148,7 @@ const AdminSidebar = ({ setIsOpen, isOpen }) => {
       ),
     },
     {
+      key: "/AdminDashboard/transaction",
       path: "/AdminDashboard/transaction",
       title: "Transactions",
       icon: (props) => (
@@ -175,12 +173,28 @@ const AdminSidebar = ({ setIsOpen, isOpen }) => {
 
   const bottomMenuItems = [
     {
-      id: "2",
+      key: "/AdminDashboard/accountSeetings",
       path: "/AdminDashboard/accountSeetings",
       title: "Settings",
       icon: IoSettingsOutline,
     },
   ];
+
+  const allMenuItems = [...adminMenuItems, ...bottomMenuItems];
+
+  useEffect(() => {
+    setIsMounted(true);
+    const bestMatch = allMenuItems
+      .map((item) => item.path)
+      .filter((path) => pathname.startsWith(path))
+      .sort((a, b) => b.length - a.length)[0];
+
+    setSelectedKey(bestMatch || "");
+  }, [pathname]);
+
+  const handleMobileMenu = () => {
+    setIsOpen(!isOpen);
+  };
 
   const handleLogout = () => {
     Swal.fire({
@@ -193,8 +207,8 @@ const AdminSidebar = ({ setIsOpen, isOpen }) => {
       confirmButtonText: "Yes, Log out!",
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire("Logged out!", "You're logged out.", "success");
         Cookies.remove("token");
+        Swal.fire("Logged out!", "You're logged out.", "success");
         router.push("/auth/login");
       }
     });
@@ -203,10 +217,9 @@ const AdminSidebar = ({ setIsOpen, isOpen }) => {
   if (!isMounted) return null;
 
   return (
-    <div>
-      {/* --- Mobile Menu Button --- */}
+    <>
       <div className="absolute top-2 xl:hidden lg:hidden block left-4 w-full h-16 z-50">
-        <button onClick={handlemobilemenu}>
+        <button onClick={handleMobileMenu}>
           {isOpen ? (
             <RxCross2 size={25} style={{ color: colors.secondary }} />
           ) : (
@@ -215,18 +228,18 @@ const AdminSidebar = ({ setIsOpen, isOpen }) => {
         </button>
       </div>
 
-      {/* --- Sidebar --- */}
       <Sider
         width={312}
         className={`sidebar-menu ${
-          mobileMenu ? "hidden" : "block"
-        } absolute xl:block lg:block overflow-y-auto`}
+          !isOpen ? "hidden" : "block"
+        } xl:block lg:block overflow-y-auto`}
         style={{
           position: "fixed",
           left: 0,
           top: 0,
           bottom: 0,
-          backgroundColor: colors.primary, // Use primary color for background
+          zIndex: 40,
+          backgroundColor: colors.primary,
         }}
       >
         <Link href="/">
@@ -237,23 +250,19 @@ const AdminSidebar = ({ setIsOpen, isOpen }) => {
           className="flex flex-col justify-between"
           style={{ height: "calc(100% - 120px)" }}
         >
-          {/* --- Top Menu --- */}
           <Menu
-            className="mb-[calc(100%-5px)]"
             mode="inline"
+            selectedKeys={[selectedKey]}
             style={{ backgroundColor: colors.primary, border: "none" }}
           >
-            {adminmenuitems.map((item, index) => {
-              const isActive = pathname === item.path;
+            {adminMenuItems.map((item) => {
+              const isActive = selectedKey === item.key;
               const itemColor = isActive ? colors.secondary : colors.fifth;
               return (
                 <Menu.Item
-                  key={index}
+                  key={item.key}
                   icon={item.icon({ stroke: itemColor })}
-                  style={{
-                    borderRadius: "6px",
-                    margin: "0 16px 4px 16px",
-                  }}
+                  style={{ borderRadius: "6px", margin: "0 16px 4px 16px" }}
                 >
                   <Link href={item.path}>
                     <span
@@ -271,28 +280,24 @@ const AdminSidebar = ({ setIsOpen, isOpen }) => {
             })}
           </Menu>
 
-          {/* --- Bottom Section (Settings & User Profile) --- */}
           <div>
             <Menu
+              className="mb-[calc(100%-5px)]"
               mode="inline"
+              selectedKeys={[selectedKey]}
               style={{ backgroundColor: colors.primary, border: "none" }}
             >
               {bottomMenuItems.map((item) => {
-                const isActive = pathname === item.path;
+                const isActive = selectedKey === item.key;
                 const IconComponent = item.icon;
-                const itemColor = isActive ? colors.primary : colors.fifth;
-
+                const itemColor = isActive ? colors.secondary : colors.fifth;
                 return (
                   <Menu.Item
-                    key={item.id}
+                    key={item.key}
                     icon={
                       <IconComponent size={20} style={{ color: itemColor }} />
                     }
-                    style={{
-                      backgroundColor: isActive ? colors.sixth : "transparent",
-                      borderRadius: "6px",
-                      margin: "0 16px",
-                    }}
+                    style={{ borderRadius: "6px", margin: "0 16px" }}
                   >
                     <Link href={item.path}>
                       <span
@@ -312,45 +317,28 @@ const AdminSidebar = ({ setIsOpen, isOpen }) => {
 
             <hr style={{ borderColor: colors.third, margin: "24px 16px" }} />
 
-            <div className="flex items-center gap-3 px-4">
+            <div className="flex items-center gap-3 px-4 pb-4">
               <Avatar
                 style={{ width: "40px", height: "40px" }}
-                src={
-                  user?.avatar ? (
-                    <Image
-                      width={40}
-                      height={40}
-                      src={user.avatar}
-                      alt={user.name}
-                    />
-                  ) : null
-                }
+                src={user?.avatar ? user.avatar : undefined}
                 icon={!user?.avatar && <UserOutlined />}
               />
-              <div className="flex-grow">
-                <h1
-                  style={{
-                    color: colors.sixth,
-                    fontWeight: "600",
-                    fontSize: "14px",
-                  }}
-                >
+              <div className="flex-1 overflow-hidden">
+                <span className="block text-white font-semibold text-sm truncate">
                   {user?.name}
-                </h1>
-                <h1 style={{ color: colors.fifth, fontSize: "14px" }}>
-                  {user?.email}
-                </h1>
+                </span>
+                <p className="text-gray-400 text-sm truncate">{user?.email}</p>
               </div>
-              <div onClick={handleLogout} className="cursor-pointer">
+              <button onClick={handleLogout} className="cursor-pointer p-2">
                 <LogoutOutlined
                   style={{ fontSize: "20px", color: colors.fifth }}
                 />
-              </div>
+              </button>
             </div>
           </div>
         </div>
       </Sider>
-    </div>
+    </>
   );
 };
 

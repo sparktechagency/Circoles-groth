@@ -62,6 +62,31 @@ const AuthApi = api.injectEndpoints({
       }),
       invalidatesTags: ["user"],
     }),
+
+    updateProfile: builder.mutation({
+      query: (formData) => ({
+        url: `/update-profile`,
+        method: "POST",
+        body: formData,
+      }),
+      invalidatesTags: ["user"],
+    }),
+
+    getAllNotification: builder.query({
+      query: ({ per_page = 10, page = 1 }) => ({
+        url: `/notifications?page=${page}&per_page=${per_page}`,
+        method: "GET",
+      }),
+      providesTags: ["Notifications"],
+    }),
+
+    markasReadNotification: builder.mutation({
+      query: (id) => ({
+        url: `/notifications/${id}/read`,
+        method: "PATCH",
+      }),
+      invalidatesTags: ["Notifications"],
+    }),
   }),
 });
 
@@ -73,4 +98,7 @@ export const {
   useCreateNewpasswordMutation,
   useGetOwnprofileQuery,
   useUpdatePasswordMutation,
+  useUpdateProfileMutation,
+  useGetAllNotificationQuery,
+  useMarkasReadNotificationMutation,
 } = AuthApi;

@@ -3,8 +3,12 @@
 import { Badge } from "antd";
 import { Header } from "antd/es/layout/layout";
 import { usePathname, useRouter } from "next/navigation";
+import { useGetOwnprofileQuery } from "../../redux/features/AuthApi";
 
 const TopHeader = ({ isOpen }) => {
+  const { data: usrData } = useGetOwnprofileQuery();
+  const userinfo = usrData?.user?.[0];
+  console.log("usrData", usrData);
   const pathname = usePathname();
   const router = useRouter();
   const getTitle = () => {
@@ -263,7 +267,7 @@ const TopHeader = ({ isOpen }) => {
             className="cursor-pointer"
             style={{ zIndex: 11 }} // Ensure the badge has a higher z-index than other elements
           >
-            <Badge color="#f79009" count={5}>
+            <Badge color="#f79009" count={userinfo?.unread_notifications_count}>
               <svg
                 width="20"
                 height="22"
